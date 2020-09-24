@@ -6,7 +6,11 @@ module Top (
 );
 
 // please check out the working example in lab1 README (or Top_exmaple.sv) first
+<<<<<<< HEAD
 // hello I'm Billy!!
+=======
+// hello world ss
+>>>>>>> c903598b7582c310469ee9fd2184a8913f4ca6f2
 // ===== States =====
 parameter S_IDLE = 1'b0;
 parameter S_PROC = 1'b1;
