@@ -66,4 +66,23 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 	end
 end
 
+
+// // Galois LFSR
+// always_ff @(posedge i_clk or negedge i_rst_n) begin
+// 	if (!i_rst_n) begin
+// 		lfsr_r[3:0] <= 4'b1001;
+// 	end
+// 	else begin
+// 		if (i_start) begin
+// 			lfsr_r <= seed_r[5:2];
+// 		end
+// 		else begin
+// 			lfsr_r[3] <= lfsr_r[2];
+// 			lfsr_r[2] <= lfsr_r[1];
+// 			lfsr_r[1] <= lfsr_r[0] ^ lfsr_r[3];
+// 			lfsr_r[0] <= lfsr_r[3];
+// 		end
+// 	end
+// end
+
 endmodule
