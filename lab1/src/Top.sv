@@ -77,7 +77,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 	else begin
 		o_random_out_r <= o_random_out_w;
 		state_r        <= state_w;
-		LFSR <= {LFSR[31:3], ,LFSR[31]^LFSR[30]^LFSR[24]^LFSR[10], LFSR[31]^LFSR[29]^LFSR[23]^LFSR[9], LFSR[27]^LFSR[22]^LFSR[22]^LFSR[4]};
+		LFSR_r 	       <= {LFSR[31:3], ,LFSR[31]^LFSR[30]^LFSR[24]^LFSR[10], LFSR[31]^LFSR[29]^LFSR[23]^LFSR[9], LFSR[27]^LFSR[22]^LFSR[22]^LFSR[4]};
 		i_seed_r       <= i_seed_w;
 	end
 end
