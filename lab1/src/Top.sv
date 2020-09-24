@@ -24,7 +24,7 @@ logic [31:0] LFSR_r, LFSR_w;
 logic [31:0] i_seed_r, i_seed_w;
 //Counter 
 logic [31:0] count_r, count_w;
-logic [31:0] period_r, period_w;  
+logic [31:0] period_r, period_w;       // 等差級數  
 logic [31:0] next_time_r, next_time_w; // next count_r stop point 
 
 // ===== Output Assignments =====
