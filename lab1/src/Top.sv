@@ -24,7 +24,7 @@ logic [31:0] LFSR_r, LFSR_w;
 logic [31:0] i_seed_r, i_seed_w;
 //Counter 
 logic [31:0] count_r, count_w;
-logic [31:0] period_r, period_w;       // 等差級數  
+logic [31:0] period_r, period_w;       // arithmetic sequence  
 logic [31:0] next_time_r, next_time_w; // next count_r stop point 
 
 // ===== Output Assignments =====
@@ -44,7 +44,7 @@ always_comb begin
 	case(state_r)
 	S_IDLE: begin
 		if (i_start) begin
-			state_w = S_PROC;
+			state_w        = S_PROC;
 			//o_random_out_w = 4'd15;
 			count_w 	   = 32'b0;
 			period_w       = 32'b1000000;
@@ -55,8 +55,8 @@ always_comb begin
 		state_w = (count_r > tmax) ? S_IDLE : state_w;
 		if(count_r >= next_time_r) begin
 			o_random_out_w = LFSR_r[3:0];
-			next_time_w = next_time_w + period_w;
-			period_w = period_w + period_add;
+			next_time_w    = next_time_r + period_r;
+			period_w       = period_r + period_add;
 		end
 
 	end
@@ -77,7 +77,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 	else begin
 		o_random_out_r <= o_random_out_w;
 		state_r        <= state_w;
-		LFSR_r 	       <= {LFSR[31:3], ,LFSR[31]^LFSR[30]^LFSR[24]^LFSR[10], LFSR[31]^LFSR[29]^LFSR[23]^LFSR[9], LFSR[27]^LFSR[22]^LFSR[22]^LFSR[4]};
+		LFSR_r 	       <= {LFSR[31:3], LFSR[31]^LFSR[30]^LFSR[24]^LFSR[10], LFSR[31]^LFSR[29]^LFSR[23]^LFSR[9], LFSR[27]^LFSR[22]^LFSR[22]^LFSR[4]};
 		i_seed_r       <= i_seed_w;
 	end
 end
@@ -85,7 +85,7 @@ end
 always_ff @(posedge i_clk or negedge i_rst_n) begin
 	// counter state graph
 	if(state_w == S_PROC) begin
-		count_r 	  <= count_r + 1'b1;
+		count_r 	  <= count_w + 1'b1;
 	end
 	else begin
 		count_r       <= count_w;
