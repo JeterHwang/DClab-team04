@@ -104,7 +104,7 @@ always_comb begin
 	S_PROC: begin
 		i_seed_w 	 	= i_seed_r;
 		count_w 	 	= count_r + 1'b1;
-		LFSR_w 		 	= {LFSR_r[28:0], LFSR_r[31]^LFSR_r[30]^LFSR_r[24]^LFSR_r[10], LFSR_r[31]^LFSR_r[29]^LFSR_r[23]^LFSR_r[9], LFSR_r[27]^LFSR_r[22]^LFSR_r[22]^LFSR_r[4]};
+		LFSR_w 		 	= {LFSR_r[28:0], LFSR_r[31]^LFSR_r[30]^LFSR_r[24]^LFSR_r[10], LFSR_r[31]^LFSR_r[29]^LFSR_r[23]^LFSR_r[9], LFSR_r[27]^LFSR_r[22]^LFSR_r[20]^LFSR_r[4]};
 		reset_w         = reset_r;		
 		memory_w        = memory_r;
 		now_w			= now_r;
