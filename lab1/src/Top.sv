@@ -157,7 +157,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 			i_seed_r       <= 32'd1001111;  //reset seed value 
 		end
 		else begin
-			i_seed_r       <= {i_seed_w[26:0], 1'b1, 1'b0, 1'b1, 1'b1, 1'b0};
+			i_seed_r       <= {LFSR_w[26:0], 1'b1, 1'b0, 1'b1, 1'b1, 1'b0};
 		end
 		now_r		   <= now_w;
 		period_r       <= period_w;
