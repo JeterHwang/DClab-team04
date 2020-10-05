@@ -49,7 +49,7 @@ always_comb begin
                 else if (((a >> i_r) & 1) && !((m_r + b) & 1)) begin
                     m_w = ((m_r + b) >> 1);
                 end
-                else if (!((a >> i_r) & 1) && ((m_r + b) & 1)) begin
+                else if (!((a >> i_r) & 1) && ((m_r) & 1)) begin
                     m_w = ((m_r + N) >> 1);
                 end
                 else begin
