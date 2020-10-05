@@ -19,28 +19,6 @@ parameter S_CALC = 2'd3;
 // ======= registers & wires ======
 logic state_r, state_w;
 
-
-// ======= functions ======
-function logic [255:0] ModuloProduct(
-	input logic [255:0] N,b,
-	input logic [256:0] a,
-	input logic [9:0]   k
-);
-	pass
-endfunction
-
-function logic [255:0] MontgomeryAlgorithm(
-	input logic [255:0] N,a,b
-);
-	pass
-endfunction
-
-function logic [255:0] RSA256Mont(
-	input [255:0] N,y,d
-);
-	pass
-endfunction
-
 // ======= combinational circuit =======
 always_comb begin
 	
@@ -48,7 +26,12 @@ end
 
 // ======= sequential circuit =========
 always_ff @(posedge i_clk or posedge i_rst) begin
-	
+	if(i_rst) begin
+		
+	end
+	else begin
+		
+	end
 end
 
 endmodule
