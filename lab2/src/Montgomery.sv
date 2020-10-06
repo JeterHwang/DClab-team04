@@ -1,7 +1,7 @@
 module Montgomery(
     input           i_clk,
-	input           i_rst,
-	input           i_start,
+    input           i_rst,
+    input           i_start,
     input  [255:0]  N,
     input  [255:0]  a,
     input  [255:0]  b,
