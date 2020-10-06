@@ -1,7 +1,7 @@
 module Montgomery(
     input           i_clk,
-	input           i_rst,
-	input           i_start,
+    input           i_rst,
+    input           i_start,
     input  [255:0]  N,
     input  [255:0]  a,
     input  [255:0]  b,
@@ -12,7 +12,6 @@ module Montgomery(
 parameter S_IDLE    = 2'd0;
 parameter S_PREP    = 2'd1;
 parameter S_ENDFOR  = 2'd2;
-parameter S_READY   = 2'd3;
 // ====== regs & wires ======
 logic [255:0]   m_r, m_w;
 logic [8:0]     i_r, i_w;
@@ -25,66 +24,59 @@ assign m       = mr;
 
 // ====== combinational ======
 always_comb begin
-    if(i_start) begin
-        state_w = S_PREP;
-        m_w     = 256'd0;
-        i_w     = 9'd0;
-        ready_w = 1'b0;
-    end
-    else begin
-        case (state_r)
-            S_IDLE: begin
+    case (state_r)
+         S_IDLE: begin
+            if(i_start) begin
+                state_w = S_PREP;
+                m_w     = 256'd0;
+                i_w     = 9'd0;
+                ready_w = 1'b0;
+            end
+            else begin
                 state_w = state_r;
                 m_w     = m_r;
                 i_w     = i_r;
                 ready_w = ready_r;    
             end
-            S_PREP: begin
-                ready_w = ready_r;
-                i_w     = i_r + 9'd1;
-                // update m
-                if(((a >> i_r) & 1) && ((m_r + b) & 1)) begin
-                    m_w = ((m_r + b + N) >> 1);
-                end
-                else if (((a >> i_r) & 1) && !((m_r + b) & 1)) begin
-                    m_w = ((m_r + b) >> 1);
-                end
-                else if (!((a >> i_r) & 1) && ((m_r) & 1)) begin
-                    m_w = ((m_r + N) >> 1);
-                end
-                else begin
-                    m_w = (m_r >> 1);
-                end
-                // update state
-                if(i_r == 9'd255) begin
-                    state_w = S_ENDFOR;
-                end
-                else begin
-                    state_w = state_r;
-                end
+        end
+        S_PREP: begin
+            ready_w = ready_r;
+            i_w     = i_r + 9'd1;
+            // update m
+            if(((a >> i_r) & 1) && ((m_r + b) & 1)) begin
+                m_w = ((m_r + b + N) >> 1);
             end
-            S_ENDFOR: begin
-                i_w = i_r;
-                if(m_r >= N) begin
-                    m_w     = m_r - N;
-                    state_w = state_r;
-                    ready_w = ready_r;
-                end
-                else begin
-                    m_w     = m_r;
-                    state_w = S_READY;
-                    ready_w = 1'b1;   
-                end
+            else if (((a >> i_r) & 1) && !((m_r + b) & 1)) begin
+                m_w = ((m_r + b) >> 1);
             end
-            S_READY: begin
+            else if (!((a >> i_r) & 1) && ((m_r + b) & 1)) begin
+                m_w = ((m_r + N) >> 1);
+            end
+            else begin
+                m_w = (m_r >> 1);
+            end
+            // update state
+            if(i_r == 9'd255) begin
+                state_w = S_ENDFOR;
+            end
+            else begin
                 state_w = state_r;
-                m_w     = m_r;
-                i_w     = i_r;
-                ready_w = ready_r; 
             end
-        endcase    
-    end
-    
+        end
+        S_ENDFOR: begin
+            i_w = i_r;
+            if(m_r >= N) begin
+                m_w     = m_r - N;
+                state_w = state_r;
+                ready_w = ready_r;
+            end
+            else begin
+                m_w     = m_r;
+                state_w = S_IDLE;
+                ready_w = 1'b1;   
+            end
+        end
+    endcase    
 end
 
 // ====== sequential ========
