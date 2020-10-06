@@ -18,10 +18,59 @@ parameter S_CALC = 2'd3;
 
 // ======= registers & wires ======
 logic state_r, state_w;
-
+logic prep_fin_r, prep_fin_w;
+logic mont_fin_r, mont_fin_w;
+logic cal_fin_r, cal_fin_w;
+logic [8:0] count_r, count_w;
+logic [255:0] modulo_r, modulo_w; 
+logic [255:0] trans_r, trans_w;
+// ====== call submodules ========
+Montgomery montgomery_mt(
+	.i_clk(i_clk),
+	.i_rst(i_rst),
+	.i_start(),
+	.N(i_n),
+	.a(modulo_r),
+	.b(trans_r),
+);
+Montgomery montgomery_tt(
+	.i_clk(i_clk),
+	.i_rst(i_rst),
+	.i_start(),
+	.N(i_n),
+	.a(modulo_r),
+	.b(modulo_r),
+);
+ModuloProduct moduloproduct(
+	.i_clk(i_clk),
+	.i_rst(i_rst),
+	.i_start(i_start),
+	.N(i_n),
+	.b(i_y),
+	.a(257'd(1<<256)),
+	.k(9'd256),
+);
 // ======= combinational circuit =======
 always_comb begin
-	
+	case (state_r)
+		S_IDLE: begin
+			if(i_start) begin
+				
+			end
+			else begin
+				
+			end
+		end
+		S_PREP: begin
+			
+		end
+		S_MONT: begin
+			
+		end
+		S_CALC: begin
+			
+		end
+	endcase
 end
 
 // ======= sequential circuit =========
