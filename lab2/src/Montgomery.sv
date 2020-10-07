@@ -20,7 +20,7 @@ logic           ready_r, ready_w;
 
 // ==== output assignment ====
 assign calc_rd = ready_r;
-assign m       = mr;
+assign m       = m_r;
 
 // ====== combinational ======
 always_comb begin
