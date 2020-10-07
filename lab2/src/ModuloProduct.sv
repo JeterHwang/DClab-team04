@@ -6,7 +6,7 @@ module ModuloProduct(
     input  [255:0] b,
     input  [256:0] a,
     input  [8:0]   k,
-    output [255:0] m,
+    output [255:0] t,
     output         prep_rd
 );
 // ====== states ========
@@ -21,7 +21,7 @@ logic           ready_r, ready_w;
 
 // ==== output assignment ====
 assign prep_rd = ready_r;
-assign m       = mr;
+assign t       = mr;
 
 // ====== combinational =====
 always_comb begin
