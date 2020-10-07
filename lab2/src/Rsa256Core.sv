@@ -95,6 +95,7 @@ always_comb begin
 		S_IDLE: begin
 			if(i_start) begin
 				state_w 	= S_PREP;
+				cal_fin_w	= 0;
 			end
 		end
 		S_PREP: begin
@@ -120,7 +121,6 @@ always_comb begin
 			end
 		end
 		S_MONT: begin
-			end
 			// shut down the start signal 
 			if(mod_start_r) begin
 				mod_start_w = 1'b0;
@@ -129,21 +129,33 @@ always_comb begin
 				tra_start_w = 1'b0;
 			end
 			// mont finished
-			if(update_t_fin_r && (update_t_fin_r || )) begin
+			if(update_t_fin_r && (update_t_fin_r || ((i_d >> count_r) & 1))) begin
 				state_w 	= S_CALC;
 			end
 		end
 		S_CALC: begin
 			if(count_r != 9'd256) begin // keep iterating
 				state_w 	= S_PREMONT;
+				t_reset_w 	= 1'b1;
+				m_reset_w	= 1'b1;
 				trans_i_w 	= trans_o_r;
-				modulo_i_w 	= modulo_o_r;
+				if((i_d >> count_r) & 1) begin
+					modulo_i_w = modulo_o_r;
+				end
+				else begin
+					modulo_i_w = modulo_i_r;
+				end
 				count_w 	= count_r + 9'd1;
 			end
 			else begin // output result
 				state_w 	= S_IDLE;
-				cal_fin_w 	= 1'b0;
-				output_w 	= modulo_o_r;
+				cal_fin_w 	= 1'b1;
+				if((i_d >> count_r) & 1) begin
+					output_w 	= modulo_o_r;
+				end
+				else begin
+					output_w	= modulo_i_r;
+				end
 			end
 		end
 	endcase
@@ -158,11 +170,11 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		tra_start_r 	<= 1'b0;
 		m_reset_r		<= 1'b0;
 		t_reset_r		<= 1'b0;
+		cal_fin_r		<= 1'b0;
 		// unchanged
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
 		update_t_fin_r 	<= update_t_fin_w;
-		cal_fin_r 		<= cal_fin_w;
 		count_r 		<= count_w;
 		modulo_i_r 		<= modulo_i_w;
 		modulo_o_r 		<= modulo_o_w;
