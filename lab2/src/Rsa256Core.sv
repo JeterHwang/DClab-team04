@@ -135,6 +135,8 @@ always_comb begin
 		S_CALC: begin
 			if(count_r != 9'd256) begin // keep iterating
 				state_w 	= S_PREMONT;
+				t_reset_w 	= 1'b1;
+				m_reset_w	= 1'b1;
 				trans_i_w 	= trans_o_r;
 				modulo_i_w 	= modulo_o_r;
 				count_w 	= count_r + 9'd1;
