@@ -138,13 +138,23 @@ always_comb begin
 				t_reset_w 	= 1'b1;
 				m_reset_w	= 1'b1;
 				trans_i_w 	= trans_o_r;
-				modulo_i_w 	= modulo_o_r;
+				if((i_d >> count_r) & 1) begin
+					modulo_i_w = modulo_o_r;
+				end
+				else begin
+					modulo_i_w = modulo_i_r;
+				end
 				count_w 	= count_r + 9'd1;
 			end
 			else begin // output result
 				state_w 	= S_IDLE;
 				cal_fin_w 	= 1'b0;
-				output_w 	= modulo_o_r;
+				if((i_d >> count_r) & 1) begin
+					output_w 	= modulo_o_r;
+				end
+				else begin
+					output_w	= modulo_i_r;
+				end
 			end
 		end
 	endcase
