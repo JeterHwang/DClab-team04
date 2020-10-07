@@ -1,3 +1,5 @@
+`include "Montgomery.sv"
+`include "ModuloProduct.sv"
 module Rsa256Core (
 	input          i_clk,
 	input          i_rst,
@@ -178,6 +180,3 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 	end
 end
 endmodule
-
-`include "Montgomery.sv"
-`include "ModuloProduct.sv"
