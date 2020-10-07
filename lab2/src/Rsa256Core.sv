@@ -1,8 +1,3 @@
-package Rsa256;
-	`include "Montgomery.sv"
-	`include "ModuloProduct.sv"
-endpackage
-
 module Rsa256Core (
 	input          i_clk,
 	input          i_rst,
@@ -75,7 +70,7 @@ ModuloProduct moduloproduct(
 	.i_start(i_start),
 	.N(i_n),
 	.b(i_y),
-	.a({1'b1, 256'b0}}),
+	.a({1'b1, 256'b0}),
 	.k(9'd256),
 	.t(trans_ini_w),
 	.prep_rd(prep_fin_w)
@@ -183,3 +178,6 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 	end
 end
 endmodule
+
+`include "Montgomery.sv"
+`include "ModuloProduct.sv"
