@@ -95,6 +95,7 @@ always_comb begin
 		S_IDLE: begin
 			if(i_start) begin
 				state_w 	= S_PREP;
+				cal_fin_w	= 0;
 			end
 		end
 		S_PREP: begin
@@ -148,7 +149,7 @@ always_comb begin
 			end
 			else begin // output result
 				state_w 	= S_IDLE;
-				cal_fin_w 	= 1'b0;
+				cal_fin_w 	= 1'b1;
 				if((i_d >> count_r) & 1) begin
 					output_w 	= modulo_o_r;
 				end
@@ -169,11 +170,11 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		tra_start_r 	<= 1'b0;
 		m_reset_r		<= 1'b0;
 		t_reset_r		<= 1'b0;
+		cal_fin_r		<= 1'b0;
 		// unchanged
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
 		update_t_fin_r 	<= update_t_fin_w;
-		cal_fin_r 		<= cal_fin_w;
 		count_r 		<= count_w;
 		modulo_i_r 		<= modulo_i_w;
 		modulo_o_r 		<= modulo_o_w;
