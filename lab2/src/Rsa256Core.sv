@@ -1,5 +1,3 @@
-`include "Montgomery.sv"
-`include "ModuloProduct.sv"
 module Rsa256Core (
 	input          i_clk,
 	input          i_rst,
@@ -24,8 +22,10 @@ parameter S_CALC 	= 3'd4;
 logic [2:0] state_r, state_w;
 
 logic prep_fin_r, prep_fin_w;			// prepare state finish
-logic mod_start_r, mod_start_w;
-logic tra_start_r, tra_start_w;		
+logic m_reset_r, m_reset_w;
+logic t_reset_r, t_reset_w;
+logic mod_start_r, mod_start_w;			// calculate m start
+logic tra_start_r, tra_start_w;			// calculate t start
 logic update_m_fin_r, update_m_fin_w;	// calculate m finish
 logic update_t_fin_r, update_t_fin_w;	// calculate t finish
 logic cal_fin_r, cal_fin_w;				// calculate state finish
@@ -48,7 +48,7 @@ assign o_finished 	= cal_fin_r;
 // ====== call submodules ========
 Montgomery montgomery_mt(
 	.i_clk(i_clk),
-	.i_rst(i_rst),
+	.i_rst(m_reset_r),
 	.i_start(mod_start_r),
 	.N(i_n),
 	.a(modulo_i_r),
@@ -58,7 +58,7 @@ Montgomery montgomery_mt(
 );
 Montgomery montgomery_tt(
 	.i_clk(i_clk),
-	.i_rst(i_rst),
+	.i_rst(t_reset_r),
 	.i_start(tra_start_r),
 	.N(i_n),
 	.a(trans_i_r),
@@ -81,6 +81,8 @@ ModuloProduct moduloproduct(
 always_comb begin
 	// default value
 	state_w 		= state_r;
+	t_reset_w		= t_reset_r;
+	m_reset_w		= m_reset_r;
 	mod_start_w		= mod_start_r;
 	tra_start_w		= tra_start_r;
 	cal_fin_w 		= cal_fin_r;
@@ -96,6 +98,8 @@ always_comb begin
 			end
 		end
 		S_PREP: begin
+			t_reset_w = 1'b1;
+			m_reset_w = 1'b1;
 			if(prep_fin_r) begin
 				state_w 	= S_PREMONT;
 				modulo_i_w 	= 256'd1;
@@ -105,6 +109,8 @@ always_comb begin
 		end
 		S_PREMONT: begin
 			tra_start_w		= 1'b1;
+			m_reset_w		= 1'b0;
+			t_reset_w		= 1'b0;
 			state_w			= S_MONT;
 			if((i_d >> count_r) & 1) begin
 				mod_start_w = 1'b1;
@@ -114,6 +120,7 @@ always_comb begin
 			end
 		end
 		S_MONT: begin
+			end
 			// shut down the start signal 
 			if(mod_start_r) begin
 				mod_start_w = 1'b0;
@@ -122,7 +129,7 @@ always_comb begin
 				tra_start_w = 1'b0;
 			end
 			// mont finished
-			if(update_t_fin_r && (update_t_fin_r || ((i_d >> count_r) & 1))) begin
+			if(update_t_fin_r && (update_t_fin_r || )) begin
 				state_w 	= S_CALC;
 			end
 		end
@@ -149,6 +156,8 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		state_r 		<= S_IDLE;
 		mod_start_r 	<= 1'b0;
 		tra_start_r 	<= 1'b0;
+		m_reset_r		<= 1'b0;
+		t_reset_r		<= 1'b0;
 		// unchanged
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
@@ -165,6 +174,8 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 	else begin
 		state_r 		<= state_w;
 		mod_start_r 	<= mod_start_w;
+		m_reset_r		<= m_reset_w;
+		t_reset_r		<= t_reset_w;
 		tra_start_r 	<= tra_start_w;
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
