@@ -45,10 +45,12 @@ always_comb begin
         S_PREP: begin
             // update m
             if((a >> i_r) & 1) begin
-                m_w = m_r + t_r - N;
-            end
-            else begin
-                m_w = m_r + t_r;
+                if(m_r + t_r >= N) begin
+			m_w = m_r + t_r - N;
+		end
+		else begin
+			m_w = m_r + t_r;
+		end
             end
             // update t
             if(t_r + t_r > N) begin
