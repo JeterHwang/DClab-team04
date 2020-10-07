@@ -71,7 +71,7 @@ ModuloProduct moduloproduct(
 	.i_rst(i_rst),
 	.i_start(i_start),
 	.N(i_n),
-	.b(i_y),
+	.b(i_a),
 	.a({1'b1, 256'b0}),
 	.k(9'd256),
 	.t(trans_ini_w),
@@ -163,7 +163,7 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		output_r 		<= output_w;
 	end
 	else begin
-		state_r 		<= S_IDLE;
+		state_r 		<= state_w;
 		mod_start_r 	<= mod_start_w;
 		tra_start_r 	<= tra_start_w;
 		prep_fin_r 		<= prep_fin_w;
