@@ -21,7 +21,7 @@ logic           ready_r, ready_w;
 
 // ==== output assignment ====
 assign prep_rd = ready_r;
-assign t       = mr;
+assign t       = m_r;
 
 // ====== combinational =====
 always_comb begin
@@ -32,7 +32,7 @@ always_comb begin
                 t_w     = b;
                 m_w     = 256'd0;
                 i_w     = 9'd0;
-                ready_w = 0'd0;    
+                ready_w = 1'd0;    
             end
             else begin
                 state_w = state_r;
