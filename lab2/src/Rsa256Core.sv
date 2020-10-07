@@ -120,7 +120,6 @@ always_comb begin
 			end
 		end
 		S_MONT: begin
-			end
 			// shut down the start signal 
 			if(mod_start_r) begin
 				mod_start_w = 1'b0;
@@ -129,7 +128,7 @@ always_comb begin
 				tra_start_w = 1'b0;
 			end
 			// mont finished
-			if(update_t_fin_r && (update_t_fin_r || )) begin
+			if(update_t_fin_r && (update_t_fin_r || ((i_d >> count_r) & 1))) begin
 				state_w 	= S_CALC;
 			end
 		end
