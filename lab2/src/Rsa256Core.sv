@@ -1,5 +1,3 @@
-`include "Montgomery.sv"
-`include "ModuloProduct.sv"
 module Rsa256Core (
 	input          i_clk,
 	input          i_rst,
@@ -27,7 +25,9 @@ logic prep_fin_r, prep_fin_w;			// prepare state finish
 logic mod_start_r, mod_start_w;
 logic tra_start_r, tra_start_w;		
 logic update_m_fin_r, update_m_fin_w;	// calculate m finish
+logic ready_m_r, ready_m_w;
 logic update_t_fin_r, update_t_fin_w;	// calculate t finish
+logic ready_t_r, ready_t_w;
 logic cal_fin_r, cal_fin_w;				// calculate state finish
 
 logic [8:0] count_r, count_w;     		// counter
@@ -54,7 +54,7 @@ Montgomery montgomery_mt(
 	.a(modulo_i_r),
 	.b(trans_i_r),
 	.m(modulo_o_w),
-	.calc_rd(update_m_fin_w)
+	.calc_rd(ready_m_w)
 );
 Montgomery montgomery_tt(
 	.i_clk(i_clk),
@@ -64,7 +64,7 @@ Montgomery montgomery_tt(
 	.a(trans_i_r),
 	.b(trans_i_r),
 	.m(trans_o_w),
-	.calc_rd(update_t_fin_w)
+	.calc_rd(ready_t_w)
 );
 ModuloProduct moduloproduct(
 	.i_clk(i_clk),
