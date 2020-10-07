@@ -83,6 +83,8 @@ always_comb begin
 	state_w 		= state_r;
 	mod_start_w		= mod_start_r;
 	tra_start_w		= tra_start_r;
+	ready_m_w		= ready_m_r;
+	ready_t_w		= ready_t_r;
 	cal_fin_w 		= cal_fin_r;
 	count_w 		= count_r;
 	modulo_i_w 		= modulo_i_r;
@@ -152,7 +154,9 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		// unchanged
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
+		ready_m_r		<= ready_m_w;
 		update_t_fin_r 	<= update_t_fin_w;
+		ready_t_r		<= ready_t_w;
 		cal_fin_r 		<= cal_fin_w;
 		count_r 		<= count_w;
 		modulo_i_r 		<= modulo_i_w;
@@ -168,7 +172,9 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		tra_start_r 	<= tra_start_w;
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
+		ready_m_r		<= ready_m_w;
 		update_t_fin_r 	<= update_t_fin_w;
+		ready_t_r		<= ready_t_w;
 		cal_fin_r 		<= cal_fin_w;
 		count_r 		<= count_w;
 		modulo_i_r 		<= modulo_i_w;
