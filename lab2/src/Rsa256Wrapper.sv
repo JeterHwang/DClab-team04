@@ -67,6 +67,62 @@ endtask
 
 always_comb begin
     // TODO
+    case (state_r)
+		S_GET_KEY: begin
+			if(i_start) begin
+				
+			end
+		end
+		S_GET_DATA: begin
+			
+			if(prep_fin_r) begin
+				
+			end
+		end
+		S_WAIT_CALCULATE: begin
+			
+			if((i_d >> count_r) & 1) begin
+				
+			end
+			else begin
+				
+			end
+		end
+		S_SEND_DATA: begin
+			// shut down the start signal 
+			if(mod_start_r) begin
+				
+			end
+			if(tra_start_r) begin
+				
+			end
+			// mont finished
+			if(update_t_fin_r && (update_t_fin_r || ((i_d >> count_r) & 1))) begin
+				
+			end
+		end
+		S_WRITE_READY: begin
+			if(count_r != 9'd256) begin // keep iterating
+				
+				if((i_d >> count_r) & 1) begin
+					
+				end
+				else begin
+					
+				end
+				
+			end
+			else begin // output result
+				
+				if((i_d >> count_r) & 1) begin
+					
+				end
+				else begin
+					
+				end
+			end
+		end
+	endcase
 end
 
 always_ff @(posedge avm_clk or posedge avm_rst) begin
