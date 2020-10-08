@@ -128,7 +128,7 @@ always_comb begin
 			t_reset_w		= 1'b0;
 			// start m,t caclculation
 			tra_start_w		= 1'b1;
-			if((i_d >> count_r) & 1) begin
+			if(i_d[count_r] & 1) begin
 				mod_start_w = 1'b1;
 			end
 			else begin
@@ -142,9 +142,9 @@ always_comb begin
 			end
 			if(tra_start_r) begin
 				tra_start_w = 1'b0;
-			end
+			end 
 			// mont finished
-			if(update_t_fin_r && (update_t_fin_r || ((i_d >> count_r) & 1))) begin
+			if(update_t_fin_r && (update_t_fin_r || i_d[count_r])) begin
 				state_w 	= S_CALC;
 			end
 		end
@@ -152,28 +152,28 @@ always_comb begin
 			// reset two Montgomery submodule
 			t_reset_w = 1'b1;
 			m_reset_w = 1'b1;
-			if(count_r != 9'd256) begin // keep iterating
+			if(count_r == 9'd255) begin // keep iterating
+				state_w 	= S_IDLE;
+				cal_fin_w 	= 1'b1;
+				if((i_d[count_r] & 1) begin
+					output_w 	= modulo_o_r;
+				end
+				else begin
+					output_w	= modulo_i_r;
+				end
+			end
+			else begin // output result
 				state_w 	= S_PREMONT;
 				t_reset_w 	= 1'b1;
 				m_reset_w	= 1'b1;
 				trans_i_w 	= trans_o_r;
-				if((i_d >> count_r) & 1) begin
+				if(i_d[count_r] & 1) begin
 					modulo_i_w = modulo_o_r;
 				end
 				else begin
 					modulo_i_w = modulo_i_r;
 				end
 				count_w 	= count_r + 9'd1;
-			end
-			else begin // output result
-				state_w 	= S_IDLE;
-				cal_fin_w 	= 1'b1;
-				if((i_d >> count_r) & 1) begin
-					output_w 	= modulo_o_r;
-				end
-				else begin
-					output_w	= modulo_i_r;
-				end
 			end
 		end
 	endcase
