@@ -43,7 +43,7 @@ always_comb begin
         end
         S_PREP: begin
             // update m
-            if((a >> i_r) & 1) begin
+            if(a[i_r] & 1) begin
                 if(m_r + t_r >= N) begin
 			        m_w = m_r + t_r - N;
                 end

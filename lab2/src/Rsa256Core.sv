@@ -105,13 +105,13 @@ always_comb begin
 				state_w 		= S_PREP;
 				cal_fin_w		= 1'd0;
 				text_w			= i_a;
+				// start prep calculation
 				prep_start_w	= 1'b1;
+				// end prep reset
 				prep_reset_w	= 1'b0;
 			end
 		end
 		S_PREP: begin
-			t_reset_w = 1'b1;
-			m_reset_w = 1'b1;
 			prep_start_w = 1'b0;
 			if(prep_fin_r) begin
 				state_w 	= S_PREMONT;
@@ -123,9 +123,11 @@ always_comb begin
 		end
 		S_PREMONT: begin
 			state_w			= S_MONT;
-			tra_start_w		= 1'b1;
+			// end m,t reset state
 			m_reset_w		= 1'b0;
 			t_reset_w		= 1'b0;
+			// start m,t caclculation
+			tra_start_w		= 1'b1;
 			if((i_d >> count_r) & 1) begin
 				mod_start_w = 1'b1;
 			end
@@ -147,6 +149,9 @@ always_comb begin
 			end
 		end
 		S_CALC: begin
+			// reset two Montgomery submodule
+			t_reset_w = 1'b1;
+			m_reset_w = 1'b1;
 			if(count_r != 9'd256) begin // keep iterating
 				state_w 	= S_PREMONT;
 				t_reset_w 	= 1'b1;
@@ -179,15 +184,17 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 	if(i_rst) begin
 		// changed
 		state_r 		<= S_IDLE;
+		prep_start_r 	<= 1'b0;
 		mod_start_r 	<= 1'b0;
 		tra_start_r 	<= 1'b0;
-		m_reset_r		<= 1'b0;
-		t_reset_r		<= 1'b0;
-		cal_fin_r		<= 1'b0;
+		// reset three submodules
+		m_reset_r		<= 1'b1;
+		t_reset_r		<= 1'b1;
 		prep_reset_r 	<= 1'b1;
+		/////////////////////////
+		cal_fin_r		<= 1'b0;
 		// unchanged
 		text_r			<= text_w;
-		prep_start_r    <= prep_start_w;
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
 		update_t_fin_r 	<= update_t_fin_w;
