@@ -185,7 +185,7 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		cal_fin_r		<= 1'b0;
 		// unchanged
 		text_r			<= text_w;
-		prep_reset_r 	<= prep_reset_w
+		prep_reset_r 	<= prep_reset_w;
 		prep_start_r    <= prep_start_w;
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
