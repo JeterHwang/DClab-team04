@@ -155,7 +155,7 @@ always_comb begin
 			if(count_r == 9'd255) begin // keep iterating
 				state_w 	= S_IDLE;
 				cal_fin_w 	= 1'b1;
-				if((i_d[count_r] & 1) begin
+				if(i_d[count_r] & 1) begin
 					output_w 	= modulo_o_r;
 				end
 				else begin
