@@ -96,7 +96,7 @@ always_comb begin
 	cal_fin_w 		= cal_fin_r;
 	count_w 		= count_r;
 	mt_i_w 			= mt_i_r;
-	tt_i_w  		= t_i_r;
+	tt_i_w  		= tt_i_r;
 	output_w 		= output_r;
 	// state cases
 	case (state_r)
