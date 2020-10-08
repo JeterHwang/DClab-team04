@@ -33,7 +33,7 @@ always_comb begin
     case (state_r)
         S_IDLE: begin
             if(i_start) begin
-                state_w = S_PREP;
+                state_w = S_PREP1;
                 m_w     = 256'd0;
                 i_w     = 9'd0;
                 ready_w = 1'b0;
@@ -57,13 +57,14 @@ always_comb begin
                 state_w = S_CALC;
             end
             else begin
+                state_w = S_PREP1;
                 i_w     = i_r + 9'd1;    
             end
         end
         S_CALC: begin
             state_w     = S_IDLE;
             ready_w     = 1'b1;
-            if(m_w >= N): begin
+            if(m_r >= N): begin
                 m_w     = m_r - N;
             end
         end
