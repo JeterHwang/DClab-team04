@@ -21,18 +21,23 @@ parameter S_CALC 	= 3'd4;
 // ======= registers & wires ======
 logic [2:0] state_r, state_w;
 
+logic prep_start_r, prep_start_w;
+logic prep_reset_r, prep_reset_w;
 logic prep_fin_r, prep_fin_w;			// prepare state finish
+
 logic m_reset_r, m_reset_w;
-logic t_reset_r, t_reset_w;
 logic mod_start_r, mod_start_w;			// calculate m start
-logic tra_start_r, tra_start_w;			// calculate t start
 logic update_m_fin_r, update_m_fin_w;	// calculate m finish
+
+logic t_reset_r, t_reset_w;
+logic tra_start_r, tra_start_w;			// calculate t start
 logic update_t_fin_r, update_t_fin_w;	// calculate t finish
+
 logic cal_fin_r, cal_fin_w;				// calculate state finish
 
-logic [8:0] count_r, count_w;     		// counter
+logic [8:0]   count_r, count_w;     		// counter
 
-
+logic [255:0] text_r, text_w;
 logic [255:0] modulo_i_r, modulo_i_w; 		// m
 logic [255:0] modulo_o_r, modulo_o_w;
 
@@ -68,8 +73,8 @@ Montgomery montgomery_tt(
 );
 ModuloProduct moduloproduct(
 	.i_clk(i_clk),
-	.i_rst(i_rst),
-	.i_start(i_start),
+	.i_rst(prep_reset_r),
+	.i_start(prep_start_r),
 	.N(i_n),
 	.b(i_a),
 	.a({1'b1, 256'b0}),
@@ -83,6 +88,9 @@ always_comb begin
 	state_w 		= state_r;
 	t_reset_w		= t_reset_r;
 	m_reset_w		= m_reset_r;
+	prep_start_w   = prep_start_r;
+	prep_reset_w	= prep_reset_r;
+	text_w			= text_r;
 	mod_start_w		= mod_start_r;
 	tra_start_w		= tra_start_r;
 	cal_fin_w 		= cal_fin_r;
@@ -94,8 +102,11 @@ always_comb begin
 	case (state_r)
 		S_IDLE: begin
 			if(i_start) begin
-				state_w 	= S_PREP;
-				cal_fin_w	= 0;
+				state_w 		= S_PREP;
+				cal_fin_w		= 1'd0;
+				text_w			= i_a;
+				prep_start_w	= 1'b1;
+				prep_reset_w	= 1'b0;
 			end
 		end
 		S_PREP: begin
@@ -106,13 +117,14 @@ always_comb begin
 				modulo_i_w 	= 256'd1;
 				trans_i_w	= trans_ini_r;
 				count_w		= 9'd0;
+				prep_reset_w= 1'b1;
 			end
 		end
 		S_PREMONT: begin
+			state_w			= S_MONT;
 			tra_start_w		= 1'b1;
 			m_reset_w		= 1'b0;
 			t_reset_w		= 1'b0;
-			state_w			= S_MONT;
 			if((i_d >> count_r) & 1) begin
 				mod_start_w = 1'b1;
 			end
@@ -172,6 +184,9 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		t_reset_r		<= 1'b0;
 		cal_fin_r		<= 1'b0;
 		// unchanged
+		text_r			<= text_w;
+		prep_reset_r 	<= prep_reset_w
+		prep_start_r    <= prep_start_w;
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
 		update_t_fin_r 	<= update_t_fin_w;
@@ -185,10 +200,13 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 	end
 	else begin
 		state_r 		<= state_w;
+		prep_start_r    <= prep_start_w;
+		prep_reset_r    <= prep_reset_w;
 		mod_start_r 	<= mod_start_w;
 		m_reset_r		<= m_reset_w;
 		t_reset_r		<= t_reset_w;
 		tra_start_r 	<= tra_start_w;
+		text_r			<= text_w;
 		prep_fin_r 		<= prep_fin_w;
 		update_m_fin_r 	<= update_m_fin_w;
 		update_t_fin_r 	<= update_t_fin_w;
