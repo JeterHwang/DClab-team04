@@ -64,7 +64,7 @@ always_comb begin
         S_CALC: begin
             state_w     = S_IDLE;
             ready_w     = 1'b1;
-            if(m_r >= N): begin
+            if(m_r >= N) begin
                 m_w     = m_r - N;
             end
         end
