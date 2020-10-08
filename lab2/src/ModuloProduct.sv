@@ -77,18 +77,18 @@ end
 // ====== sequential ========
 always_ff @(posedge i_clk or posedge i_rst) begin
     if(i_rst) begin
-        t_r     = 256'd0;
-        m_r     = 256'd0;
-        i_r     = 9'd0;
-        ready_r = 1'd0;
-        state_r = S_IDLE;
+        t_r     <= 256'd0;
+        m_r     <= 256'd0;
+        i_r     <= 9'd0;
+        ready_r <= 1'd0;
+        state_r <= S_IDLE;
     end
     else begin
-        t_r     = t_w;
-        m_r     = m_w;
-        i_r     = i_w;
-        ready_r = ready_w;
-        state_r = state_w;
+        t_r     <= t_w;
+        m_r     <= m_w;
+        i_r     <= i_w;
+        ready_r <= ready_w;
+        state_r <= state_w;
     end
 end
 endmodule
