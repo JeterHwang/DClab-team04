@@ -76,7 +76,7 @@ ModuloProduct moduloproduct(
 	.i_rst(prep_reset_r),
 	.i_start(prep_start_r),
 	.N(i_n),
-	.b(i_a),
+	.b(text_r),
 	.a({1'b1, 256'b0}),
 	.k(9'd256),
 	.t(trans_ini_w),
@@ -112,6 +112,7 @@ always_comb begin
 		S_PREP: begin
 			t_reset_w = 1'b1;
 			m_reset_w = 1'b1;
+			prep_start_w = 1'b0;
 			if(prep_fin_r) begin
 				state_w 	= S_PREMONT;
 				modulo_i_w 	= 256'd1;
