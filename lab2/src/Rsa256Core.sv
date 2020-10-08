@@ -55,9 +55,9 @@ Montgomery montgomery_mt(
 	.i_clk(i_clk),
 	.i_rst(mt_reset_r),
 	.i_start(mt_start_r),
-	.N(i_n),
+	.N({1'b0, i_n}),
 	.a(mt_i_r),
-	.b(tt_i_r),
+	.b({1'b0, tt_i_r}),
 	.m(mt_o_w),
 	.calc_rd(update_m_fin_w)
 );
@@ -65,9 +65,9 @@ Montgomery montgomery_tt(
 	.i_clk(i_clk),
 	.i_rst(tt_reset_r),
 	.i_start(tt_start_r),
-	.N(i_n),
+	.N({1'b0, i_n}),
 	.a(tt_i_r),
-	.b(tt_i_r),
+	.b({1'b0, tt_i_r}),
 	.m(tt_o_w),
 	.calc_rd(update_t_fin_w)
 );

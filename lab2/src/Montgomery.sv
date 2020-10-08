@@ -2,9 +2,9 @@ module Montgomery(
     input           i_clk,
     input           i_rst,
     input           i_start,
-    input  [255:0]  N,
+    input  [256:0]  N,
     input  [255:0]  a,
-    input  [255:0]  b,
+    input  [256:0]  b,
     output [255:0]  m,
     output          calc_rd
 );
@@ -15,14 +15,14 @@ parameter S_PREP2   = 3'd2;
 parameter S_PREP3   = 3'd3;
 parameter S_CALC    = 3'd4;
 // ====== regs & wires ======
-logic [255:0]   m_r, m_w;
+logic [256:0]   m_r, m_w;
 logic [8:0]     i_r, i_w;
 logic [2:0]     state_r, state_w;
 logic           ready_r, ready_w;
 
 // ==== output assignment ====
 assign calc_rd = ready_r;
-assign m       = m_r;
+assign m       = m_r[255:0];
 
 // ====== combinational ======
 always_comb begin
@@ -34,7 +34,7 @@ always_comb begin
         S_IDLE: begin
             if(i_start) begin
                 state_w = S_PREP1;
-                m_w     = 256'd0;
+                m_w     = 257'd0;
                 i_w     = 9'd0;
                 ready_w = 1'b0;
             end
@@ -74,7 +74,7 @@ end
 // ====== sequential ========
 always_ff @(posedge i_clk or posedge i_rst) begin
     if(i_rst) begin
-        m_r     <= 256'd0;
+        m_r     <= 257'd0;
         i_r     <= 9'd0;
         ready_r <= 1'd0;
         state_r <= S_IDLE;
