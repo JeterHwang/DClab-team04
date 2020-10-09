@@ -114,47 +114,32 @@ always_comb begin
 		S_PREP: begin
 			prep_start_w = 1'b0;
 			if(prep_fin_r) begin
-				state_w 	= S_PREMONT;
-				mt_i_w 		= 256'd1;
-				tt_i_w		= tt_ini_r;
-				count_w		= 9'd0;
-				prep_reset_w= 1'b1;
-			end
-		end
-		S_PREMONT: begin
-			state_w			= S_MONT;
-			// end m,t reset state
-			mt_reset_w		= 1'b0;
-			tt_reset_w		= 1'b0;
-			// start m,t caclculation
-			tt_start_w		= 1'b1;
-			if(i_d[count_r] & 1) begin
-				mt_start_w = 1'b1;
-			end
-			else begin
-				mt_start_w = 1'b0;
+				state_w 		= S_MONT;
+				mt_i_w 			= 256'd1;
+				tt_i_w			= tt_ini_r;
+				count_w			= 9'd0;
+				prep_reset_w	= 1'b1;
+				tt_reset_w		= 1'b0;
+				mt_reset_w		= 1'b0;
 			end
 		end
 		S_MONT: begin
 			// shut down the start signal 
 			if(mt_start_r) begin
-				mt_start_w = 1'b0;
+				mt_start_w 		= 1'b0;
 			end
 			if(tt_start_r) begin
-				tt_start_w = 1'b0;
+				tt_start_w 		= 1'b0;
 			end 
 			// mont finished
-			if(update_t_fin_r && (update_t_fin_r || i_d[count_r])) begin
-				state_w 	= S_CALC;
+			if(update_t_fin_r && update_m_fin_r) begin
+				state_w 		= S_CALC;
 			end
 		end
 		S_CALC: begin
-			// reset two Montgomery submodule
-			tt_reset_w = 1'b1;
-			mt_reset_w = 1'b1;
-			if(count_r == 9'd255) begin // keep iterating
-				state_w 	= S_IDLE;
-				cal_fin_w 	= 1'b1;
+			if(count_r == 9'd255) begin // output result
+				state_w 		= S_IDLE;
+				cal_fin_w 		= 1'b1;
 				if(i_d[count_r] & 1) begin
 					output_w 	= mt_o_r;
 				end
@@ -162,18 +147,25 @@ always_comb begin
 					output_w	= mt_i_r;
 				end
 			end
-			else begin // output result
-				state_w 	= S_PREMONT;
-				tt_reset_w 	= 1'b1;
-				mt_reset_w	= 1'b1;
+			else begin // keep iterating
+				state_w 		= S_MONT;
+				// turn off ready signal // 
+				update_m_fin_w 	= 1'b0;   //
+				update_t_fin_w 	= 1'b0;   //
+				//***********************//
+				// update t,m
 				tt_i_w 	= tt_o_r;
 				if(i_d[count_r] & 1) begin
-					mt_i_w = mt_o_r;
+					mt_i_w 		= mt_o_r;
 				end
 				else begin
-					mt_i_w = mt_i_r;
+					mt_i_w 		= mt_i_r;
 				end
-				count_w 	= count_r + 9'd1;
+				// trigger start signal
+				tt_start_w 		= 1'b1;
+				mt_start_w 		= 1'b1;
+				// i = i + 1 
+				count_w 		= count_r + 9'd1;
 			end
 		end
 	endcase
@@ -185,8 +177,8 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		// changed
 		state_r 		<= S_IDLE;
 		prep_start_r 	<= 1'b0;
-		mt_start_r 	<= 1'b0;
-		tt_start_r 	<= 1'b0;
+		mt_start_r 		<= 1'b0;
+		tt_start_r 		<= 1'b0;
 		// reset three submodules
 		mt_reset_r		<= 1'b1;
 		tt_reset_r		<= 1'b1;
