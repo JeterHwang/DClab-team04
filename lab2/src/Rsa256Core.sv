@@ -181,9 +181,9 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		mt_start_r 		<= 1'b0;
 		tt_start_r 		<= 1'b0;
 		// reset three submodules
-		mt_reset_r		<= 1'b1;
-		tt_reset_r		<= 1'b1;
-		prep_reset_r 	<= 1'b1;
+		mt_reset_r		<= 1'b0;
+		tt_reset_r		<= 1'b0;
+		prep_reset_r 	<= 1'b0;
 		/////////////////////////
 		cal_fin_r		<= 1'b0;
 		// unchanged
