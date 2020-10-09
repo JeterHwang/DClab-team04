@@ -45,7 +45,7 @@ always_comb begin
             end
         end
         S_PREP2: begin
-            state_w = S_PREP3;
+            state_w = S_CALC;
             if(m_r & 1) begin
                 m_w     = ((m_r + N) >> 1);
             end
@@ -53,7 +53,7 @@ always_comb begin
                 m_w     = (m_r >> 1);
             end
         end
-        S_PREP3: begin
+        S_CALC: begin
             // final update m
             if(m_r >= N) begin
                 m_w     = m_r - N;
