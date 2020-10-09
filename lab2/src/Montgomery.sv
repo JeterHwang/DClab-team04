@@ -9,15 +9,14 @@ module Montgomery(
     output          calc_rd
 );
 // ====== states ========
-parameter S_IDLE    = 3'd0;
-parameter S_PREP1   = 3'd1;
-parameter S_PREP2   = 3'd2;
-parameter S_PREP3   = 3'd3;
-parameter S_CALC    = 3'd4;
+parameter S_IDLE    = 2'd0;
+parameter S_PREP1   = 2'd1;
+parameter S_PREP2   = 2'd2;
+parameter S_CALC    = 2'd3;
 // ====== regs & wires ======
 logic [257:0]   m_r, m_w;
 logic [8:0]     i_r, i_w;
-logic [2:0]     state_r, state_w;
+logic [1:0]     state_r, state_w;
 logic           ready_r, ready_w;
 
 // ==== output assignment ====
@@ -48,24 +47,24 @@ always_comb begin
         S_PREP2: begin
             state_w = S_PREP3;
             if(m_r & 1) begin
-                m_w     = m_r + N;
+                m_w     = ((m_r + N) >> 1);
+            end
+            else begin
+                m_w     = (m_r >> 1);
             end
         end
         S_PREP3: begin
-            m_w     = (m_r >> 1);
+            // final update m
+            if(m_r >= N) begin
+                m_w     = m_r - N;
+            end
             if(i_r == 9'd255) begin
-                state_w = S_CALC;
+                state_w = S_IDLE;
+                ready_w = 1'b1;
             end
             else begin
                 state_w = S_PREP1;
                 i_w     = i_r + 9'd1;    
-            end
-        end
-        S_CALC: begin
-            state_w     = S_IDLE;
-            ready_w     = 1'b1;
-            if(m_r >= N) begin
-                m_w     = m_r - N;
             end
         end
     endcase    
