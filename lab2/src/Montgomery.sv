@@ -39,10 +39,10 @@ always_comb begin
         end
         S_PREP: begin
             state_w = S_CALC;
-            if((a[i_r] & 1) && ((m_r + b)[0] & 1)) begin
+            if((a[i_r] & 1) && ((m_r + b) & 258'd1)) begin
                 m_w = ((m_r + b + N) >> 1);
             end
-            else if ((a[i_r] & 1) && !((m_r + b)[0] & 1)) begin
+            else if ((a[i_r] & 1) && !((m_r + b) & 258'd1)) begin
                 m_w = ((m_r + b) >> 1);
             end
             else if (!(a[i_r] & 1) && (m_r[0] & 1)) begin
