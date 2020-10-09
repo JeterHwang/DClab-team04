@@ -12,14 +12,13 @@ module Rsa256Core (
 // namely, the Montgomery algorithm
 
 // ======= states ======
-parameter S_IDLE 	= 3'd0;
-parameter S_PREP 	= 3'd1;
-parameter S_PREMONT = 3'd2;
-parameter S_MONT 	= 3'd3;
-parameter S_CALC 	= 3'd4;
+parameter S_IDLE 	= 2'd0;
+parameter S_PREP 	= 2'd1;
+parameter S_MONT 	= 2'd2;
+parameter S_CALC 	= 2'd3;
 
 // ======= registers & wires ======
-logic [2:0] state_r, state_w;
+logic [1:0] state_r, state_w;
 logic [255:0] text_r, text_w;
 
 logic prep_start_r, prep_start_w;
@@ -88,7 +87,7 @@ always_comb begin
 	state_w 		= state_r;
 	tt_reset_w		= tt_reset_r;
 	mt_reset_w		= mt_reset_r;
-	prep_start_w   = prep_start_r;
+	prep_start_w   	= prep_start_r;
 	prep_reset_w	= prep_reset_r;
 	text_w			= text_r;
 	mt_start_w		= mt_start_r;
