@@ -24,15 +24,15 @@ logic [255:0] text_r, text_w;
 
 logic prep_start_r, prep_start_w;
 logic prep_reset_r, prep_reset_w;
-logic prep_fin_r, prep_fin_w;			// prepare state finish
+logic prep_fin;	    // prepare state finish
 
 logic mt_reset_r, mt_reset_w;
 logic mt_start_r, mt_start_w;			// calculate m start
-logic update_m_fin_r, update_m_fin_w;	// calculate m finish
+logic update_m_fin;	// calculate m finish
 
 logic tt_reset_r, tt_reset_w;
 logic tt_start_r, tt_start_w;			// calculate t start
-logic update_t_fin_r, update_t_fin_w;	// calculate t finish
+logic update_t_fin;	// calculate t finish
 
 logic cal_fin_r, cal_fin_w;				// calculate state finish
 
@@ -59,7 +59,7 @@ Montgomery montgomery_mt(
 	.a(mt_i_r),
 	.b({2'b0, tt_i_r}),
 	.m(mt_o_w),
-	.calc_rd(update_m_fin_w)
+	.calc_rd(update_m_fin)
 );
 Montgomery montgomery_tt(
 	.i_clk(i_clk),
@@ -69,7 +69,7 @@ Montgomery montgomery_tt(
 	.a(tt_i_r),
 	.b({2'b0, tt_i_r}),
 	.m(tt_o_w),
-	.calc_rd(update_t_fin_w)
+	.calc_rd(update_t_fin)
 );
 ModuloProduct moduloproduct(
 	.i_clk(i_clk),
@@ -80,7 +80,7 @@ ModuloProduct moduloproduct(
 	.a({1'b1, 256'b0}),
 	.k(9'd256),
 	.t(tt_ini_w),
-	.prep_rd(prep_fin_w)
+	.prep_rd(prep_fin)
 );
 // ======= combinational circuit =======
 always_comb begin
@@ -108,31 +108,34 @@ always_comb begin
 				// start prep calculation
 				prep_start_w	= 1'b1;
 				// end prep reset
-				prep_reset_w	= 1'b0;
+				prep_reset_w	= 1'b1;
 			end
 		end
 		S_PREP: begin
-			prep_start_w = 1'b0;
-			if(prep_fin_r) begin
+			prep_start_w 	= 1'b0;
+			prep_reset_w	= 1'b0;
+			if(prep_fin) begin
 				state_w 		= S_MONT;
+				
 				mt_i_w 			= 256'd1;
 				tt_i_w			= tt_ini_r;
+				
 				count_w			= 9'd0;
-				prep_reset_w	= 1'b1;
-				tt_reset_w		= 1'b0;
-				mt_reset_w		= 1'b0;
+
+				mt_start_w		= 1'b0;
+				tt_start_w		= 1'b0;
+				tt_reset_w		= 1'b1;
+				mt_reset_w		= 1'b1;
 			end
 		end
 		S_MONT: begin
 			// shut down the start signal 
-			if(mt_start_r) begin
-				mt_start_w 		= 1'b0;
-			end
-			if(tt_start_r) begin
-				tt_start_w 		= 1'b0;
-			end 
+			mt_start_w 		= 1'b0;
+			tt_start_w 		= 1'b0;
+			mt_reset_w		= 1'b0;
+			tt_reset_w 		= 1'b0; 
 			// mont finished
-			if(update_t_fin_r && update_m_fin_r) begin
+			if(update_t_fin && update_m_fin) begin
 				state_w 		= S_CALC;
 			end
 		end
@@ -149,10 +152,6 @@ always_comb begin
 			end
 			else begin // keep iterating
 				state_w 		= S_MONT;
-				// turn off ready signal // 
-				update_m_fin_w 	= 1'b0;   //
-				update_t_fin_w 	= 1'b0;   //
-				//***********************//
 				// update t,m
 				tt_i_w 	= tt_o_r;
 				if(i_d[count_r] & 1) begin
@@ -164,6 +163,8 @@ always_comb begin
 				// trigger start signal
 				tt_start_w 		= 1'b1;
 				mt_start_w 		= 1'b1;
+				tt_reset_w		= 1'b1;
+				mt_reset_w		= 1'b1;
 				// i = i + 1 
 				count_w 		= count_r + 9'd1;
 			end
@@ -187,9 +188,6 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		cal_fin_r		<= 1'b0;
 		// unchanged
 		text_r			<= text_w;
-		prep_fin_r 		<= prep_fin_w;
-		update_m_fin_r 	<= update_m_fin_w;
-		update_t_fin_r 	<= update_t_fin_w;
 		count_r 		<= count_w;
 		mt_i_r 			<= mt_i_w;
 		mt_o_r 			<= mt_o_w;
@@ -207,9 +205,6 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		tt_reset_r		<= tt_reset_w;
 		tt_start_r 		<= tt_start_w;
 		text_r			<= text_w;
-		prep_fin_r 		<= prep_fin_w;
-		update_m_fin_r 	<= update_m_fin_w;
-		update_t_fin_r 	<= update_t_fin_w;
 		cal_fin_r 		<= cal_fin_w;
 		count_r 		<= count_w;
 		mt_i_r 			<= mt_i_w;
