@@ -108,35 +108,34 @@ always_comb begin
 				// start prep calculation
 				prep_start_w	= 1'b1;
 				// end prep reset
-				prep_reset_w	= 1'b1;
+				prep_reset_w	= 1'b0;
 			end
 		end
 		S_PREP: begin
-			prep_start_w 	= 1'b0;
-			prep_reset_w	= 1'b0;
+			prep_start_w 		= 1'b0;
 			if(prep_fin) begin
 				state_w 		= S_MONT;
-				
+				prep_reset_w	= 1'b1;
 				mt_i_w 			= 256'd1;
 				tt_i_w			= tt_ini_r;
 				
 				count_w			= 9'd0;
 
-				mt_start_w		= 1'b0;
-				tt_start_w		= 1'b0;
-				tt_reset_w		= 1'b1;
-				mt_reset_w		= 1'b1;
+				mt_start_w		= 1'b1;
+				tt_start_w		= 1'b1;
+				tt_reset_w		= 1'b0;
+				mt_reset_w		= 1'b0;
 			end
 		end
 		S_MONT: begin
 			// shut down the start signal 
 			mt_start_w 		= 1'b0;
 			tt_start_w 		= 1'b0;
-			mt_reset_w		= 1'b0;
-			tt_reset_w 		= 1'b0; 
 			// mont finished
 			if(update_t_fin && update_m_fin) begin
 				state_w 		= S_CALC;
+				tt_reset_w		= 1'b1;
+				mt_reset_w 		= 1'b1;
 			end
 		end
 		S_CALC: begin
@@ -163,8 +162,8 @@ always_comb begin
 				// trigger start signal
 				tt_start_w 		= 1'b1;
 				mt_start_w 		= 1'b1;
-				tt_reset_w		= 1'b1;
-				mt_reset_w		= 1'b1;
+				tt_reset_w		= 1'b0;
+				mt_reset_w		= 1'b0;
 				// i = i + 1 
 				count_w 		= count_r + 9'd1;
 			end
@@ -181,9 +180,9 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		mt_start_r 		<= 1'b0;
 		tt_start_r 		<= 1'b0;
 		// reset three submodules
-		mt_reset_r		<= 1'b0;
-		tt_reset_r		<= 1'b0;
-		prep_reset_r 	<= 1'b0;
+		mt_reset_r		<= 1'b1;
+		tt_reset_r		<= 1'b1;
+		prep_reset_r 	<= 1'b1;
 		/////////////////////////
 		cal_fin_r		<= 1'b0;
 		// unchanged
