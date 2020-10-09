@@ -93,7 +93,7 @@ always_comb begin
 		S_GET_PU_KEY: begin
             n_w = avm_readdata_r[((bytes_counter_r << 3)+7) : (bytes_counter_w << 3)];
             bytes_counter_w = bytes_counter_r + 1'b1;
-            if(bytes_counter_t == 32) begin
+            if(bytes_counter_r == 32) begin
                 state_w = S_GET_PR_KEY;
                 bytes_counter_w = 1'b0;
             end
