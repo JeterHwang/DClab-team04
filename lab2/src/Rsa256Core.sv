@@ -183,6 +183,7 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		tt_reset_r		<= 1'b1;
 		prep_reset_r 	<= 1'b1;
 		/////////////////////////
+		output_r		<= 1'b0;
 		cal_fin_r		<= 1'b0;
 		// unchanged
 		text_r			<= text_w;
@@ -192,7 +193,6 @@ always_ff @(posedge i_clk or posedge i_rst) begin
 		tt_ini_r 		<= tt_ini_w;
 		tt_i_r 			<= tt_i_w;
 		tt_o_r 			<= tt_o_w;
-		output_r 		<= output_w;
 	end
 	else begin
 		state_r 		<= state_w;
