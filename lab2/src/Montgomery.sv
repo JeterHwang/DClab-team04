@@ -31,7 +31,7 @@ always_comb begin
     case (state_r)
         S_IDLE: begin
             if(i_start) begin
-                state_w = S_PREP1;
+                state_w = S_PREP;
                 m_w     = 258'd0;
                 i_w     = 9'd0;
                 ready_w = 1'b0;
