@@ -91,25 +91,25 @@ always_comb begin
             end
 		end
 		S_GET_PU_KEY: begin
-            n_w = avm_readdata_w[(bytes_counter_w << 3)+7 : (bytes_counter_w << 3)];
-            bytes_counter_w = bytes_counter_w + 1'b1;
-            if(bytes_counter_w == 32) begin
+            n_w = avm_readdata_r[((bytes_counter_r << 3)+7) : (bytes_counter_w << 3)];
+            bytes_counter_w = bytes_counter_r + 1'b1;
+            if(bytes_counter_t == 32) begin
                 state_w = S_GET_PR_KEY;
                 bytes_counter_w = 1'b0;
             end
 		end
         S_GET_PR_KEY: begin
-            d_w = avm_readdata_w[(bytes_counter_w << 3)+7 : (bytes_counter_w << 3)];
-            bytes_counter_w = bytes_counter_w + 1'b1;
-            if(bytes_counter_w == 32) begin
+            d_w = avm_readdata_r[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
+            bytes_counter_w = bytes_counter_r + 1'b1;
+            if(bytes_counter_r == 32) begin
                 state_w = S_GET_DATA;
                 bytes_counter_w = 1'b0;
             end
 		end
         S_GET_DATA: begin
-            enc_w = avm_readdata_w[(bytes_counter_w << 3)+7 : (bytes_counter_w << 3)];
-            bytes_counter_w = bytes_counter_w + 1'b1;
-            if(bytes_counter_w == 32) begin
+            enc_w = avm_readdata_r[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
+            bytes_counter_w = bytes_counter_r + 1'b1;
+            if(bytes_counter_r == 32) begin
                 state_w = S_WAIT_CALCULATE;
                 bytes_counter_w = 1'b0;
                 rsa_start_w = 1;
@@ -127,7 +127,7 @@ always_comb begin
             end
 		end
 		S_WRITE_READY: begin
-			if(avm_readdata_w[TX_OK_BIT] == 1) begin
+			if(avm_readdata_r[TX_OK_BIT] == 1) begin
                 if(avm_waitrequest == 1'd0) begin
                     state_w = S_SEND_DATA;
                     StartWrite(TX_BASE);
@@ -137,9 +137,9 @@ always_comb begin
         end
 		S_SEND_DATA: begin
             if(avm_waitrequest == 1'd0) begin
-                avm_writedata[7:0] = dec_w[(bytes_counter_w << 3)+7 : (bytes_counter_w << 3)];
-                bytes_counter_w = bytes_counter_w + 1'b1;
-                if(bytes_counter_w == 31) begin
+                avm_writedata[7:0] = dec_r[((bytes_counter_r << 3)+7) : (bytes_counter_w << 3)];
+                bytes_counter_w = bytes_counter_r + 1'b1;
+                if(bytes_counter_r == 31) begin
                     state_w = S_READ_READY;
                     bytes_counter_w = 1'b0;
                     avm_address_w = STATUS_BASE;
@@ -151,29 +151,29 @@ end
 
 always_ff @(posedge avm_clk or posedge avm_rst) begin
     if (avm_rst) begin
-        n_r <= 0;
-        d_r <= 0;
-        enc_r <= 0;
-        dec_r <= 0;
-        avm_address_r <= STATUS_BASE;
-        avm_read_r <= 1;
-        avm_write_r <= 0;
-        state_r <= S_READ_READY;
+        n_r             <= 0;
+        d_r             <= 0;
+        enc_r           <= 0;
+        dec_r           <= 0;
+        avm_address_r   <= STATUS_BASE;
+        avm_read_r      <= 1;
+        avm_write_r     <= 0;
+        state_r         <= S_READ_READY;
         bytes_counter_r <= 63;
-        rsa_start_r <= 0;
-        avm_readdata_r <= 32'd0;
+        rsa_start_r     <= 0;
+        avm_readdata_r  <= 32'd0;
     end else begin
-        n_r <= n_w;
-        d_r <= d_w;
-        enc_r <= enc_w;
-        dec_r <= dec_w;
-        avm_address_r <= avm_address_w;
-        avm_read_r <= avm_read_w;
-        avm_write_r <= avm_write_w;
-        state_r <= state_w;
+        n_r             <= n_w;
+        d_r             <= d_w;
+        enc_r           <= enc_w;
+        dec_r           <= dec_w;
+        avm_address_r   <= avm_address_w;
+        avm_read_r      <= avm_read_w;
+        avm_write_r     <= avm_write_w;
+        state_r         <= state_w;
         bytes_counter_r <= bytes_counter_w;
-        rsa_start_r <= rsa_start_w;
-        avm_readdata_r <= avm_readdata_w;
+        rsa_start_r     <= rsa_start_w;
+        avm_readdata_r  <= avm_readdata_w;
     end
 end
 
