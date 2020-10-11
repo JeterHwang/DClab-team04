@@ -128,7 +128,7 @@ always_comb begin
             if(rsa_finished) begin
                 dec_w = rsa_dec;
                 state_w = S_WRITE_READY;
-                avm_address_w = STATUS_BASE;
+                StartRead(STATUS_BASE);
             end
 		end
 		S_WRITE_READY: begin
@@ -147,6 +147,8 @@ always_comb begin
             end
             if(bytes_counter_r == 31) begin
                 state_w = S_READ_READY;
+                // -------------------------------------------------------
+                StartRead(STATUS_BASE);
             end
         end
 	endcase
