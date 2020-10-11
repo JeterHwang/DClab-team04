@@ -132,14 +132,12 @@ always_comb begin
             end
         end
 		S_SEND_DATA: begin
-            if(avm_waitrequest == 1'd0) begin
-                avm_writedata[7:0] = dec_r[((bytes_counter_r << 3)+7) : (bytes_counter_w << 3)];
-                bytes_counter_w = bytes_counter_r + 1'b1;
-                if(bytes_counter_r == 31) begin
-                    state_w = S_READ_READY;
-                    bytes_counter_w = 11'b0;
-                    avm_address_w = STATUS_BASE;
-                end
+            dec_w = (dec_r << 8);
+            bytes_counter_w = bytes_counter_r + 1'b1;
+            if(bytes_counter_r == 31) begin
+                state_w = S_READ_READY;
+                bytes_counter_w = 11'b0;
+                avm_address_w = STATUS_BASE;
             end
         end
 	endcase
