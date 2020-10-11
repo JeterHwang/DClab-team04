@@ -142,7 +142,7 @@ always_comb begin
         end
 		S_SEND_DATA: begin
             dec_w = (dec_r << 8);
-            bytes_counter_w = bytes_counter_r + 1'b1;
+            bytes_counter_w = bytes_counter_r + 11'b1;
             if(bytes_counter_r == 30) begin
                 state_w = S_READ_READY;
             end
