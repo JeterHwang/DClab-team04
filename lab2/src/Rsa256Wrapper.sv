@@ -136,8 +136,6 @@ always_comb begin
             bytes_counter_w = bytes_counter_r + 1'b1;
             if(bytes_counter_r == 31) begin
                 state_w = S_READ_READY;
-                bytes_counter_w = 11'b0;
-                avm_address_w = STATUS_BASE;
             end
         end
 	endcase
