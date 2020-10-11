@@ -143,8 +143,10 @@ always_comb begin
 		S_SEND_DATA: begin
             dec_w = (dec_r << 8);
             bytes_counter_w = bytes_counter_r + 11'b1;
-            if(bytes_counter_r == 30) begin
-                state_w = S_READ_READY;
+            if(avm_waitrequest == 1'd0) begin
+                if(bytes_counter_r == 30) begin
+                    state_w = S_READ_READY;
+                end
             end
         end
 	endcase
