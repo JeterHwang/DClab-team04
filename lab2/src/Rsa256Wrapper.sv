@@ -116,7 +116,7 @@ always_comb begin
                     if(bytes_counter_r == 31) begin
                         state_w = S_WAIT_CALCULATE;
                         rsa_start_w = 1;
-                        //avm_read_w = 0;
+                        avm_read_w = 0;
                     end
                     else begin
                         state_w = S_READ_READY;
@@ -129,7 +129,7 @@ always_comb begin
                     if(bytes_counter_r == 95) begin
                         state_w = S_WAIT_CALCULATE;
                         rsa_start_w = 1;
-                        //avm_read_w = 0;
+                        avm_read_w = 0;
                     end
                     else begin
                         state_w = S_READ_READY;
