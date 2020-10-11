@@ -121,6 +121,7 @@ always_comb begin
             if(rsa_finished) begin
                 dec_w = rsa_dec;
                 state_w = S_WRITE_READY;
+                bytes_counter_w = 11'b0;
                 StartRead(STATUS_BASE);
             end
 		end
@@ -128,18 +129,18 @@ always_comb begin
 			if(avm_readdata[TX_OK_BIT] == 1) begin
                 state_w = S_SEND_DATA;
                 StartWrite(TX_BASE);
-                bytes_counter_w = 11'b0;
             end
         end
 		S_SEND_DATA: begin
             if(bytes_counter_r == 30) begin
                 state_w = S_READ_READY;
+                bytes_counter_w = 0;
                 StartRead(STATUS_BASE);
             end
             else begin
                 dec_w = (dec_r << 8);
-                bytes_counter_w = bytes_counter_r + 11'b1;
                 state_w = S_WRITE_READY;
+                bytes_counter_w = bytes_counter_r + 11'b1;
                 StartRead(STATUS_BASE);
             end
         end
