@@ -84,7 +84,7 @@ always_comb begin
                 if(bytes_counter_r < 32)
                     state_w = S_GET_PU_KEY;
                 else if (bytes_counter_r >= 32 && bytes_counter_r < 64)
-                    state_w = S_GET_PU_KEY;
+                    state_w = S_GET_PR_KEY;
                 else 
                     state_w = S_GET_DATA;
                 StartRead(RX_BASE);
