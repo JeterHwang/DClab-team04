@@ -124,7 +124,6 @@ always_comb begin
             end
 		end
 		S_WAIT_CALCULATE: begin
-            avm_read_w = 1'd0;
             rsa_start_w = 0;
             if(rsa_finished) begin
                 dec_w = rsa_dec;
