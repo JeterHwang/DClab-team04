@@ -117,11 +117,9 @@ always_comb begin
             avm_read_w = 1'd0;
             rsa_start_w = 0;
             if(rsa_finished) begin
-                if(avm_waitrequest == 1'd0) begin
-                    dec_w = rsa_dec;
-                    state_w = S_WRITE_READY;
-                    avm_address_w = STATUS_BASE;
-                end
+                dec_w = rsa_dec;
+                state_w = S_WRITE_READY;
+                avm_address_w = STATUS_BASE;
             end
 		end
 		S_WRITE_READY: begin
