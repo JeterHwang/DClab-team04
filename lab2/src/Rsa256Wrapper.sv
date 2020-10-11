@@ -83,7 +83,7 @@ always_comb begin
             if(avm_readdata[RX_OK_BIT] == 1'd1) begin
                 if(avm_waitrequest == 1'd0) begin
                     state_w = S_GET_PU_KEY;
-                    StartRead(5'b0);
+                    StartRead(RX_BASE);
                     bytes_counter_w = 11'd0;
                 end
             end
@@ -129,7 +129,7 @@ always_comb begin
 			if(avm_readdata[TX_OK_BIT] == 1) begin
                 if(avm_waitrequest == 1'd0) begin
                     state_w = S_SEND_DATA;
-                    StartWrite(5'd4);
+                    StartWrite(TX_BASE);
                     bytes_counter_w = 11'b0;
                 end
             end
