@@ -91,7 +91,7 @@ always_comb begin
 		S_GET_PU_KEY: begin
             //n_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
             if(avm_waitrequest == 1'd0) begin
-                n_w[(bytes_counter_r << 3)-:8] = avm_readdata[7:0];
+                n_w[(bytes_counter_r << 3)+:8] = avm_readdata[7:0];
                 bytes_counter_w = bytes_counter_r + 11'b1;
             end
                 if(bytes_counter_r == 32) begin
@@ -103,7 +103,7 @@ always_comb begin
         S_GET_PR_KEY: begin
             //exitd_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
             if(avm_waitrequest == 1'd0) begin
-                d_w[(bytes_counter_r << 3)-:8] = avm_readdata[7:0];
+                d_w[(bytes_counter_r << 3)+:8] = avm_readdata[7:0];
                 bytes_counter_w = bytes_counter_r + 11'b1;
             end
             if(bytes_counter_r == 32) begin
@@ -114,7 +114,7 @@ always_comb begin
         S_GET_DATA: begin
             //enc_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
             if(avm_waitrequest == 1'd0) begin
-                enc_w[(bytes_counter_r << 3)-:8] = avm_readdata[7:0];
+                enc_w[(bytes_counter_r << 3)+:8] = avm_readdata[7:0];
                 bytes_counter_w = bytes_counter_r + 11'b1;
             end
             if(bytes_counter_r == 32) begin
