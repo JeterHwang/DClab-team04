@@ -90,7 +90,7 @@ always_comb begin
 		end
 		S_GET_PU_KEY: begin
             //n_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
-            n_w = avm_readdata[(bytes_counter_r << 3)-:8]
+            n_w = avm_readdata[(bytes_counter_r << 3)-:8];
             bytes_counter_w = bytes_counter_r + 11'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_GET_PR_KEY;
@@ -99,7 +99,7 @@ always_comb begin
 		end
         S_GET_PR_KEY: begin
             //exitd_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
-            d_w = avm_readdata[(bytes_counter_r << 3)-:8]
+            d_w = avm_readdata[(bytes_counter_r << 3)-:8];
             bytes_counter_w = bytes_counter_r + 11'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_GET_DATA;
@@ -108,7 +108,7 @@ always_comb begin
 		end
         S_GET_DATA: begin
             //enc_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
-            enc_w = avm_readdata[(bytes_counter_r << 3)-:8]
+            enc_w = avm_readdata[(bytes_counter_r << 3)-:8];
             bytes_counter_w = bytes_counter_r + 11'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_WAIT_CALCULATE;
