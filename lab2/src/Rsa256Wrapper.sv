@@ -94,7 +94,7 @@ always_comb begin
                 n_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
                 bytes_counter_w = bytes_counter_r + 11'b1;
             end
-                if(bytes_counter_r == 31) begin
+                if(bytes_counter_r == 32) begin
                     state_w = S_GET_PR_KEY;
                     bytes_counter_w = 11'd0;
                 end
@@ -106,7 +106,7 @@ always_comb begin
                 d_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
                 bytes_counter_w = bytes_counter_r + 11'b1;
             end
-            if(bytes_counter_r == 31) begin
+            if(bytes_counter_r == 32) begin
                 state_w = S_GET_DATA;
                 bytes_counter_w = 11'b0;
             end
@@ -117,7 +117,7 @@ always_comb begin
                 enc_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
                 bytes_counter_w = bytes_counter_r + 11'b1;
             end
-            if(bytes_counter_r == 31) begin
+            if(bytes_counter_r == 32) begin
                 state_w = S_WAIT_CALCULATE;
                 bytes_counter_w = 11'b0;
                 rsa_start_w = 1;
@@ -145,7 +145,7 @@ always_comb begin
                 dec_w = (dec_r << 8);
                 bytes_counter_w = bytes_counter_r + 11'b1;
             end
-            if(bytes_counter_r == 30) begin
+            if(bytes_counter_r == 31) begin
                 state_w = S_READ_READY;
             end
         end
