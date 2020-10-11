@@ -25,7 +25,7 @@ localparam S_WRITE_READY = 5;
 localparam S_SEND_DATA = 6;
 
 logic [255:0] n_r, n_w, d_r, d_w, enc_r, enc_w, dec_r, dec_w;
-logic [1:0] state_r, state_w;
+logic [2:0] state_r, state_w;
 logic [10:0] bytes_counter_r, bytes_counter_w;
 logic [4:0] avm_address_r, avm_address_w;
 logic avm_read_r, avm_read_w, avm_write_r, avm_write_w;
