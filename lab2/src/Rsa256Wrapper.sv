@@ -93,7 +93,7 @@ always_comb begin
 		S_GET_PU_KEY: begin
             if(!avm_waitrequest) begin
                 bytes_counter_w = bytes_counter_r + 11'b1;
-                n_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
+                n_w[(255 - (bytes_counter_r << 3))-:8] = avm_readdata[7:0];
                 state_w = S_READ_READY;
                 StartRead(STATUS_BASE);    
             end
@@ -101,7 +101,7 @@ always_comb begin
         S_GET_PR_KEY: begin
             if(!avm_waitrequest) begin
                 bytes_counter_w = bytes_counter_r + 11'b1;
-                d_w[(((bytes_counter_r - 32) << 3)+7)-:8] = avm_readdata[7:0];
+                d_w[(255 - ((bytes_counter_r - 32) << 3))-:8] = avm_readdata[7:0];
                 state_w = S_READ_READY;
                 StartRead(STATUS_BASE);     
             end
@@ -109,7 +109,7 @@ always_comb begin
         S_GET_DATA: begin
             //enc_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
             if(!avm_waitrequest) begin
-                enc_w[(((bytes_counter_r - 64) << 3)+7)-:8] = avm_readdata[7:0];
+                enc_w[(255 - ((bytes_counter_r - 64) << 3))-:8] = avm_readdata[7:0];
                 if(bytes_counter_r == 95) begin
                     state_w = S_WAIT_CALCULATE;
                     rsa_start_w = 1;
@@ -138,7 +138,7 @@ always_comb begin
             end
         end
 		S_SEND_DATA: begin
-            if(avm_waitrequest) begin
+            if(!avm_waitrequest) begin
                 if(bytes_counter_r == 30) begin
                     state_w = S_READ_READY;
                     bytes_counter_w = 0;
