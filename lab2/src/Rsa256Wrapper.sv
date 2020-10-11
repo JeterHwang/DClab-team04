@@ -80,47 +80,40 @@ always_comb begin
     rsa_start_w         = rsa_start_r;
     case (state_r)
 		S_READ_READY: begin
-            if(avm_readdata[RX_OK_BIT] == 1'd1) begin
-                if(avm_waitrequest == 1'd0) begin
+            if(avm_readdata[RX_OK_BIT] == 1'b1) begin
+                if(bytes_counter_r < 32)
                     state_w = S_GET_PU_KEY;
-                    StartRead(RX_BASE);
-                    bytes_counter_w = 11'd0;
-                end
+                else if (bytes_counter_r >= 32 && bytes_counter_r < 64)
+                    state_w = S_GET_PU_KEY;
+                else 
+                    state_w = S_GET_DATA;
+                StartRead(RX_BASE);
             end
 		end
 		S_GET_PU_KEY: begin
-            //n_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
-            if(avm_waitrequest == 1'd0) begin
-                n_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
-                bytes_counter_w = bytes_counter_r + 11'b1;
-            end
-                if(bytes_counter_r == 32) begin
-                    state_w = S_GET_PR_KEY;
-                    bytes_counter_w = 11'd0;
-                end
-            
+            bytes_counter_w = bytes_counter_r + 11'b1;
+            n_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
+            state_w = S_READ_READY;
+            StartRead(STATUS_BASE);
 		end
         S_GET_PR_KEY: begin
-            //exitd_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
-            if(avm_waitrequest == 1'd0) begin
-                d_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
-                bytes_counter_w = bytes_counter_r + 11'b1;
-            end
-            if(bytes_counter_r == 32) begin
-                state_w = S_GET_DATA;
-                bytes_counter_w = 11'b0;
-            end
+            bytes_counter_w = bytes_counter_r + 11'b1;
+            d_w[(((bytes_counter_r - 32) << 3)+7)-:8] = avm_readdata[7:0];
+            state_w = S_READ_READY;
+            StartRead(STATUS_BASE); 
 		end
         S_GET_DATA: begin
             //enc_w = avm_readdata[{avm_readdata[7:0], 3'b111} : {avm_readdata[7:0], 3'b000}];
-            if(avm_waitrequest == 1'd0) begin
-                enc_w[((bytes_counter_r << 3)+7)-:8] = avm_readdata[7:0];
-                bytes_counter_w = bytes_counter_r + 11'b1;
-            end
-            if(bytes_counter_r == 32) begin
+            enc_w[(((bytes_counter_r - 64) << 3)+7)-:8] = avm_readdata[7:0];
+            if(bytes_counter_r == 95) begin
                 state_w = S_WAIT_CALCULATE;
-                bytes_counter_w = 11'b0;
                 rsa_start_w = 1;
+                StartRead(STATUS_BASE);
+            end
+            else begin
+                state_w = S_READ_READY;
+                bytes_counter_w = bytes_counter_r + 11'b1;
+                StartRead(STATUS_BASE);    
             end
 		end
 		S_WAIT_CALCULATE: begin
@@ -133,21 +126,20 @@ always_comb begin
 		end
 		S_WRITE_READY: begin
 			if(avm_readdata[TX_OK_BIT] == 1) begin
-                if(avm_waitrequest == 1'd0) begin
-                    state_w = S_SEND_DATA;
-                    StartWrite(TX_BASE);
-                    bytes_counter_w = 11'b0;
-                end
+                state_w = S_SEND_DATA;
+                StartWrite(TX_BASE);
+                bytes_counter_w = 11'b0;
             end
         end
 		S_SEND_DATA: begin
-            if(avm_waitrequest == 1'd0) begin
+            if(bytes_counter_r == 30) begin
+                state_w = S_READ_READY;
+                StartRead(STATUS_BASE);
+            end
+            else begin
                 dec_w = (dec_r << 8);
                 bytes_counter_w = bytes_counter_r + 11'b1;
-            end
-            if(bytes_counter_r == 31) begin
-                state_w = S_READ_READY;
-                // -------------------------------------------------------
+                state_w = S_WRITE_READY;
                 StartRead(STATUS_BASE);
             end
         end
