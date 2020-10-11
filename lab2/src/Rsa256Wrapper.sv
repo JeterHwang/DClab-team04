@@ -76,14 +76,15 @@ always_comb begin
     avm_read_w          = avm_read_r;
     avm_write_w         = avm_write_r;
     state_w             = state_r;
-    bytes_counter_w     = 1'b0;
+    bytes_counter_w     = bytes_counter_r;
     rsa_start_w         = rsa_start_r;
     case (state_r)
 		S_READ_READY: begin
             if(avm_readdata[RX_OK_BIT] == 1'd1) begin
                 if(avm_waitrequest == 1'd0) begin
-                    state_w = S_GET_DATA;
+                    state_w = S_GET_PU_KEY;
                     StartRead(RX_BASE);
+                    bytes_counter_w = 11'd0;
                 end
             end
 		end
@@ -92,15 +93,15 @@ always_comb begin
             bytes_counter_w = bytes_counter_r + 1'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_GET_PR_KEY;
-                bytes_counter_w = 1'b0;
+                bytes_counter_w = 11'd0;
             end
 		end
         S_GET_PR_KEY: begin
-            d_w = avm_readdata_r[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
+            d_w = avm_readdata[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
             bytes_counter_w = bytes_counter_r + 1'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_GET_DATA;
-                bytes_counter_w = 1'b0;
+                bytes_counter_w = 11'b0;
             end
 		end
         S_GET_DATA: begin
@@ -108,15 +109,15 @@ always_comb begin
             bytes_counter_w = bytes_counter_r + 1'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_WAIT_CALCULATE;
-                bytes_counter_w = 1'b0;
+                bytes_counter_w = 11'b0;
                 rsa_start_w = 1;
             end
 		end
 		S_WAIT_CALCULATE: begin
             avm_read_w = 1'd0;
+            rsa_start_w = 0;
             if(rsa_finished) begin
                 if(avm_waitrequest == 1'd0) begin
-                    rsa_start_w = 1'd0;
                     dec_w = rsa_dec;
                     state_w = S_WRITE_READY;
                     avm_address_w = STATUS_BASE;
@@ -128,7 +129,7 @@ always_comb begin
                 if(avm_waitrequest == 1'd0) begin
                     state_w = S_SEND_DATA;
                     StartWrite(TX_BASE);
-                    bytes_counter_w = 1'b0;
+                    bytes_counter_w = 11'b0;
                 end
             end
         end
@@ -138,7 +139,7 @@ always_comb begin
                 bytes_counter_w = bytes_counter_r + 1'b1;
                 if(bytes_counter_r == 31) begin
                     state_w = S_READ_READY;
-                    bytes_counter_w = 1'b0;
+                    bytes_counter_w = 11'b0;
                     avm_address_w = STATUS_BASE;
                 end
             end
