@@ -29,7 +29,6 @@ logic [1:0] state_r, state_w;
 logic [10:0] bytes_counter_r, bytes_counter_w;
 logic [4:0] avm_address_r, avm_address_w;
 logic avm_read_r, avm_read_w, avm_write_r, avm_write_w;
-logic [31:0] avm_readdata_r, avm_readdata_w;
 
 logic rsa_start_r, rsa_start_w;
 logic rsa_finished;
@@ -38,7 +37,6 @@ logic [255:0] rsa_dec;
 assign avm_address = avm_address_r;
 assign avm_read = avm_read_r;
 assign avm_write = avm_write_r;
-assign avm_readdata = avm_readdata_r;
 assign avm_writedata = dec_r[247-:8];
 
 Rsa256Core rsa256_core(
@@ -80,10 +78,9 @@ always_comb begin
     state_w             = state_r;
     bytes_counter_w     = 1'b0;
     rsa_start_w         = rsa_start_r;
-    avm_readdata_w      = avm_readdata_r;
     case (state_r)
 		S_READ_READY: begin
-            if(avm_readdata_w[RX_OK_BIT] == 1'd1) begin
+            if(avm_readdata[RX_OK_BIT] == 1'd1) begin
                 if(avm_waitrequest == 1'd0) begin
                     state_w = S_GET_DATA;
                     StartRead(RX_BASE);
@@ -91,7 +88,7 @@ always_comb begin
             end
 		end
 		S_GET_PU_KEY: begin
-            n_w = avm_readdata_r[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
+            n_w = avm_readdata[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
             bytes_counter_w = bytes_counter_r + 1'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_GET_PR_KEY;
@@ -107,7 +104,7 @@ always_comb begin
             end
 		end
         S_GET_DATA: begin
-            enc_w = avm_readdata_r[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
+            enc_w = avm_readdata[((bytes_counter_r << 3)+7) : (bytes_counter_r << 3)];
             bytes_counter_w = bytes_counter_r + 1'b1;
             if(bytes_counter_r == 32) begin
                 state_w = S_WAIT_CALCULATE;
@@ -127,7 +124,7 @@ always_comb begin
             end
 		end
 		S_WRITE_READY: begin
-			if(avm_readdata_r[TX_OK_BIT] == 1) begin
+			if(avm_readdata[TX_OK_BIT] == 1) begin
                 if(avm_waitrequest == 1'd0) begin
                     state_w = S_SEND_DATA;
                     StartWrite(TX_BASE);
@@ -161,7 +158,6 @@ always_ff @(posedge avm_clk or posedge avm_rst) begin
         state_r         <= S_READ_READY;
         bytes_counter_r <= 63;
         rsa_start_r     <= 0;
-        avm_readdata_r  <= 32'd0;
     end else begin
         n_r             <= n_w;
         d_r             <= d_w;
@@ -173,7 +169,6 @@ always_ff @(posedge avm_clk or posedge avm_rst) begin
         state_r         <= state_w;
         bytes_counter_r <= bytes_counter_w;
         rsa_start_r     <= rsa_start_w;
-        avm_readdata_r  <= avm_readdata_w;
     end
 end
 
