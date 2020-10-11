@@ -165,7 +165,7 @@ always_ff @(posedge avm_clk or posedge avm_rst) begin
         avm_read_r      <= 1;
         avm_write_r     <= 0;
         state_r         <= S_READ_READY;
-        bytes_counter_r <= 63;
+        bytes_counter_r <= 0;
         rsa_start_r     <= 0;
     end else begin
         n_r             <= n_w;
