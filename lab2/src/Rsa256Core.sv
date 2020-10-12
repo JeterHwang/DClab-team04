@@ -100,9 +100,9 @@ always_comb begin
 	// state cases
 	case (state_r)
 		S_IDLE: begin
+			cal_fin_w = 1'b0;
 			if(i_start) begin
 				state_w 		= S_PREP;
-				cal_fin_w		= 1'd0;
 				text_w			= i_a;
 				// start prep calculation
 				prep_start_w	= 1'b1;
