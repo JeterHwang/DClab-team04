@@ -56,6 +56,7 @@ parameter S_PLAY_PAUSE = 5;
 logic i2c_oen, i2c_sdat;
 logic [19:0] addr_record, addr_play;
 logic [15:0] data_record, data_play, dac_data;
+logic sda_data;
 
 assign io_I2C_SDAT = (i2c_oen) ? i2c_sdat : 1'bz;
 
@@ -77,7 +78,7 @@ assign o_SRAM_UB_N = 1'b0;
 I2cInitializer init0(
 	.i_rst_n(i_rst_n),
 	.i_clk(i_clk_100K),
-	.i_start(),
+	.i_start(io_I2C_SDAT),
 	.o_finished(),
 	.o_sclk(o_I2C_SCLK),
 	.o_sdat(i2c_sdat),
@@ -134,10 +135,10 @@ end
 
 always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 	if (!i_rst_n) begin
-		
+		sda_data 	<=	io_I2C_SDAT;
 	end
 	else begin
-		
+		sda_data 	<=	io_I2C_SDAT; 
 	end
 end
 
