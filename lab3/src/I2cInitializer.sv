@@ -132,9 +132,9 @@ always_ff @(posedge i_clk) begin
         SDA_r       <= SDA_w;
         counts_r    <= counts_w;
         inits_r     <= init_w;
-        oen_r       <= oen_r;
+        oen_r       <= oen_w;
         ack_r       <= ack_w;
-        
+
     end
 end
 
