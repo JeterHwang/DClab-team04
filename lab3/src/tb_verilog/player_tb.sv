@@ -20,7 +20,7 @@ module player_tb;
         .o_aud_dacdat(out)
     );
     always begin
-        #(`HCYCLE) bclk=~bclk;
+        #(`H_CYCLE) bclk=~bclk;
     end
     always begin
         #(`HLR_CYCLE) lr_clk=~lr_clk;
