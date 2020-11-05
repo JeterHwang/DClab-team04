@@ -44,7 +44,7 @@ always_comb begin
 
 // @ posedge i_nclk could be wrong !!!!!
 always_ff @(negedge i_bclk or negedge i_rst_n) begin
-    if (i_rst_n) begin
+    if (!i_rst_n) begin
         aud_dacdat_r    <= aud_dacdat_w;
         counter_r       <= 0;
         state_r         <= IDLE;
