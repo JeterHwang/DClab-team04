@@ -33,7 +33,7 @@ always_comb begin
                 aud_dacdat_w = i_dac_data[15 - counter_r];
                 counter_w = counter_r+1;
             end
-            elif (counter_w == 16) begin
+            else if (counter_w == 16) begin
                 counter_w = 0;
                 if (i_daclrck) begin
                     state_w = IDLE;
