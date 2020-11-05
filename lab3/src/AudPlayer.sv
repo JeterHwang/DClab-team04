@@ -41,7 +41,8 @@ always_comb begin
                 end
             end
         end
-    end
+    endcase
+end
 // @ posedge i_nclk could be wrong !!!!!
 always_ff @(posedge i_bclk or posedge i_rst_n) begin
     if (i_rst_n) begin

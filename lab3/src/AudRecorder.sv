@@ -23,7 +23,7 @@ always_comb begin
     data_w              = data_r;
     counter_w           = counter_r;
     finish_w            = finish_r;
-    case (state_r) begin
+    case (state_r) 
         IDLE: begin
             if(i_start) begin
                 state_w = WAIT;
@@ -63,7 +63,7 @@ always_comb begin
         FINISH: begin
             counter_w = 0;
         end
-    end
+    endcase
 end
 
 always_ff @(posedge i_clk or posedge i_rst_n) begin
