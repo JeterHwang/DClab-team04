@@ -9,7 +9,7 @@ module AudPlayer(
 
 logic [15:0] aud_dacdat_r, aud_dacdat_w;
 logic [3:0]  counter_r, counter_w;
-logic state_r, state_w;
+logic [1:0]  state_r, state_w;
 assign o_aud_dactdat = aud_dacdat_r;
 
 always_comb begin
@@ -43,8 +43,8 @@ always_comb begin
     end
 
 // @ posedge i_nclk could be wrong !!!!!
-always_ff @(negedge i_bclk or negedge i_rst_n) begin
-    if (!i_rst_n) begin
+always_ff @(posedge i_bclk or posedge i_rst_n) begin
+    if (i_rst_n) begin
         aud_dacdat_r    <= aud_dacdat_w;
         counter_r       <= 0;
         state_r         <= IDLE;
