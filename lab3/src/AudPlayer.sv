@@ -19,17 +19,19 @@ always_comb begin
     case (state_r)
         IDLE: begin
             if (i_en && !i_daclrck) begin
-                state_w = SEND;
+                state_w = WAIT;
+                counter_w = 0;
             end
             else begin
                 counter_w = 0;
         end
-
-
+        WAIT: begin
+            state_w = SEND;
+        end
         SEND: begin
             if (counter_w != 16) begin
-                aud_dacdat_w[15 - counter_r] = i_dac_data[15 - counter_r];
-                counter_w = counter_r + 1;
+                aud_dacdat_w = i_dac_data[15 - counter_r];
+                counter_w = counter_r+1;
             end
             elif (counter_w == 16) begin
                 counter_w = 0;
