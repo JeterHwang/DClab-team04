@@ -43,7 +43,7 @@ always_comb begin
     end
 
 // @ posedge i_nclk could be wrong !!!!!
-always_ff @(posedge i_bclk or posedge i_rst_n) begin
+always_ff @(negedge i_bclk or negedge i_rst_n) begin
     if (i_rst_n) begin
         aud_dacdat_r    <= aud_dacdat_w;
         counter_r       <= 0;
