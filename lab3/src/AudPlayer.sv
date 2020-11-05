@@ -24,6 +24,7 @@ always_comb begin
             end
             else begin
                 counter_w = 0;
+            end
         end
         WAIT: begin
             state_w = SEND;
@@ -41,7 +42,6 @@ always_comb begin
             end
         end
     end
-end
 // @ posedge i_nclk could be wrong !!!!!
 always_ff @(posedge i_bclk or posedge i_rst_n) begin
     if (i_rst_n) begin
