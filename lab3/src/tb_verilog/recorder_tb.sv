@@ -24,7 +24,7 @@ module recorder_tb;
         .o_data(out),
     );
     always begin
-        #(`HCYCLE) bclk=~bclk;
+        #(`H_CYCLE) bclk=~bclk;
     end
     always begin
         #(`HLR_CYCLE) lr_clk=~lr_clk;
