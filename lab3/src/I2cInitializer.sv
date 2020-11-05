@@ -5,15 +5,16 @@ module I2cIntializer(
     output o_finished,
     output o_sclk,
     output o_sdat,
-    output O_oen
+    output o_oen
 );
 
-parameter S_IDLE =   3'd0;
-parameter S_BUFFER = 3'd1;
-parameter S_BLUE=    3'd2;
-parameter S_GREEN =  3'd3;
-parameter S_ACKING = 3'd4;
-parameter S_DONE =   3'd5;
+parameter S_IDLE    = 3'd0;
+parameter S_BUFFER  = 3'd1;
+parameter S_BLUE    = 3'd2;
+parameter S_GREEN   = 3'd3;
+parameter S_ACKING  = 3'd4;
+parameter S_DELAY   = 3'd5;
+parameter S_DONE    = 3'd6;
 
 parameter bit[23:0] INIT_DATA [0:6] = '{
 	24'b0011_0100_000_1111_0_0000_0000, // Reset
@@ -30,86 +31,84 @@ parameter bit[23:0] INIT_DATA [0:6] = '{
 };
 
 
-logic [1:0] state_r , state_w;
+logic [2:0] state_r , state_w;
 logic       SCL_r, SCL_w;
 logic       oen_r, oen_w;
 logic       SDA_r, SDA_w;
-logic       finished_r,finished_w;
+logic       finished_r, finished_w;
 logic       ack_r,ack_w;
-logic [5:0] counts_r , counts_w;
+logic [5:0] counts_r, counts_w;
 logic [4:0] init_r, init_w;
 
-assign o_finished = finished_r;
-assign o_sclk = SCL_r;
-assign io_sdat =  SDA_r;
+assign o_finished   = finished_r;
+assign o_sclk       = SCL_r;
+assign o_sdat       = SDA_r;
+assign o_oen        = oen_r;
 
 always_comb begin
-    state_w = state_r;
-    fininshed_w = fininshed_r;
-    SCL_w = SCL_r;
-    SDA_w = SDA_r;
-    oen_w = oen_r;
-    counts_w = counts_w;
-    init_w = init_r;
-    ack_w = ack_r;
-
+    state_w     = state_r;
+    finished_w  = finished_r;
+    SCL_w       = SCL_r;
+    SDA_w       = SDA_r;
+    oen_w       = oen_r;
+    counts_w    = counts_w;
+    init_w      = init_r;
+    ack_w       = ack_r;
     case (state_r)
         S_IDLE: begin
             if (i_start) begin
-                SDA_w = 1'b0;
-                oen_w = 1'b1;
-                SCL_w = 1'b1;
-                state_w = S_BUFFER;
+                SDA_w       = 1'b0;
+                state_w     = S_BUFFER;
             end
         end
-
         S_BUFFER: begin
-                state_w = S_BLUE;
+            state_w     = S_BLUE;
+            SCL_w       = 1'b0;
+            counts_w    = 6'd0;
         end
-        
         S_BLUE: begin
-            state_w = S_GREEN;
-            // oen_w = 1'b1 ;                            // is outputing
-            SCL_w = 1'b1 ;                            // 0
-            SDA_w = INIT_DATA[init_r][23- counts_r];  // x->x'
-            counts_w = counts_r + 1;  
+            SCL_w       = 1'b1 ; 
+            if()
+            else if(counts_r == 8 || counts_r == 16 || counts_r == 24) begin
+                state_w     = S_ACKING;
+                oen_w       = 1'b1;
+            end
+            else begin
+                state_w     = S_GREEN;
+                SDA_w       = INIT_DATA[init_r][23 - counts_r];
+            end
         end
-
         S_GREEN: begin
-            SCL_w = 1'b0;
-            if (counts_r == 8 || counts_r == 16 || counts_r == 24 ) begin
-                state_w = S_ACKING;
-            end
-            else begin
-                state_w = S_BLUE;
-            end
-            
+            state_w     = S_BLUE;
+            SCL_w       = 1'b0;
+            counts_w    = counts_r + 1;  
         end
-
         S_ACKING: begin
-            oen_w = 1'b0 ;     // not outputing
-            if (ack_r == 1'b0) begin
-                ack_w = 1'b1;git 
-                SCL_w = 1'b0;
+            oen_w       = 1'b0 ;
+            SCL_w       = 1'b0;
+            state_w     = S_BLUE;
+            if(counts_r == 24) begin
+                state_w     = S_DELAY;
             end
             else begin
-                ack_w = 1'b0;
-                SCL_w = 1'b1;
-                if (counts_r == 24) begin
-                    state_w = S_DONE;
-                    init_w = init_r + 1;
-                end
-                else begin
-                    state_w = S_BLUE;
-                end
+                state_w     = S_BLUE;
             end
+        end
+        S_DELAY: begin
+            state_w     = S_DONE;
+            SDA_w       = 1'b1;
         end
         S_DONE: begin
-            state_w = S_IDLE;
-            SDA_w = 1'b1;
-            SCL_w = 1'b1;
+            if(init_r == 6) begin
+                state_w      = S_IDLE;
+                finished_w   = 1'b1;
+            end
+            else begin
+                state_w     = S_BUFFER;
+                SDA_w       = 1'b0;
+                init_w      = init_r + 1;    
+            end
         end
-              
     endcase
     
 end

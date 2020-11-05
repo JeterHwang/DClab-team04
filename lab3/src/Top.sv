@@ -53,7 +53,13 @@ parameter S_RECD_PAUSE = 3;
 parameter S_PLAY       = 4;
 parameter S_PLAY_PAUSE = 5;
 
+logic [2:0] state_r, state_w;
+logic mode_r, mode_w;
+
+logic i2c_start_r, i2c_start_w;
+logic i2c_finish;
 logic i2c_oen, i2c_sdat;
+
 logic [19:0] addr_record, addr_play;
 logic [15:0] data_record, data_play, dac_data;
 logic sda_data;
@@ -78,8 +84,8 @@ assign o_SRAM_UB_N = 1'b0;
 I2cInitializer init0(
 	.i_rst_n(i_rst_n),
 	.i_clk(i_clk_100K),
-	.i_start(io_I2C_SDAT),
-	.o_finished(),
+	.i_start(i2c_start_r),
+	.o_finished(i2c_finish),
 	.o_sclk(o_I2C_SCLK),
 	.o_sdat(i2c_sdat),
 	.o_oen(i2c_oen) // you are outputing (you are not outputing only when you are "ack"ing.)
@@ -131,6 +137,42 @@ AudRecorder recorder0(
 
 always_comb begin
 	// design your control here
+	case (state_r)
+		S_IDLE: begin
+			if(i_key_0) begin
+				i2c_start_w		= 1'b1;
+				state_w			= S_I2C;	
+				mode_w			= 1'b0;
+			end	
+			else if(i_key_1) begin
+				i2c_start_w		= 1'b1;
+				state_w			= S_I2C;
+				mode_w			= 1'b1;
+			end		
+		end
+		S_I2C: begin
+			if(i2c_finish) begin
+				if(mode_r == 1'b0) begin
+					state_w		= S_RECD;
+				end
+				else begin
+					state_w		= S_PLAY;
+				end
+			end
+		end
+		S_RECD: begin
+			
+		end
+		S_RECD_PAUSE: begin
+			
+		end
+		S_PLAY: begin
+			
+		end
+		S_PLAY_PAUSE: begin
+			
+		end
+	endcase
 end
 
 always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
