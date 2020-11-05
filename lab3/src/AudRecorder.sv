@@ -37,11 +37,7 @@ always_comb begin
             if(i_pause) begin
                 state_w = PAUSE;
             end
-            if(address_w ==1024000 || i_stop) begin
-                state_w = FINISH;
-                counter_w = 0;
-                finish_w = 1;
-            end
+            
             if(!i_lrc) begin
                 data_w[16-counter_r] = i_data;
                 counter_w = counter_r+1;
@@ -49,14 +45,18 @@ always_comb begin
                     address_w = address_r+1;
                     counter_w = 0;
                 end
+                if(address_w == 1024000 || i_stop) begin
+                    state_w = FINISH;
+                    counter_w = 0;
+                    finish_w = 1;
+                end
             end
         end
-        
         PAUSE: begin
             if(finish_w == 1) begin
                 state_w = FINISH;
             end
-            if(!pause) begin
+            if(!i_pause) begin
                 state_w = REC;
             end
         end
