@@ -125,10 +125,16 @@ always_ff @(posedge i_clk) begin
         init_r      <= 1'b0;   
         ack_r       <= 1'b0;
 
-
     end
     else begin
-        pass
+        state_r		<= state_w;
+        SCL_r       <= SCL_w;
+        SDA_r       <= SDA_w;
+        counts_r    <= counts_w;
+        inits_r     <= init_w;
+        oen_r       <= oen_r;
+        ack_r       <= ack_w;
+        
     end
 end
 
