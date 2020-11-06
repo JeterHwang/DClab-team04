@@ -3,7 +3,7 @@
 
 module I2C_tb(
     inout SDA_data,
-    output SCL_clk;
+    output SCL_clk
 );
 localparam HCLK = CLK / 2;
 logic clk, rst, start;
