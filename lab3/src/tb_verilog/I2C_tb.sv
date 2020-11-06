@@ -1,18 +1,18 @@
 `timescale 1ns/100ps
-`define CLK 10
 
 module I2C_tb(
-    inout SDA_data;
-    output SCL_clk;
+    inout SDA_data,
+    output SCL_clk
 );
+localparam CLK = 10;
 localparam HCLK = CLK / 2;
 logic clk, rst, start;
 logic finished, sclk, sdat, oen; 
 logic [23:0] output_data;
 logic [167:0] receive_data;
 I2cIntializer I2C(
-    .i_rst_n(clk),
-    .i_clk(rst),
+    .i_rst_n(rst),
+    .i_clk(clk),
     .i_start(start),
     .o_finished(finished),
     .o_sclk(sclk),
@@ -29,8 +29,8 @@ always #HCLK clk = ~clk;
 task readdata();    
     @(negedge sdat);
     @(negedge sclk);
-    for(int i = 7; i < 24; i+=8) begin
-        for(int j = 0; j < 8; j++) begin
+    for(int i = 23; i > 0; i = i - 8) begin
+        for(int j = 0; j < 8; j = j + 1) begin
             @(posedge sclk);
             output_data[i - j] = sdat;    
         end
@@ -41,18 +41,12 @@ task readdata();
 endtask
 
 initial begin
-    `ifdef FSDB
     $fsdbDumpfile("I2C.fsdb");
-    $fsdbDumpvars();
-    `endif
-    
-    `ifdef VCD
-    $dumpfile("I2C.vcd");
-    $dumpvars();
-    `endif     
-    rst = 1;
-    #(2 * CLK);
+    $fsdbDumpvars;
+
     rst = 0;
+    #(2 * CLK);
+    rst = 1;
     for(int i = 0; i < 10; i++) begin
         @(posedge clk);
     end
@@ -67,7 +61,7 @@ end
 always@(posedge sdat) begin
     if(sclk) begin
         $display("=========");
-        $display("data = %24b", output_data);
+        $display("data = %4b_%4b_%3b_%4b_%b_%4b_%4b", output_data[23:20], output_data[19:16], output_data[15:13], output_data[12:9], output_data[8], output_data[7:4], output_data[3:0]);
         $display("=========");
     end
 end
@@ -80,7 +74,7 @@ always@(posedge clk) begin
     end
 end
 initial begin
-	#(500000 * CLK)
+	#(1000 * CLK)
 	$display("Too slow, abort.");
 	$finish;
 end
