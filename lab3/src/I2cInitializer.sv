@@ -15,7 +15,7 @@ parameter S_GREEN   = 3'd3;
 parameter S_DELAY   = 3'd4;
 parameter S_DONE    = 3'd5;
 
-parameter [23:0] INIT_DATA [6:0] = '{
+parameter [26:0] INIT_DATA [6:0] = '{
 	// 24'b0011_0100_000_0000_0_1001_0111, // Left Line In
 	// 24'b0011_0100_000_0001_0_1001_0111,	// Right Line In
 	// 24'b0011_0100_000_0010_0_0111_1001, // Left Headphone Out 
@@ -28,7 +28,6 @@ parameter [23:0] INIT_DATA [6:0] = '{
     27'b0011_0100_1_000_0100_0_1_0001_0101_1, // Analogue Audio Path Control
     27'b0011_0100_1_000_1111_0_1_0000_0000_1 // Reset
 };
-
 
 logic [2:0] state_r , state_w;
 logic       SCL_r, SCL_w;
