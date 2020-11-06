@@ -17,7 +17,7 @@ parameter S_BLUE2   = 3'd5;
 parameter S_DELAY   = 3'd6;
 parameter S_DONE    = 3'd7;
 
-parameter bit[23:0] INIT_DATA [0:6] = '{
+parameter bit[23:0] INIT_DATA [6:0] = {
 	24'b0011_0100_000_1111_0_0000_0000, // Reset
 	// 24'b0011_0100_000_0000_0_1001_0111, // Left Line In
 	// 24'b0011_0100_000_0001_0_1001_0111,	// Right Line In
