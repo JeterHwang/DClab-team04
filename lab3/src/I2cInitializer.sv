@@ -15,18 +15,18 @@ parameter S_GREEN   = 3'd3;
 parameter S_DELAY   = 3'd4;
 parameter S_DONE    = 3'd5;
 
-parameter [26:0] INIT_DATA [6:0] = '{
+parameter [27:0] INIT_DATA [6:0] = '{
 	// 24'b0011_0100_000_0000_0_1001_0111, // Left Line In
 	// 24'b0011_0100_000_0001_0_1001_0111,	// Right Line In
 	// 24'b0011_0100_000_0010_0_0111_1001, // Left Headphone Out 
 	// 24'b0011_0100_000_0011_0_0111_1001,	// Right Headphone Out
-	27'b0011_0100_1_000_1001_0_1_0000_0001_1,  // Active Control
-    27'b0011_0100_1_000_1000_0_1_0001_1001_1, // Sampling Control
-    27'b0011_0100_1_000_0111_0_1_0100_0010_1, // Digital Audio Interface Format
-    27'b0011_0100_1_000_0110_0_1_0000_0000_1, // Power Down Control
-    27'b0011_0100_1_000_0101_0_1_0000_0000_1, // Digital Audio Path Control
-    27'b0011_0100_1_000_0100_0_1_0001_0101_1, // Analogue Audio Path Control
-    27'b0011_0100_1_000_1111_0_1_0000_0000_1 // Reset
+	28'b0011_0100_1_000_1001_0_1_0000_0001_10,  // Active Control
+    28'b0011_0100_1_000_1000_0_1_0001_1001_10, // Sampling Control
+    28'b0011_0100_1_000_0111_0_1_0100_0010_10, // Digital Audio Interface Format
+    28'b0011_0100_1_000_0110_0_1_0000_0000_10, // Power Down Control
+    28'b0011_0100_1_000_0101_0_1_0000_0000_10, // Digital Audio Path Control
+    28'b0011_0100_1_000_0100_0_1_0001_0101_10, // Analogue Audio Path Control
+    28'b0011_0100_1_000_1111_0_1_0000_0000_10 // Reset
 };
 
 logic [2:0] state_r , state_w;
@@ -62,7 +62,7 @@ always_comb begin
         S_BUFFER: begin
             state_w     = S_BLUE;
             SCL_w       = 1'b0;
-            SDA_w       = INIT_DATA[init_r][26 - counts_r];
+            SDA_w       = INIT_DATA[init_r][27 - counts_r];
             counts_w    = 6'd0;
         end
         S_BLUE: begin
@@ -75,7 +75,7 @@ always_comb begin
         end
         S_GREEN: begin
             SCL_w       = 1'b0;
-            SDA_w       = INIT_DATA[init_r][26 - counts_r];
+            SDA_w       = INIT_DATA[init_r][27 - counts_r];
             state_w     = S_BLUE;
             if(counts_r == 8 || counts_r == 17 || counts_r == 26)  
                 oen_w       = 1'b0;
