@@ -41,15 +41,9 @@ task readdata();
 endtask
 
 initial begin
-    `ifdef FSDB
     $fsdbDumpfile("I2C.fsdb");
-    $fsdbDumpvars();
-    `endif
-    
-    `ifdef VCD
-    $dumpfile("I2C.vcd");
-    $dumpvars();
-    `endif     
+    $fsdbDumpvars;
+
     rst = 1;
     #(2 * CLK);
     rst = 0;
