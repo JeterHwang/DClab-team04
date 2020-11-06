@@ -58,6 +58,7 @@ always_comb begin
             if (i_start) begin
                 SDA_w       = 1'b0;
                 state_w     = S_BUFFER;
+                init_w      = 5'd0;
             end
         end
         S_BUFFER: begin
@@ -65,7 +66,6 @@ always_comb begin
             SCL_w       = 1'b0;
             SDA_w       = INIT_DATA[init_r][23 - counts_r];
             counts_w    = 6'd0;
-            init_w      = 5'd0;
         end
         S_BLUE: begin
             SCL_w       = 1'b1 ; 
