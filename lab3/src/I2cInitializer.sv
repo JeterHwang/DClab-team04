@@ -13,8 +13,9 @@ parameter S_BUFFER  = 3'd1;
 parameter S_BLUE    = 3'd2;
 parameter S_GREEN   = 3'd3;
 parameter S_ACKING  = 3'd4;
-parameter S_DELAY   = 3'd5;
-parameter S_DONE    = 3'd6;
+parameter S_BLUE2   = 3'd5;
+parameter S_DELAY   = 3'd6;
+parameter S_DONE    = 3'd7;
 
 parameter bit[23:0] INIT_DATA [0:6] = '{
 	24'b0011_0100_000_1111_0_0000_0000, // Reset
@@ -36,7 +37,6 @@ logic       SCL_r, SCL_w;
 logic       oen_r, oen_w;
 logic       SDA_r, SDA_w;
 logic       finished_r, finished_w;
-logic       ack_r,ack_w;
 logic [5:0] counts_r, counts_w;
 logic [4:0] init_r, init_w;
 
@@ -53,7 +53,6 @@ always_comb begin
     oen_w       = oen_r;
     counts_w    = counts_w;
     init_w      = init_r;
-    ack_w       = ack_r;
     case (state_r)
         S_IDLE: begin
             if (i_start) begin
@@ -65,11 +64,11 @@ always_comb begin
             state_w     = S_BLUE;
             SCL_w       = 1'b0;
             counts_w    = 6'd0;
+            init_w      = 5'd0;
         end
         S_BLUE: begin
             SCL_w       = 1'b1 ; 
-            if()
-            else if(counts_r == 8 || counts_r == 16 || counts_r == 24) begin
+            if(counts_r == 8 || counts_r == 16 || counts_r == 24) begin
                 state_w     = S_ACKING;
                 oen_w       = 1'b1;
             end
@@ -88,11 +87,16 @@ always_comb begin
             SCL_w       = 1'b0;
             state_w     = S_BLUE;
             if(counts_r == 24) begin
-                state_w     = S_DELAY;
+                SDA_w       = 1'b0;
+                state_w     = S_BLUE2;
             end
             else begin
                 state_w     = S_BLUE;
             end
+        end
+        S_BLUE2: begin
+            state_w     = S_DELAY;
+            SCL_w       = 1'b1;
         end
         S_DELAY: begin
             state_w     = S_DONE;
@@ -122,7 +126,6 @@ always_ff @(posedge i_clk) begin
 
         counts_r    <= 1'b0;
         init_r      <= 1'b0;   
-        ack_r       <= 1'b0;
 
     end
     else begin
@@ -132,8 +135,6 @@ always_ff @(posedge i_clk) begin
         counts_r    <= counts_w;
         inits_r     <= init_w;
         oen_r       <= oen_w;
-        ack_r       <= ack_w;
-
     end
 end
 
