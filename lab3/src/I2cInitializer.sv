@@ -15,7 +15,7 @@ parameter S_GREEN   = 3'd3;
 parameter S_DELAY   = 3'd4;
 parameter S_DONE    = 3'd5;
 
-parameter bit[23:0] INIT_DATA [6:0] = {
+parameter [23:0] INIT_DATA [6:0] = {
 	// 24'b0011_0100_000_0000_0_1001_0111, // Left Line In
 	// 24'b0011_0100_000_0001_0_1001_0111,	// Right Line In
 	// 24'b0011_0100_000_0010_0_0111_1001, // Left Headphone Out 
