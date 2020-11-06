@@ -75,19 +75,18 @@ always_comb begin
             end
             else begin
                 state_w     = S_GREEN;
+                counts_w    = counts_r + 1;
             end
         end
         S_GREEN: begin
             state_w     = S_BLUE;
             SCL_w       = 1'b0;
             SDA_w       = INIT_DATA[init_r][23 - counts_r];
-            counts_w    = counts_r + 1;  
         end
         S_ACKING: begin
             SCL_w       = 1'b0;
             state_w     = S_BLUE;
             oen_w       = 1'b1 ;
-            counts_w    = counts_r + 1;  
             if(counts_r == 24) begin
                 SDA_w       = 1'b0;
                 state_w     = S_BLUE2;
