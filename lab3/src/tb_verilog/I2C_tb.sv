@@ -1,10 +1,10 @@
 `timescale 1ns/100ps
-`define CLK 10
 
 module I2C_tb(
     inout SDA_data,
     output SCL_clk
 );
+localparam CLK = 10;
 localparam HCLK = CLK / 2;
 logic clk, rst, start;
 logic finished, sclk, sdat, oen; 
