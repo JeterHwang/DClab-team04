@@ -74,7 +74,7 @@ always@(posedge clk) begin
     end
 end
 initial begin
-	#(500000 * CLK)
+	#(1000 * CLK)
 	$display("Too slow, abort.");
 	$finish;
 end
