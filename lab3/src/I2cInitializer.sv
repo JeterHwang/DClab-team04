@@ -63,7 +63,6 @@ always_comb begin
             state_w     = S_BLUE;
             SCL_w       = 1'b0;
             SDA_w       = INIT_DATA[init_r][27 - counts_r];
-            counts_w    = 6'd0;
         end
         S_BLUE: begin
             SCL_w       = 1'b1 ; 
@@ -95,6 +94,7 @@ always_comb begin
             else begin
                 state_w     = S_BUFFER;
                 SDA_w       = 1'b0;
+                counts_w    = 6'd0;
                 init_w      = init_r + 1;    
             end
         end
