@@ -1,0 +1,73 @@
+ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
+TOOL:	ncverilog	12.20-s012: Started on Nov 07, 2020 at 03:17:53 CST
+ncverilog
+	+access+r
+	I2C_tb.sv
+	../I2cInitializer.sv
+Recompiling... reason: file './I2C_tb.sv' is newer than expected.
+	expected: Sat Nov  7 03:05:34 2020
+	actual:   Sat Nov  7 03:17:51 2020
+file: I2C_tb.sv
+	module worklib.I2C_tb:sv
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.I2C_tb:sv <0x523d6352>
+			streams:  17, words: 12864
+	Loading native compiled code:     .................... Done
+	Building instance specific data structures.
+	Design hierarchy summary:
+		                   Instances  Unique
+		Modules:                   2       2
+		Registers:                26      26
+		Scalar wires:             13       -
+		Always blocks:             5       5
+		Initial blocks:            3       3
+		Cont. assignments:         1       6
+		Pseudo assignments:        5       5
+		Simulation timescale:  100ps
+	Writing initial simulation snapshot: worklib.I2C_tb:sv
+Loading snapshot worklib.I2C_tb:sv .................... Done
+*Verdi3* Loading libsscore_ius122.so
+*Verdi3* : Enable Parallel Dumping.
+ncsim> source /opt/CAD/INCISIV/cur/tools/inca/files/ncsimrc
+ncsim> run
+FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
+(C) 1996 - 2013 by Synopsys, Inc.
+*Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi3* : Create FSDB file 'I2C.fsdb'
+*Verdi3* : Begin traversing the scopes, layer (0).
+*Verdi3* : End of traversing.
+=========
+data = xxxx_xxxx_xxx_xxxx_x_xxxx_xxxx
+=========
+=========
+data = 0011_0100_000_1111_0_0000_0000
+=========
+=========
+data = 0011_0100_000_0100_0_0001_0101
+=========
+=========
+data = 0011_0100_000_0101_0_0000_0000
+=========
+=========
+data = 0011_0100_000_0110_0_0000_0000
+=========
+=========
+data = 0011_0100_000_0111_0_0100_0010
+=========
+=========
+data = 0011_0100_000_1000_0_0001_1001
+=========
+=========
+data = 0011_0100_000_1001_0_0000_0001
+=========
++=====================+
+| Simulation Complete |
++=====================+
+Simulation complete via $finish(1) at time 4195 NS + 0
+./I2C_tb.sv:73 		$finish;
+ncsim> exit
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 07, 2020 at 03:18:41 CST  (total: 00:00:48)
