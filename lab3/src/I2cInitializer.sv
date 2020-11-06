@@ -82,7 +82,6 @@ always_comb begin
             oen_w       = 1'b1 ;
             SDA_w       = INIT_DATA[init_r][26 - counts_r];
             state_w     = S_BLUE;
-            end
         end
         S_DELAY: begin
             state_w     = S_DONE;
