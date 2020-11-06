@@ -61,7 +61,7 @@ end
 always@(posedge sdat) begin
     if(sclk) begin
         $display("=========");
-        $display("data = %24b", output_data);
+        $display("data = %4b_%4b_%3b_%4b_%b_%4b_%4b", output_data[23:20], output_data[19:16], output_data[15:13], output_data[12:9], output_data[8], output_data[7:4], output_data[3:0]);
         $display("=========");
     end
 end
