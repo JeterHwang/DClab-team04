@@ -68,10 +68,6 @@ always_comb begin
         end
         S_BLUE: begin
             SCL_w       = 1'b1 ; 
-            if(counts_r == 8 || counts_r == 17 || counts_r == 26) 
-                oen_w       = 1'b0;
-            else
-                oen_w       = 1'b1;
             if(counts_r == 27)
                 state_w     = S_DELAY;
             else
@@ -80,9 +76,13 @@ always_comb begin
         end
         S_GREEN: begin
             SCL_w       = 1'b0;
-            oen_w       = 1'b1 ;
             SDA_w       = INIT_DATA[init_r][26 - counts_r];
             state_w     = S_BLUE;
+            if(counts_r == 8 || counts_r == 17 || counts_r == 26)  
+                oen_w       = 1'b0;
+            else 
+                oen_w       = 1'b1;
+            
         end
         S_DELAY: begin
             state_w     = S_DONE;
