@@ -11,8 +11,8 @@ logic finished, sclk, sdat, oen;
 logic [23:0] output_data;
 logic [167:0] receive_data;
 I2cIntializer I2C(
-    .i_rst_n(clk),
-    .i_clk(rst),
+    .i_rst_n(rst),
+    .i_clk(clk),
     .i_start(start),
     .o_finished(finished),
     .o_sclk(sclk),
