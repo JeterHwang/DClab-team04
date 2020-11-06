@@ -2,7 +2,7 @@
 `define CLK 10
 
 module I2C_tb(
-    inout SDA_data;
+    inout SDA_data,
     output SCL_clk;
 );
 localparam HCLK = CLK / 2;

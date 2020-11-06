@@ -136,7 +136,7 @@ always_ff @(posedge i_clk) begin
         SCL_r       <= SCL_w;
         SDA_r       <= SDA_w;
         counts_r    <= counts_w;
-        inits_r     <= init_w;
+        init_r     <= init_w;
         oen_r       <= oen_w;
     end
 end
