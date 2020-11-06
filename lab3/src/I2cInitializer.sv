@@ -108,15 +108,16 @@ always_ff @(posedge i_clk) begin
         oen_r       <= 1'b1;
         SCL_r       <= 1'b1;
         SDA_r       <= 1'b1;
-
-        counts_r    <= 1'b0;
-        init_r      <= 1'b0;   
+        finished_r  <= 1'b0;
+        counts_r    <= 6'd0;
+        init_r      <= 5'd0;   
 
     end
     else begin
         state_r		<= state_w;
         SCL_r       <= SCL_w;
         SDA_r       <= SDA_w;
+        finished_r  <= finished_w;
         counts_r    <= counts_w;
         init_r      <= init_w;
         oen_r       <= oen_w;
