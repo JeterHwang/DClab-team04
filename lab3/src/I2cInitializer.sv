@@ -16,17 +16,17 @@ parameter S_DELAY   = 3'd4;
 parameter S_DONE    = 3'd5;
 
 parameter bit[23:0] INIT_DATA [6:0] = {
-	27'b0011_0100_1_000_1111_0_1_0000_0000_1, // Reset
 	// 24'b0011_0100_000_0000_0_1001_0111, // Left Line In
 	// 24'b0011_0100_000_0001_0_1001_0111,	// Right Line In
 	// 24'b0011_0100_000_0010_0_0111_1001, // Left Headphone Out 
 	// 24'b0011_0100_000_0011_0_0111_1001,	// Right Headphone Out
-	27'b0011_0100_1_000_0100_0_1_0001_0101_1, // Analogue Audio Path Control
-	27'b0011_0100_1_000_0101_0_1_0000_0000_1, // Digital Audio Path Control
-	27'b0011_0100_1_000_0110_0_1_0000_0000_1, // Power Down Control
-	27'b0011_0100_1_000_0111_0_1_0100_0010_1, // Digital Audio Interface Format
-	27'b0011_0100_1_000_1000_0_1_0001_1001_1, // Sampling Control
 	27'b0011_0100_1_000_1001_0_1_0000_0001_1  // Active Control
+    27'b0011_0100_1_000_1000_0_1_0001_1001_1, // Sampling Control
+    27'b0011_0100_1_000_0111_0_1_0100_0010_1, // Digital Audio Interface Format
+    27'b0011_0100_1_000_0110_0_1_0000_0000_1, // Power Down Control
+    27'b0011_0100_1_000_0101_0_1_0000_0000_1, // Digital Audio Path Control
+    27'b0011_0100_1_000_0100_0_1_0001_0101_1, // Analogue Audio Path Control
+    27'b0011_0100_1_000_1111_0_1_0000_0000_1, // Reset
 };
 
 
