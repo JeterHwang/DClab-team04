@@ -29,8 +29,8 @@ always #HCLK clk = ~clk;
 task readdata();    
     @(negedge sdat);
     @(negedge sclk);
-    for(int i = 7; i < 24; i+=8) begin
-        for(int j = 0; j < 8; j++) begin
+    for(int i = 23; i > 0; i = i - 8) begin
+        for(int j = 0; j < 8; j = j + 1) begin
             @(posedge sclk);
             output_data[i - j] = sdat;    
         end
