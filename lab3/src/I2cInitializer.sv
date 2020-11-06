@@ -63,6 +63,7 @@ always_comb begin
         S_BUFFER: begin
             state_w     = S_BLUE;
             SCL_w       = 1'b0;
+            SDA_w       = INIT_DATA[init_r][23 - counts_r];
             counts_w    = 6'd0;
             init_w      = 5'd0;
         end
@@ -70,27 +71,29 @@ always_comb begin
             SCL_w       = 1'b1 ; 
             if(counts_r == 8 || counts_r == 16 || counts_r == 24) begin
                 state_w     = S_ACKING;
-                oen_w       = 1'b1;
+                oen_w       = 1'b0;
             end
             else begin
                 state_w     = S_GREEN;
-                SDA_w       = INIT_DATA[init_r][23 - counts_r];
             end
         end
         S_GREEN: begin
             state_w     = S_BLUE;
             SCL_w       = 1'b0;
+            SDA_w       = INIT_DATA[init_r][23 - counts_r];
             counts_w    = counts_r + 1;  
         end
         S_ACKING: begin
-            oen_w       = 1'b0 ;
             SCL_w       = 1'b0;
             state_w     = S_BLUE;
+            oen_w       = 1'b1 ;
+            counts_w    = counts_r + 1;  
             if(counts_r == 24) begin
                 SDA_w       = 1'b0;
                 state_w     = S_BLUE2;
             end
             else begin
+                SDA_w       = INIT_DATA[init_r][23 - counts_r];
                 state_w     = S_BLUE;
             end
         end
