@@ -57,12 +57,13 @@ always_comb begin
                 SDA_w       = 1'b0;
                 state_w     = S_BUFFER;
                 init_w      = 5'd0;
+                counts_w    = 6'd0;
             end
         end
         S_BUFFER: begin
             state_w     = S_BLUE;
             SCL_w       = 1'b0;
-            SDA_w       = INIT_DATA[init_r][23 - counts_r];
+            SDA_w       = INIT_DATA[init_r][26 - counts_r];
             counts_w    = 6'd0;
         end
         S_BLUE: begin
