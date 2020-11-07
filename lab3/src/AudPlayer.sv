@@ -3,7 +3,7 @@ module AudPlayer(
     input   i_bclk,
     input   i_daclrck,
     input   i_en,
-    input   i_dac_data,
+    input   [15:0] i_dac_data,
     output  o_aud_dacdat
 );
 localparam S_IDLE = 0;
@@ -34,7 +34,7 @@ always_comb begin
         end
         S_SEND: begin
             if (counter_r != 16) begin
-                aud_dacdat_w = i_dac_data[15 - counter_r];
+                aud_dacdat_w = i_dac_data[15-counter_r];
                 counter_w = counter_r+1;
             end
             else if (counter_r == 16) begin
