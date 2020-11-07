@@ -177,7 +177,7 @@ Top top0(
 	.i_key_0(key0down),
 	.i_key_1(key1down),
 	.i_key_2(key2down),
-	// .i_speed(SW[3:0]), // design how user can decide mode on your own
+	.i_speed(SW[3:0]), // design how user can decide mode on your own
 	
 	// AudDSP and SRAM
 	.o_SRAM_ADDR(SRAM_ADDR), // [19:0]
@@ -188,6 +188,17 @@ Top top0(
 	.o_SRAM_LB_N(SRAM_LB_N),
 	.o_SRAM_UB_N(SRAM_UB_N),
 	
+	// SDRAM
+	.o_DRAM_ADDR(DRAM_ADDR),
+	.o_DRAM_BA(DRAM_BA),
+	.io_DRAM_DQ(DRAM_DQ),
+	.o_DRAM_DQM(DRAM_DQM),
+	.o_DRAM_CAS_N(DRAM_CAS_N),
+	.o_DRAM_CKE(DRAM_CKE),
+	.o_DRAM_CLK(DRAM_CLK),
+	.o_DRAM_CS_N(DRAM_CS_N),
+	.o_DRAM_RAS_N(DRAM_RAS_N),
+	.o_DRAM_WE_N(DRAM_WE_N),
 	// I2C
 	.i_clk_100k(CLK_100K),
 	.o_I2C_SCLK(I2C_SCLK),
@@ -204,18 +215,18 @@ Top top0(
 	// .o_record_time(recd_time),
 	// .o_play_time(play_time),
 
-	// LCD (optional display)
-	// .i_clk_800k(CLK_800K),
-	// .o_LCD_DATA(LCD_DATA), // [7:0]
-	// .o_LCD_EN(LCD_EN),
-	// .o_LCD_RS(LCD_RS),
-	// .o_LCD_RW(LCD_RW),
-	// .o_LCD_ON(LCD_ON),
-	// .o_LCD_BLON(LCD_BLON),
+	LCD (optional display)
+	.i_clk_800k(CLK_800K),
+	.o_LCD_DATA(LCD_DATA), // [7:0]
+	.o_LCD_EN(LCD_EN),
+	.o_LCD_RS(LCD_RS),
+	.o_LCD_RW(LCD_RW),
+	.o_LCD_ON(LCD_ON),
+	.o_LCD_BLON(LCD_BLON),
 
-	// LED
-	// .o_ledg(LEDG), // [8:0]
-	// .o_ledr(LEDR) // [17:0]
+	LED
+	.o_ledg(LEDG), // [8:0]
+	.o_ledr(LEDR) // [17:0]
 );
 
 // SevenHexDecoder seven_dec0(
