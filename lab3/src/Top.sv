@@ -4,7 +4,7 @@ module Top (
 	input i_key_0,
 	input i_key_1,
 	input i_key_2,
-	// input [3:0] i_speed, // design how user can decide mode on your own
+	input [3:0] i_speed, // design how user can decide mode on your own
 	
 	// AudDSP and SRAM
 	output [19:0] o_SRAM_ADDR,
@@ -15,6 +15,18 @@ module Top (
 	output        o_SRAM_LB_N,
 	output        o_SRAM_UB_N,
 	
+	// SDRAM
+	output [12:0] o_DRAM_ADDR,
+	output [1:0]  o_DRAM_BA,
+	inout  [31:0] io_DRAM_DQ,
+	output [3:0]  o_DRAM_DQM,
+	output 		  o_DRAM_CAS_N,
+	output		  o_DRAM_CKE,
+	output		  o_DRAM_CLK,
+	output		  o_DRAM_CS_N,
+	output 		  o_DRAM_RAS_N,
+	output 		  o_DRAM_WE_N,
+
 	// I2C
 	input  i_clk_100k,
 	output o_I2C_SCLK,
@@ -31,30 +43,36 @@ module Top (
 	// output [5:0] o_record_time,
 	// output [5:0] o_play_time,
 
-	// LCD (optional display)
-	// input        i_clk_800k,
-	// inout  [7:0] o_LCD_DATA,
-	// output       o_LCD_EN,
-	// output       o_LCD_RS,
-	// output       o_LCD_RW,
-	// output       o_LCD_ON,
-	// output       o_LCD_BLON,
+	//LCD (optional display)
+	input        i_clk_800k,
+	inout  [7:0] o_LCD_DATA,
+	output       o_LCD_EN,
+	output       o_LCD_RS,
+	output       o_LCD_RW,
+	output       o_LCD_ON,
+	output       o_LCD_BLON,
 
-	// LED
-	// output  [8:0] o_ledg,
-	// output [17:0] o_ledr
+	//LED
+	output  [8:0] o_ledg,
+	output [17:0] o_ledr
 );
 
 // design the FSM and states as you like
-parameter S_IDLE       = 0;
-parameter S_I2C        = 1;
-parameter S_RECD       = 2;
-parameter S_RECD_PAUSE = 3;
-parameter S_PLAY       = 4;
-parameter S_PLAY_PAUSE = 5;
+parameter S_IDLE       	= 0;
+parameter S_I2C        	= 1;
+parameter S_WAIT		= 2;
+parameter S_RECD       	= 3;
+parameter S_RECD_PAUSE 	= 4;
+parameter S_PLAY       	= 5;
+parameter S_PLAY_PAUSE 	= 6;
+
 
 logic [2:0] state_r, state_w;
 logic mode_r, mode_w;
+logic fast_r, fast_w;
+logic slow0_r, slow0_w;
+logic slow1_r, slow1_w;
+logic player_en_r, player_en_w;
 
 logic i2c_start_r, i2c_start_w;
 logic i2c_finish;
@@ -96,14 +114,14 @@ I2cInitializer init0(
 // in other words, determine which data addr to be fetch for player 
 AudDSP dsp0(
 	.i_rst_n(i_rst_n),
-	.i_clk(),
-	.i_start(),
-	.i_pause(),
-	.i_stop(),
-	.i_speed(),
-	.i_fast(),
-	.i_slow_0(), // constant interpolation
-	.i_slow_1(), // linear interpolation
+	.i_clk(i_clk),
+	.i_start(i_key_1),
+	.i_pause(i_key_1),
+	.i_stop(i_key_2),
+	.i_speed(i_speed),
+	.i_fast(fast_r),
+	.i_slow_0(slow0_r), // constant interpolation
+	.i_slow_1(slow1_r), // linear interpolation
 	.i_daclrck(i_AUD_DACLRCK),
 	.i_sram_data(data_play),
 	.o_dac_data(dac_data),
@@ -116,7 +134,7 @@ AudPlayer player0(
 	.i_rst_n(i_rst_n),
 	.i_bclk(i_AUD_BCLK),
 	.i_daclrck(i_AUD_DACLRCK),
-	.i_en(), // enable AudPlayer only when playing audio, work with AudDSP
+	.i_en(player_en_r), // enable AudPlayer only when playing audio, work with AudDSP
 	.i_dac_data(dac_data), //dac_data
 	.o_aud_dacdat(o_AUD_DACDAT)
 );
@@ -127,9 +145,9 @@ AudRecorder recorder0(
 	.i_rst_n(i_rst_n), 
 	.i_clk(i_AUD_BCLK),
 	.i_lrc(i_AUD_ADCLRCK),
-	.i_start(),
-	.i_pause(),
-	.i_stop(),
+	.i_start(i_key_0),
+	.i_pause(i_key_0),
+	.i_stop(i_key_2),
 	.i_data(i_AUD_ADCDAT),
 	.o_address(addr_record),
 	.o_data(data_record),
@@ -159,6 +177,9 @@ always_comb begin
 					state_w		= S_PLAY;
 				end
 			end
+		end
+		S_WAIT: begin
+			if()
 		end
 		S_RECD: begin
 			
