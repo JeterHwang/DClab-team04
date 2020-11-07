@@ -21,7 +21,7 @@ module recorder_tb;
         .i_stop(stop),
         .i_data(data),
         .o_address(address),
-        .o_data(out),
+        .o_data(out)
     );
     always begin
         #(`H_CYCLE) bclk=~bclk;
