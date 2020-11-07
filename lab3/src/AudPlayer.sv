@@ -33,11 +33,11 @@ always_comb begin
             state_w = S_SEND;
         end
         S_SEND: begin
-            if (counter_w != 16) begin
+            if (counter_r != 16) begin
                 aud_dacdat_w = i_dac_data[15 - counter_r];
                 counter_w = counter_r+1;
             end
-            else if (counter_w == 16) begin
+            else if (counter_r == 16) begin
                 counter_w = 0;
                 if (i_daclrck) begin
                     state_w = S_IDLE;

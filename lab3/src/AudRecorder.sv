@@ -50,7 +50,7 @@ always_comb begin
                     address_w = address_r+1;
                     counter_w = 0;
                 end
-                if(address_w == 1024000 || i_stop) begin
+                if(address_r == 20'd1024000 || i_stop) begin
                     state_w = S_FINISH;
                     counter_w = 0;
                     finish_w = 1;
@@ -58,7 +58,7 @@ always_comb begin
             end
         end
         S_PAUSE: begin
-            if(finish_w == 1) begin
+            if(finish_r == 1) begin
                 state_w = S_FINISH;
             end
             if(!i_pause) begin
