@@ -87,9 +87,10 @@ module recorder_tb;
         // #(`LR_CYCLE*0.5) data = 16'b0110_1010_0100_1100;
 
 
-        #(`LR_CYCLE*2) $finish;
-        $fsdbDumpfile("player.fsdb");
+        $fsdbDumpfile("recorder.fsdb");
 		$fsdbDumpvars;
+        #(`LR_CYCLE*2) $finish;
+        
          
         // rst = 1;
 		// #(2*CLK)
