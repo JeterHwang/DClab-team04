@@ -7,7 +7,7 @@
 
 module recorder_tb;
     logic rst, bclk, lr_clk, start, pause, stop;
-    logic data;
+    logic [15:0] data;
     logic [15:0] out;
     logic [19:0] address;
     logic [2:0] state;
@@ -19,7 +19,7 @@ module recorder_tb;
         .i_start(start),
         .i_pause(pause),
         .i_stop(stop),
-        .i_data(in),
+        .i_data(data),
         .o_address(address),
         .o_data(out),
     );
@@ -38,7 +38,7 @@ module recorder_tb;
         rst = 0;
         lr_clk = 0;
         start = 0;
-        data = 16'd0;
+        data = 16'b0;
         pause = 0;
         stop = 0
         state = 0;
@@ -54,14 +54,14 @@ module recorder_tb;
         
         
 
-        for (int i=0; i<16; 1++)begin
+        for (int i=0; i<16; i++)begin
             #(`CYCLE) data = data1[16-i];
         end
         #(`HLR_CYCLE);
-        for (int i=0; i<16; 1++)begin
+        for (int i=0; i<16; i++)begin
             #(`CYCLE) data = data2[16-i];
         end
-        for (int i=0; i<16; 1++)begin
+        for (int i=0; i<16; i++)begin
             #(`CYCLE) 
         end
 
