@@ -62,7 +62,7 @@ module recorder_tb;
             #(`CYCLE) data = data2[16-i];
         end
         for (int i=0; i<16; i++) begin
-            #(`CYCLE) 
+            #(`CYCLE);
         end
 
         #(`CYCLE) data = 1;
@@ -75,7 +75,7 @@ module recorder_tb;
             #(`CYCLE) data = data2[16-i];
         end
         for (int i=0; i<16; i++) begin
-            #(`CYCLE) 
+            #(`CYCLE);
         end
         for (int i=0; i<14; i++) begin
             #(`CYCLE) data = data3[16-i];
