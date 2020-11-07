@@ -88,7 +88,7 @@ module recorder_tb;
 
 
         #(`LR_CYCLE*2) $finish;
-        $fsdbDumpfile("player.fsdb");
+        $fsdbDumpfile("recorder.fsdb");
 		$fsdbDumpvars;
          
         // rst = 1;
