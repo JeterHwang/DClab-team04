@@ -6,9 +6,15 @@ module AudRecorder(
     input   i_pause,
     input   i_stop,
     input   i_data,
-    output  o_address,
-    output  o_data
+    output  [19:0] o_address,
+    output  [15:0] o_data
 );
+localparam S_IDLE = 0;
+localparam S_WAIT = 1;
+localparam S_REC = 2;
+localparam S_PAUSE = 3;
+localparam S_FINISH = 4;
+
 logic [1:0] state_r, state_w;
 logic [19:0] address_r, address_w;
 logic [15:0] data_r, data_w;
@@ -24,51 +30,51 @@ always_comb begin
     counter_w           = counter_r;
     finish_w            = finish_r;
     case (state_r) 
-        IDLE: begin
+        S_IDLE: begin
             if(i_start) begin
-                state_w = WAIT;
+                state_w = S_WAIT;
                 counter_w = 0;
             end
         end
-        WAIT: begin
-            state_w = REC;
+        S_WAIT: begin
+            state_w = S_REC;
         end
-        REC: begin
+        S_REC: begin
             if(i_pause) begin
-                state_w = PAUSE;
+                state_w = S_PAUSE;
             end
-            
             if(!i_lrc) begin
-                data_w[16-counter_r] = i_data;
+                data_w[15-counter_r] = i_data;
                 counter_w = counter_r+1;
                 if(counter_w == 16) begin
                     address_w = address_r+1;
                     counter_w = 0;
                 end
-                if(address_w == 1024000 || i_stop) begin
-                    state_w = FINISH;
+                if(address_r == 20'd1024000 || i_stop) begin
+                    state_w = S_FINISH;
                     counter_w = 0;
                     finish_w = 1;
                 end
             end
         end
-        PAUSE: begin
-            if(finish_w == 1) begin
-                state_w = FINISH;
+        S_PAUSE: begin
+            if(finish_r == 1) begin
+                state_w = S_FINISH;
             end
             if(!i_pause) begin
-                state_w = REC;
+                state_w = S_REC;
             end
         end
-        FINISH: begin
+        S_FINISH: begin
             counter_w = 0;
+            state_w = S_IDLE;
         end
     endcase
 end
 
 always_ff @(posedge i_clk or posedge i_rst_n) begin
     if (i_rst_n) begin
-        state_r             <= IDLE;
+        state_r             <= S_IDLE;
         address_r           <= address_w;
         data_r              <= data_w;
         counter_r           <= 0;
