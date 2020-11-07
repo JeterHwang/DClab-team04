@@ -11,6 +11,10 @@ module recorder_tb;
     logic [15:0] out;
     logic [19:0] address;
     logic [2:0] state;
+    logic [15:0] data1;
+    logic [15:0] data2;
+    logic [15:0] data3;
+    logic [15:0] data4;
 
     AudRecorder recorder0(
         .i_rst_n(rst), 
