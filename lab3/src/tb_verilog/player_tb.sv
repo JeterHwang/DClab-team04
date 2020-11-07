@@ -51,9 +51,10 @@ module player_tb;
         state = 4;
 
 
-        #(`LR_CYCLE*2) $finish;
         $fsdbDumpfile("player.fsdb");
 		$fsdbDumpvars;
+        #(`LR_CYCLE*2) $finish;
+        
          
         // rst = 1;
 		// #(2*CLK)
