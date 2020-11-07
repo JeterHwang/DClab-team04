@@ -9,11 +9,11 @@ module AudRecorder(
     output  o_address,
     output  o_data
 );
-localparam IDLE = 0;
-localparam WAIT = 1;
-localparam REC = 2;
-localparam PAUSE = 3;
-localparam FINISH = 4;
+localparam S_IDLE = 0;
+localparam S_WAIT = 1;
+localparam S_REC = 2;
+localparam S_PAUSE = 3;
+localparam S_FINISH = 4;
 
 logic [1:0] state_r, state_w;
 logic [19:0] address_r, address_w;
@@ -30,18 +30,18 @@ always_comb begin
     counter_w           = counter_r;
     finish_w            = finish_r;
     case (state_r) 
-        IDLE: begin
+        S_IDLE: begin
             if(i_start) begin
-                state_w = WAIT;
+                state_w = S_WAIT;
                 counter_w = 0;
             end
         end
-        WAIT: begin
-            state_w = REC;
+        S_WAIT: begin
+            state_w = S_REC;
         end
-        REC: begin
+        S_REC: begin
             if(i_pause) begin
-                state_w = PAUSE;
+                state_w = S_PAUSE;
             end
             if(!i_lrc) begin
                 data_w[15-counter_r] = i_data;
@@ -51,30 +51,30 @@ always_comb begin
                     counter_w = 0;
                 end
                 if(address_w == 1024000 || i_stop) begin
-                    state_w = FINISH;
+                    state_w = S_FINISH;
                     counter_w = 0;
                     finish_w = 1;
                 end
             end
         end
-        PAUSE: begin
+        S_PAUSE: begin
             if(finish_w == 1) begin
-                state_w = FINISH;
+                state_w = S_FINISH;
             end
             if(!i_pause) begin
-                state_w = REC;
+                state_w = S_REC;
             end
         end
-        FINISH: begin
+        S_FINISH: begin
             counter_w = 0;
-            state_w = IDLE;
+            state_w = S_IDLE;
         end
     endcase
 end
 
 always_ff @(posedge i_clk or posedge i_rst_n) begin
     if (i_rst_n) begin
-        state_r             <= IDLE;
+        state_r             <= S_IDLE;
         address_r           <= address_w;
         data_r              <= data_w;
         counter_r           <= 0;
