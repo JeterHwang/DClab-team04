@@ -6,6 +6,9 @@ module AudPlayer(
     input   i_dac_data,
     output  o_aud_dacdat
 );
+localparam IDLE = 0;
+localparam WAIT = 1;
+localparam SEND = 2;
 
 logic [15:0] aud_dacdat_r, aud_dacdat_w;
 logic [3:0]  counter_r, counter_w;
