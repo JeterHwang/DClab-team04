@@ -40,7 +40,7 @@ module recorder_tb;
         start = 0;
         data = 16'b0;
         pause = 0;
-        stop = 0
+        stop = 0;
         state = 0;
         data1 = 16'b1111_0000_1100_1111;
         data2 = 16'b1111_0000_1100_1111;
@@ -54,14 +54,14 @@ module recorder_tb;
         
         
 
-        for (int i=0; i<16; i++)begin
+        for (int i=0; i<16; i++) begin
             #(`CYCLE) data = data1[16-i];
         end
         #(`HLR_CYCLE);
-        for (int i=0; i<16; i++)begin
+        for (int i=0; i<16; i++) begin
             #(`CYCLE) data = data2[16-i];
         end
-        for (int i=0; i<16; i++)begin
+        for (int i=0; i<16; i++) begin
             #(`CYCLE) 
         end
 
@@ -71,13 +71,13 @@ module recorder_tb;
         #(`CYCLE) start = 1;
         #(`CYCLE) data = 0;
         start = 0;
-        for (int i=0; i<14; i++)begin
+        for (int i=0; i<14; i++) begin
             #(`CYCLE) data = data2[16-i];
         end
-        for (int i=0; i<16; i++)begin
+        for (int i=0; i<16; i++) begin
             #(`CYCLE) 
         end
-        for (int i=0; i<14; i++)begin
+        for (int i=0; i<14; i++) begin
             #(`CYCLE) data = data3[16-i];
         end
         // #(`LR_CYCLE*0.5) data = 16'b0110_1010_0100_1100;
