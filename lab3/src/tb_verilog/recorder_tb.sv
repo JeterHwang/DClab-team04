@@ -7,18 +7,12 @@
 
 module recorder_tb;
     logic rst, bclk, lr_clk, start, pause, stop;
-    logic [15:0] data;
+    logic data;
     logic [15:0] out;
     logic [19:0] address;
     logic [2:0] state;
     logic [15:0] ans;
-    localparam [15:0] data_arr [0:4] = '{
-        16'b1111_0000_1100_1111,
-        16'b1111_0000_1100_1111,
-        16'b1000_0011_1100_0001,
-        16'b1001_1100_0101_1000,
-        16'b0110_1010_0100_1100
-    };
+    localparam [15:0] data_arr  = 16'b1111_0000_1100_1111;
 
     AudRecorder recorder0(
         .i_rst_n(rst), 
@@ -37,7 +31,7 @@ module recorder_tb;
     initial pause  = 0;
     initial stop  = 0;
     initial state   = 0;
-    initial data    = 16'd0;
+    initial data    = 0;
 
     always #(`H_CYCLE) bclk=~bclk;
     always #(`HLR_CYCLE) lr_clk=~lr_clk;
@@ -58,18 +52,19 @@ module recorder_tb;
         rst     = 0;
         #(`CYCLE*2) rst = 1;
         #(`CYCLE*2) rst = 0;
-        for(int i = 0; i < 5; i++) begin
+        for(int i = 0; i < 65000; i++) begin
             #(`CYCLE*2) start = 1;
             #(`CYCLE*2) start = 0;
             
             @(negedge lr_clk) begin
-                data    = data_arr[i];
+                
                 ans     = 16'd0;
                 state   = i;
             end
             @(negedge bclk);
             for(int j = 0; j < 16; j++) begin
-                @(negedge bclk); 
+                data = data_arr[j];
+                @(negedge bclk);
                     ans = ((ans << 1) | (out << 1));
                 if (j == 5) begin
                     #(`CYCLE) pause = 1;
@@ -80,13 +75,13 @@ module recorder_tb;
             $display("+=====================+");
             if(ans == data_arr[i]) begin
                 $display("data %d simulation correct !!", i);
-                $display("expected output = %16b", data_arr[i]);    
+                $display("expected output = %16b", data_arr);    
                 $display("received output = %16b", ans[15:0]);
                 $display("+=====================+");
             end    
             else begin
                 $display("data %d simulation wrong !!", i);
-                $display("expected output = %16b", data_arr[i]);    
+                $display("expected output = %16b", data_arr);    
                 $display("received output = %16b", ans[15:0]);
                 $display("+=====================+");
             end
