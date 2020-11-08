@@ -5,7 +5,7 @@
 `define HLR_CYCLE 200
 
 
-module player_tb;
+module player_tb();
     logic rst, bclk, lr_clk, enable;
     logic [2:0] state;
     logic [15:0] data;
