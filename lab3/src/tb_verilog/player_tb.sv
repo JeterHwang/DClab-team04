@@ -98,7 +98,7 @@ module player_tb();
         
     end
     initial begin
-        #(1000 * bclk)
+        #(1000 * (`CYCLE))
         $display("Too slow, abort.");
         $finish;
     end
