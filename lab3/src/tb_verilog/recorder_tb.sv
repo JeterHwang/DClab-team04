@@ -67,8 +67,9 @@ module recorder_tb;
                 $display("%1b %1b %1b", out[j], data, ans[j]);
                 @(negedge bclk);
                     ans = ((ans << 1) | (out << 1));
-                    $display("++++++++++++++++++++");
+                    $display("%16b", out);
                     $display("%1b %1b %1b", out[j], data, ans[j]);
+                    $display("++++++++++++++++++++");
                 if (j == 5) begin
                     #(`CYCLE) pause = 1;
                     #(`CYCLE) pause = 0;
