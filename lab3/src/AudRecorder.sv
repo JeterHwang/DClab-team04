@@ -86,7 +86,7 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
     if (i_rst_n) begin
         state_r             <= S_IDLE;
         address_r           <= address_w;
-        data_r              <= data_w;
+        data_r              <= 0;
         counter_r           <= 0;
         finish_r            <= 0;
     end
