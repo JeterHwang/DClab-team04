@@ -52,7 +52,7 @@ module player_tb();
         #(`CYCLE*1.5) rst = 1;
         #(`CYCLE*2) rst = 0;
         #(`CYCLE*2) enable = 1;
-
+        #(`CYCLE*2) enable = 0;
         for(int i = 0; i < 5; i++) begin
             @(negedge lr_clk) begin
                 data    = data_arr[i];
