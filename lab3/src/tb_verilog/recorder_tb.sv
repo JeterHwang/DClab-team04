@@ -64,6 +64,7 @@ module recorder_tb;
             @(negedge bclk);
             for(int j = 0; j < 16; j++) begin
                 data = data_arr[j];
+                $display("%1b", data);
                 @(negedge bclk);
                     ans = ((ans << 1) | (out << 1));
                 if (j == 5) begin
