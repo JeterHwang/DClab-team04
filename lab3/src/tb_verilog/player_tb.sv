@@ -10,7 +10,15 @@ module player_tb;
     logic [2:0] state;
     logic [15:0] data;
     logic out;
+    logic [15:0] ans;
 
+    localparam [15:0] data_arr [0:4] = '{
+        16'b1111_0000_1100_1111,
+        16'b1111_0000_1100_1111,
+        16'b1000_0011_1100_0001,
+        16'b1001_1100_0101_1000,
+        16'b0110_1010_0100_1100
+    }
     AudPlayer player0(
         .i_rst_n(rst),
         .i_bclk(bclk),
@@ -30,30 +38,58 @@ module player_tb;
     // always #HCLK clk = ~clk;
 
     initial begin
-        bclk = 0;
-        rst = 0;
-        lr_clk = 0;
-        enable = 0;
-        state = 0;
-        data = 16'd0;
+        
+        $fsdbDumpfile("player.fsdb");
+		$fsdbDumpvars;
+
+        bclk    <= 0;
+        rst     <= 0;
+        lr_clk  <= 0;
+        enable  <= 0;
+        state   <= 0;
+        data    <= 16'd0;
 
         #(`CYCLE*1.5) rst = 1;
         #(`CYCLE*2) rst = 0;
         #(`CYCLE*2) enable = 1;
 
-        #(`LR_CYCLE*0.5) data = 16'b1111_0000_1100_1111;
-        state = 1;
-        #(`LR_CYCLE*0.5) data = 16'b1000_0011_1100_0001;
-        state = 2;
-        #(`LR_CYCLE*0.5) data = 16'b1001_1100_0101_1000;
-        state = 3;
-        #(`LR_CYCLE*0.5) data = 16'b0110_1010_0100_1100;
-        state = 4;
+        for(int i = 0; i < 5; i++) begin
+            @(negedge lr_clk) begin
+                data    <= data_arr[i];
+                ans     <= 16'd0;
+                state   <= i;
+            end
+            for(int j = 0; j < 16; j++) begin
+                @(negedge bclk) 
+                    ans = ((ans << 1) | out);
+            end
+            $display("+=====================+");
+            if(ans == data_arr[i]) begin
+                $display("data %d simulation correct !!");
+                $display("expected output = %16b", data_arr);    
+                $display("received output = %16b", ans);
+                $display("+=====================+");
+            end    
+            else begin
+                $display("data %d simulation wrong !!");
+                $display("expected output = %16b", data_arr);    
+                $display("received output = %16b", ans);
+                $display("+=====================+");
+            end
+        end
+        
+        // #(`LR_CYCLE*0.5) data = 16'b1111_0000_1100_1111;
+        // state = 1;
+        // #(`LR_CYCLE*0.5) data = 16'b1000_0011_1100_0001;
+        // state = 2;
+        // #(`LR_CYCLE*0.5) data = 16'b1001_1100_0101_1000;
+        // state = 3;
+        // #(`LR_CYCLE*0.5) data = 16'b0110_1010_0100_1100;
+        // state = 4;
 
 
-        $fsdbDumpfile("player.fsdb");
-		$fsdbDumpvars;
-        #(`LR_CYCLE*2) $finish;
+        
+        // #(`LR_CYCLE*2) $finish;
         
          
         // rst = 1;
@@ -61,5 +97,9 @@ module player_tb;
 		// rst = 0;
         
     end
-
+    initial begin
+        #(1000 * bclk)
+        $display("Too slow, abort.");
+        $finish;
+    end
 endmodule
