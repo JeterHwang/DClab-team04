@@ -66,7 +66,11 @@ module recorder_tb;
                 data = data_arr[15-j];
                 @(negedge bclk);
                     if (j == 16) begin
-                        ans = ((ans<<1) | (out<<1));
+                        $display("%16b", ans);
+                        ans = ((ans) | (out<<1));
+                        $display("%16b", out);
+                        $display("%16b", ans);
+                        $display("%16b", data_arr);
                     end
                     else begin 
                         $display("%16b", ans);
