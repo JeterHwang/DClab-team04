@@ -22,6 +22,8 @@ module SDRAM_controller(
     output          o_sdram_we_n
 );
 
+parameter S_ = ;
+
 
     
 endmodule
