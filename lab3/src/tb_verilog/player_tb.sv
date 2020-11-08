@@ -18,7 +18,7 @@ module player_tb;
         16'b1000_0011_1100_0001,
         16'b1001_1100_0101_1000,
         16'b0110_1010_0100_1100
-    }
+    };
     AudPlayer player0(
         .i_rst_n(rst),
         .i_bclk(bclk),
@@ -65,15 +65,15 @@ module player_tb;
             end
             $display("+=====================+");
             if(ans == data_arr[i]) begin
-                $display("data %d simulation correct !!");
-                $display("expected output = %16b", data_arr);    
-                $display("received output = %16b", ans);
+                $display("data %d simulation correct !!", i);
+                $display("expected output = %16b", data_arr[i]);    
+                $display("received output = %16b", ans[15:0]);
                 $display("+=====================+");
             end    
             else begin
-                $display("data %d simulation wrong !!");
-                $display("expected output = %16b", data_arr);    
-                $display("received output = %16b", ans);
+                $display("data %d simulation wrong !!", i);
+                $display("expected output = %16b", data_arr[i]);    
+                $display("received output = %16b", ans[15:0]);
                 $display("+=====================+");
             end
         end
