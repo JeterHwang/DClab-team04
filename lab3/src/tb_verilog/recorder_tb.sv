@@ -11,10 +11,14 @@ module recorder_tb;
     logic [15:0] out;
     logic [19:0] address;
     logic [2:0] state;
-    logic [15:0] data1;
-    logic [15:0] data2;
-    logic [15:0] data3;
-    logic [15:0] data4;
+    logic [15:0] ans;
+    localparam [15:0] data_arr [0:4] = '{
+        16'b1111_0000_1100_1111,
+        16'b1111_0000_1100_1111,
+        16'b1000_0011_1100_0001,
+        16'b1001_1100_0101_1000,
+        16'b0110_1010_0100_1100
+    };
 
     AudRecorder recorder0(
         .i_rst_n(rst), 
@@ -27,75 +31,74 @@ module recorder_tb;
         .o_address(address),
         .o_data(out)
     );
-    always begin
-        #(`H_CYCLE) bclk=~bclk;
-    end
-    always begin
-        #(`HLR_CYCLE) lr_clk=~lr_clk;
-    end
+    initial bclk    = 0;
+    initial lr_clk  = 0;
+    initial start  = 0;
+    initial pause  = 0;
+    initial stop  = 0;
+    initial state   = 0;
+    initial data    = 16'd0;
+
+    always #(`H_CYCLE) bclk=~bclk;
+    always #(`HLR_CYCLE) lr_clk=~lr_clk;
+    // always begin
+    //     #(`H_CYCLE) bclk=~bclk;
+    // end
+    // always begin
+    //     #(`HLR_CYCLE) lr_clk=~lr_clk;
+    // end
     // localparam CLK = 10;
 	// localparam HCLK = CLK/2;
     // always #HCLK clk = ~clk;
 
     initial begin
-        bclk = 0;
-        rst = 0;
-        lr_clk = 0;
-        start = 0;
-        data = 16'b0;
-        pause = 0;
-        stop = 0;
-        state = 0;
-        data1 = 16'b1111_0000_1100_1111;
-        data2 = 16'b1111_0000_1100_1111;
-        data3 = 16'b1111_0000_1100_1111;
-        data4 = 16'b1111_0000_1100_1111;
-
-        #(`CYCLE*2) rst = 1;
-        #(`CYCLE*2) rst = 0;
-        #(`CYCLE*2) start = 1;
-        #(`CYCLE*2) start = 0;
-        
-        
-
-        for (int i=0; i<16; i++) begin
-            #(`CYCLE) data = data1[16-i];
-        end
-        #(`HLR_CYCLE);
-        for (int i=0; i<16; i++) begin
-            #(`CYCLE) data = data2[16-i];
-        end
-        for (int i=0; i<16; i++) begin
-            #(`CYCLE);
-        end
-
-        #(`CYCLE) data = 1;
-        pause = 1;
-        #(`CYCLE) pause = 0;
-        #(`CYCLE) start = 1;
-        #(`CYCLE) data = 0;
-        start = 0;
-        for (int i=0; i<14; i++) begin
-            #(`CYCLE) data = data2[16-i];
-        end
-        for (int i=0; i<16; i++) begin
-            #(`CYCLE);
-        end
-        for (int i=0; i<14; i++) begin
-            #(`CYCLE) data = data3[16-i];
-        end
-        // #(`LR_CYCLE*0.5) data = 16'b0110_1010_0100_1100;
-
-
         $fsdbDumpfile("recorder.fsdb");
 		$fsdbDumpvars;
-        #(`LR_CYCLE*2) $finish;
-        
-         
+
+        rst     = 0;
+        #(`CYCLE*2) rst = 1;
+        #(`CYCLE*2) rst = 0;
+        for(int i = 0; i < 5; i++) begin
+            #(`CYCLE*2) start = 1;
+            #(`CYCLE*2) start = 0;
+            
+            @(negedge lr_clk) begin
+                data    = data_arr[i];
+                ans     = 16'd0;
+                state   = i;
+            end
+            @(negedge bclk);
+            for(int j = 0; j < 16; j++) begin
+                @(negedge bclk); 
+                    ans = ((ans << 1) | (out << 1));
+                if (j == 5) begin
+                    #(`CYCLE) pause = 1;
+                    #(`CYCLE) pause = 0;
+                end
+            end
+
+            $display("+=====================+");
+            if(ans == data_arr[i]) begin
+                $display("data %d simulation correct !!", i);
+                $display("expected output = %16b", data_arr[i]);    
+                $display("received output = %16b", ans[15:0]);
+                $display("+=====================+");
+            end    
+            else begin
+                $display("data %d simulation wrong !!", i);
+                $display("expected output = %16b", data_arr[i]);    
+                $display("received output = %16b", ans[15:0]);
+                $display("+=====================+");
+            end
+        end
         // rst = 1;
 		// #(2*CLK)
 		// rst = 0;
-        
+    end
+    initial begin
+        #(1000 * (`CYCLE))
+        $display("Too slow, abort.");
+        $finish;
     end
 
 endmodule
