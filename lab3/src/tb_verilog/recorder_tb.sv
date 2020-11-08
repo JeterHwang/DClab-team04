@@ -100,7 +100,7 @@ module recorder_tb;
 		// rst = 0;
     end
     initial begin
-        #(1000 * (`CYCLE))
+        #(500 * (`CYCLE))
         $display("Too slow, abort.");
         $finish;
     end
