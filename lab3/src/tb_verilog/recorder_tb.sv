@@ -89,7 +89,7 @@ module recorder_tb;
             end
 
             $display("+=====================+");
-            if(ans == data_arr[i]) begin
+            if(ans == data_arr) begin
                 $display("data %d simulation correct !!", i);
                 $display("expected output = %16b", data_arr);    
                 $display("received output = %16b", ans[15:0]);
