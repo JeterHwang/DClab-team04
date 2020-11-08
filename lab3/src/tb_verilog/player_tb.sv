@@ -27,37 +27,33 @@ module player_tb;
         .i_dac_data(data), //dac_data
         .o_aud_dacdat(out)
     );
-    always begin
-        #(`H_CYCLE) bclk=~bclk;
-    end
-    always begin
-        #(`HLR_CYCLE) lr_clk=~lr_clk;
-    end
+    
+    initial bclk    = 0;
+    initial lr_clk  = 0;
+    initial enable  = 0;
+    initial state   = 0;
+    initial data    = 16'd0;
+    
+    always #(`H_CYCLE) bclk=~bclk;
+    always #(`HLR_CYCLE) lr_clk=~lr_clk;
     // localparam CLK = 10;
 	// localparam HCLK = CLK/2;
     // always #HCLK clk = ~clk;
 
-    initial begin
-        
+    initial begin        
         $fsdbDumpfile("player.fsdb");
 		$fsdbDumpvars;
 
-        bclk    <= 0;
-        rst     <= 0;
-        lr_clk  <= 0;
-        enable  <= 0;
-        state   <= 0;
-        data    <= 16'd0;
-
+        rst     = 0;
         #(`CYCLE*1.5) rst = 1;
         #(`CYCLE*2) rst = 0;
         #(`CYCLE*2) enable = 1;
 
         for(int i = 0; i < 5; i++) begin
             @(negedge lr_clk) begin
-                data    <= data_arr[i];
-                ans     <= 16'd0;
-                state   <= i;
+                data    = data_arr[i];
+                ans     = 16'd0;
+                state   = i;
             end
             for(int j = 0; j < 16; j++) begin
                 @(negedge bclk) 
