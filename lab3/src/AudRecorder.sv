@@ -56,6 +56,7 @@ always_comb begin
             if(counter_w == 16) begin
                 address_w = address_r+1;
                 counter_w = 0;
+                state = S_WAIT;
             end
             else begin
                 data_w[15-counter_r] = i_data;
