@@ -10,7 +10,7 @@ module recorder_tb;
     logic data;
     logic [15:0] out;
     logic [19:0] address;
-    logic [2:0] state;
+    logic [21:0] state;
     logic [15:0] ans;
     localparam [15:0] data_arr  = 16'b1111_0000_1100_1111;
 
