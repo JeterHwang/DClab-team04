@@ -5,8 +5,8 @@
 -XLMODE
 ./INCA_libs/irun.lnx8664.12.20.nc
 -RUNMODE
-I2C_tb.sv
-../I2cInitializer.sv
+player_tb.sv
+../AudPlayer.sv
 -CDSLIB
 ./INCA_libs/irun.lnx8664.12.20.nc/cdsrun.lib
 -HDLVAR

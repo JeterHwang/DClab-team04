@@ -20,15 +20,15 @@ Runtime environment variables:
 USER=team04
 LOGNAME=team04
 HOME=/home/team04
-PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
+PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=140.112.245.184 49895 12345
-SSH_CONNECTION=140.112.245.184 49895 192.168.163.250 12345
-SSH_TTY=/dev/pts/1
+SSH_CLIENT=180.217.149.201 11800 12345
+SSH_CONNECTION=180.217.149.201 11800 192.168.163.250 12345
+SSH_TTY=/dev/pts/0
 TERM=xterm-256color
-DISPLAY=localhost:12.0
-XDG_SESSION_ID=c1123
+DISPLAY=localhost:10.0
+XDG_SESSION_ID=c1273
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
@@ -48,10 +48,10 @@ CADENCE_PATH=/opt/CAD
 SPRING_PATH=/opt/CAD
 MENTOR_PATH=/opt/CAD
 ATRENTA_PATH=/opt/CAD
-LD_LIBRARY_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/etc/lib/libstdc++/LINUX64/:/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/etc/lib/libstdc++/LINUX64/::/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib
+LD_LIBRARY_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/etc/lib/libstdc++/LINUX64/::/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib
 INCA_64BIT=
 LM_LICENSE_FILE=5280@lscic:5280@lsntu:26585@lscic:26585@lsntu
-SHLIB_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:
+SHLIB_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:
 USE_PIPE=1
 _=/opt/CAD/INCISIV/cur/tools/bin/64bit/ncverilog
 /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/INCA_libs/irun.lnx8664.12.20.nc/svpp.ts
@@ -62,55 +62,54 @@ IMPERAS_PORT_FILE=.vsp_ovp_gdb_port
 TCL_LIBRARY=/opt/CAD/INCISIV/cur/tools/inca/files/tcl/library
 Runtime command line arguments:
 argv[0]=ncverilog
-argv[1]=+access+r
-argv[2]=I2C_tb.sv
-argv[3]=../I2cInitializer.sv
+argv[1]=player_tb.sv
+argv[2]=../AudPlayer.sv
+argv[3]=+access+r
 67 profile - 100
-          CPU/Mem usage: 0.010 sys,  0.030 user,  90.00M sys,  0.00M vm
+          CPU/Mem usage: 0.010 sys,  0.030 user,  90.01M sys,  0.00M vm
 68 VC callback profile - scalar:0 vector:0
-69 Sat Nov  7 03:18:41 2020
+69 Sun Nov  8 16:55:35 2020
 70 pliAppInit
 71 *Verdi3* : Enable Parallel Dumping.
 72 pliAppMiscSet: New Sim Round
 73 LIBSSCORE=found /opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/libsscore_ius122.so through $LD_LIBRARY_PATH setting.
-74 argv[0]: I2C.fsdb
+74 argv[0]: player.fsdb
 75 Catch signal 11. Stack trace follows:
 stack trace not available76 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 77 (C) 1996 - 2013 by Synopsys, Inc.
-78 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/I2C_tb.sv(44)
-79 argv[0]: I2C.fsdb
-80 *Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
-81 *Verdi3* : Create FSDB file 'I2C.fsdb'
-82 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/I2C_tb.sv(45)
-83 *Verdi3* : Begin traversing the scopes, layer (0).
-84 *Verdi3* : End of traversing.
-85 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.010 sys,  0.030 user,  233.53M sys,  0.00M vm
-                   incr: 0.000 sys,  0.000 user,  3.95M sys,  0.00M vm
-                   accu: 0.000 sys,  0.000 user,  3.95M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.000 user,  3.95M sys,  0.00M vm
+78 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/player_tb.sv(42)
+79 argv[0]: player.fsdb
+80 *Verdi3* : Create FSDB file 'player.fsdb'
+81 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/player_tb.sv(43)
+82 *Verdi3* : Begin traversing the scopes, layer (0).
+83 *Verdi3* : End of traversing.
+84 fsdbDumpvars traverse var: profile - 
+          CPU/Mem usage: 0.020 sys,  0.040 user,  233.52M sys,  0.00M vm
+                   incr: 0.010 sys,  0.000 user,  3.93M sys,  0.00M vm
+                   accu: 0.010 sys,  0.000 user,  3.93M sys,  0.00M vm
+              accu incr: 0.010 sys,  0.000 user,  3.93M sys,  0.00M vm
 
-          Count usage: 32 var,  32 idcode,  32 callback
-                 incr: 32 var,  32 idcode,  32 callback
-                 accu: 32 var,  32 idcode,  32 callback
-            accu incr: 32 var,  32 idcode,  32 callback
-86 VC callback profile - scalar:0 vector:0
-87 Sat Nov  7 03:18:41 2020
-88 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.010 sys,  0.030 user,  234.58M sys,  0.00M vm
+          Count usage: 21 var,  21 idcode,  21 callback
+                 incr: 21 var,  21 idcode,  21 callback
+                 accu: 21 var,  21 idcode,  21 callback
+            accu incr: 21 var,  21 idcode,  21 callback
+85 VC callback profile - scalar:0 vector:0
+86 Sun Nov  8 16:55:35 2020
+87 fsdbDumpvars: profile - 
+          CPU/Mem usage: 0.020 sys,  0.040 user,  234.57M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.000 sys,  0.000 user,  5.01M sys,  0.00M vm
+                   accu: 0.010 sys,  0.000 user,  4.98M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
 
-          Count usage: 32 var,  32 idcode,  32 callback
+          Count usage: 21 var,  21 idcode,  21 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 32 var,  32 idcode,  32 callback
+                 accu: 21 var,  21 idcode,  21 callback
             accu incr: 0 var,  0 idcode,  0 callback
-89 VC callback profile - scalar:24 vector:8
-90 Sat Nov  7 03:18:41 2020
-91 End of simulation at 41950
-92 VC callback profile - scalar:4423 vector:1297
-93 Sat Nov  7 03:18:41 2020
-94 Parallel profile    -  Flush:2 ProduceWait:0 ConsumerWait:0 BlockUsed:0
-95 SimExit
-96 Sim process exit
+88 VC callback profile - scalar:11 vector:10
+89 Sun Nov  8 16:55:35 2020
+90 End of simulation at 0
+91 VC callback profile - scalar:12 vector:10
+92 Sun Nov  8 16:55:35 2020
+93 Parallel profile    -  Flush:2 ProduceWait:0 ConsumerWait:0 BlockUsed:0
+94 SimExit
+95 Sim process exit

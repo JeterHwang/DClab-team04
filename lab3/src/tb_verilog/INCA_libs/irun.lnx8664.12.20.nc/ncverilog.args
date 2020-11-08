@@ -2,6 +2,6 @@
 // File created by:  ncverilog
 // Do not modify this file
 //
+player_tb.sv
+../AudPlayer.sv
 +access+r
-I2C_tb.sv
-../I2cInitializer.sv
