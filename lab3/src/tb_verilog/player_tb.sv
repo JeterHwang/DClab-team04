@@ -1,16 +1,21 @@
 `timescale 1ns/100ps
+`define CYCLE 10
+`define H_CYCLE 5
+`define LR_CYCLE 400
+`define HLR_CYCLE 200
 
-module player_tb();
+
+module player_tb;
     logic rst, bclk, lr_clk, enable;
     logic [2:0] state;
     logic [15:0] data;
     logic out;
     logic [15:0] ans;
 
-    localparam CYCLE        = 10;
-    localparam H_CYCLE      = 5;
-    localparam LR_CYCLE     = 400;
-    localparam HLR_CYCLE    = 200;
+    // localparam CYCLE        = 10;
+    // localparam H_CYCLE      = 5;
+    // localparam LR_CYCLE     = 400;
+    // localparam HLR_CYCLE    = 200;
     localparam [15:0] data_arr [0:4] = '{
         16'b1111_0000_1100_1111,
         16'b1111_0000_1100_1111,
