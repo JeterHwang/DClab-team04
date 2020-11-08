@@ -12,7 +12,7 @@ localparam S_DELAY  = 2;
 localparam S_SEND   = 3;
 
 logic aud_dacdat_r, aud_dacdat_w;
-logic [3:0]  counter_r, counter_w;
+logic [4:0]  counter_r, counter_w;
 logic [1:0]  state_r, state_w;
 
 assign o_aud_dacdat = aud_dacdat_r;

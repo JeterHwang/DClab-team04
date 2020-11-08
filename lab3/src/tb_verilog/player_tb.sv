@@ -59,8 +59,9 @@ module player_tb();
                 ans     = 16'd0;
                 state   = i;
             end
+            @(negedge bclk);
             for(int j = 0; j < 16; j++) begin
-                @(negedge bclk) 
+                @(negedge bclk); 
                     ans = ((ans << 1) | out);
             end
             $display("+=====================+");
