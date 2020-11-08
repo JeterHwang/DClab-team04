@@ -64,11 +64,11 @@ module recorder_tb;
             @(negedge bclk);
             for(int j = 0; j < 16; j++) begin
                 data = data_arr[15-j];
-                $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
                 @(negedge bclk);
                     ans = ((ans << 1) | (out<<1));
                     $display("%16b", data_arr<<1);
                     $display("%16b", out);
+                    $display("%16b", ans);
                     $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
                     $display("++++++++++++++++++++");
                 if (j == 5) begin
