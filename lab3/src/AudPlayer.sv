@@ -33,16 +33,19 @@ always_comb begin
                 state_w = S_DELAY;
         end
         S_DELAY: begin
-            if(!i_daclrck)
+            if(!i_daclrck) begin
+                aud_dacdat_w = i_dac_data[15 - counter_r];
+                counter_w = counter_r + 1;
                 state_w = S_SEND;
+            end
         end
         S_SEND: begin
-            if (counter_r != 16) begin
+            if (counter_r == 16) begin
+                state_w = S_IDLE;
+            end
+            else begin
                 aud_dacdat_w = i_dac_data[15-counter_r];
                 counter_w = counter_r + 1;
-            end
-            else if (counter_r == 16) begin
-                state_w = S_IDLE;
             end
         end
     endcase
