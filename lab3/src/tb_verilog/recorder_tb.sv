@@ -65,14 +65,19 @@ module recorder_tb;
             for(int j = 0; j < 16; j++) begin
                 data = data_arr[15-j];
                 @(negedge bclk);
-                    $display("%16b", ans);
-                    ans = ((ans) | (out<<1));
-                    
-                    $display("%16b", out);
-                    $display("%16b", ans);
-                    $display("%16b", data_arr);
-                    $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
-                    $display("++++++++++++++++++++");
+                    if (j == 16) begin
+                        ans = ((ans) | (out<<1));
+                    end
+                    else begin 
+                        $display("%16b", ans);
+                        ans = ((ans) | (out<<1));
+                        
+                        $display("%16b", out);
+                        $display("%16b", ans);
+                        $display("%16b", data_arr);
+                        $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
+                        $display("++++++++++++++++++++");
+                    end
                 if (j == 5) begin
                     #(`CYCLE) pause = 1;
                     #(`CYCLE) pause = 0;
