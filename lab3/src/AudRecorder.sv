@@ -19,7 +19,7 @@ localparam S_FINISH = 5;
 logic [3:0] state_r, state_w;
 logic [19:0] address_r, address_w;
 logic [15:0] data_r, data_w;
-logic [19:0] counter_r, counter_w;
+logic [4:0] counter_r, counter_w;
 logic finish_r, finish_w;
 assign o_address = address_r;
 assign o_data = data_r;
@@ -44,7 +44,7 @@ always_comb begin
         end
         S_DELAY: begin
             if(!i_lrc) begin
-                data_w[15-counter_r] = i_data;
+                // data_w[15-counter_r] = i_data;
                 counter_w = counter_r+1;
                 state_w = S_REC;
             end
@@ -53,13 +53,13 @@ always_comb begin
             if(i_pause) begin
                 state_w = S_PAUSE;
             end
-            if(counter_w == 16) begin
+            if(counter_w == 17) begin
                 address_w = address_r+1;
                 counter_w = 0;
                 state_w = S_WAIT;
             end
             else begin
-                data_w[15-counter_r] = i_data;
+                data_w[16-counter_r] = i_data;
                 counter_w = counter_r+1;
             end
             if(address_r == 20'd1024000 || i_stop) begin
