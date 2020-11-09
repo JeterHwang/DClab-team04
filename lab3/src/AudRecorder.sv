@@ -72,6 +72,7 @@ always_comb begin
                 end
                 else begin 
                     counter_w = 0;
+                    state_w = S_WAIT;
                 end
             end
         end
