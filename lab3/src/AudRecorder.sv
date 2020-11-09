@@ -82,7 +82,7 @@ always_comb begin
             end
             else if (i_pause) begin
                 counter_w = counter_r;
-                data_w = data_r;
+                data_w[counter_r] = data_r[counter_r];
                 state_w = S_REC;
             end
             else begin
