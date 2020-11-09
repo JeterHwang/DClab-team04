@@ -12,7 +12,7 @@ module recorder_tb;
     logic [19:0] address;
     logic [21:0] state;
     logic [15:0] ans;
-    localparam [15:0] data_arr  = 16'b0111_0101_0100_1111;
+    localparam [15:0] data_arr  = 16'b0111_0111_0100_1111;
 
     AudRecorder recorder0(
         .i_rst_n(rst), 
