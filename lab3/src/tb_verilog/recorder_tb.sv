@@ -79,7 +79,7 @@ module recorder_tb;
                     
                     $display("%16b", out);
                     $display("%16b", ans);
-                    $display("%16b", data_arr);
+                    $display("%16b", in);
                     $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
                     
                     $display("++++++++++++++++++++");
