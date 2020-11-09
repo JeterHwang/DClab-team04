@@ -60,8 +60,8 @@ module recorder_tb;
         #(`CYCLE*2) rst = 1;
         #(`CYCLE*2) rst = 0;
         for(int i = 0; i < 65000; i++) begin
-            #(`CYCLE*15) start = 1;
-            #(`CYCLE*5) start = 0;
+            #(`CYCLE*20) start = 1;
+            #(`CYCLE*3) start = 0;
             
             @(negedge lr_clk) begin
                 in      = data_arr[i];
