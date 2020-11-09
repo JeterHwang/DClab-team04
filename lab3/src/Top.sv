@@ -16,16 +16,16 @@ module Top (
 	output        o_SRAM_UB_N,
 	
 	// SDRAM
-	output [12:0] o_DRAM_ADDR,
-	output [1:0]  o_DRAM_BA,
-	inout  [31:0] io_DRAM_DQ,
-	output [3:0]  o_DRAM_DQM,
-	output 		  o_DRAM_CAS_N,
-	output		  o_DRAM_CKE,
-	output		  o_DRAM_CLK,
-	output		  o_DRAM_CS_N,
-	output 		  o_DRAM_RAS_N,
-	output 		  o_DRAM_WE_N,
+	// output [12:0] o_DRAM_ADDR,
+	// output [1:0]  o_DRAM_BA,
+	// inout  [31:0] io_DRAM_DQ,
+	// output [3:0]  o_DRAM_DQM,
+	// output 		  o_DRAM_CAS_N,
+	// output		  o_DRAM_CKE,
+	// output		  o_DRAM_CLK,
+	// output		  o_DRAM_CS_N,
+	// output 		  o_DRAM_RAS_N,
+	// output 		  o_DRAM_WE_N,
 
 	// I2C
 	input  i_clk_100k,
