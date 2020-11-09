@@ -41,7 +41,7 @@ always_comb begin
             if(i_lrc) begin
                 state_w = S_WAIT;
             end
-            else begin
+            else if (!i_lrc) begin
                 state_w = S_REC;
             end
         end
