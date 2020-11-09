@@ -6,7 +6,7 @@
 
 module DSP_tb();
     logic rst,clk,start,stop,pause,fast,slow0,slow1;
-    logic daclrck,sent_finish;
+    logic lr_clk,sent_finish;
     logic [3:0]speed;
     logic [19:0] record_counter;
     logic [15:0] sram_data;
@@ -48,7 +48,7 @@ module DSP_tb();
         .i_fast(fast),
         .i_slow_0(slow0),
         .i_slow_1(slow1),
-        .i_daclrck(daclrck),
+        .i_daclrck(lr_clk),
         .i_sram_data(sram_data),
         .o_dacdata(dacdata),
         .o_sram_addr(sram_addr),
@@ -71,7 +71,7 @@ module DSP_tb();
     initial slow0 = 0;
     initial slow1 = 0;
     initial state = 0;
-    initial daclrck = 0;
+    initial lr_lck = 0;
     initial sent_finish = 0;
     initial speed = '{0010};
     initial sram_data = 16'd0;
@@ -83,79 +83,79 @@ module DSP_tb();
         #(`H_CYCLE) clk=~clk;
     end
     always begin
-        #(`HLR_CYCLE) daclrck=~daclrck;
+        #(`HLR_CYCLE) lr_clk=~lr_clk;
     end
-// initial begin
-// 		clk = 0;
-// 		rst = 0;
+    initial begin
+            clk = 0;
+            rst = 0;
 
-// 		stop = 0;
-// 		pause = 0;
+            stop = 0;
+            pause = 0;
 
-// 		fast = 0;
-// 		slow_0 = 0;
-// 		slow_1 = 0;
-// 		i_start = 0 ;
+            fast = 0;
+            slow_0 = 0;
+            slow_1 = 0;
+            i_start = 0 ;
 
-// 		control_speed = 2;
+            control_speed = 2;
 
-// 		#(`CYCLE*1.5) rst = 1;
-// 		#(`CYCLE*3.5) rst = 0;
+            #(`CYCLE*1.5) rst = 1;
+            #(`CYCLE*3.5) rst = 0;
 
-// 		#(`CYCLE*2) sram_data = 0;
+            #(`CYCLE*2) sram_data = 0;
 
-// 		#(`CYCLE*6) fast = 1;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
-// 		#(`CYCLE*2) fast = 0;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
+            #(`CYCLE*6) fast = 1;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
+            #(`CYCLE*2) fast = 0;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
 
-// 		#(`CYCLE*600) pause = 1;
-// 		control_speed = 5;
-// 		#(`CYCLE*2) pause = 0;
+            #(`CYCLE*600) pause = 1;
+            control_speed = 5;
+            #(`CYCLE*2) pause = 0;
 
-// 		#(`CYCLE*600) slow_0 = 1;
-// 		#(`CYCLE*2) slow_0 = 0;
+            #(`CYCLE*600) slow_0 = 1;
+            #(`CYCLE*2) slow_0 = 0;
 
-// 		#(`CYCLE*300) pause = 1;
-// 		control_speed = 7;
-// 		#(`CYCLE*2) pause = 0;
+            #(`CYCLE*300) pause = 1;
+            control_speed = 7;
+            #(`CYCLE*2) pause = 0;
 
-// 		#(`CYCLE*500) slow_1 = 1;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
-// 		#(`CYCLE*2) slow_1 = 0;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
+            #(`CYCLE*500) slow_1 = 1;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
+            #(`CYCLE*2) slow_1 = 0;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
 
-// 		#(`CYCLE*600) stop = 1;
-// 		#(`CYCLE*2) stop = 0;
-// 		#(`CYCLE*10.5) rst = 1;
-// 		#(`CYCLE*2) rst = 0;
+            #(`CYCLE*600) stop = 1;
+            #(`CYCLE*2) stop = 0;
+            #(`CYCLE*10.5) rst = 1;
+            #(`CYCLE*2) rst = 0;
 
-// 		#(`CYCLE*3) slow_1 = 1;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
-// 		#(`CYCLE*2) slow_1 = 0;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
+            #(`CYCLE*3) slow_1 = 1;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
+            #(`CYCLE*2) slow_1 = 0;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
 
-// 		#(`CYCLE*500) pause = 1;
-// 		control_speed = 1;
-// 		#(`CYCLE*2) pause = 0;
+            #(`CYCLE*500) pause = 1;
+            control_speed = 1;
+            #(`CYCLE*2) pause = 0;
 
-// 		#(`CYCLE*6) fast = 1;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
-// 		#(`CYCLE*2) fast = 0;
-// 		i_start = 1 ;
-// 		#(`CYCLE) i_start = 0 ;
-      
-//       #(`CYCLE*100) control_speed = 3;
- 
-// 		#(`CYCLE*1000) $finish;
-// 	end
+            #(`CYCLE*6) fast = 1;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
+            #(`CYCLE*2) fast = 0;
+            i_start = 1 ;
+            #(`CYCLE) i_start = 0 ;
+        
+        #(`CYCLE*100) control_speed = 3;
+    
+            #(`CYCLE*1000) $finish;
+        end
 	
     initial begin
         
@@ -164,36 +164,16 @@ module DSP_tb();
 
 
         for(int i = 0; i < 3; i++) begin
-                #(`CYCLE*2) enable = 1;
-                #(`CYCLE*2) enable = 0;
+                #(`CYCLE*1.5) rst = 1;
+	        	#(`CYCLE*3.5) rst = 0;
                 @(negedge lr_clk) begin
                     record_counter = record_counter_arr[i];
                     dac_data    = dac_data_arr[i];
                     sram_addr   = sram_addr_arr[i]
                     sram_data   = sram_addr_arr[i];
-                    dac_ans     = 16'd0;
-                    sram_ans    = 16'd0;
                     
                     state   = i;
                 end
-                // @(negedge bclk);
-                // for(int j = 0; j < 16; j++) begin
-                //     @(negedge bclk); 
-                //         ans = ((ans << 1) | out);
-                // end
-                // $display("+=====================+");
-                // if(ans == data_arr[i]) begin
-                //     $display("data %d simulation correct !!", i);
-                //     $display("expected output = %16b", dac_data_arr[i]);    
-                //     $display("received output = %16b", ans[15:0]);
-                //     $display("+=====================+");
-                // end    
-                // else begin
-                //     $display("data %d simulation wrong !!", i);
-                //     $display("expected output = %16b", data_arr[i]);    
-                //     $display("received output = %16b", ans[15:0]);
-                //     $display("+=====================+");
-                // end
             end
     end
 
