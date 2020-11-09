@@ -50,10 +50,10 @@ module DSP_tb();
         .i_slow_1(slow1),
         .i_daclrck(lr_clk),
         .i_sram_data(sram_data),
-        .o_dac_data(dac_data),
-        .o_sram_addr(sram_addr),
         .i_sent_finish(sent_finish),
         .i_record_counter(record_counter),
+        .o_dac_data(dac_data),
+        .o_sram_addr(sram_addr),
         .o_finish(finish),
         .o_player_en(player_en)
     );
@@ -162,8 +162,8 @@ module DSP_tb();
 	        	#(`CYCLE*3.5) rst = 0;
                 @(negedge lr_clk) begin
                     record_counter = record_counter_arr[i];
-                    dac_data    = dac_data_arr[i];
-                    sram_addr   = sram_addr_arr[i];
+                    // dac_data    = dac_data_arr[i];
+                    // sram_addr   = sram_addr_arr[i];
                     sram_data   = sram_data_arr[i];
                     
                     state   = i;
