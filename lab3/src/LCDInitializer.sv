@@ -2,14 +2,16 @@ module LCD_initializer(
     input   i_clk,
     input   i_start,
     input   i_rst_n,
-    input   i_bf,
 
     output [7:0] o_LCD_data,
     output  o_LCD_EN,
     output  o_LCD_RS,
     output  o_LCD_RW
 );
-parameter  = ;
+
+logic counter_r,counter
+parameter S_IDLE    = 1;
+parameter S_   = 2;
 always_comb begin
     
 end

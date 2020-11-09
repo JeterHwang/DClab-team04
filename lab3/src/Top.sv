@@ -172,7 +172,7 @@ LCD_Top LCDtop(
 	.o_LCD_RS(o_LCD_RS),
 	.o_LCD_RW(o_LCD_RW),
 	.o_init_finish(LCD_init_finish)
-)
+);
 
 always_comb begin
 	// design your control here
