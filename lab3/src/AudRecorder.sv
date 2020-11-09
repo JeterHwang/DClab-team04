@@ -53,27 +53,41 @@ always_comb begin
             if(i_pause) begin
                 state_w = S_PAUSE;
             end
-            if(counter_w == 17) begin
-                address_w = address_r+1;
-                counter_w = 0;
-                state_w = S_WAIT;
-            end
-            else begin
-                data_w[16-counter_r] = i_data;
-                counter_w = counter_r+1;
-            end
-            if(address_r == 20'd1024000 || i_stop) begin
+            else if(address_r == 20'd1024000 || i_stop) begin
                 state_w = S_FINISH;
                 counter_w = 0;
                 finish_w = 1;
             end
+            else begin
+                state_w = S_REC;
+                if(!i_lrc) begin
+                    if(counter_w == 17) begin
+                        address_w = address_r+1;
+                        counter_w = 0;
+                        state_w = S_WAIT;
+                    end
+                    else begin
+                        data_w[16-counter_r] = i_data;
+                        counter_w = counter_r+1;
+                    end
+                end
+                else begin 
+                    counter_w = 0;
+                end
+            end
         end
-        S_PAUSE: begin
-            if(finish_r == 1) begin
+        S_PAUSE: begin           
+            if(i_stop == 1) begin
                 state_w = S_FINISH;
             end
-            if(!i_pause) begin
+            else if (i_pause) begin
+                counter_w = counter_r;
+                data_w = data_r;
                 state_w = S_REC;
+            end
+            else begin
+                counter_w = counter_r;
+                data_w = data_r;
             end
         end
         S_FINISH: begin
