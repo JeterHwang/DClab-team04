@@ -83,6 +83,8 @@ module DSP_tb();
         #(`HLR_CYCLE) lr_clk=~lr_clk;
     end
     initial begin
+        $fsdbDumpfile("DSP.fsdb");
+        $fsdbDumpvars;
         clk = 0;
         rst = 0;
 
@@ -153,8 +155,7 @@ module DSP_tb();
     
         #(`CYCLE*1000) $finish;
         
-        $fsdbDumpfile("DSP.fsdb");
-        $fsdbDumpvars;
+        
 
 
         for(int i = 0; i < 3; i++) begin
