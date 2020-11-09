@@ -50,10 +50,10 @@ module DSP_tb();
         .i_slow_1(slow1),
         .i_daclrck(lr_clk),
         .i_sram_data(sram_data),
-        .o_dacdata(dacdata),
+        .o_dacdata(dac_data),
         .o_sram_addr(sram_addr),
         .o_finish(finish),
-        .i_sentfinish(sent_finish),
+        .i_sent_finish(sent_finish),
         .i_record_counter(record_counter),
         .o_player_en(player_en)
     );
