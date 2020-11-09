@@ -60,7 +60,7 @@ always_comb begin
             end
             else begin
                 state_w = S_REC;
-                if(!i_lrc) begin
+                if(!i_lrc && !i_pause) begin
                     if(counter_w == 17) begin
                         address_w = address_r+1;
                         counter_w = 0;
