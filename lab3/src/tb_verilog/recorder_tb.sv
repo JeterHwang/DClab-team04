@@ -57,14 +57,13 @@ module recorder_tb;
             #(`CYCLE*2) start = 0;
             
             @(negedge lr_clk) begin
-                
                 ans     = 16'd0;
                 state   = i;
             end
             @(negedge bclk);
             for(int j = 0; j < 16; j++) begin
                 data = data_arr[15-j];
-            @(negedge bclk);
+                @(negedge bclk);
                     $display("%16b", ans);
                     ans = ((ans) | out);
                     
