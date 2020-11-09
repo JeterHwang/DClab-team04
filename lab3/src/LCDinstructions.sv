@@ -69,7 +69,7 @@ always_comb begin
 end
 always_ff @(posedge i_clk or posedge i_rst_n) begin
     if(i_rst_n) begin
-        state_r     <= 1'b0;
+        state_r     <= S_IDLE;
         counter_r   <= 15'd0;
         inst_r      <= 11'd0;
         finish_r    <= 1'b0;
