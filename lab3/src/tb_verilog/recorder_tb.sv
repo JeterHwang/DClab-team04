@@ -65,6 +65,7 @@ module recorder_tb;
                 data = data_arr[15-j];
                 @(negedge bclk);
                     $display("%16b", ans);
+                    ans     = 16'd0;
                     ans = ((ans) | out);
                     
                     $display("%16b", out);
