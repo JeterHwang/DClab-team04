@@ -50,7 +50,7 @@ module DSP_tb();
         .i_slow_1(slow1),
         .i_daclrck(lr_clk),
         .i_sram_data(sram_data),
-        .o_dacdata(dac_data),
+        .o_dac_data(dac_data),
         .o_sram_addr(sram_addr),
         .o_finish(finish),
         .i_sent_finish(sent_finish),
