@@ -82,6 +82,9 @@ logic [19:0] addr_record, addr_play;
 logic [15:0] data_record, data_play, dac_data;
 logic sda_data;
 
+logic dsp2player_en,dsp_to_player_finished;
+
+
 assign io_I2C_SDAT = (i2c_oen) ? i2c_sdat : 1'bz;
 
 assign o_SRAM_ADDR = (state_r == S_RECD) ? addr_record : addr_play[19:0];
@@ -123,9 +126,13 @@ AudDSP dsp0(
 	.i_slow_0(slow0_r), // constant interpolation
 	.i_slow_1(slow1_r), // linear interpolation
 	.i_daclrck(i_AUD_DACLRCK),
+	.i_record_counter(addr_record),
 	.i_sram_data(data_play),
 	.o_dac_data(dac_data),
-	.o_sram_addr(addr_play)
+	.o_sram_addr(addr_play),
+	.i_sent_finished(dsp_to_player_finished),
+	.o_player_en(dsp2player_en),
+	.o_finish(player_finish)
 );
 
 // === AudPlayer ===
@@ -134,9 +141,10 @@ AudPlayer player0(
 	.i_rst_n(i_rst_n),
 	.i_bclk(i_AUD_BCLK),
 	.i_daclrck(i_AUD_DACLRCK),
-	.i_en(player_en_r), // enable AudPlayer only when playing audio, work with AudDSP
+	.i_en(dsp2player_en), // enable AudPlayer only when playing audio, work with AudDSP
 	.i_dac_data(dac_data), //dac_data
-	.o_aud_dacdat(o_AUD_DACDAT)
+	.o_aud_dacdat(o_AUD_DACDAT),
+	.o_sent_finished(dsp_to_player_finished)
 );
 
 // === AudRecorder ===
@@ -150,7 +158,7 @@ AudRecorder recorder0(
 	.i_stop(i_key_2),
 	.i_data(i_AUD_ADCDAT),
 	.o_address(addr_record),
-	.o_data(data_record),
+	.o_data(data_record)
 );
 
 always_comb begin
