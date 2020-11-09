@@ -55,7 +55,6 @@ always_comb begin
                 finish_w = 1;
             end
             else begin
-                state_w = S_REC;
                 if(!i_lrc) begin
                     if(counter_r == 16) begin
                         address_w = address_r+1;

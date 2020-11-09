@@ -67,9 +67,10 @@ module recorder_tb;
                 in      = data_arr[i];
                 ans     = 16'd0;
                 state   = i;
-                data    = in[15];
+                
             end
             @(negedge bclk);
+            data    = in[15];
             for(int j = 0; j < 16; j++) begin
                 $display("%1b", j);
                 // data = in[15-j];
