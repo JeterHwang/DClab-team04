@@ -68,11 +68,11 @@ always_comb begin
 				// FSM
 				if(i_start && !i_pause)	begin
 					if(i_fast)
-						state_w = FAST_FETCH;
+						state_w = S_FAST_FETCH;
 					else if(i_slow_0)
-						state_w = SLOW_0_FETCH;
+						state_w = S_SLOW_0_FETCH;
 					else if(i_slow_1)
-						state_w = SLOW_1_FETCH;
+						state_w = S_SLOW_1_FETCH;
 				end
 			end
         
@@ -89,9 +89,9 @@ always_comb begin
 					finished_w = 0;
 				// FSM
 				if(i_stop || finished_r)
-					state_w = IDLE;
+					state_w = S_IDLE;
 				else
-					state_w = FAST_SENT;
+					state_w = S_FAST_SENT;
 
 
 				// AudPlayer en && dac_data
@@ -130,11 +130,11 @@ always_comb begin
 				interpolation_counter_w = 0;
 				// FSM
 				if(i_stop)
-					state_w = IDLE;
+					state_w = S_IDLE;
 				else if(i_sent_finish)
-					state_w = FAST_FETCH;
+					state_w = S_FAST_FETCH;
 				else
-					state_w = FAST_SENT;
+					state_w = S_FAST_SENT;
 				// dac_data
 				if(i_stop)
 					dac_data_w = 0;
@@ -175,12 +175,12 @@ always_comb begin
 			begin
 				// FSM && interpolation_counter && sent_counter
 				if(i_stop || finished_r) begin
-					state_w = IDLE;
+					state_w = S_IDLE;
 					interpolation_counter_w = 0;
 					sent_counter_w = 0;
 				end
 				else if(slow_fetch_counter_r == 2) begin
-					state_w = SLOW_0_SENT;
+					state_w = S_SLOW_0_SENT;
 					sent_counter_w = sent_counter_r + 1;
 					if((interpolation_counter_r + 1) == speed_r[3:0])  //got it
 						interpolation_counter_w = 0;
@@ -188,7 +188,7 @@ always_comb begin
 						interpolation_counter_w = interpolation_counter_r + 1;
 				end
 				else begin
-					state_w = SLOW_0_FETCH;
+					state_w = S_SLOW_0_FETCH;
 					interpolation_counter_w = interpolation_counter_r;
 					sent_counter_w = sent_counter_r;
 				end
@@ -265,11 +265,11 @@ always_comb begin
 				end
 				// FSM
 				if(i_stop)
-					state_w = IDLE;
+					state_w = S_IDLE;
 				else if(i_sent_finish)
-					state_w = SLOW_0_FETCH;
+					state_w = S_SLOW_0_FETCH;
 				else
-					state_w = SLOW_0_SENT;
+					state_w = S_SLOW_0_SENT;
 				
 				// AudPlayer en
 				if(i_stop || i_sent_finish)
@@ -309,12 +309,12 @@ always_comb begin
 			begin
 				// FSM && interpolation_counter && sent_counter
 				if(i_stop || finished_r) begin
-					state_w = IDLE;
+					state_w = S_IDLE;
 					interpolation_counter_w = 0;
 					sent_counter_w = 0;
 				end
 				else if(slow_fetch_counter_r == 2) begin
-					state_w = SLOW_1_SENT;
+					state_w = S_SLOW_1_SENT;
 					sent_counter_w = sent_counter_r + 1;
 					if((interpolation_counter_r + 1) == speed_r[3:0])
 						interpolation_counter_w = 0;
@@ -322,7 +322,7 @@ always_comb begin
 						interpolation_counter_w = interpolation_counter_r + 1;
 				end
 				else begin
-					state_w = SLOW_1_FETCH;
+					state_w = S_SLOW_1_FETCH;
 					interpolation_counter_w = interpolation_counter_r;
 					sent_counter_w = sent_counter_r;
 				end
@@ -411,11 +411,11 @@ always_comb begin
 				end
 				// FSM
 				if(i_stop)
-					state_w = IDLE;
+					state_w = S_IDLE;
 				else if(i_sent_finish)
-					state_w = SLOW_1_FETCH;
+					state_w = S_SLOW_1_FETCH;
 				else
-					state_w = SLOW_1_SENT;
+					state_w = S_SLOW_1_SENT;
 				// AudPlayer en
 				if(i_stop || i_sent_finish)
 					player_en_w = 0;
@@ -449,7 +449,7 @@ always_comb begin
 			end
 	
 		default: begin
-			state_w = IDLE;
+			state_w = S_IDLE;
 			player_en_w = 0;
 			sent_counter_w = 0;
 			interpolation_counter_w = 0;
@@ -466,7 +466,7 @@ end
 
 always_ff @(posedge i_clk) begin
 	if(!i_rst_n) begin
-		state_r <= IDLE;
+		state_r <= S_IDLE;
 		addr_r <= 0;
 		finished_r <= 0;
 		player_en_r <= 0;
