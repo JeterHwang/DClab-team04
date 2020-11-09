@@ -71,7 +71,8 @@ always_comb begin
             end
         end
         S_PAUSE: begin
-            
+            counter_w = counter_r;
+            data_w = data_r;
             if(finish_r == 1) begin
                 state_w = S_FINISH;
             end
