@@ -78,6 +78,7 @@ always_comb begin
         end
         S_PAUSE: begin           
             if(i_stop == 1) begin
+                finish_w = 1;
                 state_w = S_FINISH;
             end
             else if (i_pause) begin

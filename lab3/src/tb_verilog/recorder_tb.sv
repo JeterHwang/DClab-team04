@@ -72,12 +72,14 @@ module recorder_tb;
                     $display("%16b", ans);
                     $display("%16b", data_arr);
                     $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
+                    $display("%1b", j);
                     $display("++++++++++++++++++++");
                     if (j == 5) begin
                         #(`CYCLE) pause = 1;
                         #(`CYCLE) pause = 0;
                         #(`CYCLE) pause = 1;
                         #(`CYCLE) pause = 0;
+                        $display("%1b", j);
                     end
             end
 
