@@ -175,7 +175,7 @@ always_comb begin
 			begin
 				// FSM && interpolation_counter && sent_counter
 				if(i_stop || finished_r) begin
-					state_w = IDLE;
+					state_w = S_IDLE;
 					interpolation_counter_w = 0;
 					sent_counter_w = 0;
 				end

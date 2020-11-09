@@ -134,7 +134,7 @@ module DSP_tb();
             #(`CYCLE*3) slow1 = 1;
             start = 1 ;
             #(`CYCLE) start = 0 ;
-            #(`CYCLE*2) slow_1 = 0;
+            #(`CYCLE*2) slow1 = 0;
             start = 1 ;
             #(`CYCLE) start = 0 ;
 
@@ -144,7 +144,7 @@ module DSP_tb();
 
             #(`CYCLE*6) fast = 1;
             start = 1 ;
-            #(`CYCLE) istart = 0 ;
+            #(`CYCLE) start = 0 ;
             #(`CYCLE*2) fast = 0;
             start = 1 ;
             #(`CYCLE) start = 0 ;
@@ -179,7 +179,7 @@ module DSP_tb();
 
 
     always@(posedge clk) begin
-        if(finished) begin
+        if(finish) begin
             $display("+=====================+");
             $display("| Simulation Complete |");
             $display("+=====================+");
