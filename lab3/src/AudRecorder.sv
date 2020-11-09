@@ -39,16 +39,13 @@ always_comb begin
         end
         S_WAIT: begin
             if(i_lrc) begin
-                state_w = S_DELAY;
+                state_w = S_WAIT;
             end
-        end
-        S_DELAY: begin
-            if(!i_lrc) begin
-                // data_w[15-counter_r] = i_data;
-                counter_w = counter_r+1;
+            else begin
                 state_w = S_REC;
             end
         end
+
         S_REC: begin
             if(i_pause) begin
                 state_w = S_PAUSE;
