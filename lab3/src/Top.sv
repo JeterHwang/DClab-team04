@@ -82,7 +82,7 @@ logic [19:0] addr_record, addr_play;
 logic [15:0] data_record, data_play, dac_data;
 logic sda_data;
 
-logic dsp2player_en,dsp_to_player_finished;
+logic dsp2player_en,dsp_to_player_finished; // new added 
 
 logic LCD_wr_enable;
 logic LCD_init_finish;
