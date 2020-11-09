@@ -20,17 +20,21 @@ parameter S_WRITE               = 4'd4;
 
 parameter instruction_count = 3'd4;
 
-parameter [9:0] stop[0:3] = '{      // 's', 't', 'o', 'p'
-    10'b, 10'b, 10'b, 10'b
+parameter [7:0] stop[0:31] = '{      // 's', 't', 'o', 'p'
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 }
-parameter [9:0] pause[0:4] = '{     // 'p', 'a', 'u', 's', 'e'
-    10'b, 10'b, 10'b, 10'b, 10'b
+parameter [7:0] pause[0:31] = '{     // 'p', 'a', 'u', 's', 'e'
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 };
-parameter [9:0] playing[0:6] = '{   // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
-    10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b,
+parameter [7:0] playing[0:31] = '{   // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 };
-parameter [9:0] recording[0:8] = '{ // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
-    10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b,
+parameter [7:0] recording[0:31] = '{ // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 };
 // Host interface 
 logic [2:0] state_r, state_w;
@@ -41,9 +45,6 @@ logic inst_start_r, inst_start_w;
 logic [2:0] inst_type_r, inst_type_w;
 logic [6:0] address_r, address_w;
 
-logic LCD_EN_r, LCD_EN_w;
-logic LCD_RS_r, LCD_RS_w;
-logic LCD_RW_r, LCD_RW_w;
 logic [7:0] LCD_data_r, LCD_data_w;
 
 logic [5:0] counter_r, counter_w;
@@ -86,8 +87,6 @@ LCD_datacontroll dataflow(
     .i_start(write_start_r),
     .i_rst_n(i_rst_n),
     .i_LCD_data(LCD_data_r),
-    .i_LCD_RS(LCD_RS_r),
-    .i_LCD_RW(LCD_RW_r),
     
     .o_LCD_data(LCD_w_data),
     .o_LCD_EN(LCD_w_EN),
@@ -99,33 +98,20 @@ task CharacterData(
     input [2:0] mode,
     input [5:0] count,
     
-    output Rs, Rw,
     output [7:0] data
 );
     // stop 
-    if(mode == 3'd0) begin
-        Rs      = stop[count][9];
-        Rw      = stop[count][8];
-        data    = stop[count][7:0];
-    end
+    if(mode == 3'd0) 
+        data    = stop[count];
     // pause
-    else if(mode == 3'd1) begin
-        Rs      = pause[count][9];
-        Rw      = pause[count][8];
-        data    = pause[count][7:0]; 
-    end
+    else if(mode == 3'd1)
+        data    = pause[count];
     // recording 
-    else if(mode == 3'd2) begin
-        Rs      = playing[count][9];
-        Rw      = playing[count][8];
-        data    = playing[count][7:0]; 
-    end
+    else if(mode == 3'd2)
+        data    = playing[count]; 
     // playing 
-    else begin
-        Rs      = recording[count][9];
-        Rw      = recording[count][8];
-        data    = recording[count][7:0]; 
-    end
+    else
+        data    = recording[count]; 
 endtask
 
 always_comb begin
@@ -134,9 +120,6 @@ always_comb begin
     inst_start_w    = inst_start_r;
     inst_type_w     = inst_type_r;
     address_w       = address_r;
-    LCD_EN_w        = LCD_EN_r;
-    LCD_CS_w        = LCD_CS_r;
-    LCD_RW_w        = LCD_RW_r;
     LCD_data_w      = LCD_data_r;
     counter_w       = counter_r;
     index_w         = index_r;        
@@ -177,8 +160,8 @@ always_comb begin
             if(inst_finish) begin
                 state_w         = S_WRITE;
                 write_start_w   = 1'b1;
-                CharacterData(i_mode, counter_r, LCD_RS_w, LCD_RW_w, LCD_data_w);
                 counter_w       = counter_r + 1;
+                CharacterData(i_mode, counter_r, LCD_data_w);
             end
             else begin
                 inst_start_w    = 1'b0;
@@ -198,7 +181,7 @@ always_comb begin
                 else begin
                     write_start_w   = 1'b1;
                     counter_w       = counter_r + 1;
-                    CharacterData(i_mode, counter_r, LCD_RS_w, LCD_RW_w, LCD_data_w);    
+                    CharacterData(i_mode, counter_r, LCD_data_w);    
                 end
             end
             else begin
@@ -214,9 +197,6 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
         inst_start_r    <= 1'b0;
         inst_type_r     <= 3'd0;
         address_r       <= 7'd0;
-        LCD_EN_r        <= 1'b0;
-        LCD_CS_r        <= 1'b0;
-        LCD_RW_r        <= 1'b0;
         LCD_data_r      <= 8'd0;
         counter_r       <= 6'd0;
         index_r         <= 3'd0;        
@@ -227,9 +207,6 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
         inst_start_r    <= inst_start_w;
         inst_type_r     <= inst_type_w;
         address_r       <= address_w;
-        LCD_EN_r        <= LCD_EN_w;
-        LCD_CS_r        <= LCD_CS_w;
-        LCD_RW_r        <= LCD_RW_w;
         LCD_data_r      <= LCD_data_w;
         counter_r       <= counter_w;
         index_r         <= index_w;        

@@ -3,9 +3,7 @@ module LCD_datacontroll(
     input   i_start,
     input   i_rst_n,
     input  [7:0] i_LCD_data,
-    input   i_LCD_RS,
-    input   i_LCD_RW,
-
+    
     output [7:0] o_LCD_data,
     output  o_LCD_EN,
     output  o_LCD_RS,
@@ -21,8 +19,8 @@ logic [1:0] state_r, state_w;
 
 assign o_LCD_data   = (state_r == S_IDLE) ? 8'b00000000 : i_LCD_data;
 assign o_LCD_EN     = (state_r == S_HOLD) ? 1'b1 : 1'b0;
-assign o_LCD_RS     = (state_r == S_IDLE) ? 1'bz : i_LCD_RS;
-assign o_LCD_RW     = (state_r == S_IDLE) ? 1'bz : i_LCD_RW;
+assign o_LCD_RS     = (state_r == S_IDLE) ? 1'bz : 1'b1;
+assign o_LCD_RW     = (state_r == S_IDLE) ? 1'bz : 1'b0;
 assign o_write_fin  = (state_r == S_FALL) ? 1'b1 : 1'b0;
 
 always_comb begin
