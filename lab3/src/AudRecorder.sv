@@ -68,7 +68,6 @@ always_comb begin
                     else begin
                         data_w[15-counter_r] = i_data;
                         counter_w = counter_r+1;
-                        state_w = S_REC;
                     end
                 end
                 else begin 
