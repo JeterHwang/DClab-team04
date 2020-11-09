@@ -83,6 +83,7 @@ always_comb begin
                 state_w = S_REC;
             end
             else begin
+                state_w = S_PAUSE;
                 counter_w = counter_r;
                 data_w = data_r;
             end
