@@ -49,6 +49,7 @@ always_comb begin
 
         S_REC: begin
             if(i_pause) begin
+                counter_w = counter_r;
                 state_w = S_PAUSE;
             end
             else if(address_r == 20'd1024000 || i_stop) begin
