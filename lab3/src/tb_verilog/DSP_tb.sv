@@ -85,8 +85,6 @@ module DSP_tb();
     initial begin
         $fsdbDumpfile("DSP.fsdb");
         $fsdbDumpvars;
-        clk = 0;
-        rst = 0;
 
         stop = 0;
         pause = 0;
