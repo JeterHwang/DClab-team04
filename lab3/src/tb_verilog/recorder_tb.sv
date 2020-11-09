@@ -15,7 +15,7 @@ module recorder_tb;
     logic [15:0] in;
     localparam [15:0] data_arr [0:4] = '{
         16'b1111_0000_1100_1111,
-        16'b1111_0000_1100_1111,
+        16'b1111_0110_0100_1111,
         16'b1000_0011_1100_0001,
         16'b1001_1100_0101_1000,
         16'b0110_1010_0100_1100
@@ -75,7 +75,7 @@ module recorder_tb;
                 @(negedge bclk);
                     $display("%16b", ans);
                     ans     = 16'd0;
-                    ans = ((ans) | out);
+                    ans     = ((ans) | out);
                     
                     $display("%16b", out);
                     $display("%16b", ans);
