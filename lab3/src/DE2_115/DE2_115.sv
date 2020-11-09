@@ -217,7 +217,7 @@ Top top0(
 
 	LCD (optional display)
 	.i_clk_800k(CLK_800K),
-	.o_LCD_DATA(LCD_DATA), // [7:0]
+	.io_LCD_DATA(LCD_DATA), // [7:0]
 	.o_LCD_EN(LCD_EN),
 	.o_LCD_RS(LCD_RS),
 	.o_LCD_RW(LCD_RW),
