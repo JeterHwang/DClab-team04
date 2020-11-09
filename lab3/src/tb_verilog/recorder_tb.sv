@@ -60,17 +60,17 @@ module recorder_tb;
         #(`CYCLE*2) rst = 1;
         #(`CYCLE*2) rst = 0;
         for(int i = 0; i < 65000; i++) begin
-            #(`CYCLE*2) start = 1;
-            #(`CYCLE*2) start = 0;
+            #(`CYCLE*8) start = 1;
+            #(`CYCLE*8) start = 0;
             
             @(negedge lr_clk) begin
                 in      = data_arr[i];
                 ans     = 16'd0;
                 state   = i;
-                data    = in[15];
+                
             end
             @(negedge bclk);
-            
+            data    = in[15];
             for(int j = 0; j < 16; j++) begin
                 $display("%1b", j);
                 // data = in[15-j];
