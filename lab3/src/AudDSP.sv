@@ -466,7 +466,7 @@ end
 
 always_ff @(posedge i_clk) begin
 	if(!i_rst_n) begin
-		state_r <= IDLE;
+		state_r <= S_IDLE;
 		addr_r <= 0;
 		finished_r <= 0;
 		player_en_r <= 0;
