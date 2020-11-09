@@ -67,12 +67,12 @@ module recorder_tb;
                 in      = data_arr[i];
                 ans     = 16'd0;
                 state   = i;
-                // data    = in[15];
+                data    = in[15];
             end
             @(negedge bclk);
             for(int j = 0; j < 16; j++) begin
                 $display("%1b", j);
-                data = in[15-j];
+                // data = in[15-j];
                 @(negedge bclk);
                     $display("%16b", ans);
                     ans     = 16'd0;
@@ -84,12 +84,12 @@ module recorder_tb;
                     $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
                     
                     $display("++++++++++++++++++++");
-                    // if (j != 15) begin
-                    //     data = in[14-j];
-                    // end
-                    // else if(j == 15) begin
-                    //     data = in[0];
-                    // end
+                    if (j != 15) begin
+                        data = in[14-j];
+                    end
+                    else if(j == 15) begin
+                        data = in[0];
+                    end
                     if (j == 5) begin
                         pause = 1;
                         #(`CYCLE) pause = 0;
