@@ -76,7 +76,7 @@ always_comb begin
             if(finish_r == 1) begin
                 state_w = S_FINISH;
             end
-            if(!i_pause) begin
+            if(i_pause) begin
                 state_w = S_REC;
             end
         end
