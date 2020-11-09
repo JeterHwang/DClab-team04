@@ -76,7 +76,7 @@ module recorder_tb;
                     
                     $display("++++++++++++++++++++");
                     if (j == 5) begin
-                        #(`CYCLE*2) pause = 1;
+                        pause = 1;
                         #(`CYCLE) pause = 0;
                         #(`CYCLE*2) pause = 1;
                         #(`CYCLE) pause = 0;
