@@ -188,7 +188,7 @@ always_comb begin
 						interpolation_counter_w = interpolation_counter_r + 1;
 				end
 				else begin
-					state_w = SLOW_0_FETCH;
+					state_w = S_SLOW_0_FETCH;
 					interpolation_counter_w = interpolation_counter_r;
 					sent_counter_w = sent_counter_r;
 				end
@@ -309,12 +309,12 @@ always_comb begin
 			begin
 				// FSM && interpolation_counter && sent_counter
 				if(i_stop || finished_r) begin
-					state_w = IDLE;
+					state_w = S_IDLE;
 					interpolation_counter_w = 0;
 					sent_counter_w = 0;
 				end
 				else if(slow_fetch_counter_r == 2) begin
-					state_w = SLOW_1_SENT;
+					state_w = S_SLOW_1_SENT;
 					sent_counter_w = sent_counter_r + 1;
 					if((interpolation_counter_r + 1) == speed_r[3:0])
 						interpolation_counter_w = 0;
@@ -322,7 +322,7 @@ always_comb begin
 						interpolation_counter_w = interpolation_counter_r + 1;
 				end
 				else begin
-					state_w = SLOW_1_FETCH;
+					state_w = S_SLOW_1_FETCH;
 					interpolation_counter_w = interpolation_counter_r;
 					sent_counter_w = sent_counter_r;
 				end

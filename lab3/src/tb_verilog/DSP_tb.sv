@@ -166,7 +166,7 @@ module DSP_tb();
                 @(negedge lr_clk) begin
                     record_counter = record_counter_arr[i];
                     dac_data    = dac_data_arr[i];
-                    sram_addr   = sram_addr_arr[i]
+                    sram_addr   = sram_addr_arr[i];
                     sram_data   = sram_data_arr[i];
                     
                     state   = i;
