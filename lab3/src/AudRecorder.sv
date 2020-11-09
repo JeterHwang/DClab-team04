@@ -42,6 +42,7 @@ always_comb begin
                 state_w = S_WAIT;
             end
             else if (!i_lrc) begin
+                counter_w = counter_r+1;
                 state_w = S_REC;
             end
         end
@@ -58,13 +59,13 @@ always_comb begin
             else begin
                 state_w = S_REC;
                 if(!i_lrc) begin
-                    if(counter_r == 16) begin
+                    if(counter_r == 17) begin
                         address_w = address_r+1;
                         counter_w = 0;
                         state_w = S_WAIT;
                     end
                     else begin
-                        data_w[15-counter_r] = i_data;
+                        data_w[16-counter_r] = i_data;
                         counter_w = counter_r+1;
                     end
                 end
