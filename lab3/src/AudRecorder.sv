@@ -11,14 +11,15 @@ module AudRecorder(
 );
 localparam S_IDLE = 0;
 localparam S_WAIT = 1;
-localparam S_REC = 2;
-localparam S_PAUSE = 3;
-localparam S_FINISH = 4;
+localparam S_DELAY = 2;
+localparam S_REC = 3;
+localparam S_PAUSE = 4;
+localparam S_FINISH = 5;
 
-logic [1:0] state_r, state_w;
+logic [3:0] state_r, state_w;
 logic [19:0] address_r, address_w;
 logic [15:0] data_r, data_w;
-logic [19:0] counter_r, counter_w;
+logic [4:0] counter_r, counter_w;
 logic finish_r, finish_w;
 assign o_address = address_r;
 assign o_data = data_r;
@@ -37,24 +38,34 @@ always_comb begin
             end
         end
         S_WAIT: begin
-            state_w = S_REC;
+            if(i_lrc) begin
+                state_w = S_DELAY;
+            end
+        end
+        S_DELAY: begin
+            if(!i_lrc) begin
+                // data_w[15-counter_r] = i_data;
+                counter_w = counter_r+1;
+                state_w = S_REC;
+            end
         end
         S_REC: begin
             if(i_pause) begin
                 state_w = S_PAUSE;
             end
-            if(!i_lrc) begin
-                data_w[15-counter_r] = i_data;
+            if(counter_w == 17) begin
+                address_w = address_r+1;
+                counter_w = 0;
+                state_w = S_WAIT;
+            end
+            else begin
+                data_w[16-counter_r] = i_data;
                 counter_w = counter_r+1;
-                if(counter_w == 16) begin
-                    address_w = address_r+1;
-                    counter_w = 0;
-                end
-                if(address_r == 20'd1024000 || i_stop) begin
-                    state_w = S_FINISH;
-                    counter_w = 0;
-                    finish_w = 1;
-                end
+            end
+            if(address_r == 20'd1024000 || i_stop) begin
+                state_w = S_FINISH;
+                counter_w = 0;
+                finish_w = 1;
             end
         end
         S_PAUSE: begin
@@ -66,7 +77,6 @@ always_comb begin
             end
         end
         S_FINISH: begin
-            counter_w = 0;
             state_w = S_IDLE;
         end
     endcase
@@ -76,7 +86,7 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
     if (i_rst_n) begin
         state_r             <= S_IDLE;
         address_r           <= address_w;
-        data_r              <= data_w;
+        data_r              <= 0;
         counter_r           <= 0;
         finish_r            <= 0;
     end
