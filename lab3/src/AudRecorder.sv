@@ -82,11 +82,10 @@ always_comb begin
             end
             else if (i_pause) begin
                 counter_w = counter_r;
-                data_w[counter_r] = data_r[counter_r];
+                data_w = data_r;
                 state_w = S_REC;
             end
             else begin
-                state_w = S_PAUSE;
                 counter_w = counter_r;
                 data_w = data_r;
             end
