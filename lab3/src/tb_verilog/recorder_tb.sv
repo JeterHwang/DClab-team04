@@ -39,7 +39,7 @@ module recorder_tb;
     initial stop  = 0;
     initial state   = 0;
     initial data    = 0;
-    initial in      = 16'b0;
+    initial in      = 16'd0;
     always #(`H_CYCLE) bclk=~bclk;
     always #(`HLR_CYCLE) lr_clk=~lr_clk;
     // always begin

@@ -11,10 +11,9 @@ module AudRecorder(
 );
 localparam S_IDLE = 0;
 localparam S_WAIT = 1;
-localparam S_DELAY = 2;
-localparam S_REC = 3;
-localparam S_PAUSE = 4;
-localparam S_FINISH = 5;
+localparam S_REC = 2;
+localparam S_PAUSE = 3;
+localparam S_FINISH = 4;
 
 logic [3:0] state_r, state_w;
 logic [19:0] address_r, address_w;
@@ -42,7 +41,6 @@ always_comb begin
                 state_w = S_WAIT;
             end
             else if (!i_lrc) begin
-                counter_w = counter_r+1;
                 state_w = S_REC;
             end
         end
@@ -59,13 +57,13 @@ always_comb begin
             else begin
                 state_w = S_REC;
                 if(!i_lrc) begin
-                    if(counter_r == 17) begin
+                    if(counter_r == 16) begin
                         address_w = address_r+1;
                         counter_w = 0;
                         state_w = S_WAIT;
                     end
                     else begin
-                        data_w[16-counter_r] = i_data;
+                        data_w[15-counter_r] = i_data;
                         counter_w = counter_r+1;
                     end
                 end
