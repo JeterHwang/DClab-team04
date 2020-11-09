@@ -62,6 +62,7 @@ module recorder_tb;
             end
             @(negedge bclk);
             for(int j = 0; j < 16; j++) begin
+                $display("%1b", j);
                 data = data_arr[15-j];
                 @(negedge bclk);
                     $display("%16b", ans);
@@ -72,7 +73,7 @@ module recorder_tb;
                     $display("%16b", ans);
                     $display("%16b", data_arr);
                     $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
-                    $display("%1b", j);
+                    
                     $display("++++++++++++++++++++");
                     if (j == 5) begin
                         #(`CYCLE*2) pause = 1;
