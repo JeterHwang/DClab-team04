@@ -73,8 +73,8 @@ module DSP_tb();
     initial speed = '{0010};
     initial sram_data = 16'd0;
     initial record_counter = 20'd0;
-    initial dac_data = 16'd0;
-    initial sram_addr = 20'd0;
+    // initial dac_data = 16'd0;
+    // initial sram_addr = 20'd0;
 
     always begin
         #(`H_CYCLE) clk=~clk;
