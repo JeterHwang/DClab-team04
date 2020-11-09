@@ -12,7 +12,7 @@ module recorder_tb;
     logic [19:0] address;
     logic [21:0] state;
     logic [15:0] ans;
-    localparam [15:0] data_arr  = 16'b1111_0000_1100_1111;
+    localparam [15:0] data_arr  = 16'b0111_0100_1100_1111;
 
     AudRecorder recorder0(
         .i_rst_n(rst), 
@@ -57,7 +57,6 @@ module recorder_tb;
             #(`CYCLE*2) start = 0;
             
             @(negedge lr_clk) begin
-                
                 ans     = 16'd0;
                 state   = i;
             end
@@ -65,27 +64,20 @@ module recorder_tb;
             for(int j = 0; j < 16; j++) begin
                 data = data_arr[15-j];
                 @(negedge bclk);
-                    if (j == 16) begin
-                        $display("%16b", ans);
-                        ans = ((ans) | (out));
-                        $display("%16b", out);
-                        $display("%16b", ans);
-                        $display("%16b", data_arr);
+                    $display("%16b", ans);
+                    ans = ((ans) | out);
+                    
+                    $display("%16b", out);
+                    $display("%16b", ans);
+                    $display("%16b", data_arr);
+                    $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
+                    $display("++++++++++++++++++++");
+                    if (j == 5) begin
+                        #(`CYCLE) pause = 1;
+                        #(`CYCLE) pause = 0;
+                        #(`CYCLE) pause = 1;
+                        #(`CYCLE) pause = 0;
                     end
-                    else begin 
-                        $display("%16b", ans);
-                        ans = ((ans) | out);
-                        
-                        $display("%16b", out);
-                        $display("%16b", ans);
-                        $display("%16b", data_arr);
-                        $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
-                        $display("++++++++++++++++++++");
-                    end
-                if (j == 5) begin
-                    #(`CYCLE) pause = 1;
-                    #(`CYCLE) pause = 0;
-                end
             end
 
             $display("+=====================+");
@@ -107,7 +99,7 @@ module recorder_tb;
 		// rst = 0;
     end
     initial begin
-        #(10000 * (`CYCLE))
+        #(500 * (`CYCLE))
         $display("Too slow, abort.");
         $finish;
     end
