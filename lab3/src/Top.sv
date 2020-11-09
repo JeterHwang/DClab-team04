@@ -45,7 +45,7 @@ module Top (
 
 	//LCD (optional display)
 	input        i_clk_800k,
-	inout  [7:0] o_LCD_DATA,
+	inout  [7:0] io_LCD_DATA,
 	output       o_LCD_EN,
 	output       o_LCD_RS,
 	output       o_LCD_RW,
@@ -81,6 +81,15 @@ logic i2c_oen, i2c_sdat;
 logic [19:0] addr_record, addr_play;
 logic [15:0] data_record, data_play, dac_data;
 logic sda_data;
+
+logic LCD_wr_enable;
+logic LCD_init_finish;
+logic [7:0] LCD_data;
+logic bf;
+
+assign o_LCD_ON    = 1'b1;
+assign o_LCD_BLON  = 1'b1;
+assign io_LCD_DATA = (!LCD_wr_enable) ? LCD_data : 8'dz;
 
 assign io_I2C_SDAT = (i2c_oen) ? i2c_sdat : 1'bz;
 
@@ -152,6 +161,18 @@ AudRecorder recorder0(
 	.o_address(addr_record),
 	.o_data(data_record),
 );
+LCD_Top LCDtop(
+	.i_clk(i_clk_800k),
+	.i_start(),
+	.i_rst_n(i_rst_n),
+	.i_mode(),
+	.i_bf(bf),
+	.o_LCD_data(LCD_data),
+	.o_LCD_EN(o_LCD_EN),
+	.o_LCD_RS(o_LCD_RS),
+	.o_LCD_RW(o_LCD_RW),
+	.o_init_finish(LCD_init_finish)
+)
 
 always_comb begin
 	// design your control here
@@ -199,9 +220,11 @@ end
 always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 	if (!i_rst_n) begin
 		sda_data 	<=	io_I2C_SDAT;
+		bf			<= 	1'b0;
 	end
 	else begin
 		sda_data 	<=	io_I2C_SDAT; 
+		bf			<=  io_LCD_DATA[7];
 	end
 end
 
