@@ -70,7 +70,7 @@ module DSP_tb();
     initial state = 0;
     initial lr_clk = 0;
     initial sent_finish = 0;
-    initial speed = '{0010};
+    initial speed = 0;
     initial sram_data = 16'd0;
     initial record_counter = 20'd0;
     // initial dac_data = 16'd0;
