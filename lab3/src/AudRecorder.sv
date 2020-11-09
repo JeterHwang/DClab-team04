@@ -71,6 +71,9 @@ always_comb begin
                         counter_w = counter_r+1;
                     end
                 end
+                else begin 
+                    counter_w = 0;
+                end
             end
         end
         S_PAUSE: begin           
