@@ -11,10 +11,9 @@ module AudRecorder(
 );
 localparam S_IDLE = 0;
 localparam S_WAIT = 1;
-localparam S_DELAY = 2;
-localparam S_REC = 3;
-localparam S_PAUSE = 4;
-localparam S_FINISH = 5;
+localparam S_REC = 2;
+localparam S_PAUSE = 3;
+localparam S_FINISH = 4;
 
 logic [3:0] state_r, state_w;
 logic [19:0] address_r, address_w;
@@ -39,18 +38,19 @@ always_comb begin
         end
         S_WAIT: begin
             if(i_lrc) begin
-                state_w = S_DELAY;
+                state_w = S_WAIT;
             end
-        end
-        S_DELAY: begin
-            if(!i_lrc) begin
+            else if (!i_lrc) begin
                 // data_w[15-counter_r] = i_data;
-                counter_w = counter_r+1;
+                // counter_w = counter_r+1;
                 state_w = S_REC;
             end
         end
+
         S_REC: begin
             if(i_pause) begin
+                counter_w = counter_r;
+                data_w[15-counter_r] = i_data;
                 state_w = S_PAUSE;
             end
             else if(address_r == 20'd1024000 || i_stop) begin
@@ -59,16 +59,16 @@ always_comb begin
                 finish_w = 1;
             end
             else begin
-                state_w = S_REC;
                 if(!i_lrc) begin
-                    if(counter_w == 17) begin
+                    if(counter_r == 16) begin
                         address_w = address_r+1;
                         counter_w = 0;
                         state_w = S_WAIT;
                     end
                     else begin
-                        data_w[16-counter_r] = i_data;
+                        data_w[15-counter_r] = i_data;
                         counter_w = counter_r+1;
+                        state_w = S_REC;
                     end
                 end
                 else begin 
@@ -78,6 +78,7 @@ always_comb begin
         end
         S_PAUSE: begin           
             if(i_stop == 1) begin
+                finish_w = 1;
                 state_w = S_FINISH;
             end
             else if (i_pause) begin
@@ -96,10 +97,10 @@ always_comb begin
     endcase
 end
 
-always_ff @(posedge i_clk or posedge i_rst_n) begin
+always_ff @(negedge i_clk or posedge i_rst_n) begin
     if (i_rst_n) begin
         state_r             <= S_IDLE;
-        address_r           <= address_w;
+        address_r           <= 0;
         data_r              <= 0;
         counter_r           <= 0;
         finish_r            <= 0;

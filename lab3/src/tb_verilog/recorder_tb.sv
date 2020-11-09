@@ -12,7 +12,14 @@ module recorder_tb;
     logic [19:0] address;
     logic [21:0] state;
     logic [15:0] ans;
-    localparam [15:0] data_arr  = 16'b0111_0100_1100_1111;
+    logic [15:0] in;
+    localparam [15:0] data_arr [0:4] = '{
+        16'b1111_0010_1100_1111,
+        16'b1111_0110_0100_1111,
+        16'b1000_0011_1100_0001,
+        16'b1001_1100_0101_1000,
+        16'b0110_1010_0100_1100
+    };
 
     AudRecorder recorder0(
         .i_rst_n(rst), 
@@ -32,7 +39,7 @@ module recorder_tb;
     initial stop  = 0;
     initial state   = 0;
     initial data    = 0;
-
+    initial in      = 16'd0;
     always #(`H_CYCLE) bclk=~bclk;
     always #(`HLR_CYCLE) lr_clk=~lr_clk;
     // always begin
@@ -53,43 +60,59 @@ module recorder_tb;
         #(`CYCLE*2) rst = 1;
         #(`CYCLE*2) rst = 0;
         for(int i = 0; i < 65000; i++) begin
-            #(`CYCLE*2) start = 1;
-            #(`CYCLE*2) start = 0;
+            #(`CYCLE*20) start = 1;
+            #(`CYCLE*3) start = 0;
             
             @(negedge lr_clk) begin
+                in      = data_arr[i];
                 ans     = 16'd0;
                 state   = i;
+                
             end
             @(negedge bclk);
+            data    = in[15];
             for(int j = 0; j < 16; j++) begin
-                data = data_arr[15-j];
+                $display("%1b", j);
+                // data = in[15-j];
                 @(negedge bclk);
                     $display("%16b", ans);
-                    ans = ((ans) | out);
+                    ans     = 16'd0;
+                    ans     = ((ans) | out);
                     
                     $display("%16b", out);
                     $display("%16b", ans);
-                    $display("%16b", data_arr);
+                    $display("%16b", in);
                     $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
+                    
                     $display("++++++++++++++++++++");
+                    if (j != 15) begin
+                        data = in[14-j];
+                    end
+                    else if(j == 15) begin
+                        data = in[0];
+                    end
                     if (j == 5) begin
-                        #(`CYCLE) pause = 1;
+                        pause = 1;
                         #(`CYCLE) pause = 0;
-                        #(`CYCLE) pause = 1;
+                        #(`CYCLE*2) pause = 1;
                         #(`CYCLE) pause = 0;
+                        #(`CYCLE*2) pause = 1;
+                        #(`CYCLE) pause = 0;
+                        $display("%1b", j);
+                        $display("%16b", out);
                     end
             end
 
             $display("+=====================+");
-            if(ans == data_arr) begin
+            if(ans == data_arr[i]) begin
                 $display("data %d simulation correct !!", i);
-                $display("expected output = %16b", data_arr);    
+                $display("expected output = %16b", data_arr[i]);    
                 $display("received output = %16b", ans[15:0]);
                 $display("+=====================+");
             end    
             else begin
                 $display("data %d simulation wrong !!", i);
-                $display("expected output = %16b", data_arr);    
+                $display("expected output = %16b", data_arr[i]);    
                 $display("received output = %16b", ans[15:0]);
                 $display("+=====================+");
             end
