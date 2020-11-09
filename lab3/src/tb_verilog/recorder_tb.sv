@@ -80,6 +80,7 @@ module recorder_tb;
                         #(`CYCLE) pause = 1;
                         #(`CYCLE) pause = 0;
                         $display("%1b", j);
+                        $display("%16b", out);
                     end
             end
 
