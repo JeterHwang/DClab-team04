@@ -12,41 +12,42 @@ module LCD_Top(
     output  o_init_finish,
 );
 
-parameter S_INIT    = 0;
-parameter S_IDLE    = 1;
-parameter S_CLEAR   = 2;
-parameter S_WRITE   = 3;
-parameter S_EVAL    = 4;
+parameter S_BEGIN               = 4'd0;
+parameter S_INIT                = 4'd1;
+parameter S_IDLE                = 4'd2;
+parameter S_SET_ADDRESS         = 4'd3;
+parameter S_WRITE               = 4'd4;
 
-parameter [3:0] length[0:3] = '{
-    4'd6, 4'd7, 4'd9, 4'd11
-};
-parameter [9:0] stop[0:5] = '{
-    10'b, 10'b, 10'b, 10'b, 10'b, 10'b
+parameter instruction_count = 3'd4;
+
+parameter [9:0] stop[0:3] = '{      // 's', 't', 'o', 'p'
+    10'b, 10'b, 10'b, 10'b
 }
-parameter [9:0] pause[0:6] = '{
-    10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b
+parameter [9:0] pause[0:4] = '{     // 'p', 'a', 'u', 's', 'e'
+    10'b, 10'b, 10'b, 10'b, 10'b
 };
-parameter [9:0] playing[0:8] = '{
+parameter [9:0] playing[0:6] = '{   // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
+    10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b,
+};
+parameter [9:0] recording[0:8] = '{ // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
     10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b,
-};
-parameter [9:0] recording[0:10] = '{
-    10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b, 10'b,
 };
 // Host interface 
 logic [2:0] state_r, state_w;
 
-logic init_start_r, init_start_w;
 logic write_start_r, write_start_w;
 
+logic inst_start_r, inst_start_w;
+logic [2:0] inst_type_r, inst_type_w;
+logic [6:0] address_r, address_w;
 
-logic LCD_CL_r, LCD_CL_w;
 logic LCD_EN_r, LCD_EN_w;
 logic LCD_RS_r, LCD_RS_w;
 logic LCD_RW_r, LCD_RW_w;
 logic [7:0] LCD_data_r, LCD_data_w;
 
-logic [3:0] counter_r, counter_w;
+logic [5:0] counter_r, counter_w;
+logic [2:0] index_r, index_w;
 
 // LCD instruction interface 
 logic LCD_i_EN, LCD_i_RS, LCD_i_RW;
@@ -59,19 +60,19 @@ logic [7:0] LCD_w_data;
 logic write_fin;
 
 // output interface 
-assign o_LCD_data       = (state_r == ) ? LCD_w_data : LCD_i_data;
-assign o_LCD_EN         = (state_r == ) ? LCD_w_EN : LCD_i_EN;
-assign o_LCD_RS         = (state_r == ) ? LCD_w_RS : LCD_i_RS;
-assign o_LCD_RW         = (state_r == ) ? LCD_w_RW : LCD_i_RW;
+assign o_LCD_data       = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_i_data : LCD_w_data;
+assign o_LCD_EN         = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_i_EN : LCD_w_EN;
+assign o_LCD_RS         = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_i_RS : LCD_w_RS;
+assign o_LCD_RW         = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_i_RW : LCD_w_RW;
 
-assign o_init_finish    = (state_r == ) ? : ;
+assign o_init_finish    = (state_r == S_IDLE) ? 1'b1 : 1'b0;
 
 LCD_instructions instructions(
 	.i_clk(i_clk_800k),
-	.i_start(init_start_r),
+	.i_start(inst_start_r),
 	.i_rst_n(i_rst_n),
-    .i_type(),
-    .i_address(),
+    .i_type(inst_type_r),
+    .i_address(address_r),
 	
 	.o_LCD_RS(LCD_i_RS),
 	.o_LCD_RW(LCD_i_RW),
@@ -94,7 +95,7 @@ LCD_datacontroll dataflow(
     .o_LCD_RW(LCD_w_RW),
     .o_write_fin(write_fin)
 );
-task mode2instructions(
+task CharacterData(
     input [2:0] mode,
     input [5:0] count,
     
@@ -129,76 +130,109 @@ endtask
 
 always_comb begin
     state_w         = state_r;
-    init_start_w    = init_start_r;
-    LCD_data_w      = LCD_data_r;
     write_start_w   = write_start_r;
-    LCD_CL_w        = LCD_CL_r;
+    inst_start_w    = inst_start_r;
+    inst_type_w     = inst_type_r;
+    address_w       = address_r;
     LCD_EN_w        = LCD_EN_r;
     LCD_CS_w        = LCD_CS_r;
     LCD_RW_w        = LCD_RW_r;
+    LCD_data_w      = LCD_data_r;
     counter_w       = counter_r;
+    index_w         = index_r;        
     case(state_r)
+        S_BEGIN: begin
+            inst_start_w    = 1'b1;
+            inst_type_w     = 3'd0;
+            index_w         = 3'd0;
+            state_w         = S_INIT;
+        end
         S_INIT: begin
-            if(init_finish) begin
-                state_w = S_IDLE;
+            if(inst_finish) begin
+                if(index_r == instruction_count) begin
+                    state_w = S_IDLE;
+                    init_f
+                end
+                else begin
+                    inst_start_w    = 1'b1; 
+                    inst_type_w     = index_r + 1;
+                    index_w         = index_r + 1;
+                end       
+            end
+            else begin
+                inst_start_w    = 1'b0;
             end
         end
         S_IDLE: begin
             if(i_start) begin
+                state_w         = S_SET_ADDRESS;
+                counter_w       = 6'd0;
+
+                inst_type_w     = 3'd5;
+                inst_start_w    = 1'b1;
+                address_w       = 7'b0000000;
+            end
+        end
+        S_SET_ADDRESS: begin
+            if(inst_finish) begin
                 state_w         = S_WRITE;
                 write_start_w   = 1'b1;
-                mode2instructions(3'd4, 0, LCD_RS_w, LCD_RW_w, LCD_CL_w, LCD_data_w); 
+                CharacterData(i_mode, counter_r, LCD_RS_w, LCD_RW_w, LCD_data_w);
+                counter_w       = counter_r + 1;
             end
-        end
-        S_CLEAR: begin
-            write_start_w   = 1'b0;
-            if(write_fin) begin
-                state_w         = S_WRITE;
-            end            
+            else begin
+                inst_start_w    = 1'b0;
+            end
         end
         S_WRITE: begin
-            write_start_w   = 1'b1;
-            state_w         = S_EVAL; 
-            mode2instructions(i_mode, counter_r, LCD_RS_w, LCD_RW_w, LCD_CL_w, LCD_data_w);       
-        end
-        S_EVAL: begin
-            write_start_w = 1'b0;
             if(write_fin) begin
-                if(counter_r == length[i_mode]) begin
+                if(counter_r == 6'd31) begin
                     state_w         = S_IDLE;
-                    write_start_w   = 1'b0;
+                end
+                else if(counter_r == 6'd15) begin
+                    state_w         = S_SET_ADDRESS;
+                    inst_type_w     = 3'd5;
+                    inst_start_w    = 1'b1;
+                    address_w       = 7'b1000000;
                 end
                 else begin
-                    state_w         = S_WRITE;
-                    write_start_w   = 1'b1;    
+                    write_start_w   = 1'b1;
                     counter_w       = counter_r + 1;
+                    CharacterData(i_mode, counter_r, LCD_RS_w, LCD_RW_w, LCD_data_w);    
                 end
             end
-        end        
+            else begin
+                write_start_w = 1'b0;    
+            end       
+        end
 end
 
 always_ff @(posedge i_clk or posedge i_rst_n) begin
     if(i_rst_n) begin
         state_r         <= 2'd0;
-        init_start_r    <= 1'b0;
-        LCD_data_r      <= 8'd0;
         write_start_r   <= 1'b0;
-        LCD_CL_r        <= 1'b0;
+        inst_start_r    <= 1'b0;
+        inst_type_r     <= 3'd0;
+        address_r       <= 7'd0;
         LCD_EN_r        <= 1'b0;
         LCD_CS_r        <= 1'b0;
         LCD_RW_r        <= 1'b0;
-        counter_r       <= 6'd0;        
+        LCD_data_r      <= 8'd0;
+        counter_r       <= 6'd0;
+        index_r         <= 3'd0;        
     end
     else begin
         state_r         <= state_w;
-        init_start_r    <= init_start_w;
-        LCD_data_r      <= LCD_data_w;
         write_start_r   <= write_start_w;
-        LCD_CL_r        <= LCD_CL_w;
+        inst_start_r    <= inst_start_w;
+        inst_type_r     <= inst_type_w;
+        address_r       <= address_w;
         LCD_EN_r        <= LCD_EN_w;
         LCD_CS_r        <= LCD_CS_w;
         LCD_RW_r        <= LCD_RW_w;
+        LCD_data_r      <= LCD_data_w;
         counter_r       <= counter_w;
+        index_r         <= index_w;        
     end
 end
 endmodule

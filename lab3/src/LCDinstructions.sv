@@ -15,6 +15,7 @@ module LCD_instructions(
 logic [14:0] counter_r, counter_w;
 logic [10:0] inst_r, inst_w;
 logic state_r, state_w;
+logic finish_r, finish_w;
 
 
 parameter S_IDLE    = 0;
@@ -24,6 +25,7 @@ assign o_LCD_EN     = 1'b0;
 assign o_LCD_RS     = inst_r[9];
 assign o_LCD_RW     = inst_r[8];
 assign o_LCD_data   = inst_r[7:0];
+assign o_finish     = finish_r;
 
 parameter [9:0] instructions[0:5] = '{
     10'b000011xxxx,     // precharge 
@@ -47,7 +49,8 @@ always_comb begin
             if(i_start) begin
                 state_w     = S_EXE;
                 counter_w   = 32'd0;
-                if(i_type == 5)
+                finish_w    = 1'b0;
+                if(i_type == 3'd5)
                     inst_w  = {instructions[i_type][9:7], i_address};
                 else
                     inst_w  = instructions[i_type];
@@ -56,6 +59,7 @@ always_comb begin
         S_EXE: begin
             if(counter_r == execution_time[i_type]) begin
                 state_w     = S_IDLE;
+                finish_w    = 1'b1;
             end
             else begin
                 counter_w   = counter_r + 1;
@@ -68,11 +72,13 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
         state_r     <= 1'b0;
         counter_r   <= 15'd0;
         inst_r      <= 11'd0;
+        finish_r    <= 1'b0;
     end
     else begin
         state_r     <= state_w;
         counter_r   <= counter_w;
         inst_r      <= inst_w;
+        finish_r    <= finish_w;
     end
 end
 endmodule
