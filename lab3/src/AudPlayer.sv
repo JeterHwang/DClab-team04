@@ -4,7 +4,8 @@ module AudPlayer(
     input   i_daclrck,
     input   i_en,
     input   [15:0] i_dac_data,
-    output  o_aud_dacdat
+    output  o_aud_dacdat,
+    output  o_sent_finished
 );
 localparam S_IDLE   = 0;
 localparam S_WAIT   = 1;
@@ -14,16 +15,20 @@ localparam S_SEND   = 3;
 logic aud_dacdat_r, aud_dacdat_w;
 logic [4:0]  counter_r, counter_w;
 logic [1:0]  state_r, state_w;
+logic finished_w,finish_r;
 
+assign o_sent_finished = finish_r;
 assign o_aud_dacdat = aud_dacdat_r;
 
 always_comb begin
+    finished_w          = finished_r;
     aud_dacdat_w        = aud_dacdat_r;
     counter_w           = counter_r;
     state_w             = state_r;
     case (state_r)
         S_IDLE: begin
             if(i_en) begin
+                finished_w = 0;
                 state_w = S_WAIT;
                 counter_w = 0;
             end
@@ -42,6 +47,7 @@ always_comb begin
         S_SEND: begin
             if (counter_r == 16) begin
                 state_w = S_IDLE;
+                finished_w = 1;
             end
             else begin
                 aud_dacdat_w = i_dac_data[15-counter_r];
@@ -57,12 +63,13 @@ always_ff @(negedge i_bclk or posedge i_rst_n) begin
         aud_dacdat_r    <= aud_dacdat_w;
         counter_r       <= 0;
         state_r         <= S_IDLE;
+        finished_r      <= 0;
     end
     else begin
         aud_dacdat_r    <= aud_dacdat_w;
         counter_r       <= counter_w;
         state_r         <= state_w;
-        
+        finished_r      <= finished_w;
     end
 end
 endmodule
