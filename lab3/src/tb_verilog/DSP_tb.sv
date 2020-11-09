@@ -183,7 +183,7 @@ module DSP_tb();
         end
     end
     initial begin
-        #(1000 * clk)
+        #(100000 * `CYCLE)
         $display("Too slow, abort.");
         $finish;
     end
