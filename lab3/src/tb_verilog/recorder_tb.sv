@@ -85,6 +85,8 @@ module recorder_tb;
                     if (j == 5) begin
                         #(`CYCLE) pause = 1;
                         #(`CYCLE) pause = 0;
+                        #(`CYCLE) pause = 1;
+                        #(`CYCLE) pause = 0;
                     end
             end
 
