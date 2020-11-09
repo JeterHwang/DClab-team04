@@ -82,10 +82,10 @@ module recorder_tb;
                         $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
                         $display("++++++++++++++++++++");
                     end
-                if (j == 5) begin
-                    #(`CYCLE) pause = 1;
-                    #(`CYCLE) pause = 0;
-                end
+                    if (j == 5) begin
+                        #(`CYCLE) pause = 1;
+                        #(`CYCLE) pause = 0;
+                    end
             end
 
             $display("+=====================+");
