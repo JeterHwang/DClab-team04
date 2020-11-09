@@ -52,13 +52,10 @@ module DSP_tb();
         .i_sram_data(sram_data),
         .o_dacdata(dacdata),
         .o_sram_addr(sram_addr),
-        .o_finish(finish)
+        .o_finish(finish),
         .i_sentfinish(sent_finish),
-
         .i_record_counter(record_counter),
-
-        .o_player_en(player_en),
-
+        .o_player_en(player_en)
     );
 
 
@@ -170,7 +167,7 @@ module DSP_tb();
                     record_counter = record_counter_arr[i];
                     dac_data    = dac_data_arr[i];
                     sram_addr   = sram_addr_arr[i]
-                    sram_data   = sram_addr_arr[i];
+                    sram_data   = sram_data_arr[i];
                     
                     state   = i;
                 end
