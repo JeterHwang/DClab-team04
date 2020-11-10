@@ -2,8 +2,8 @@
 
 module LCD_tb();
 
-local parameter CLK     = 10;
-local parameter HCLK    = CLK / 2;
+localparam CLK     = 10;
+localparam HCLK    = CLK / 2;
 
 logic clk, rst, start;
 logic [2:0] mode;
