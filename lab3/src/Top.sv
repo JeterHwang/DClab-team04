@@ -58,14 +58,22 @@ module Top (
 );
 
 // design the FSM and states as you like
-parameter S_LCD_INIT    = 0;
-parameter S_I2C        	= 1;
-parameter S_STOP		= 2;
-parameter S_RECD       	= 3;
-parameter S_RECD_PAUSE 	= 4;
-parameter S_PLAY       	= 5;
-parameter S_PLAY_PAUSE 	= 6;
+parameter S_LCD_INIT    = 3'd0;
+parameter S_I2C        	= 3'd1;
+parameter S_STOP		= 3'd2;
+parameter S_RECD       	= 3'd3;
+parameter S_RECD_PAUSE 	= 3'd4;
+parameter S_PLAY       	= 3'd5;
+parameter S_PLAY_PAUSE 	= 3'd6;
+parameter S_LCD_RENDER 	= 3'd7;
 
+// modes
+parameter M_INIT 		= 3'd0;
+parameter M_STOP 		= 3'd1;
+parameter M_PLAY_PAUSE 	= 3'd2;
+parameter M_RECD_PAUSE  = 3'd3;
+parameter M_PLAY 		= 3'd4;
+parameter M_RECD 		= 3'd5;
 
 logic [2:0] state_r, state_w;
 logic i2c_start_r, i2c_start_w;
@@ -86,11 +94,13 @@ logic [19:0] addr_record, addr_play;
 logic [15:0] data_record, data_play, dac_data;
 logic sda_data; 	// useless
 
-logic dsp2player_en,dsp_to_player_finished; // new added 
+logic dsp2player_en;			// new added
+logic dsp_to_player_finished; 	// new added 
 
 logic [2:0] LCD_mode_r, LCD_mode_w;
 logic LCD_wr_enable_r, LCD_wr_enable_w;
 logic LCD_init_finish;
+logic LCD_render_finish;
 logic [7:0] LCD_data;
 
 
@@ -183,7 +193,8 @@ LCD_Top LCDtop(
 	.o_LCD_EN(o_LCD_EN),
 	.o_LCD_RS(o_LCD_RS),
 	.o_LCD_RW(o_LCD_RW),
-	.o_init_finish(LCD_init_finish)
+	.o_init_finish(LCD_init_finish),
+	.o_render_finish(LCD_render_finish)
 );
 
 always_comb begin
@@ -191,60 +202,91 @@ always_comb begin
 	case (state_r)
 		S_LCD_INIT: begin
 			if(LCD_init_finish) begin
-				state_w 	= S_I2C;
-				i2c_start_w	= 1'b1;
+				state_w 		= S_LCD_RENDER;
+				LCD_wr_enable_w = 1'b1;
+				LCD_mode_w		= M_INIT;
+				i2c_start_w		= 1'b1;
 			end
 		end
 		S_I2C: begin
 			if(i2c_finish) begin
-				state_w		= S_STOP;
-				LCD_mode_w	= 3'd0;		
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_STOP;		
 			end
 		end
 		S_STOP: begin
 			if(i_key_0) begin
-				state_w			= S_RECD;
-				LCD_mode_w		= 3'd3;	
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_RECD;	
 			end	
 			else if(i_key_1) begin
-				state_w			= S_PLAY;
-				LCD_mode_w	 	= 3'd2;
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w	 	= M_PLAY;
 			end
 		end
 		S_RECD: begin
 			if(record_finish) begin
-				state_w			= S_STOP;
-				LCD_mode_w		= 3'd0;
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_STOP;
 			end
 			else if(i_key_0) begin
-				state_w			= S_RECD_PAUSE;
-				LCD_mode_w		= 3'd1;
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_RECD_PAUSE;
 			end
 		end
 		S_RECD_PAUSE: begin
 			if(i_key_0) begin
-				state_w			= S_RECD;
-				LCD_mode_w		= 3'd3;
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_RECD;
 			end
 			else if(i_key_2) begin
-				state_w			= S_STOP;
-				LCD_mode_w		= 3'd0;
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_STOP;
 			end
 		end
 		S_PLAY: begin
 			if(player_finish) begin
-				state_w			= S_STOP;
-				LCD_mode_w		= 3'd0;
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_STOP;
 			end
 			else if(i_key_1) begin
-				state_w			= S_PLAY_PAUSE;
-				LCD_mode_w		= 3'd1;	
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_PLAY_PAUSE;	
 			end
 		end
 		S_PLAY_PAUSE: begin
 			if(i_key_1) begin
-				state_w			= S_PLAY;
-				LCD_mode_w		= 3'd2;
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_PLAY;
+			end
+		end
+		S_LCD_RENDER: begin
+			LCD_wr_enable_w = 1'b0;
+			if(LCD_render_finish) begin
+				case (LCD_mode_r)
+					M_INIT:
+						state_w	= S_I2C;
+					M_STOP: 
+						state_w	= S_STOP;
+					M_PLAY:
+						state_w = S_PLAY;
+					M_RECD:
+						state_w	= S_RECD;
+					M_PLAY_PAUSE:
+						state_w	= S_PLAY_PAUSE;
+					M_RECD_PAUSE:
+						state_w	= S_RECD_PAUSE;
+				endcase
 			end
 		end
 	endcase
@@ -252,12 +294,26 @@ end
 
 always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 	if (!i_rst_n) begin
-		sda_data 	<=	io_I2C_SDAT;
-		bf			<= 	1'b0;
+		sda_data 		<=	io_I2C_SDAT;
+		state_r 		<=  S_LCD_INIT;
+		i2c_start_r		<= 	1'b0;
+		fast_r			<= 	1'b0;
+		slow0_r			<= 	1'b0;
+		slow1_r			<= 	1'b0;
+		player_en_r		<= 	1'b0;
+		LCD_mode_r		<= 	3'd0;
+		LCD_wr_enable_r	<= 	1'b0;
 	end
 	else begin
-		sda_data 	<=	io_I2C_SDAT; 
-		bf			<=  io_LCD_DATA[7];
+		sda_data 		<=	io_I2C_SDAT; 
+		state_r 		<=  state_w;
+		i2c_start_r		<= 	i2c_start_w;
+		fast_r			<= 	fast_w;
+		slow0_r			<= 	slow0_w;
+		slow1_r			<= 	slow1_w;
+		player_en_r		<= 	player_en_w;
+		LCD_mode_r		<= 	LCD_mode_w;
+		LCD_wr_enable_r	<=  LCD_wr_enable_w;
 	end
 end
 
