@@ -1,49 +1,64 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 08, 2020 at 16:54:47 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 10, 2020 at 14:57:39 CST
 ncverilog
-	player_tb.sv
-	../AudPlayer.sv
+	LCD_tb.sv
+	../LCDTop.sv
+	../LCDdatacontroll.sv
+	../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file '../I2cInitializer.sv' is newer than expected.
-	expected: Sat Nov  7 03:12:53 2020
-	actual:   Sun Nov  8 16:38:04 2020
-file: player_tb.sv
-	module worklib.player_tb:sv
+file: LCD_tb.sv
+	module worklib.LCD_tb:sv
+		errors: 0, warnings: 0
+file: ../LCDTop.sv
+	module worklib.LCD_Top:sv
+		errors: 0, warnings: 0
+file: ../LCDdatacontroll.sv
+	module worklib.LCD_datacontroll:sv
+		errors: 0, warnings: 0
+file: ../LCDinstructions.sv
+	module worklib.LCD_instructions:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudPlayer:sv <0x7764221b>
-			streams:   5, words:  2600
-		worklib.player_tb:sv <0x1e82e865>
-			streams:  13, words: 10479
+		worklib.LCD_Top:sv <0x75b10066>
+			streams:  26, words: 14639
+		worklib.LCD_datacontroll:sv <0x5ddfa3d8>
+			streams:   5, words:  2276
+		worklib.LCD_instructions:sv <0x277bdbe5>
+			streams:   5, words:  3020
+		worklib.LCD_tb:sv <0x62854ff2>
+			streams:  11, words:  6850
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
+	.i_clk(i_clk_800k),
+	                |
+ncelab: *W,CSINFI (../LCDTop.sv,98|17): implicit wire has no fanin (LCD_tb.LCD.i_clk_800k).
 	Design hierarchy summary:
 		                   Instances  Unique
-		Modules:                   2       2
-		Registers:                16      16
-		Scalar wires:              7       -
-		Vectored wires:            1       -
-		Always blocks:             4       4
-		Initial blocks:            2       2
-		Cont. assignments:         1       1
-		Pseudo assignments:        3       3
+		Modules:                   4       4
+		Registers:                51      51
+		Scalar wires:             33       -
+		Vectored wires:           10       -
+		Always blocks:             7       7
+		Initial blocks:            3       3
+		Cont. assignments:         8      16
+		Pseudo assignments:       22      22
 		Simulation timescale:  100ps
-	Writing initial simulation snapshot: worklib.player_tb:sv
-Loading snapshot worklib.player_tb:sv .................... Done
+	Writing initial simulation snapshot: worklib.LCD_tb:sv
+Loading snapshot worklib.LCD_tb:sv .................... Done
 *Verdi3* Loading libsscore_ius122.so
 *Verdi3* : Enable Parallel Dumping.
 ncsim> source /opt/CAD/INCISIV/cur/tools/inca/files/ncsimrc
 ncsim> run
 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 (C) 1996 - 2013 by Synopsys, Inc.
-*Verdi3* : Create FSDB file 'player.fsdb'
+*Verdi3* : Create FSDB file 'LCD.fsdb'
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 Too slow, abort.
-Simulation complete via $finish(1) at time 0 FS + 1
-./player_tb.sv:103         $finish;
+Simulation complete via $finish(1) at time 500 US + 0
+./LCD_tb.sv:50 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 08, 2020 at 16:55:35 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 10, 2020 at 14:58:26 CST  (total: 00:00:47)

@@ -12,11 +12,11 @@ module LCD_Top(
     output  o_render_finish
 );
 
-parameter S_BEGIN               = 4'd0;
-parameter S_INIT                = 4'd1;
-parameter S_IDLE                = 4'd2;
-parameter S_SET_ADDRESS         = 4'd3;
-parameter S_WRITE               = 4'd4;
+parameter S_BEGIN               = 3'd0;
+parameter S_INIT                = 3'd1;
+parameter S_IDLE                = 3'd2;
+parameter S_SET_ADDRESS         = 3'd3;
+parameter S_WRITE               = 3'd4;
 
 parameter instruction_count     = 3'd5;
 
@@ -222,6 +222,7 @@ always_comb begin
                 write_start_w = 1'b0;    
             end       
         end
+    endcase
 end
 
 always_ff @(posedge i_clk or posedge i_rst_n) begin

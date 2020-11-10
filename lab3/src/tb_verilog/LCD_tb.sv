@@ -38,14 +38,14 @@ initial begin
     #(CLK) 
         start = 0;
     @(posedge ren_fin)
-        $$display("==============================");
-        $$display("instruction mode : %d", mode);
-        $$display("%b_%b_%16b", Rs, Rw, data);
-        $$display("==============================");
+        $display("==============================");
+        $display("instruction mode : %d", mode);
+        $display("%b_%b_%16b", Rs, Rw, data);
+        $display("==============================");
 end
 
 initial begin
-	#(1000 * CLK)
+	#(50000 * CLK)
 	$display("Too slow, abort.");
 	$finish;
 end

@@ -8,7 +8,7 @@ module LCD_datacontroll(
     output  o_LCD_EN,
     output  o_LCD_RS,
     output  o_LCD_RW,
-    output  o_wrtie_fin
+    output  o_write_fin
 );
 parameter S_IDLE    = 0;
 parameter S_RISE    = 1;
