@@ -74,6 +74,12 @@ module recorder_tb;
             for(int j = 0; j < 16; j++) begin
                 $display("%1b", j);
                 // data = in[15-j];
+                if (j == 5) begin
+                    pause = 1;
+                    #(`CYCLE) pause = 0;
+                    $display("%1b", j);
+                    $display("%16b", out);
+                end
                 @(negedge bclk);
                     $display("%16b", ans);
                     ans     = 16'd0;
@@ -91,12 +97,7 @@ module recorder_tb;
                     else if(j == 15) begin
                         data = in[0];
                     end
-                if (j == 5) begin
-                    pause = 1;
-                    #(`CYCLE) pause = 0;
-                    $display("%1b", j);
-                    $display("%16b", out);
-                end
+                
             end
 
             $display("+=====================+");
