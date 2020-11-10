@@ -38,10 +38,10 @@ initial begin
     #(CLK) 
         start = 0;
     @(posedge ren_fin)
-        $$display("==============================");
-        $$display("instruction mode : %d", mode);
-        $$display("%b_%b_%16b", Rs, Rw, data);
-        $$display("==============================");
+        $display("==============================");
+        $display("instruction mode : %d", mode);
+        $display("%b_%b_%16b", Rs, Rw, data);
+        $display("==============================");
 end
 
 initial begin
