@@ -19,6 +19,7 @@ logic [3:0] state_r, state_w;
 logic [19:0] address_r, address_w;
 logic [15:0] data_r, data_w;
 logic [4:0] counter_r, counter_w;
+logic pause_w, pause_r;
 logic finish_r, finish_w;
 assign o_address = address_r;
 assign o_data = data_r;
@@ -29,6 +30,7 @@ always_comb begin
     data_w              = data_r;
     counter_w           = counter_r;
     finish_w            = finish_r;
+    pause_w             = pause_r;
     case (state_r) 
         S_IDLE: begin
             if(i_start) begin
@@ -41,18 +43,11 @@ always_comb begin
                 counter_w = 0;
                 state_w = S_WAIT;
             end
-            else if (!i_lrc) begin
-                // data_w[15-counter_r] = i_data;
-                // counter_w = counter_r+1;
-                if(counter_r == 16) begin
-                    counter_w = counter_r;
-                    data_w = data_r;
-                    state_w = S_WAIT;
-                end
-                else begin
-                    state_w = S_REC;
-                end
-                
+            else if (!i_lrc && pause_r == 1) begin
+                state_w = S_WAIT;
+            end
+            else if (!i_lrc && pause_r == 0) begin
+                state_w = S_REC;
             end
         end
 
@@ -60,6 +55,7 @@ always_comb begin
             if(i_pause) begin
                 counter_w = counter_r+1;
                 data_w[15-counter_r] = i_data;
+                pause_w = 1;
                 state_w = S_PAUSE;
             end
             else if(address_r == 20'd1024000 || i_stop) begin
@@ -90,7 +86,7 @@ always_comb begin
                 finish_w = 1;
                 state_w = S_FINISH;
             end
-            else if (i_pause) begin
+            else if (i_pause && pause_r == 1) begin
                 counter_w = counter_r;
                 data_w = data_r;
                 state_w = S_WAIT;
@@ -98,7 +94,7 @@ always_comb begin
             else begin
                 if(counter_r == 16) begin
                     address_w = address_r+1;
-                    counter_w = counter_r;
+                    counter_w = 0;
                     state_w = S_PAUSE;
                 end
                 else begin
@@ -121,6 +117,7 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         data_r              <= 0;
         counter_r           <= 0;
         finish_r            <= 0;
+        pause_r             <= 0;
     end
     else begin
         state_r             <= state_w;
@@ -128,6 +125,7 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         data_r              <= data_w;
         counter_r           <= counter_w;
         finish_r            <= finish_w;
+        pause_r             <= pause_w;
     end
 
 end
