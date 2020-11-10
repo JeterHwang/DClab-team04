@@ -3,7 +3,6 @@ module LCD_Top(
     input   i_start,
     input   i_rst_n,
     input   [2:0] i_mode,
-    input   i_bf,
 
     output  [7:0] o_LCD_data,
     output  o_LCD_EN,
@@ -106,10 +105,10 @@ task CharacterData(
     // pause
     else if(mode == 3'd1)
         data    = pause[count];
-    // recording 
+    // playing 
     else if(mode == 3'd2)
         data    = playing[count]; 
-    // playing 
+    // recording 
     else
         data    = recording[count]; 
 endtask

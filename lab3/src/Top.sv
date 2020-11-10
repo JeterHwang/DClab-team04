@@ -58,9 +58,9 @@ module Top (
 );
 
 // design the FSM and states as you like
-parameter S_IDLE       	= 0;
+parameter S_LCD_INIT    = 0;
 parameter S_I2C        	= 1;
-parameter S_WAIT		= 2;
+parameter S_STOP		= 2;
 parameter S_RECD       	= 3;
 parameter S_RECD_PAUSE 	= 4;
 parameter S_PLAY       	= 5;
@@ -68,26 +68,31 @@ parameter S_PLAY_PAUSE 	= 6;
 
 
 logic [2:0] state_r, state_w;
-logic mode_r, mode_w;
+logic i2c_start_r, i2c_start_w;
+
 logic fast_r, fast_w;
 logic slow0_r, slow0_w;
 logic slow1_r, slow1_w;
 logic player_en_r, player_en_w;
 
-logic i2c_start_r, i2c_start_w;
+// i2C interface
 logic i2c_finish;
 logic i2c_oen, i2c_sdat;
 
+// recorder interface
+logic record_finish;
+
 logic [19:0] addr_record, addr_play;
 logic [15:0] data_record, data_play, dac_data;
-logic sda_data;
+logic sda_data; 	// useless
 
 logic dsp2player_en,dsp_to_player_finished; // new added 
 
-logic LCD_wr_enable;
+logic [2:0] LCD_mode_r, LCD_mode_w;
+logic LCD_wr_enable_r, LCD_wr_enable_w;
 logic LCD_init_finish;
 logic [7:0] LCD_data;
-logic bf;
+
 
 assign o_LCD_ON    = 1'b1;
 assign o_LCD_BLON  = 1'b1;
@@ -166,14 +171,14 @@ AudRecorder recorder0(
 	.i_stop(i_key_2),
 	.i_data(i_AUD_ADCDAT),
 	.o_address(addr_record),
-	.o_data(data_record)
+	.o_data(data_record),
+	.o_finish(record_finish)
 );
 LCD_Top LCDtop(
 	.i_clk(i_clk_800k),
-	.i_start(),
+	.i_start(LCD_wr_enable_r),
 	.i_rst_n(i_rst_n),
-	.i_mode(),
-	.i_bf(bf),
+	.i_mode(LCD_mode_r),
 	.o_LCD_data(LCD_data),
 	.o_LCD_EN(o_LCD_EN),
 	.o_LCD_RS(o_LCD_RS),
@@ -184,42 +189,63 @@ LCD_Top LCDtop(
 always_comb begin
 	// design your control here
 	case (state_r)
-		S_IDLE: begin
-			if(i_key_0) begin
-				i2c_start_w		= 1'b1;
-				state_w			= S_I2C;	
-				mode_w			= 1'b0;
-			end	
-			else if(i_key_1) begin
-				i2c_start_w		= 1'b1;
-				state_w			= S_I2C;
-				mode_w			= 1'b1;
-			end		
+		S_LCD_INIT: begin
+			if(LCD_init_finish) begin
+				state_w 	= S_I2C;
+				i2c_start_w	= 1'b1;
+			end
 		end
 		S_I2C: begin
 			if(i2c_finish) begin
-				if(mode_r == 1'b0) begin
-					state_w		= S_RECD;
-				end
-				else begin
-					state_w		= S_PLAY;
-				end
+				state_w		= S_STOP;
+				LCD_mode_w	= 3'd0;		
 			end
 		end
-		S_WAIT: begin
-			if()
+		S_STOP: begin
+			if(i_key_0) begin
+				state_w			= S_RECD;
+				LCD_mode_w		= 3'd3;	
+			end	
+			else if(i_key_1) begin
+				state_w			= S_PLAY;
+				LCD_mode_w	 	= 3'd2;
+			end
 		end
 		S_RECD: begin
-			
+			if(record_finish) begin
+				state_w			= S_STOP;
+				LCD_mode_w		= 3'd0;
+			end
+			else if(i_key_0) begin
+				state_w			= S_RECD_PAUSE;
+				LCD_mode_w		= 3'd1;
+			end
 		end
 		S_RECD_PAUSE: begin
-			
+			if(i_key_0) begin
+				state_w			= S_RECD;
+				LCD_mode_w		= 3'd3;
+			end
+			else if(i_key_2) begin
+				state_w			= S_STOP;
+				LCD_mode_w		= 3'd0;
+			end
 		end
 		S_PLAY: begin
-			
+			if(player_finish) begin
+				state_w			= S_STOP;
+				LCD_mode_w		= 3'd0;
+			end
+			else if(i_key_1) begin
+				state_w			= S_PLAY_PAUSE;
+				LCD_mode_w		= 3'd1;	
+			end
 		end
 		S_PLAY_PAUSE: begin
-			
+			if(i_key_1) begin
+				state_w			= S_PLAY;
+				LCD_mode_w		= 3'd2;
+			end
 		end
 	endcase
 end
