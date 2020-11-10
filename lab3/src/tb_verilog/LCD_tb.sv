@@ -37,15 +37,23 @@ initial begin
         mode = 0;
     #(CLK) 
         start = 0;
-    @(posedge ren_fin)
-        $display("==============================");
-        $display("instruction mode : %d", mode);
-        $display("%b_%b_%8b", Rs, Rw, data);
-        $display("==============================");
+    for(int i = 0; i < 31; i++) begin
+        @(posedge En)
+            $display("==============================");
+            $display("instruction %d :", i);
+            $display("%b_%b_%8b", Rs, Rw, data);
+            $display("==============================");    
+    end
 end
 
+always@(posedge ren_fin) begin
+    $display("==============================");
+    $display("Simulation Complete !!");
+    $display("==============================");
+    $finish;
+end
 initial begin
-	#(50000 * CLK)
+	#(25000 * CLK)
 	$display("Too slow, abort.");
 	$finish;
 end
