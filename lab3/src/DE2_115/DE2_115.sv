@@ -198,8 +198,7 @@ Top top0(
 	// .o_DRAM_CLK(DRAM_CLK),
 	// .o_DRAM_CS_N(DRAM_CS_N),
 	// .o_DRAM_RAS_N(DRAM_RAS_N),
-	// .o_DRAM_WE_N(DRAM_WE_N),
-	// I2C
+	// .o_DRAM_WE_N(DRAM_WE_N),	// I2C
 	.i_clk_100k(CLK_100K),
 	.o_I2C_SCLK(I2C_SCLK),
 	.io_I2C_SDAT(I2C_SDAT),
