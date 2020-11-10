@@ -49,7 +49,7 @@ always_comb begin
 
         S_REC: begin
             if(i_pause) begin
-                counter_w = counter_r;
+                counter_w = counter_r+1;
                 data_w[15-counter_r] = i_data;
                 state_w = S_PAUSE;
             end
