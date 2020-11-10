@@ -9,6 +9,7 @@ module LCD_Top(
     output  o_LCD_RS,
     output  o_LCD_RW,
     output  o_init_finish,
+    output  o_render_finish
 );
 
 parameter S_BEGIN               = 4'd0;
@@ -17,21 +18,29 @@ parameter S_IDLE                = 4'd2;
 parameter S_SET_ADDRESS         = 4'd3;
 parameter S_WRITE               = 4'd4;
 
-parameter instruction_count = 3'd4;
+parameter instruction_count     = 3'd5;
 
-parameter [7:0] stop[0:31] = '{      // 's', 't', 'o', 'p'
+parameter [7:0] init[0:31] = '{             // 'i', 'n', 'i', 't', 'i', 'a', 'l', 'i', 'z', 'i', 'n', 'g'
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 }
-parameter [7:0] pause[0:31] = '{     // 'p', 'a', 'u', 's', 'e'
+parameter [7:0] stop[0:31] = '{             // 's', 't', 'o', 'p'
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+}
+parameter [7:0] play_pause[0:31] = '{       // 'p', 'l', 'a', 'y', ' ', 'p', 'a', 'u', 's', 'e'
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 };
-parameter [7:0] playing[0:31] = '{   // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
+parameter [7:0] record_pause[0:31] = '{     // 'r', 'e', 'c', 'o', 'r', 'd', ' ', 'p', 'a', 'u', 's', 'e'
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 };
-parameter [7:0] recording[0:31] = '{ // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
+parameter [7:0] playing[0:31] = '{          // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
+    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+};
+parameter [7:0] recording[0:31] = '{        // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
     8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
 };
@@ -39,6 +48,7 @@ parameter [7:0] recording[0:31] = '{ // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 
 logic [2:0] state_r, state_w;
 
 logic write_start_r, write_start_w;
+logic render_finish_r, render_finish_w;
 
 logic inst_start_r, inst_start_w;
 logic [2:0] inst_type_r, inst_type_w;
@@ -65,7 +75,8 @@ assign o_LCD_EN         = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_
 assign o_LCD_RS         = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_i_RS : LCD_w_RS;
 assign o_LCD_RW         = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_i_RW : LCD_w_RW;
 
-assign o_init_finish    = (state_r == S_IDLE) ? 1'b1 : 1'b0;
+assign o_init_finish    = (state_r != S_BEGIN && state_r != S_INIT) ? 1'b1 : 1'b0;
+assign o_render_finish  = render_finish_r;
 
 LCD_instructions instructions(
 	.i_clk(i_clk_800k),
@@ -99,18 +110,24 @@ task CharacterData(
     
     output [7:0] data
 );
+    // initializing
+    if(mode == 3'd0)
+        data    = init[count];
     // stop 
-    if(mode == 3'd0) 
+    else if(mode == 3'd1) 
         data    = stop[count];
-    // pause
-    else if(mode == 3'd1)
-        data    = pause[count];
-    // playing 
+    // play pause
     else if(mode == 3'd2)
+        data    = play_pause[count];
+    // record pause
+    else if(mode == 3'd3)
+        data    = record_pause[count];
+    // playing 
+    else if(mode == 3'd4)
         data    = playing[count]; 
     // recording 
     else
-        data    = recording[count]; 
+        data    = recording[count];     
 endtask
 
 always_comb begin
@@ -122,6 +139,7 @@ always_comb begin
     LCD_data_w      = LCD_data_r;
     counter_w       = counter_r;
     index_w         = index_r;        
+    render_finish_w = render_finish_r;
     case(state_r)
         S_BEGIN: begin
             inst_start_w    = 1'b1;
@@ -131,7 +149,7 @@ always_comb begin
         end
         S_INIT: begin
             if(inst_finish) begin
-                if(index_r == instruction_count) begin
+                if(index_r == instruction_count - 3'd1) begin
                     state_w = S_IDLE;
                     init_f
                 end
@@ -149,6 +167,7 @@ always_comb begin
             if(i_start) begin
                 state_w         = S_SET_ADDRESS;
                 counter_w       = 6'd0;
+                render_finish_w = 1'b0;
 
                 inst_type_w     = 3'd5;
                 inst_start_w    = 1'b1;
@@ -170,6 +189,7 @@ always_comb begin
             if(write_fin) begin
                 if(counter_r == 6'd31) begin
                     state_w         = S_IDLE;
+                    render_finish_w = 1'b1;
                 end
                 else if(counter_r == 6'd15) begin
                     state_w         = S_SET_ADDRESS;
@@ -191,7 +211,7 @@ end
 
 always_ff @(posedge i_clk or posedge i_rst_n) begin
     if(i_rst_n) begin
-        state_r         <= 2'd0;
+        state_r         <= S_BEGIN;
         write_start_r   <= 1'b0;
         inst_start_r    <= 1'b0;
         inst_type_r     <= 3'd0;
@@ -199,6 +219,7 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
         LCD_data_r      <= 8'd0;
         counter_r       <= 6'd0;
         index_r         <= 3'd0;        
+        render_finish_r <= 1'b0;
     end
     else begin
         state_r         <= state_w;
@@ -209,6 +230,7 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
         LCD_data_r      <= LCD_data_w;
         counter_r       <= counter_w;
         index_r         <= index_w;        
+        render_finish_r <= render_finish_w;
     end
 end
 endmodule
