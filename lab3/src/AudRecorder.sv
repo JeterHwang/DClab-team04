@@ -42,12 +42,14 @@ always_comb begin
             if(i_lrc) begin
                 counter_w = 0;
                 pause_w = 0;
-                state_w = S_REC;
+                state_w = S_WAIT;
             end
             else if (!i_lrc && pause_r == 1) begin
                 state_w = S_WAIT;
             end
             else if (!i_lrc && pause_r == 0) begin
+                data_w[15-counter_r] = i_data;
+                counter_w = counter_r+1;
                 state_w = S_REC;
             end
         end
