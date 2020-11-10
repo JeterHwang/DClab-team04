@@ -39,11 +39,11 @@ parameter   NULL = 8'b00100000;
 parameter [7:0] init[0:31] = '{             // 'i', 'n', 'i', 't', 'i', 'a', 'l', 'i', 'z', 'i', 'n', 'g'
     NULL, NULL, NULL, chI, chn, chi, cht, chi, cha, chl, chi, chz, chi, chg, NULL, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
-}
+};
 parameter [7:0] stop[0:31] = '{             // 's', 't', 'o', 'p'
     NULL, NULL, NULL, chS, cht, cho, chp, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
-}
+};
 parameter [7:0] play_pause[0:31] = '{       // 'p', 'l', 'a', 'y', ' ', 'p', 'a', 'u', 's', 'e'
     NULL, NULL, NULL, chP, chl, cha, chy, NULL, chP, cha, chu, chs, che, NULL, NULL, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
@@ -167,7 +167,6 @@ always_comb begin
             if(inst_finish) begin
                 if(index_r == instruction_count - 3'd1) begin
                     state_w = S_IDLE;
-                    init_f
                 end
                 else begin
                     inst_start_w    = 1'b1; 
