@@ -81,7 +81,7 @@ always_comb begin
                     end
                 end
                 else begin 
-                    counter_w = 0;
+                    counter_w = counter_r;
                 end
             end
         end
@@ -98,6 +98,7 @@ always_comb begin
             else begin
                 if(counter_r == 16) begin
                     address_w = address_r+1;
+                    data_w[0] = i_data;
                     counter_w = 0;
                     state_w = S_PAUSE;
                 end
