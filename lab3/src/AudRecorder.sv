@@ -41,6 +41,7 @@ always_comb begin
         S_WAIT: begin
             if(i_lrc) begin
                 counter_w = 0;
+                pause_w = 0;
                 state_w = S_REC;
             end
             else if (!i_lrc && pause_r == 1) begin
