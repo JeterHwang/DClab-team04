@@ -50,6 +50,7 @@ always_comb begin
     finish_w    = finish_r;
     case (state_r)
         S_IDLE: begin
+            finish_w    = 1'b0;
             if(i_start) begin
                 state_w     = S_EXE;
                 counter_w   = 32'd0;
