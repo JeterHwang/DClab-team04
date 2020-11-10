@@ -71,7 +71,6 @@ always_comb begin
                     if(counter_r == 16) begin
                         address_w = address_r+1;
                         counter_w = counter_r;
-                        data_w[0] = i_data;
                         state_w = S_WAIT;
                     end
                     else begin
@@ -81,7 +80,7 @@ always_comb begin
                     end
                 end
                 else begin 
-                    counter_w = counter_r;
+                    counter_w = 0;
                 end
             end
         end
@@ -98,8 +97,8 @@ always_comb begin
             else begin
                 if(counter_r == 16) begin
                     address_w = address_r+1;
-                    data_w[0] = i_data;
                     counter_w = 0;
+                    data_w = data_r;
                     state_w = S_PAUSE;
                 end
                 else begin
