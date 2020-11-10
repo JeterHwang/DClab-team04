@@ -40,7 +40,7 @@ initial begin
     @(posedge ren_fin)
         $display("==============================");
         $display("instruction mode : %d", mode);
-        $display("%b_%b_%16b", Rs, Rw, data);
+        $display("%b_%b_%8b", Rs, Rw, data);
         $display("==============================");
 end
 
