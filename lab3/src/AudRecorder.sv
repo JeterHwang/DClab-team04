@@ -87,8 +87,16 @@ always_comb begin
                 state_w = S_REC;
             end
             else begin
-                counter_w = counter_r;
-                data_w = data_r;
+                if(counter_r == 16) begin
+                    address_w = address_r+1;
+                    counter_w = 0;
+                    state_w = S_PAUSE;
+                end
+                else begin
+                    data_w[15-counter_r] = i_data;
+                    counter_w = counter_r+1;
+                    state_w = S_REC;
+                end
             end
         end
         S_FINISH: begin
