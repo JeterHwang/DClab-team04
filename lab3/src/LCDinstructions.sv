@@ -18,8 +18,8 @@ logic state_r, state_w;
 logic finish_r, finish_w;
 
 
-parameter S_IDLE    = 0;
-parameter S_EXE     = 1;
+parameter S_IDLE    = 1'b0;
+parameter S_EXE     = 1'b1;
 
 assign o_LCD_EN     = 1'b0;
 assign o_LCD_RS     = inst_r[9];
@@ -44,8 +44,13 @@ parameter [14:0] execution_time[0:5] = '{
     15'd39
 };
 always_comb begin
+    state_w     = state_r;
+    counter_w   = counter_r;
+    inst_w      = inst_r;
+    finish_w    = finish_r;
     case (state_r)
         S_IDLE: begin
+            finish_w    = 1'b0;
             if(i_start) begin
                 state_w     = S_EXE;
                 counter_w   = 32'd0;
