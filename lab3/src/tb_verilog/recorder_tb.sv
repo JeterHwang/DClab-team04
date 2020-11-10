@@ -91,12 +91,12 @@ module recorder_tb;
                     else if(j == 15) begin
                         data = in[0];
                     end
-                    if (j == 5) begin
-                        pause = 1;
-                        #(`CYCLE) pause = 0;
-                        $display("%1b", j);
-                        $display("%16b", out);
-                    end
+                if (j == 5) begin
+                    pause = 1;
+                    #(`CYCLE) pause = 0;
+                    $display("%1b", j);
+                    $display("%16b", out);
+                end
             end
 
             $display("+=====================+");
