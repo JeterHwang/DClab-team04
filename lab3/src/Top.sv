@@ -106,7 +106,7 @@ logic [7:0] LCD_data;
 
 assign o_LCD_ON    = 1'b1;
 assign o_LCD_BLON  = 1'b1;
-assign io_LCD_DATA = (!LCD_wr_enable) ? LCD_data : 8'dz;
+assign io_LCD_DATA = LCD_data;
 
 assign io_I2C_SDAT = (i2c_oen) ? i2c_sdat : 1'bz;
 
