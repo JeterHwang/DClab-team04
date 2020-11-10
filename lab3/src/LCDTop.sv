@@ -222,6 +222,7 @@ always_comb begin
                 write_start_w = 1'b0;    
             end       
         end
+    endcase
 end
 
 always_ff @(posedge i_clk or posedge i_rst_n) begin
