@@ -33,7 +33,7 @@ parameter [9:0] instructions[0:5] = '{
     10'b0000001100,     // display on
     10'b0000000001,     // clear display
     10'b0000000110,     // entry mode set
-    10'b001xxxxxxx,     // set address (only 3 MSB used)
+    10'b001xxxxxxx     // set address (only 3 MSB used)
 };
 parameter [14:0] execution_time[0:5] = '{
     15'd15000, 
