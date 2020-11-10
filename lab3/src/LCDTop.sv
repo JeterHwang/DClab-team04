@@ -20,29 +20,45 @@ parameter S_WRITE               = 4'd4;
 
 parameter instruction_count     = 3'd5;
 
+// CGROM characters
+parameter   cha = 8'b01100001, chb = 8'b01100001, chc = 8'b01100001, chd = 8'b01100001, che = 8'b01100001, chf = 8'b01100001,
+            chg = 8'b01100001, chh = 8'b01100001, chi = 8'b01100001, chj = 8'b01100001, chk = 8'b01100001, chl = 8'b01100001,
+            chm = 8'b01100001, chn = 8'b01100001, cho = 8'b01100001, chp = 8'b01100001, chq = 8'b01100001, chr = 8'b01100001,
+            chs = 8'b01100001, cht = 8'b01100001, chu = 8'b01100001, chv = 8'b01100001, chw = 8'b01100001, chx = 8'b01100001,
+            chy = 8'b01100001, chz = 8'b01100001;
+parameter   chA = 8'b01100001, chB = 8'b01100001, chC = 8'b01100001, chD = 8'b01100001, chE = 8'b01100001, chF = 8'b01100001,
+            chG = 8'b01100001, chH = 8'b01100001, chI = 8'b01100001, chJ = 8'b01100001, chK = 8'b01100001, chL = 8'b01100001,
+            chM = 8'b01100001, chN = 8'b01100001, chO = 8'b01100001, chP = 8'b01100001, chQ = 8'b01100001, chR = 8'b01100001,
+            chS = 8'b01100001, chT = 8'b01100001, chU = 8'b01100001, chV = 8'b01100001, chW = 8'b01100001, chX = 8'b01100001,
+            chY = 8'b01100001, chZ = 8'b01100001;
+parameter   n0 = 8'b00110001, n1 = 8'b00110001, n2 = 8'b00110001, n3 = 8'b00110001, n4 = 8'b00110001, 
+            n5 = 8'b00110001, n6 = 8'b00110001, n7 = 8'b00110001, n8 = 8'b00110001, n9 = 8'b00110001;
+parameter   NULL = 8'b00100000;
+
+// printed data
 parameter [7:0] init[0:31] = '{             // 'i', 'n', 'i', 't', 'i', 'a', 'l', 'i', 'z', 'i', 'n', 'g'
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+    NULL, NULL, NULL chI, chn, chi, cht, chi, cha, chl, chi, chz, chi, chg, NULL, NULL, 
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 }
 parameter [7:0] stop[0:31] = '{             // 's', 't', 'o', 'p'
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+    NULL, NULL, NULL chS, cht, cho, chp, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 }
 parameter [7:0] play_pause[0:31] = '{       // 'p', 'l', 'a', 'y', ' ', 'p', 'a', 'u', 's', 'e'
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+    NULL, NULL, NULL chP, chl, cha, chy, NULL, chP, cha, chu, chs, che, NULL, NULL, NULL, 
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 parameter [7:0] record_pause[0:31] = '{     // 'r', 'e', 'c', 'o', 'r', 'd', ' ', 'p', 'a', 'u', 's', 'e'
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+    NULL, NULL, NULL chR, che, chc, cho, chr, chd, NULL, chP, cha, chu, chs, che, NULL, 
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 parameter [7:0] playing[0:31] = '{          // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+    NULL, NULL, NULL chP, chl, cha, chy, chi, chn, chg, NULL, NULL, NULL, NULL, NULL, NULL, 
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 parameter [7:0] recording[0:31] = '{        // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 
-    8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b, 8'b
+    NULL, NULL, NULL chR, che, chc, cho, chr, chd, chi, chn, chg, NULL, NULL, NULL, NULL, 
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 // Host interface 
 logic [2:0] state_r, state_w;
