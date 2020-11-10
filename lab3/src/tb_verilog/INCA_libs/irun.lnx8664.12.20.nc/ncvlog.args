@@ -5,8 +5,10 @@
 -XLMODE
 ./INCA_libs/irun.lnx8664.12.20.nc
 -RUNMODE
-player_tb.sv
-../AudPlayer.sv
+LCD_tb.sv
+../LCDTop.sv
+../LCDdatacontroll.sv
+../LCDinstructions.sv
 -CDSLIB
 ./INCA_libs/irun.lnx8664.12.20.nc/cdsrun.lib
 -HDLVAR

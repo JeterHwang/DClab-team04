@@ -23,12 +23,12 @@ HOME=/home/team04
 PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=180.217.149.201 11800 12345
-SSH_CONNECTION=180.217.149.201 11800 192.168.163.250 12345
-SSH_TTY=/dev/pts/0
+SSH_CLIENT=140.112.25.21 36312 12345
+SSH_CONNECTION=140.112.25.21 36312 192.168.163.250 12345
+SSH_TTY=/dev/pts/3
 TERM=xterm-256color
 DISPLAY=localhost:10.0
-XDG_SESSION_ID=c1273
+XDG_SESSION_ID=c1586
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
@@ -62,54 +62,56 @@ IMPERAS_PORT_FILE=.vsp_ovp_gdb_port
 TCL_LIBRARY=/opt/CAD/INCISIV/cur/tools/inca/files/tcl/library
 Runtime command line arguments:
 argv[0]=ncverilog
-argv[1]=player_tb.sv
-argv[2]=../AudPlayer.sv
-argv[3]=+access+r
-67 profile - 100
-          CPU/Mem usage: 0.010 sys,  0.030 user,  90.01M sys,  0.00M vm
-68 VC callback profile - scalar:0 vector:0
-69 Sun Nov  8 16:55:35 2020
-70 pliAppInit
-71 *Verdi3* : Enable Parallel Dumping.
-72 pliAppMiscSet: New Sim Round
-73 LIBSSCORE=found /opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/libsscore_ius122.so through $LD_LIBRARY_PATH setting.
-74 argv[0]: player.fsdb
-75 Catch signal 11. Stack trace follows:
-stack trace not available76 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
-77 (C) 1996 - 2013 by Synopsys, Inc.
-78 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/player_tb.sv(42)
-79 argv[0]: player.fsdb
-80 *Verdi3* : Create FSDB file 'player.fsdb'
-81 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/player_tb.sv(43)
-82 *Verdi3* : Begin traversing the scopes, layer (0).
-83 *Verdi3* : End of traversing.
-84 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.020 sys,  0.040 user,  233.52M sys,  0.00M vm
-                   incr: 0.010 sys,  0.000 user,  3.93M sys,  0.00M vm
-                   accu: 0.010 sys,  0.000 user,  3.93M sys,  0.00M vm
-              accu incr: 0.010 sys,  0.000 user,  3.93M sys,  0.00M vm
+argv[1]=LCD_tb.sv
+argv[2]=../LCDTop.sv
+argv[3]=../LCDdatacontroll.sv
+argv[4]=../LCDinstructions.sv
+argv[5]=+access+r
+69 profile - 100
+          CPU/Mem usage: 0.020 sys,  0.020 user,  90.14M sys,  0.00M vm
+70 VC callback profile - scalar:0 vector:0
+71 Tue Nov 10 14:58:26 2020
+72 pliAppInit
+73 *Verdi3* : Enable Parallel Dumping.
+74 pliAppMiscSet: New Sim Round
+75 LIBSSCORE=found /opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/libsscore_ius122.so through $LD_LIBRARY_PATH setting.
+76 argv[0]: LCD.fsdb
+77 Catch signal 11. Stack trace follows:
+stack trace not available78 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
+79 (C) 1996 - 2013 by Synopsys, Inc.
+80 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/LCD_tb.sv(29)
+81 argv[0]: LCD.fsdb
+82 *Verdi3* : Create FSDB file 'LCD.fsdb'
+83 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/LCD_tb.sv(30)
+84 *Verdi3* : Begin traversing the scopes, layer (0).
+85 *Verdi3* : End of traversing.
+86 fsdbDumpvars traverse var: profile - 
+          CPU/Mem usage: 0.030 sys,  0.030 user,  233.69M sys,  0.00M vm
+                   incr: 0.010 sys,  0.000 user,  3.98M sys,  0.00M vm
+                   accu: 0.010 sys,  0.000 user,  3.98M sys,  0.00M vm
+              accu incr: 0.010 sys,  0.000 user,  3.98M sys,  0.00M vm
 
-          Count usage: 21 var,  21 idcode,  21 callback
-                 incr: 21 var,  21 idcode,  21 callback
-                 accu: 21 var,  21 idcode,  21 callback
-            accu incr: 21 var,  21 idcode,  21 callback
-85 VC callback profile - scalar:0 vector:0
-86 Sun Nov  8 16:55:35 2020
-87 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.020 sys,  0.040 user,  234.57M sys,  0.00M vm
+          Count usage: 81 var,  77 idcode,  77 callback
+                 incr: 81 var,  77 idcode,  77 callback
+                 accu: 81 var,  77 idcode,  77 callback
+            accu incr: 81 var,  77 idcode,  77 callback
+87 VC callback profile - scalar:0 vector:0
+88 Tue Nov 10 14:58:26 2020
+89 fsdbDumpvars: profile - 
+          CPU/Mem usage: 0.030 sys,  0.030 user,  234.74M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.010 sys,  0.000 user,  4.98M sys,  0.00M vm
+                   accu: 0.010 sys,  0.000 user,  5.03M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
 
-          Count usage: 21 var,  21 idcode,  21 callback
+          Count usage: 81 var,  77 idcode,  77 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 21 var,  21 idcode,  21 callback
+                 accu: 81 var,  77 idcode,  77 callback
             accu incr: 0 var,  0 idcode,  0 callback
-88 VC callback profile - scalar:11 vector:10
-89 Sun Nov  8 16:55:35 2020
-90 End of simulation at 0
-91 VC callback profile - scalar:12 vector:10
-92 Sun Nov  8 16:55:35 2020
-93 Parallel profile    -  Flush:2 ProduceWait:0 ConsumerWait:0 BlockUsed:0
-94 SimExit
-95 Sim process exit
+90 VC callback profile - scalar:45 vector:32
+91 Tue Nov 10 14:58:26 2020
+92 End of simulation at 5000000
+93 VC callback profile - scalar:200085 vector:57
+94 Tue Nov 10 14:58:26 2020
+95 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:4 BlockUsed:3
+96 SimExit
+97 Sim process exit

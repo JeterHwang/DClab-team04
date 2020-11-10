@@ -2,6 +2,8 @@
 // File created by:  ncverilog
 // Do not modify this file
 //
-player_tb.sv
-../AudPlayer.sv
+LCD_tb.sv
+../LCDTop.sv
+../LCDdatacontroll.sv
+../LCDinstructions.sv
 +access+r
