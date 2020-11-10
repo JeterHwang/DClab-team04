@@ -95,7 +95,7 @@ assign o_init_finish    = (state_r != S_BEGIN && state_r != S_INIT) ? 1'b1 : 1'b
 assign o_render_finish  = render_finish_r;
 
 LCD_instructions instructions(
-	.i_clk(i_clk_800k),
+	.i_clk(i_clk),
 	.i_start(inst_start_r),
 	.i_rst_n(i_rst_n),
     .i_type(inst_type_r),
