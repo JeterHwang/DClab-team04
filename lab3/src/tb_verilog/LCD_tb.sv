@@ -29,9 +29,9 @@ initial begin
     $fsdbDumpfile("LCD.fsdb");
     $fsdbDumpvars;
 
-    rst = 0;
+    rst = 1;
     #(2 * CLK) 
-        rst = 1;
+        rst = 0;
     @(posedge ini_fin) 
         start = 1;
         mode = 0;
