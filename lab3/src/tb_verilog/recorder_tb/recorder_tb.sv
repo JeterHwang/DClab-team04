@@ -79,11 +79,12 @@ module recorder_tb;
                     #(`CYCLE) pause = 0;
                     $display("%1b", j);
                     $display("%16b", out);
+                
                 end
                 if (j == 8) begin
                     stop = 1;
                     #(`CYCLE) stop = 0;
-
+                    break;
                 end
                 @(negedge bclk);
                     $display("%16b", ans);
