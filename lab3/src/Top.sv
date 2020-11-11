@@ -78,6 +78,10 @@ parameter M_RECD 		= 3'd5;
 logic [2:0] state_r, state_w;
 logic i2c_start_r, i2c_start_w;
 
+logic key0_r, key0_w;
+logic key0_r, key0_w;
+logic
+
 logic fast_r, fast_w;
 logic slow0_r, slow0_w;
 logic slow1_r, slow1_w;

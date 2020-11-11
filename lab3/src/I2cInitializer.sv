@@ -51,10 +51,10 @@ always_comb begin
     oen_w       = oen_r;
     counts_w    = counts_w;
     init_w      = init_r;
-    start_w     = i_start;
+    start_w     = (i_start) ? 1'b0 : 1'b1;
     case (state_r)
         S_IDLE: begin
-            if (!i_start && start_r) begin // falls edge trigger
+            if (i_start && !start_r) begin // falls edge trigger
                 SDA_w       = 1'b0;
                 state_w     = S_BUFFER;
                 init_w      = 5'd0;
