@@ -85,7 +85,7 @@ task test_LCD();
       
     for(int i = 0; i < 32; i++) begin
         @(posedge LCD_EN)
-        $display("instruction %d : %b_%b_%8b", i, Rs, Rw, data);    
+        $display("instruction %d : %b_%b_%8b", i, LCD_RS, LCD_RW, LCD_DATA);    
     end
     $display("==============================");
 endtask
