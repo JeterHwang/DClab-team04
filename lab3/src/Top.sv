@@ -53,8 +53,8 @@ module Top (
 	output       o_LCD_BLON,
 
 	//LED
-	output  [8:0] o_ledg,
-	output [17:0] o_ledr
+	//output  [8:0] o_ledg,
+	//output [17:0] o_ledr
 );
 
 // design the FSM and states as you like
