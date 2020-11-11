@@ -45,13 +45,13 @@ initial begin
     $fsdbDumpvars;
 
     rst = 1;
-    #(2 * CLK);
+    #(CLK);
     rst = 0;
     for(int i = 0; i < 10; i++) begin
         @(posedge clk);
     end
     start = 1'b1;
-    #(2 * CLK);
+    #(CLK);
     start = 1'b0;
 
     repeat(8) begin

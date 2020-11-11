@@ -103,8 +103,8 @@ always_comb begin
     
 end
 
-always_ff @(posedge i_clk) begin
-    if (!i_rst_n) begin
+always_ff @(posedge i_clk or posedge i_rst_n) begin
+    if (i_rst_n) begin
         state_r     <= S_IDLE;
         oen_r       <= 1'b1;
         SCL_r       <= 1'b1;
