@@ -75,7 +75,7 @@ always_comb begin
             end
             else if(address_r == 20'd1024000 || i_stop) begin
                 state_w = S_FINISH;
-                counter_w = 0;
+                counter_w = counter_r;
                 finish_w = 1;
             end
             else begin
