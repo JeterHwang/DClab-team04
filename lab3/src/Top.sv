@@ -78,9 +78,13 @@ parameter M_RECD 		= 3'd5;
 logic [2:0] state_r, state_w;
 logic i2c_start_r, i2c_start_w;
 
+// debounce buttons
 logic key0_r, key0_w;
 logic key1_r, key1_w;
 logic key2_r, key2_w;
+logic LCD_Wfin_r, LCD_Wfin_w;
+logic player_fin_r, player_fin_w;
+logic recorder_fin_r, recorder_fin_w;
 
 logic fast_r, fast_w;
 logic slow0_r, slow0_w;
@@ -113,10 +117,10 @@ assign o_LCD_BLON  = 1'b1;
 assign io_LCD_DATA = LCD_data;	// only output end will open 
 
 assign io_I2C_SDAT = (i2c_oen) ? i2c_sdat : 1'bz;
-
-assign o_SRAM_ADDR = (state_r == S_RECD) ? addr_record : addr_play[19:0];
-assign io_SRAM_DQ  = (state_r == S_RECD) ? data_record : 16'dz; // sram_dq as output
-assign data_play   = (state_r != S_RECD) ? io_SRAM_DQ : 16'd0; // sram_dq as input
+ 
+assign o_SRAM_ADDR = (state_r == S_RECD || (state_r == S_LCD_RENDER && LCD_mode_r == M_RECD)) ? addr_record : addr_play[19:0];
+assign io_SRAM_DQ  = (state_r == S_RECD || (state_r == S_LCD_RENDER && LCD_mode_r == M_RECD)) ? data_record : 16'dz; // sram_dq as output
+assign data_play   = (!(state_r == S_RECD || (state_r == S_LCD_RENDER && LCD_mode_r == M_RECD))) ? io_SRAM_DQ : 16'd0; // sram_dq as input
 
 assign o_SRAM_WE_N = (state_r == S_RECD) ? 1'b0 : 1'b1;
 assign o_SRAM_CE_N = 1'b0;
@@ -131,7 +135,7 @@ assign o_SRAM_UB_N = 1'b0;
 // sequentially sent out settings to initialize WM8731 with I2C protocal
 I2cInitializer init0(
 	.i_rst_n(i_rst_n),
-	.i_clk(i_clk_100K),
+	.i_clk(i_clk_100k),
 	.i_start(i2c_start_r),
 	.o_finished(i2c_finish),
 	.o_sclk(o_I2C_SCLK),
@@ -214,6 +218,9 @@ always_comb begin
 	key0_w			= 	i_key_0;
 	key1_w			= 	i_key_1;
 	key2_w			= 	i_key_2;
+	LCD_Wfin_w		= 	LCD_render_finish;
+	player_fin_w	= 	player_finish;
+	recorder_fin_w	= 	record_finish;
 	case (state_r)
 		S_LCD_INIT: begin
 			if(LCD_init_finish) begin
@@ -231,63 +238,64 @@ always_comb begin
 			end
 		end
 		S_STOP: begin
-			if(!i_key_0 && key0_r) begin
+			if(key0_w && !key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD;	
 			end	
-			else if(!i_key_1 && key1_r) begin
+			else if(key1_w && !key1_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w	 	= M_PLAY;
 			end
 		end
 		S_RECD: begin
-			if(record_finish) begin
+			if(recorder_fin_w && !recorder_fin_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
 			end
-			else if(!i_key_0 && key0_r) begin
+			else if(key0_w && !key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD_PAUSE;
 			end
 		end
 		S_RECD_PAUSE: begin
-			if(!i_key_0 && key0_r) begin
+			if(key0_w && !key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD;
 			end
-			else if(!i_key_2 && key2_r) begin
+			else if(key2_w && !key2_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
 			end
 		end
 		S_PLAY: begin
-			if(player_finish) begin
+			if(player_fin_w && !player_fin_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
 			end
-			else if(!i_key_1 && key1_r) begin
+			else if(key1_w && !key1_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY_PAUSE;	
 			end
 		end
 		S_PLAY_PAUSE: begin
-			if(!i_key_1 && key1_r) begin
+			if(key1_w && !key1_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY;
 			end
 		end
 		S_LCD_RENDER: begin
-			if(LCD_render_finish) begin
-				LCD_wr_enable_w = 1'b0;	
+			if(LCD_Wfin_w && !LCD_Wfin_r) begin	// rising edge triggered
+				LCD_wr_enable_w = 1'b0;	  // LCD write sigmal must be longer !!
+				i2c_start_w		= 1'b0;   
 				case (LCD_mode_r)
 					M_INIT:
 						state_w	= S_I2C;
@@ -321,6 +329,9 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		key0_r			<= 	1'b0;
 		key1_r			<= 	1'b0;
 		key2_r			<= 	1'b0;
+		LCD_Wfin_r		<= 	1'b0;
+		player_fin_r	<= 	1'b0;
+		recorder_fin_r	<= 	1'b0;
 	end
 	else begin
 		sda_data 		<=	io_I2C_SDAT; 
@@ -335,6 +346,9 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		key0_r			<= 	key0_w;
 		key1_r			<= 	key1_w;
 		key2_r			<= 	key2_w;
+		LCD_Wfin_r		<= 	LCD_Wfin_w;
+		player_fin_r	<= 	player_fin_w;
+		recorder_fin_r	<= 	recorder_fin_w;
 	end
 end
 

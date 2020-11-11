@@ -144,7 +144,7 @@ task test_Recorder_pause(
         @(negedge clk_100k);
         for(int j = 0; j < 16; j++) begin
             @(negedge clk_12m);
-            AUD_ADCDAT = REC_DATA[i][j];
+            AUD_ADCDAT = REC_DATA[i][15 - j];
             if(i == from && j == 5)
                 KEY0 = 1;
             else
@@ -165,7 +165,7 @@ task test_Recorder_stop(
         @(negedge clk_100k);
         for(int j = 0; j < 16; j++) begin
             @(negedge clk_12m);
-            AUD_ADCDAT = REC_DATA[i][j];
+            AUD_ADCDAT = REC_DATA[i][15 - j];
             if(i == from && j == 5)
                 KEY2 = 1;
             else
@@ -202,6 +202,11 @@ initial begin
     test_Recorder_stop(9, 12);
     test_Recorder_record(12, 15);
     test_Recorder_stop(15, 16);
+
+    $display("+=====================+");
+	$display("| Simulation Complete |");
+	$display("+=====================+");
+	$finish;
 end
 
 initial begin

@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 11, 2020 at 22:38:35 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 11, 2020 at 22:51:22 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -12,8 +12,8 @@ ncverilog
 	../../LCDdatacontroll.sv
 	+access+r
 Recompiling... reason: file './Top_tb.sv' is newer than expected.
-	expected: Wed Nov 11 22:30:06 2020
-	actual:   Wed Nov 11 22:38:31 2020
+	expected: Wed Nov 11 22:42:32 2020
+	actual:   Wed Nov 11 22:51:14 2020
 file: Top_tb.sv
 	module worklib.Top_tb:sv
 		errors: 0, warnings: 0
@@ -21,8 +21,8 @@ file: Top_tb.sv
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Top_tb:sv <0x5f91723f>
-			streams:  25, words: 28529
+		worklib.Top_tb:sv <0x18e77926>
+			streams:  25, words: 29434
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -94,11 +94,11 @@ The           2 data / address : 2345
                         0000000000000000101
 =================================
 ========= paused Data =========
-Paused data/address           3 : 6a2c
+Paused data/address           3 : 3456
                          0000000000000000110
-Paused data/address           4 : 6a2c
+Paused data/address           4 : 3456
                          0000000000000000110
-Paused data/address           5 : 6a2c
+Paused data/address           5 : 3456
                          0000000000000000110
 ================================
 ========= Recorded Data =========
@@ -110,11 +110,11 @@ The           8 data / address : 89ab
                         0000000000000001010
 =================================
 ========= stopped Data =========
-Paused data/address           9 : 39ab
+Paused data/address           9 : 99ab
                          0000000000000001010
-Paused data/address          10 : 39ab
+Paused data/address          10 : 99ab
                          0000000000000001010
-Paused data/address          11 : 39ab
+Paused data/address          11 : 99ab
                          0000000000000001010
 ================================
 ========= Recorded Data =========
@@ -126,11 +126,13 @@ The          14 data / address : ef01
                         0000000000000001110
 =================================
 ========= stopped Data =========
-Paused data/address          15 : 4f01
+Paused data/address          15 : f701
                          0000000000000001110
 ================================
-Too slow, abort.
-Simulation complete via $finish(1) at time 100 MS + 0
-./Top_tb.sv:210     $finish;
++=====================+
+| Simulation Complete |
++=====================+
+Simulation complete via $finish(1) at time 25395 US + 0
+./Top_tb.sv:209 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 11, 2020 at 22:39:23 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 11, 2020 at 22:52:10 CST  (total: 00:00:48)

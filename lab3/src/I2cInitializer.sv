@@ -55,7 +55,7 @@ always_comb begin
     else        start_w = 1'b0;
     case (state_r)
         S_IDLE: begin
-            if (i_start && !start_r) begin // falls edge trigger
+            if (start_w && !start_r) begin // rising edge trigger
                 SDA_w       = 1'b0;
                 state_w     = S_BUFFER;
                 init_w      = 5'd0;

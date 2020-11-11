@@ -204,11 +204,11 @@ always_comb begin
         end
         S_WRITE: begin
             if(write_fin) begin
-                if(counter_r == 6'd31) begin
+                if(counter_r == 6'd32) begin
                     state_w         = S_IDLE;
                     render_finish_w = 1'b1;
                 end
-                else if(counter_r == 6'd15) begin
+                else if(counter_r == 6'd16) begin
                     state_w         = S_SET_ADDRESS;
                     inst_type_w     = 3'd5;
                     inst_start_w    = 1'b1;
