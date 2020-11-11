@@ -185,7 +185,7 @@ initial begin
     KEY3        = 0;
 end
 initial begin
-    $fsdbDumpfile("I2C.fsdb");
+    $fsdbDumpfile("Top.fsdb");
     $fsdbDumpvars;
     
     #(CLK_100K) KEY3 = 1;
