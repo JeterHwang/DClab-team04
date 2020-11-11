@@ -104,7 +104,7 @@ module recorder_tb;
                         data = in[0];
                     end
             end
-            #(`CYCLE*20) start = 1;
+            #(`CYCLE*90) start = 1;
             #(`CYCLE*3) start = 0;
             for(int i = 0; i < 5; i++) begin
                 @(negedge lr_clk) begin
