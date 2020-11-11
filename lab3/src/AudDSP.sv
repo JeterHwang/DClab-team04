@@ -75,9 +75,7 @@ always_comb begin
 					else
 						state_w = state_r;
 				end
-				else
-					state_w = state_r;
-				end
+				else state_w = state_r;
 			end
         
 		S_FAST_FETCH:
