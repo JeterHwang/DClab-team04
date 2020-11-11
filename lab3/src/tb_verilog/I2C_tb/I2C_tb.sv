@@ -44,9 +44,9 @@ initial begin
     $fsdbDumpfile("I2C.fsdb");
     $fsdbDumpvars;
 
-    rst = 0;
-    #(2 * CLK);
     rst = 1;
+    #(2 * CLK);
+    rst = 0;
     for(int i = 0; i < 10; i++) begin
         @(posedge clk);
     end
