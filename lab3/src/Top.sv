@@ -50,7 +50,7 @@ module Top (
 	output       o_LCD_RS,
 	output       o_LCD_RW,
 	output       o_LCD_ON,
-	output       o_LCD_BLON,
+	output       o_LCD_BLON
 
 	//LED
 	//output  [8:0] o_ledg,

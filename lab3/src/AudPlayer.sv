@@ -17,7 +17,7 @@ logic [4:0]  counter_r, counter_w;
 logic [1:0]  state_r, state_w;
 logic finished_w, finished_r;
 
-assign o_sent_finished = finish_r;
+assign o_sent_finished = finished_r;
 assign o_aud_dacdat = aud_dacdat_r;
 
 always_comb begin
