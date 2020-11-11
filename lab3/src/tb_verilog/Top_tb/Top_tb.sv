@@ -28,7 +28,7 @@ parameter HCLK_100K = 5000;
 parameter CLK_800K  = 1250;
 parameter HCLK_800K = 625;
 
-parameter [15:0] REC_DATA [0:10] = '{
+parameter [15:0] REC_DATA [0:15] = '{
     16'h0123, 16'h1234, 16'h2345, 16'h3456, 
     16'h4567, 16'h5678, 16'h6789, 16'h789A, 
     16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
