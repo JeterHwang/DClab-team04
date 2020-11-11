@@ -38,8 +38,14 @@ parameter [15:0] REC_DATA [0:15] = '{
 logic clk_12m, clk_100k, clk_800k;
 logic KEY0, KEY1, KEY2, KEY3;
 logic [3:0] switch;
-logic AUD_ADCDAT;
+logic AUD_ADCDAT, AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
+logic SW1;
 logic [23:0] I2C_inst;
+
+assign SW1 = 1;
+assign AUD_ADCLRCK  = SW1 ? clk_800k : 1'bz;
+assign AUD_BCLK     = SW1 ? clk_12m : 1'bz;
+assign AUD_DACLRCK  = SW1 ? clk_800k : 1'bz;
 
 Top top0(
     .i_rst_n(KEY3),
@@ -62,9 +68,9 @@ Top top0(
 	.io_I2C_SDAT(I2C_SDAT),
 	
 	.i_AUD_ADCDAT(AUD_ADCDAT),
-	.i_AUD_ADCLRCK(clk_800k),
-	.i_AUD_BCLK(clk_12m),
-	.i_AUD_DACLRCK(clk_800k),
+	.i_AUD_ADCLRCK(AUD_ADCLRCK),
+	.i_AUD_BCLK(AUD_BCLK),
+	.i_AUD_DACLRCK(AUD_DACLRCK),
 	.o_AUD_DACDAT(AUD_DACDAT),
 
 	.i_clk_800k(clk_800k),
