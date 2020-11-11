@@ -41,22 +41,10 @@ always_comb begin
     case (state_r) 
         S_IDLE: begin
             if(!i_start && start_r) begin   // falls edge trigger
-                if(!i_lrc) begin
-                    state_w = S_IDLE;
-                    counter_w = counter_r;
-                    finish_w  = 0;
-                    address_w = 0;
-                    pause_w = pause_r;
-                end
-                else begin
-                    state_w = S_WAIT;
-                    cycle_w = 0;
-                    counter_w = 0;
-                    finish_w  = 0;
-                    address_w = 0;
-                    pause_w = 0;
-                end
-                
+                state_w = S_WAIT;
+                counter_w = 0;
+                finish_w  = 0;
+                address_w = 0;
             end
         end
         S_WAIT: begin
@@ -142,7 +130,9 @@ always_comb begin
             end
         end
         S_FINISH: begin
+            
             state_w = S_IDLE;
+            
         end
     endcase
 end
