@@ -25,6 +25,7 @@ logic pause_w, pause_r;
 logic finish_r, finish_w;
 logic start_r, start_w;
 logic Tpause_r, Tpause_w;
+logic stop_r, stop,w;
 assign o_address    = address_r;
 assign o_data       = data_r;
 assign o_finish     = finish_r;
@@ -38,9 +39,10 @@ always_comb begin
     cycle_w             = cycle_r;
     start_w             = i_start;
     Tpause_w            = i_pause;
+    stop_w              = stop_r;
     case (state_r) 
         S_IDLE: begin
-            if(!i_start && start_r && i_lrc) begin   // falls edge trigger
+            if(!i_start && start_r) begin   // falls edge trigger
                 state_w = S_WAIT;
                 counter_w = 0;
                 finish_w  = 0;
@@ -146,6 +148,7 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         cycle_r             <= 0;
         start_r             <= 0;
         Tpause_r            <= 0;
+        stop_r              <= 0;
     end
     else begin
         state_r             <= state_w;
@@ -157,6 +160,7 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         cycle_r             <= cycle_w;
         start_r             <= start_w;
         Tpause_r            <= Tpause_w;
+        stop_r              <= stop_w;
     end
 
 end
