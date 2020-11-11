@@ -157,9 +157,9 @@ AudDSP dsp0(
 	.i_sram_data(data_play),
 	.o_dac_data(dac_data),
 	.o_sram_addr(addr_play),
-	.i_sent_finished(dsp_to_player_finished),
 	.o_player_en(dsp2player_en),
-	.o_finish(player_finish)
+	.o_finish(player_finish),
+	.i_sent_finished(dsp_to_player_finished)
 );
 
 // === AudPlayer ===
