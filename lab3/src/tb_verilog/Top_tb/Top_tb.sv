@@ -202,7 +202,7 @@ initial begin
 end
 
 initial begin
-    #(100000 * CLK_100K)
+    #(1000 * CLK_100K)
     $display("Too slow, abort.");
     $finish;
 end
