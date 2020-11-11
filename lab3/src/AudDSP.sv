@@ -48,7 +48,6 @@ assign step = ($signed(sram_r2) - $signed(sram_r1)) / $signed(speed_r);
 
 
 always_comb begin
-    state_w = state_r;
 	case(state_r)
 		S_IDLE:
 			begin
@@ -60,7 +59,7 @@ always_comb begin
 				player_en_w = 0;
 				addr_w = 0;
 				dac_data_w = 0;
-				// done
+				// finished
 				if(i_stop)
 					finished_w = 1;
 				else
@@ -73,6 +72,11 @@ always_comb begin
 						state_w = S_SLOW_0_FETCH;
 					else if(i_slow_1)
 						state_w = S_SLOW_1_FETCH;
+					else
+						state_w = state_r;
+				end
+				else
+					state_w = state_r;
 				end
 			end
         
@@ -82,7 +86,7 @@ always_comb begin
 				sram_w2 = sram_r2;
 				slow_fetch_counter_w = 0;
 				interpolation_counter_w = 0;
-				// done
+				// finished
 				if(i_stop)
 					finished_w = 1;
 				else

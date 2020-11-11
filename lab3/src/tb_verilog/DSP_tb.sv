@@ -74,6 +74,7 @@ module DSP_tb();
     initial sram_data = 16'b1001_1100_0101_1000;
     initial record_counter = 20'b1101_0111_1000_0010_0111;
 
+
     always begin
         #(`H_CYCLE) clk=~clk;
     end
@@ -84,10 +85,17 @@ module DSP_tb();
         $fsdbDumpfile("DSP.fsdb");
         $fsdbDumpvars;
 
-        speed = 2;
+        #(`CYCLE*0.2) rst = 1'b0;
+        #(`CYCLE*1.5) rst = 1'b1;
+        #(`CYCLE*1.5) start = 1'b1;
+        #(`CYCLE*1) start = 1'b0;
+        #(`CYCLE*20) pause = 1;
+        #(`CYCLE*5) pause = 0;
 
-        #(`CYCLE*1.5) rst = 1;
-        #(`CYCLE*3.5) rst = 0;
+        #(`CYCLE*5) pause = 1;
+        #(`CYCLE*5) pause = 0;
+        #(`CYCLE*24) pause = 1;
+        #(`CYCLE*10) pause = 0;
 
         // #(`CYCLE*2) sram_data = 0;
 
