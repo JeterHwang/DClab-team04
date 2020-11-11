@@ -71,7 +71,7 @@ module recorder_tb;
             end
             @(negedge bclk);
             data    = in[15];
-            if(i == 3) begin
+            if(i == 2) begin
                 break;
             end
             for(int j = 0; j < 16; j++) begin
