@@ -30,7 +30,7 @@ module dsp_tb;
 		.i_sram_data(sram_data),//[15:0] 
 		.o_dac_data(dac_data),//[15:0] 
 		.o_sram_addr(sram_current),//[19:0] 
-		.o_finished(o_finished),
+		.o_finish(o_finished),
 		.o_player_en(player_en)
 	);
 			  
