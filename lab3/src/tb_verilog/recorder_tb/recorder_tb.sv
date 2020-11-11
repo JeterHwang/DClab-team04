@@ -105,22 +105,20 @@ module recorder_tb;
                     end
             end
                     $display("+=====================+");
-            if(ans == data_arr[i]) begin
-                $display("data %d simulation correct !!", i);
-                $display("expected output = %16b", data_arr[i]);    
-                $display("received output = %16b", ans[15:0]);
-                $display("+=====================+");
-            end    
-            else begin
-                $display("data %d simulation wrong !!", i);
-                $display("expected output = %16b", data_arr[i]);    
-                $display("received output = %16b", ans[15:0]);
-                $display("+=====================+");
+                    if(ans == data_arr[i]) begin
+                        $display("data %d simulation correct !!", i);
+                        $display("expected output = %16b", data_arr[i]);    
+                        $display("received output = %16b", ans[15:0]);
+                        $display("+=====================+");
+                    end    
+                    else begin
+                        $display("data %d simulation wrong !!", i);
+                        $display("expected output = %16b", data_arr[i]);    
+                        $display("received output = %16b", ans[15:0]);
+                        $display("+=====================+");
+                    end
             end
-            
-
-        end
-            #(`CYCLE*20) start = 1;
+            #(`CYCLE*10) start = 1;
             #(`CYCLE*3) start = 0;
             for(int i = 0; i < 5; i++) begin
                 @(negedge lr_clk) begin
