@@ -103,7 +103,7 @@ module recorder_tb;
                     else if(j == 15) begin
                         data = in[0];
                     end
-            
+            end
             #(`CYCLE*20) start = 1;
             #(`CYCLE*3) start = 0;
             for(int i = 0; i < 5; i++) begin
@@ -145,6 +145,7 @@ module recorder_tb;
                         end
                         else if(j == 15) begin
                             data = in[0];
+                        end
                 end
             end
 
