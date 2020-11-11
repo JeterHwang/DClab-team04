@@ -99,7 +99,7 @@ logic [15:0] data_record, data_play, dac_data;
 logic sda_data; 	// useless
 
 logic dsp2player_en;			// new added
-logic dsp_to_player_finished; 	// new added 
+logic dsp_to_player_finished_r, dsp_to_player_finished_w; 	// new added 
 
 logic [2:0] LCD_mode_r, LCD_mode_w;
 logic LCD_wr_enable_r, LCD_wr_enable_w;
@@ -159,7 +159,7 @@ AudDSP dsp0(
 	.o_sram_addr(addr_play),
 	.o_player_en(dsp2player_en),
 	.o_finish(player_finish),
-	.i_sent_finished(dsp_to_player_finished)
+	.i_sent_finished(dsp_to_player_finished_r)
 );
 
 // === AudPlayer ===
@@ -171,7 +171,7 @@ AudPlayer player0(
 	.i_en(dsp2player_en), // enable AudPlayer only when playing audio, work with AudDSP
 	.i_dac_data(dac_data), //dac_data
 	.o_aud_dacdat(o_AUD_DACDAT),
-	.o_sent_finished(dsp_to_player_finished)
+	.o_sent_finished(dsp_to_player_finished_w)
 );
 
 // === AudRecorder ===
@@ -321,6 +321,7 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		key0_r			<= 	1'b0;
 		key1_r			<= 	1'b0;
 		key2_r			<= 	1'b0;
+		dsp_to_player_finished_r <= 1'b0;
 	end
 	else begin
 		sda_data 		<=	io_I2C_SDAT; 
@@ -335,6 +336,7 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		key0_r			<= 	key0_w;
 		key1_r			<= 	key1_w;
 		key2_r			<= 	key2_w;
+		dsp_to_player_finished_r <= dsp_to_player_finished_w;
 	end
 end
 
