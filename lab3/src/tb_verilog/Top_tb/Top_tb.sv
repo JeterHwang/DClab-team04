@@ -65,7 +65,7 @@ Top top0(
 	.i_AUD_ADCLRCK(clk_800k),
 	.i_AUD_BCLK(clk_12m),
 	.i_AUD_DACLRCK(clk_800k),
-	.o_AUD_DACDAT(AUD_DACDAT)
+	.o_AUD_DACDAT(AUD_DACDAT),
 
 	.i_clk_800k(clk_800k),
 	.io_LCD_DATA(LCD_DATA), // [7:0]
@@ -73,7 +73,7 @@ Top top0(
 	.o_LCD_RS(LCD_RS),
 	.o_LCD_RW(LCD_RW),
 	.o_LCD_ON(LCD_ON),
-	.o_LCD_BLON(LCD_BLON),
+	.o_LCD_BLON(LCD_BLON)
 );
 always #HCLK_12M    clk_12m = ~clk_12m;
 always #HCLK_800K   clk_800k = ~clk_800k;
