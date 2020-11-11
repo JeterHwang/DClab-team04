@@ -44,12 +44,16 @@ always_comb begin
         S_IDLE: begin
             if(!i_start && start_r) begin   // falls edge trigger
                 state_w = S_WAIT;
+                data_w = 16'd0;
                 counter_w = 0;
                 finish_w  = 0;
                 address_w = 0;
             end
         end
         S_WAIT: begin
+            if (i_stop) begin
+                state_w = S_IDLE;
+            end
             if(i_lrc) begin
                 counter_w = 0;
                 cycle_w = 0;

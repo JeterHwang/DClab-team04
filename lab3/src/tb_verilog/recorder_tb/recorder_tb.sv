@@ -86,7 +86,6 @@ module recorder_tb;
                 if (i == 1 && j == 8) begin
                     stop = 1;
                     #(`CYCLE) stop = 0;
-                    break;
                 end
                 @(negedge bclk);
                     $display("%16b", ans);
