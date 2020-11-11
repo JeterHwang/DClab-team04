@@ -111,18 +111,21 @@ initial begin
     clk_100k    = 0;
     clk_800k    = 0;
     clk_12m     = 0;
+    KEY0        = 0;
+    KEY1        = 0;
+    KEY2        = 0;
+    KEY3        = 0;
 end
 
 initial begin
     $fsdbDumpfile("I2C.fsdb");
     $fsdbDumpvars;
-
-    KEY3    = 0;
     #(CLK_100K) KEY3 = 1;
     KEY3    = 0;
     LCD_output();
-    
-    
+    I2C();
+    LCD_output();
+    #(CLK_100K) KEY1 = 1;
 end
 always(@posedge I2C_SDAT) begin
     if()

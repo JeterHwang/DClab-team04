@@ -36,6 +36,7 @@ logic       SDA_r, SDA_w;
 logic       finished_r, finished_w;
 logic [5:0] counts_r, counts_w;
 logic [4:0] init_r, init_w;
+logic       start_r;
 
 assign o_finished   = finished_r;
 assign o_sclk       = SCL_r;
@@ -52,7 +53,7 @@ always_comb begin
     init_w      = init_r;
     case (state_r)
         S_IDLE: begin
-            if (i_start) begin
+            if (i_start && !start_r) begin
                 SDA_w       = 1'b0;
                 state_w     = S_BUFFER;
                 init_w      = 5'd0;
@@ -111,7 +112,7 @@ always_ff @(posedge i_clk) begin
         finished_r  <= 1'b0;
         counts_r    <= 6'd0;
         init_r      <= 5'd0;   
-
+        start_r     <= 1'b0;
     end
     else begin
         state_r		<= state_w;
@@ -121,6 +122,7 @@ always_ff @(posedge i_clk) begin
         counts_r    <= counts_w;
         init_r      <= init_w;
         oen_r       <= oen_w;
+        start_r     <= i_start;
     end
 end
 

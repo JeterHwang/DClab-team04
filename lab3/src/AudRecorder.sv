@@ -23,6 +23,7 @@ logic [4:0] counter_r, counter_w;
 logic cycle_w, cycle_r;
 logic pause_w, pause_r;
 logic finish_r, finish_w;
+logic start_r;
 assign o_address = address_r;
 assign o_data = data_r;
 
@@ -36,7 +37,7 @@ always_comb begin
     cycle_w             = cycle_r;
     case (state_r) 
         S_IDLE: begin
-            if(i_start) begin
+            if(i_start && !start_r) begin
                 state_w = S_WAIT;
                 counter_w = 0;
             end
@@ -137,6 +138,7 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         finish_r            <= 0;
         pause_r             <= 0;
         cycle_r             <= 0;
+        start_r             <= 0;
     end
     else begin
         state_r             <= state_w;
@@ -146,6 +148,7 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         finish_r            <= finish_w;
         pause_r             <= pause_w;
         cycle_r             <= cycle_w;
+        start_r             <= i_start;
     end
 
 end
