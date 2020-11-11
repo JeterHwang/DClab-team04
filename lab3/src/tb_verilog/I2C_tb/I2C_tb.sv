@@ -50,9 +50,9 @@ initial begin
     for(int i = 0; i < 10; i++) begin
         @(posedge clk);
     end
-    start <= 1'b1;
-    @(posedge clk);
-    start <= 1'b0;
+    start = 1'b1;
+    #(2 * CLK);
+    start = 1'b0;
 
     repeat(8) begin
         readdata();
