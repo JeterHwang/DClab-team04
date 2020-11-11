@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 11, 2020 at 19:50:16 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 11, 2020 at 22:38:35 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,28 +11,25 @@ ncverilog
 	../../LCDinstructions.sv
 	../../LCDdatacontroll.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/Top.sv' is newer than expected.
-	expected: Wed Nov 11 18:44:26 2020
-	actual:   Wed Nov 11 19:50:04 2020
-file: ../../Top.sv
-	module worklib.Top:sv
+Recompiling... reason: file './Top_tb.sv' is newer than expected.
+	expected: Wed Nov 11 22:30:06 2020
+	actual:   Wed Nov 11 22:38:31 2020
+file: Top_tb.sv
+	module worklib.Top_tb:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Top:sv <0x6672cd85>
-			streams:  33, words: 14759
+		worklib.Top_tb:sv <0x5f91723f>
+			streams:  25, words: 28529
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
-	.i_clk(i_clk_100K),
-	                |
-ncelab: *W,CSINFI (/home/team04/jeter/DClab-team04/lab3/src/Top.sv,134|17): implicit wire has no fanin (Top_tb.top0.i_clk_100K).
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                   9       9
-		Registers:               170     170
-		Scalar wires:             70       -
+		Registers:               178     178
+		Scalar wires:             69       -
 		Vectored wires:           27       -
 		Always blocks:            19      19
 		Initial blocks:            3       3
@@ -51,8 +48,89 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Create FSDB file 'Top.fsdb'
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
+=====  I2C instruction  ====
+data = 0011_0100_000_1111_0_0000_0000
+============================
+========= LCD display ========
+instruction           0 : 1_0_00100000
+instruction           1 : 1_0_00100000
+instruction           2 : 1_0_00100000
+instruction           3 : 1_0_01010011
+instruction           4 : 1_0_01110100
+instruction           5 : 1_0_01101111
+instruction           6 : 1_0_01110000
+instruction           7 : 1_0_00100000
+instruction           8 : 1_0_00100000
+instruction           9 : 1_0_00100000
+instruction          10 : 1_0_00100000
+instruction          11 : 1_0_00100000
+instruction          12 : 1_0_00100000
+instruction          13 : 1_0_00100000
+instruction          14 : 1_0_00100000
+instruction          15 : 1_0_00100000
+instruction          16 : 1_0_00100000
+instruction          17 : 1_0_00100000
+instruction          18 : 1_0_00100000
+instruction          19 : 1_0_00100000
+instruction          20 : 1_0_00100000
+instruction          21 : 1_0_00100000
+instruction          22 : 1_0_00100000
+instruction          23 : 1_0_00100000
+instruction          24 : 1_0_00100000
+instruction          25 : 1_0_00100000
+instruction          26 : 1_0_00100000
+instruction          27 : 1_0_00100000
+instruction          28 : 1_0_00100000
+instruction          29 : 1_0_00100000
+instruction          30 : 1_0_00100000
+instruction          31 : 1_0_00100000
+==============================
+========= Recorded Data =========
+The           0 data / address : 0123
+                        0000000000000000011
+The           1 data / address : 1234
+                        0000000000000000100
+The           2 data / address : 2345
+                        0000000000000000101
+=================================
+========= paused Data =========
+Paused data/address           3 : 6a2c
+                         0000000000000000110
+Paused data/address           4 : 6a2c
+                         0000000000000000110
+Paused data/address           5 : 6a2c
+                         0000000000000000110
+================================
+========= Recorded Data =========
+The           6 data / address : 6789
+                        0000000000000001000
+The           7 data / address : 789a
+                        0000000000000001001
+The           8 data / address : 89ab
+                        0000000000000001010
+=================================
+========= stopped Data =========
+Paused data/address           9 : 39ab
+                         0000000000000001010
+Paused data/address          10 : 39ab
+                         0000000000000001010
+Paused data/address          11 : 39ab
+                         0000000000000001010
+================================
+========= Recorded Data =========
+The          12 data / address : cdef
+                        0000000000000001100
+The          13 data / address : def0
+                        0000000000000001101
+The          14 data / address : ef01
+                        0000000000000001110
+=================================
+========= stopped Data =========
+Paused data/address          15 : 4f01
+                         0000000000000001110
+================================
 Too slow, abort.
 Simulation complete via $finish(1) at time 100 MS + 0
-./Top_tb.sv:208     $finish;
+./Top_tb.sv:210     $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 11, 2020 at 19:50:19 CST  (total: 00:00:03)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 11, 2020 at 22:39:23 CST  (total: 00:00:48)

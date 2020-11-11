@@ -94,6 +94,7 @@ task test_LCD();
         @(posedge LCD_EN)
         $display("instruction %d : %b_%b_%8b", i, LCD_RS, LCD_RW, LCD_DATA);    
     end
+    @(negedge LCD_RS);
     $display("==============================");
 endtask
 task test_I2C();    
@@ -114,28 +115,29 @@ task test_I2C();
     $display("============================");
 endtask
 task test_Recorder_record(
-    input from,
-    input to
+    input [4:0] from,
+    input [4:0] to
 );
     $display("========= Recorded Data =========");
+    #(CLK_100K);
     KEY0 = 1;
-    #(10 * CLK_100K);
+    #(CLK_100K);
     KEY0 = 0;
     for(int i = from; i < to; i++) begin
         @(negedge clk_100k);
         for(int j = 0; j < 16; j++) begin
             @(negedge clk_12m);
-            AUD_ADCDAT = REC_DATA[i][j];
+            AUD_ADCDAT = REC_DATA[i][15 - j];
         end
         @(posedge clk_100k);
-        $display("The %d data / address : %16b", i, SRAM_DQ);
+        $display("The %d data / address : %4x", i, SRAM_DQ);
         $display("                        %19b", SRAM_ADDR);
     end
     $display("=================================");
 endtask
 task test_Recorder_pause(
-    input from,
-    input to
+    input [4:0] from,
+    input [4:0] to
 );
     $display("========= paused Data =========");
     for(int i = from; i < to; i++) begin
@@ -149,14 +151,14 @@ task test_Recorder_pause(
                 KEY0 = 0;
         end 
         @(posedge clk_100k);
-        $display("Paused data/address %d : %16b", i, SRAM_DQ);
+        $display("Paused data/address %d : %4x", i, SRAM_DQ);
         $display("                         %19b", SRAM_ADDR);   
     end
     $display("================================");
 endtask
 task test_Recorder_stop(
-    input from,
-    input to
+    input [4:0] from,
+    input [4:0] to
 );
     $display("========= stopped Data =========");
     for(int i = from; i < to; i++) begin
@@ -170,7 +172,7 @@ task test_Recorder_stop(
                 KEY2 = 0;
         end 
         @(posedge clk_100k);
-        $display("Paused data/address %d : %16b", i, SRAM_DQ);
+        $display("Paused data/address %d : %4x", i, SRAM_DQ);
         $display("                         %19b", SRAM_ADDR);   
     end
     $display("================================");
