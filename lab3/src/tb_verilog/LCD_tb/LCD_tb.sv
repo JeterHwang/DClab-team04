@@ -37,7 +37,7 @@ initial begin
         mode = 0;
     #(CLK) 
         start = 0;
-    for(int i = 0; i < 31; i++) begin
+    for(int i = 0; i < 32; i++) begin
         @(posedge En)
             $display("==============================");
             $display("instruction %d :", i);

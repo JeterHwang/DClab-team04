@@ -44,15 +44,15 @@ initial begin
     $fsdbDumpfile("I2C.fsdb");
     $fsdbDumpvars;
 
-    rst = 0;
-    #(2 * CLK);
     rst = 1;
+    #(CLK);
+    rst = 0;
     for(int i = 0; i < 10; i++) begin
         @(posedge clk);
     end
-    start <= 1'b1;
-    @(posedge clk);
-    start <= 1'b0;
+    start = 1'b1;
+    #(CLK);
+    start = 1'b0;
 
     repeat(8) begin
         readdata();

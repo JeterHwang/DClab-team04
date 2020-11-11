@@ -23,9 +23,11 @@ logic [4:0] counter_r, counter_w;
 logic cycle_w, cycle_r;
 logic pause_w, pause_r;
 logic finish_r, finish_w;
-assign o_address = address_r;
-assign o_data = data_r;
-
+logic start_r, start_w;
+logic Tpause_r, Tpause_w;
+assign o_address    = address_r;
+assign o_data       = data_r;
+assign o_finish     = finish_r;
 always_comb begin
     state_w             = state_r;
     address_w           = address_r;
@@ -34,11 +36,14 @@ always_comb begin
     finish_w            = finish_r;
     pause_w             = pause_r;
     cycle_w             = cycle_r;
+    start_w             = i_start;
+    Tpause_w            = i_pause;
     case (state_r) 
         S_IDLE: begin
-            if(i_start) begin
+            if(!i_start && start_r) begin   // falls edge trigger
                 state_w = S_WAIT;
                 counter_w = 0;
+                finish_w  = 0;
             end
         end
         S_WAIT: begin
@@ -62,7 +67,7 @@ always_comb begin
         end
 
         S_REC: begin
-            if(i_pause) begin
+            if(!i_pause && Tpause_r) begin
                 counter_w = counter_r+1;
                 data_w[15-counter_r] = i_data;
                 pause_w = 1;
@@ -97,7 +102,7 @@ always_comb begin
                 finish_w = 1;
                 state_w = S_FINISH;
             end
-            else if (i_pause) begin
+            else if (!i_pause && Tpause_r) begin
                 counter_w = counter_r;
                 data_w = data_r;
                 state_w = S_WAIT;
@@ -137,6 +142,8 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         finish_r            <= 0;
         pause_r             <= 0;
         cycle_r             <= 0;
+        start_r             <= 0;
+        Tpause_r            <= 0;
     end
     else begin
         state_r             <= state_w;
@@ -146,6 +153,8 @@ always_ff @(negedge i_clk or posedge i_rst_n) begin
         finish_r            <= finish_w;
         pause_r             <= pause_w;
         cycle_r             <= cycle_w;
+        start_r             <= start_w;
+        Tpause_r            <= Tpause_w;
     end
 
 end

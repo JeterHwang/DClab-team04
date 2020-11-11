@@ -199,6 +199,8 @@ Top top0(
 	// .o_DRAM_CS_N(DRAM_CS_N),
 	// .o_DRAM_RAS_N(DRAM_RAS_N),
 	// .o_DRAM_WE_N(DRAM_WE_N),	// I2C
+	
+	// I2C
 	.i_clk_100k(CLK_100K),
 	.o_I2C_SCLK(I2C_SCLK),
 	.io_I2C_SDAT(I2C_SDAT),
@@ -214,7 +216,7 @@ Top top0(
 	// .o_record_time(recd_time),
 	// .o_play_time(play_time),
 
-	LCD (optional display)
+	//LCD (optional display)
 	.i_clk_800k(CLK_800K),
 	.io_LCD_DATA(LCD_DATA), // [7:0]
 	.o_LCD_EN(LCD_EN),
@@ -223,9 +225,9 @@ Top top0(
 	.o_LCD_ON(LCD_ON),
 	.o_LCD_BLON(LCD_BLON),
 
-	LED
-	.o_ledg(LEDG), // [8:0]
-	.o_ledr(LEDR) // [17:0]
+	//LED
+	//.o_ledg(LEDG), // [8:0]
+	//.o_ledr(LEDR) // [17:0]
 );
 
 // SevenHexDecoder seven_dec0(
