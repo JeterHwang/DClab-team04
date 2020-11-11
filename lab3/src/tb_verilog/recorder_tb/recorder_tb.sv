@@ -60,7 +60,7 @@ module recorder_tb;
         #(`CYCLE*2) rst = 1;
         #(`CYCLE*2) rst = 0;
         #(`CYCLE*20) start = 1;
-        @#(`CYCLE*3) start = 0;
+        #(`CYCLE*3) start = 0;
         for(int i = 0; i < 65000; i++) begin
             
             
@@ -72,9 +72,7 @@ module recorder_tb;
             end
             @(negedge bclk);
             data    = in[15];
-            if(i == 3) begin
-                break;
-            end
+
             for(int j = 0; j < 16; j++) begin
                 $display("%1b", j);
                 // data = in[15-j];
@@ -88,7 +86,6 @@ module recorder_tb;
                 if (i == 1 && j == 8) begin
                     stop = 1;
                     #(`CYCLE) stop = 0;
-                    break;
                 end
                 @(negedge bclk);
                     $display("%16b", ans);

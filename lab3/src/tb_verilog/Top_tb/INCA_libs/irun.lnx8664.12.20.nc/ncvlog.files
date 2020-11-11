@@ -1,0 +1,13 @@
+//
+// File created by:  ncverilog
+// Do not modify this file
+//
+/home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb/Top_tb.sv
+/home/team04/jeter/DClab-team04/lab3/src/Top.sv
+/home/team04/jeter/DClab-team04/lab3/src/I2cInitializer.sv
+/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv
+/home/team04/jeter/DClab-team04/lab3/src/AudPlayer.sv
+/home/team04/jeter/DClab-team04/lab3/src/AudRecorder.sv
+/home/team04/jeter/DClab-team04/lab3/src/LCDTop.sv
+/home/team04/jeter/DClab-team04/lab3/src/LCDinstructions.sv
+/home/team04/jeter/DClab-team04/lab3/src/LCDdatacontroll.sv

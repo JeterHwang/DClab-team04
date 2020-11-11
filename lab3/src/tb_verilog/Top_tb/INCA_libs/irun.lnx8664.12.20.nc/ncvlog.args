@@ -1,0 +1,25 @@
+//
+// File created by:  ncverilog
+// Do not modify this file
+//
+-XLMODE
+./INCA_libs/irun.lnx8664.12.20.nc
+-RUNMODE
+Top_tb.sv
+../../Top.sv
+../../I2cInitializer.sv
+../../AudDSP.sv
+../../AudPlayer.sv
+../../AudRecorder.sv
+../../LCDTop.sv
+../../LCDinstructions.sv
+../../LCDdatacontroll.sv
+-CDSLIB
+./INCA_libs/irun.lnx8664.12.20.nc/cdsrun.lib
+-HDLVAR
+./INCA_libs/irun.lnx8664.12.20.nc/hdlrun.var
+-MESSAGES
+-UPDATE
+-XLLIBSTORE
+./INCA_libs/irun.lnx8664.12.20.nc/xllibs
+-ALLOWUNBOUND
