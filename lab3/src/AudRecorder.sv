@@ -44,6 +44,7 @@ always_comb begin
                 state_w = S_WAIT;
                 counter_w = 0;
                 finish_w  = 0;
+                address_w = 0;
             end
         end
         S_WAIT: begin
@@ -129,6 +130,7 @@ always_comb begin
         end
         S_FINISH: begin
             state_w = S_IDLE;
+            
         end
     endcase
 end
