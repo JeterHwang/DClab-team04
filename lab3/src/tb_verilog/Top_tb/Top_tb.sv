@@ -41,7 +41,7 @@ logic [3:0] switch;
 logic AUD_ADCDAT;
 logic SW1;
 logic [23:0] I2C_inst;
-wure AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
+wire AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
 
 assign SW1 = 1;
 assign AUD_ADCLRCK  = SW1 ? clk_800k : 1'bz;
