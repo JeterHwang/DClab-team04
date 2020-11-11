@@ -40,7 +40,7 @@ always_comb begin
     Tpause_w            = i_pause;
     case (state_r) 
         S_IDLE: begin
-            if(!i_start && start_r) begin   // falls edge trigger
+            if(!i_start && start_r && i_lrc) begin   // falls edge trigger
                 state_w = S_WAIT;
                 counter_w = 0;
                 finish_w  = 0;
@@ -130,9 +130,7 @@ always_comb begin
             end
         end
         S_FINISH: begin
-            
             state_w = S_IDLE;
-            
         end
     endcase
 end
