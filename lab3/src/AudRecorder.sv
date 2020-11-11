@@ -54,6 +54,7 @@ always_comb begin
             if (i_stop) begin
                 state_w = S_IDLE;
             end
+            else begin
             if(i_lrc) begin
                 counter_w = 0;
                 cycle_w = 0;
@@ -70,6 +71,7 @@ always_comb begin
             end
             else if (!i_lrc && pause_r == 0 && cycle_r == 1) begin
                 state_w = S_WAIT;
+            end
             end
         end
 
