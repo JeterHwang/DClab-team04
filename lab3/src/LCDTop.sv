@@ -62,6 +62,7 @@ parameter [7:0] recording[0:31] = '{        // 'r', 'e', 'c', 'o', 'r', 'd', 'i'
 };
 // Host interface 
 logic [2:0] state_r, state_w;
+logic start_r, start_w;
 
 logic write_start_r, write_start_w;
 logic render_finish_r, render_finish_w;
@@ -156,6 +157,7 @@ always_comb begin
     counter_w       = counter_r;
     index_w         = index_r;        
     render_finish_w = render_finish_r;
+    start_w         = i_start;
     case(state_r)
         S_BEGIN: begin
             inst_start_w    = 1'b1;
@@ -179,7 +181,7 @@ always_comb begin
             end
         end
         S_IDLE: begin
-            if(i_start) begin
+            if(i_start && !start_r) begin       // posedge triggered
                 state_w         = S_SET_ADDRESS;
                 counter_w       = 6'd0;
                 render_finish_w = 1'b0;
@@ -202,11 +204,11 @@ always_comb begin
         end
         S_WRITE: begin
             if(write_fin) begin
-                if(counter_r == 6'd31) begin
+                if(counter_r == 6'd32) begin
                     state_w         = S_IDLE;
                     render_finish_w = 1'b1;
                 end
-                else if(counter_r == 6'd15) begin
+                else if(counter_r == 6'd16) begin
                     state_w         = S_SET_ADDRESS;
                     inst_type_w     = 3'd5;
                     inst_start_w    = 1'b1;
@@ -236,6 +238,7 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
         counter_r       <= 6'd0;
         index_r         <= 3'd0;        
         render_finish_r <= 1'b0;
+        start_r         <= 1'b0;
     end
     else begin
         state_r         <= state_w;
@@ -247,6 +250,7 @@ always_ff @(posedge i_clk or posedge i_rst_n) begin
         counter_r       <= counter_w;
         index_r         <= index_w;        
         render_finish_r <= render_finish_w;
+        start_r         <= start_w;
     end
 end
 endmodule

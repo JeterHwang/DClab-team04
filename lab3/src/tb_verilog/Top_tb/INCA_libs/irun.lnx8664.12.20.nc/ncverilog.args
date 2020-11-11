@@ -1,0 +1,14 @@
+//
+// File created by:  ncverilog
+// Do not modify this file
+//
+Top_tb.sv
+../../Top.sv
+../../I2cInitializer.sv
+../../AudDSP.sv
+../../AudPlayer.sv
+../../AudRecorder.sv
+../../LCDTop.sv
+../../LCDinstructions.sv
+../../LCDdatacontroll.sv
++access+r
