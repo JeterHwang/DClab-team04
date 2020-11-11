@@ -79,8 +79,8 @@ logic [2:0] state_r, state_w;
 logic i2c_start_r, i2c_start_w;
 
 logic key0_r, key0_w;
-logic key0_r, key0_w;
-logic
+logic key1_r, key1_w;
+logic key2_r, key2_w;
 
 logic fast_r, fast_w;
 logic slow0_r, slow0_w;
@@ -203,6 +203,17 @@ LCD_Top LCDtop(
 
 always_comb begin
 	// design your control here
+	state_w 		=  	state_r;
+	i2c_start_w		= 	i2c_start_r;
+	fast_w			= 	fast_r;
+	slow0_w			= 	slow0_r;
+	slow1_w			= 	slow1_r;
+	player_en_w		= 	player_en_r;
+	LCD_mode_w		= 	LCD_mode_r;
+	LCD_wr_enable_w	=  	LCD_wr_enable_r;
+	key0_w			= 	i_key_0;
+	key1_w			= 	i_key_1;
+	key2_w			= 	i_key_2;
 	case (state_r)
 		S_LCD_INIT: begin
 			if(LCD_init_finish) begin
@@ -220,12 +231,12 @@ always_comb begin
 			end
 		end
 		S_STOP: begin
-			if(i_key_0) begin
+			if(!i_key_0 && key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD;	
 			end	
-			else if(i_key_1) begin
+			else if(!i_key_1 && key1_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w	 	= M_PLAY;
@@ -237,19 +248,19 @@ always_comb begin
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
 			end
-			else if(i_key_0) begin
+			else if(!i_key_0 && key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD_PAUSE;
 			end
 		end
 		S_RECD_PAUSE: begin
-			if(i_key_0) begin
+			if(!i_key_0 && key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD;
 			end
-			else if(i_key_2) begin
+			else if(!i_key_2 && key2_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
@@ -261,14 +272,14 @@ always_comb begin
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
 			end
-			else if(i_key_1) begin
+			else if(!i_key_1 && key1_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY_PAUSE;	
 			end
 		end
 		S_PLAY_PAUSE: begin
-			if(i_key_1) begin
+			if(!i_key_1 && key1_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY;
@@ -307,6 +318,9 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		player_en_r		<= 	1'b0;
 		LCD_mode_r		<= 	3'd0;
 		LCD_wr_enable_r	<= 	1'b0;
+		key0_r			<= 	1'b0;
+		key1_r			<= 	1'b0;
+		key2_r			<= 	1'b0;
 	end
 	else begin
 		sda_data 		<=	io_I2C_SDAT; 
@@ -318,6 +332,9 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		player_en_r		<= 	player_en_w;
 		LCD_mode_r		<= 	LCD_mode_w;
 		LCD_wr_enable_r	<=  LCD_wr_enable_w;
+		key0_r			<= 	key0_w;
+		key1_r			<= 	key1_w;
+		key2_r			<= 	key2_w;
 	end
 end
 

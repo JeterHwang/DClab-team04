@@ -79,7 +79,7 @@ always #HCLK_12M    clk_12m = ~clk_12m;
 always #HCLK_800K   clk_800k = ~clk_800k;
 always #HCLK_100K   clk_100k = ~clk_100k;
 
-task LCD_output();
+task test_LCD();
     @(posedge LCD_RS);
     $display("========= LCD display ========");
       
@@ -89,7 +89,7 @@ task LCD_output();
     end
     $display("==============================");
 endtask
-task I2C();    
+task test_I2C();    
     @(negedge I2C_SDAT);
     @(negedge I2C_SCLK);
     for(int i = 23; i > 0; i = i - 8) begin
@@ -105,7 +105,48 @@ task I2C();
     $display("=====  I2C instruction  ====");
     $display("data = %4b_%4b_%3b_%4b_%b_%4b_%4b", I2C_inst[23:20], I2C_inst[19:16], I2C_inst[15:13], I2C_inst[12:9], I2C_inst[8], I2C_inst[7:4], I2C_inst[3:0]);
     $display("============================");
+endtask
+task test_Recorder_record(
+    input from,
+    input to
+);
+    $display("========= Recorded Data =========");
+    for(int i = from; i < to; i++) begin
+        @(negedge clk_800k);
+        for(int j = 0; j < 16; j++) begin
+            @(negedge clk_12m);
+            AUD_ADCDAT = REC_DATA[i][j];
+        end
+        @(posedge clk_800k);
+        $display("The %d data / address : %16b", i, SRAM_DQ);
+        $display("                        %19b", SRAM_ADDR);
+    end
+    $display("=================================");
+endtask
+task test_Recorder_pause();
+    $display("========= paused Data =========");
+    for(int i = 0; i < 10; i++) begin
+        $display("Paused data/address %d : %16b", SRAM_DQ);
+        $display("                         %19b", SRAM_ADDR);
+    end
+    $display("================================");
+endtask
+task test_Recorder_stop(
+    input data_index
+);
+    @(negedge clk_800k);
+    for(int i = 0; i < 16; i++) begin
+        @(negedge clk_12m);
+            AUD_ADCDAT = REC_DATA[data_index][i];    
+        if(i == 5) begin
+            KEY2 = 1;
 
+            #(CLK_12M) KEY2 = 0;
+        end
+        else begin
+            
+        end  
+    end
 endtask
 initial begin
     clk_100k    = 0;
@@ -116,18 +157,25 @@ initial begin
     KEY2        = 0;
     KEY3        = 0;
 end
-
 initial begin
     $fsdbDumpfile("I2C.fsdb");
     $fsdbDumpvars;
     #(CLK_100K) KEY3 = 1;
     KEY3    = 0;
-    LCD_output();
-    I2C();
-    LCD_output();
+    test_LCD();
+    test_I2C();
+    test_LCD();
     #(10 * CLK_100K) KEY0 = 1;
     KEY0 = 0;
-    
+    test_Recorder_record(0, 3);
+    #(10 * CLK_100K) KEY0 = 1;
+    KEY0 = 0;
+    test_Recorder_pause();
+    #(10 * CLK_100K) KEY0 = 1;
+    KEY0 = 0;
+    test_Recorder_record(4, 10);
+    #(10 * CLK_100K) KEY0 = 1;
+    KEY0 = 0;
 end
 always(@posedge I2C_SDAT) begin
     if()
