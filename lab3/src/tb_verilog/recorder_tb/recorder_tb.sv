@@ -104,7 +104,8 @@ module recorder_tb;
                         data = in[0];
                     end
             end
-            #(`CYCLE*50) start = 1;
+        end
+            #(`CYCLE*20) start = 1;
             #(`CYCLE*3) start = 0;
             for(int i = 0; i < 5; i++) begin
                 @(negedge lr_clk) begin
@@ -112,42 +113,42 @@ module recorder_tb;
                     ans     = 16'd0;
                     state   = i;
                     
+            end
+            @(negedge bclk);
+            data    = in[15];
+            for(int j = 0; j < 16; j++) begin
+                $display("%1b", j);
+                // data = in[15-j];
+                if (j == 5) begin
+                    pause = 1;
+                    #(`CYCLE) pause = 0;
+                    $display("%1b", j);
+                    $display("%16b", out);
+                end
+                if (j == 8) begin
+                    stop = 1;
+                    #(`CYCLE) stop = 0;
+                    break;
                 end
                 @(negedge bclk);
-                data    = in[15];
-                for(int j = 0; j < 16; j++) begin
-                    $display("%1b", j);
-                    // data = in[15-j];
-                    if (j == 5) begin
-                        pause = 1;
-                        #(`CYCLE) pause = 0;
-                        $display("%1b", j);
-                        $display("%16b", out);
+                    $display("%16b", ans);
+                    ans     = 16'd0;
+                    ans     = ((ans) | out);
+                    
+                    $display("%16b", out);
+                    $display("%16b", ans);
+                    $display("%16b", in);
+                    $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
+                    
+                    $display("++++++++++++++++++++");
+                    if (j != 15) begin
+                        data = in[14-j];
                     end
-                    if (j == 8) begin
-                        stop = 1;
-                        #(`CYCLE) stop = 0;
-                        break;
+                    else if(j == 15) begin
+                        data = in[0];
                     end
-                    @(negedge bclk);
-                        $display("%16b", ans);
-                        ans     = 16'd0;
-                        ans     = ((ans) | out);
-                        
-                        $display("%16b", out);
-                        $display("%16b", ans);
-                        $display("%16b", in);
-                        $display("%1b %1b %1b", out[15-j], data, ans[15-j]);
-                        
-                        $display("++++++++++++++++++++");
-                        if (j != 15) begin
-                            data = in[14-j];
-                        end
-                        else if(j == 15) begin
-                            data = in[0];
-                        end
-                end
             end
+        end
 
             $display("+=====================+");
             if(ans == data_arr[i]) begin
@@ -168,7 +169,7 @@ module recorder_tb;
 		// rst = 0;
     end
     initial begin
-        #(500 * (`CYCLE))
+        #(1000 * (`CYCLE))
         $display("Too slow, abort.");
         $finish;
     end
