@@ -149,7 +149,7 @@ task test_Recorder_pause(
 endtask
 task test_Recorder_stop(
     input from,
-    input to,
+    input to
 );
     $display("========= stopped Data =========");
     for(int i = from; i < to; i++) begin
