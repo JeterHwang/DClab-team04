@@ -180,9 +180,9 @@ end
 initial begin
     $fsdbDumpfile("I2C.fsdb");
     $fsdbDumpvars;
+    
     #(CLK_100K) KEY3 = 1;
     KEY3    = 0;
-    test_LCD();
     test_I2C();
     test_LCD();
     
@@ -193,9 +193,7 @@ initial begin
     test_Recorder_record(12, 15);
     test_Recorder_stop(15, 16);
 end
-always(@posedge I2C_SDAT) begin
-    if()
-end
+
 initial begin
     #(100000 * CLK_100K)
     $display("Too slow, abort.");
