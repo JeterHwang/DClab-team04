@@ -45,6 +45,7 @@ always_comb begin
                 counter_w = 0;
                 finish_w  = 0;
                 address_w = 0;
+                pause_w = 0;
             end
         end
         S_WAIT: begin
