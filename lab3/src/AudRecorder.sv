@@ -37,7 +37,7 @@ always_comb begin
     cycle_w             = cycle_r;
     case (state_r) 
         S_IDLE: begin
-            if(i_start && !start_r) begin
+            if(!i_start && start_r) begin
                 state_w = S_WAIT;
                 counter_w = 0;
             end

@@ -125,7 +125,9 @@ initial begin
     LCD_output();
     I2C();
     LCD_output();
-    #(CLK_100K) KEY1 = 1;
+    #(10 * CLK_100K) KEY0 = 1;
+    KEY0 = 0;
+    
 end
 always(@posedge I2C_SDAT) begin
     if()
