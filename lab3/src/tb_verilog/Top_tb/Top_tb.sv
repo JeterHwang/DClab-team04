@@ -38,9 +38,10 @@ parameter [15:0] REC_DATA [0:15] = '{
 logic clk_12m, clk_100k, clk_800k;
 logic KEY0, KEY1, KEY2, KEY3;
 logic [3:0] switch;
-logic AUD_ADCDAT, AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
+logic AUD_ADCDAT;
 logic SW1;
 logic [23:0] I2C_inst;
+wure AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
 
 assign SW1 = 1;
 assign AUD_ADCLRCK  = SW1 ? clk_800k : 1'bz;
