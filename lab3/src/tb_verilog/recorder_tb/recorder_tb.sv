@@ -104,6 +104,21 @@ module recorder_tb;
                         data = in[0];
                     end
             end
+                    $display("+=====================+");
+            if(ans == data_arr[i]) begin
+                $display("data %d simulation correct !!", i);
+                $display("expected output = %16b", data_arr[i]);    
+                $display("received output = %16b", ans[15:0]);
+                $display("+=====================+");
+            end    
+            else begin
+                $display("data %d simulation wrong !!", i);
+                $display("expected output = %16b", data_arr[i]);    
+                $display("received output = %16b", ans[15:0]);
+                $display("+=====================+");
+            end
+            
+
         end
             #(`CYCLE*20) start = 1;
             #(`CYCLE*3) start = 0;
@@ -148,7 +163,7 @@ module recorder_tb;
                         data = in[0];
                     end
             end
-        end
+        
 
             $display("+=====================+");
             if(ans == data_arr[i]) begin
@@ -164,9 +179,11 @@ module recorder_tb;
                 $display("+=====================+");
             end
         end
+    end
         // rst = 1;
 		// #(2*CLK)
 		// rst = 0;
+    
     initial begin
         #(1000 * (`CYCLE))
         $display("Too slow, abort.");
