@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 11, 2020 at 22:51:22 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 11, 2020 at 23:14:22 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,24 +11,24 @@ ncverilog
 	../../LCDinstructions.sv
 	../../LCDdatacontroll.sv
 	+access+r
-Recompiling... reason: file './Top_tb.sv' is newer than expected.
-	expected: Wed Nov 11 22:42:32 2020
-	actual:   Wed Nov 11 22:51:14 2020
-file: Top_tb.sv
-	module worklib.Top_tb:sv
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv' is newer than expected.
+	expected: Wed Nov 11 18:13:17 2020
+	actual:   Wed Nov 11 23:12:15 2020
+file: ../../AudRecorder.sv
+	module worklib.AudRecorder:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Top_tb:sv <0x18e77926>
-			streams:  25, words: 29434
+		worklib.AudRecorder:sv <0x0942d677>
+			streams:   4, words:  9590
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                   9       9
-		Registers:               178     178
+		Registers:               180     180
 		Scalar wires:             69       -
 		Vectored wires:           27       -
 		Always blocks:            19      19
@@ -119,15 +119,15 @@ Paused data/address          11 : 99ab
 ================================
 ========= Recorded Data =========
 The          12 data / address : cdef
-                        0000000000000001100
+                        0000000000000000010
 The          13 data / address : def0
-                        0000000000000001101
+                        0000000000000000011
 The          14 data / address : ef01
-                        0000000000000001110
+                        0000000000000000100
 =================================
 ========= stopped Data =========
 Paused data/address          15 : f701
-                         0000000000000001110
+                         0000000000000000100
 ================================
 +=====================+
 | Simulation Complete |
@@ -135,4 +135,4 @@ Paused data/address          15 : f701
 Simulation complete via $finish(1) at time 25395 US + 0
 ./Top_tb.sv:209 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 11, 2020 at 22:52:10 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 11, 2020 at 23:15:09 CST  (total: 00:00:47)
