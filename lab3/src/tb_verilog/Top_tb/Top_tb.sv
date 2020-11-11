@@ -44,9 +44,9 @@ logic [23:0] I2C_inst;
 wire AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
 
 assign SW1 = 1;
-assign AUD_ADCLRCK  = SW1 ? clk_800k : 1'bz;
+assign AUD_ADCLRCK  = SW1 ? clk_100k : 1'bz;
 assign AUD_BCLK     = SW1 ? clk_12m : 1'bz;
-assign AUD_DACLRCK  = SW1 ? clk_800k : 1'bz;
+assign AUD_DACLRCK  = SW1 ? clk_100k : 1'bz;
 
 Top top0(
     .i_rst_n(KEY3),
@@ -122,12 +122,12 @@ task test_Recorder_record(
     #(10 * CLK_100K);
     KEY0 = 0;
     for(int i = from; i < to; i++) begin
-        @(negedge clk_800k);
+        @(negedge clk_100k);
         for(int j = 0; j < 16; j++) begin
             @(negedge clk_12m);
             AUD_ADCDAT = REC_DATA[i][j];
         end
-        @(posedge clk_800k);
+        @(posedge clk_100k);
         $display("The %d data / address : %16b", i, SRAM_DQ);
         $display("                        %19b", SRAM_ADDR);
     end
@@ -139,7 +139,7 @@ task test_Recorder_pause(
 );
     $display("========= paused Data =========");
     for(int i = from; i < to; i++) begin
-        @(negedge clk_800k);
+        @(negedge clk_100k);
         for(int j = 0; j < 16; j++) begin
             @(negedge clk_12m);
             AUD_ADCDAT = REC_DATA[i][j];
@@ -148,7 +148,7 @@ task test_Recorder_pause(
             else
                 KEY0 = 0;
         end 
-        @(posedge clk_800k);
+        @(posedge clk_100k);
         $display("Paused data/address %d : %16b", i, SRAM_DQ);
         $display("                         %19b", SRAM_ADDR);   
     end
@@ -160,7 +160,7 @@ task test_Recorder_stop(
 );
     $display("========= stopped Data =========");
     for(int i = from; i < to; i++) begin
-        @(negedge clk_800k);
+        @(negedge clk_100k);
         for(int j = 0; j < 16; j++) begin
             @(negedge clk_12m);
             AUD_ADCDAT = REC_DATA[i][j];
@@ -169,7 +169,7 @@ task test_Recorder_stop(
             else
                 KEY2 = 0;
         end 
-        @(posedge clk_800k);
+        @(posedge clk_100k);
         $display("Paused data/address %d : %16b", i, SRAM_DQ);
         $display("                         %19b", SRAM_ADDR);   
     end
@@ -202,7 +202,7 @@ initial begin
 end
 
 initial begin
-    #(1000 * CLK_100K)
+    #(10000 * CLK_100K)
     $display("Too slow, abort.");
     $finish;
 end
