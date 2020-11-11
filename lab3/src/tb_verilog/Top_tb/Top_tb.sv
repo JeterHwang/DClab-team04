@@ -111,6 +111,9 @@ task test_Recorder_record(
     input to
 );
     $display("========= Recorded Data =========");
+    KEY0 = 1;
+    #(10 * CLK_100K);
+    KEY0 = 0;
     for(int i = from; i < to; i++) begin
         @(negedge clk_800k);
         for(int j = 0; j < 16; j++) begin
@@ -123,30 +126,47 @@ task test_Recorder_record(
     end
     $display("=================================");
 endtask
-task test_Recorder_pause();
+task test_Recorder_pause(
+    input from,
+    input to
+);
     $display("========= paused Data =========");
-    for(int i = 0; i < 10; i++) begin
-        $display("Paused data/address %d : %16b", SRAM_DQ);
-        $display("                         %19b", SRAM_ADDR);
+    for(int i = from; i < to; i++) begin
+        @(negedge clk_800k);
+        for(int j = 0; j < 16; j++) begin
+            @(negedge clk_12m);
+            AUD_ADCDAT = REC_DATA[i][j];
+            if(i == from && j == 5)
+                KEY0 = 1;
+            else
+                KEY0 = 0;
+        end 
+        @(posedge clk_800k);
+        $display("Paused data/address %d : %16b", i, SRAM_DQ);
+        $display("                         %19b", SRAM_ADDR);   
     end
     $display("================================");
 endtask
 task test_Recorder_stop(
-    input data_index
+    input from,
+    input to,
 );
-    @(negedge clk_800k);
-    for(int i = 0; i < 16; i++) begin
-        @(negedge clk_12m);
-            AUD_ADCDAT = REC_DATA[data_index][i];    
-        if(i == 5) begin
-            KEY2 = 1;
-
-            #(CLK_12M) KEY2 = 0;
-        end
-        else begin
-            
-        end  
+    $display("========= stopped Data =========");
+    for(int i = from; i < to; i++) begin
+        @(negedge clk_800k);
+        for(int j = 0; j < 16; j++) begin
+            @(negedge clk_12m);
+            AUD_ADCDAT = REC_DATA[i][j];
+            if(i == from && j == 5)
+                KEY2 = 1;
+            else
+                KEY2 = 0;
+        end 
+        @(posedge clk_800k);
+        $display("Paused data/address %d : %16b", i, SRAM_DQ);
+        $display("                         %19b", SRAM_ADDR);   
     end
+    $display("================================");
 endtask
 initial begin
     clk_100k    = 0;
@@ -165,17 +185,13 @@ initial begin
     test_LCD();
     test_I2C();
     test_LCD();
-    #(10 * CLK_100K) KEY0 = 1;
-    KEY0 = 0;
+    
     test_Recorder_record(0, 3);
-    #(10 * CLK_100K) KEY0 = 1;
-    KEY0 = 0;
-    test_Recorder_pause();
-    #(10 * CLK_100K) KEY0 = 1;
-    KEY0 = 0;
-    test_Recorder_record(4, 10);
-    #(10 * CLK_100K) KEY0 = 1;
-    KEY0 = 0;
+    test_Recorder_pause(3, 6);
+    test_Recorder_record(6, 9);
+    test_Recorder_stop(9, 12);
+    test_Recorder_record(12, 15);
+    test_Recorder_stop(15, 16);
 end
 always(@posedge I2C_SDAT) begin
     if()
