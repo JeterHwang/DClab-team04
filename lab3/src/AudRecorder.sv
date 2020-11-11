@@ -25,7 +25,7 @@ logic pause_w, pause_r;
 logic finish_r, finish_w;
 logic start_r, start_w;
 logic Tpause_r, Tpause_w;
-logic stop_r, stopw;
+logic stop_r, stop_w;
 assign o_address    = address_r;
 assign o_data       = data_r;
 assign o_finish     = finish_r;
