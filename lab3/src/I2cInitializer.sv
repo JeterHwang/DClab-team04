@@ -51,7 +51,7 @@ always_comb begin
     oen_w       = oen_r;
     counts_w    = counts_w;
     init_w      = init_r;
-    start_w     = (i_start) ? 1'b0 : 1'b1;
+    start_w     = (i_start) ? 1'b1 : 1'b0;
     case (state_r)
         S_IDLE: begin
             if (i_start && !start_r) begin // falls edge trigger
