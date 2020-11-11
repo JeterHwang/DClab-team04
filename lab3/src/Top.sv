@@ -286,8 +286,8 @@ always_comb begin
 			end
 		end
 		S_LCD_RENDER: begin
-			LCD_wr_enable_w = 1'b0;
 			if(LCD_render_finish) begin
+				LCD_wr_enable_w = 1'b0;	
 				case (LCD_mode_r)
 					M_INIT:
 						state_w	= S_I2C;
@@ -308,7 +308,7 @@ always_comb begin
 end
 
 always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
-	if (!i_rst_n) begin
+	if (i_rst_n) begin
 		sda_data 		<=	io_I2C_SDAT;
 		state_r 		<=  S_LCD_INIT;
 		i2c_start_r		<= 	1'b0;

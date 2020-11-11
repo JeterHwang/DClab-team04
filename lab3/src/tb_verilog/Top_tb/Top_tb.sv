@@ -188,8 +188,9 @@ initial begin
     $fsdbDumpfile("Top.fsdb");
     $fsdbDumpvars;
     
-    #(CLK_100K) KEY3 = 1;
-    KEY3    = 0;
+    KEY3 = 1;
+    #(CLK_100K);
+    KEY3 = 0;
     test_I2C();
     test_LCD();
     
