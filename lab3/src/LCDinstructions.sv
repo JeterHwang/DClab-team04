@@ -27,7 +27,7 @@ assign o_LCD_RW     = inst_r[8];
 assign o_LCD_data   = inst_r[7:0];
 assign o_finish     = finish_r;
 
-parameter [9:0] instructions[0:5] = '{
+parameter logic [9:0] instructions[0:5] = '{
     10'b000011xxxx,     // precharge 
     10'b00001110xx,     // function set 
     10'b0000001100,     // display on
@@ -35,7 +35,7 @@ parameter [9:0] instructions[0:5] = '{
     10'b0000000110,     // entry mode set
     10'b001xxxxxxx     // set address (only 3 MSB used)
 };
-parameter [14:0] execution_time[0:5] = '{
+parameter logic [14:0] execution_time[0:5] = '{
     15'd15000, 
     15'd39, 
     15'd39, 

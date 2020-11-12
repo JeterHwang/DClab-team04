@@ -21,43 +21,43 @@ parameter S_WRITE               = 3'd4;
 parameter instruction_count     = 3'd5;
 
 // CGROM characters
-parameter   cha = 8'b01100001, chb = 8'b01100010, chc = 8'b01100011, chd = 8'b01100100, che = 8'b01100101, chf = 8'b01100110,
-            chg = 8'b01100111, chh = 8'b01101000, chi = 8'b01101001, chj = 8'b01101010, chk = 8'b01101011, chl = 8'b01101100,
-            chm = 8'b01101101, chn = 8'b01101110, cho = 8'b01101111, chp = 8'b01110000, chq = 8'b01110001, chr = 8'b01110010,
-            chs = 8'b01110011, cht = 8'b01110100, chu = 8'b01110101, chv = 8'b01110110, chw = 8'b01110111, chx = 8'b01111000,
-            chy = 8'b01111001, chz = 8'b01111010;
-parameter   chA = 8'b01000001, chB = 8'b01000010, chC = 8'b01000011, chD = 8'b01000100, chE = 8'b01000101, chF = 8'b01000110,
-            chG = 8'b01000111, chH = 8'b01001000, chI = 8'b01001001, chJ = 8'b01001010, chK = 8'b01001011, chL = 8'b01001100,
-            chM = 8'b01001101, chN = 8'b01001110, chO = 8'b01001111, chP = 8'b01010000, chQ = 8'b01010001, chR = 8'b01010010,
-            chS = 8'b01010011, chT = 8'b01010100, chU = 8'b01010101, chV = 8'b01010110, chW = 8'b01010111, chX = 8'b01011000,
-            chY = 8'b01011001, chZ = 8'b01011010;
+parameter   chla = 8'b01100001, chlb = 8'b01100010, chlc = 8'b01100011, chid = 8'b01100100, chie = 8'b01100101, chif = 8'b01100110,
+            chlg = 8'b01100111, chlh = 8'b01101000, chli = 8'b01101001, chij = 8'b01101010, chik = 8'b01101011, chil = 8'b01101100,
+            chlm = 8'b01101101, chln = 8'b01101110, chlo = 8'b01101111, chip = 8'b01110000, chiq = 8'b01110001, chir = 8'b01110010,
+            chls = 8'b01110011, chlt = 8'b01110100, chlu = 8'b01110101, chiv = 8'b01110110, chiw = 8'b01110111, chix = 8'b01111000,
+            chly = 8'b01111001, chlz = 8'b01111010;
+parameter   chuA = 8'b01000001, chuB = 8'b01000010, chuC = 8'b01000011, chuD = 8'b01000100, chuE = 8'b01000101, chuF = 8'b01000110,
+            chuG = 8'b01000111, chuH = 8'b01001000, chuI = 8'b01001001, chuJ = 8'b01001010, chuK = 8'b01001011, chuL = 8'b01001100,
+            chuM = 8'b01001101, chuN = 8'b01001110, chuO = 8'b01001111, chuP = 8'b01010000, chuQ = 8'b01010001, chuR = 8'b01010010,
+            chuS = 8'b01010011, chuT = 8'b01010100, chuU = 8'b01010101, chuV = 8'b01010110, chuW = 8'b01010111, chuX = 8'b01011000,
+            chuY = 8'b01011001, chuZ = 8'b01011010;
 parameter   n0 = 8'b00110000, n1 = 8'b00110001, n2 = 8'b00110010, n3 = 8'b00110011, n4 = 8'b00110100, 
             n5 = 8'b00110101, n6 = 8'b00110110, n7 = 8'b00110111, n8 = 8'b00111000, n9 = 8'b00111001;
 parameter   NULL = 8'b00100000;
 
 // printed data
-parameter [7:0] init[0:31] = '{             // 'i', 'n', 'i', 't', 'i', 'a', 'l', 'i', 'z', 'i', 'n', 'g'
-    NULL, NULL, NULL, chI, chn, chi, cht, chi, cha, chl, chi, chz, chi, chg, NULL, NULL, 
+parameter logic [7:0] init[0:31] = '{             // 'i', 'n', 'i', 't', 'i', 'a', 'l', 'i', 'z', 'i', 'n', 'g'
+    NULL, NULL, NULL, chuI, chln, chli, chlt, chli, chla, chll, chli, chlz, chli, chln, chlg, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
-parameter [7:0] stop[0:31] = '{             // 's', 't', 'o', 'p'
-    NULL, NULL, NULL, chS, cht, cho, chp, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+parameter logic [7:0] stop[0:31] = '{             // 's', 't', 'o', 'p'
+    NULL, NULL, NULL, chuS, chlt, chlo, chlp, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
-parameter [7:0] play_pause[0:31] = '{       // 'p', 'l', 'a', 'y', ' ', 'p', 'a', 'u', 's', 'e'
-    NULL, NULL, NULL, chP, chl, cha, chy, NULL, chP, cha, chu, chs, che, NULL, NULL, NULL, 
+parameter logic [7:0] play_pause[0:31] = '{       // 'p', 'l', 'a', 'y', ' ', 'p', 'a', 'u', 's', 'e'
+    NULL, NULL, NULL, chuP, chll, chla, chly, NULL, chuP, chla, chlu, chls, chle, NULL, NULL, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
-parameter [7:0] record_pause[0:31] = '{     // 'r', 'e', 'c', 'o', 'r', 'd', ' ', 'p', 'a', 'u', 's', 'e'
-    NULL, NULL, NULL, chR, che, chc, cho, chr, chd, NULL, chP, cha, chu, chs, che, NULL, 
+parameter logic [7:0] record_pause[0:31] = '{     // 'r', 'e', 'c', 'o', 'r', 'd', ' ', 'p', 'a', 'u', 's', 'e'
+    NULL, NULL, NULL, chuR, chle, chlc, chlo, chlr, chld, NULL, chuP, chla, chlu, chls, chle, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
-parameter [7:0] playing[0:31] = '{          // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
-    NULL, NULL, NULL, chP, chl, cha, chy, chi, chn, chg, NULL, NULL, NULL, NULL, NULL, NULL, 
+parameter logic [7:0] playing[0:31] = '{          // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
+    NULL, NULL, NULL, chuP, chll, chla, chly, chli, chln, chlg, NULL, NULL, NULL, NULL, NULL, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
-parameter [7:0] recording[0:31] = '{        // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
-    NULL, NULL, NULL, chR, che, chc, cho, chr, chd, chi, chn, chg, NULL, NULL, NULL, NULL, 
+parameter logic [7:0] recording[0:31] = '{        // 'r', 'e', 'c', 'o', 'r', 'd', 'i', 'n', 'g'
+    NULL, NULL, NULL, chuR, chle, chlc, chlo, chlr, chld, chli, chln, chlg, NULL, NULL, NULL, NULL, 
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 // Host interface 

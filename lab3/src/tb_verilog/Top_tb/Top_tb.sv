@@ -28,11 +28,57 @@ parameter HCLK_100K = 5000;
 parameter CLK_800K  = 1250;
 parameter HCLK_800K = 625;
 
-parameter [15:0] REC_DATA [0:15] = '{
+parameter [15:0] REC_DATA [0:199] = '{  // 200
     16'h0123, 16'h1234, 16'h2345, 16'h3456, 
     16'h4567, 16'h5678, 16'h6789, 16'h789A, 
     16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
-    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A, 
+    16'h89AB, 16'h9ABC, 16'hABCD, 16'hBCDE, 
+    16'hCDEF, 16'hDEF0, 16'hEF01, 16'hF012,
+    16'h0123, 16'h1234, 16'h2345, 16'h3456, 
+    16'h4567, 16'h5678, 16'h6789, 16'h789A
 };
 
 logic clk_12m, clk_100k, clk_800k;
@@ -129,8 +175,8 @@ task test_I2C();
     $display("===================================");    
 endtask
 task test_Recorder_record(
-    input [4:0] from,
-    input [4:0] to
+    input [8:0] from,
+    input [8:0] to
 );
     $display("========= Recorded Data =========");
     #(CLK_100K);
@@ -151,8 +197,8 @@ task test_Recorder_record(
     $display("=================================");
 endtask
 task test_Recorder_pause(
-    input [4:0] from,
-    input [4:0] to
+    input [8:0] from,
+    input [8:0] to
 );
     $display("========= paused Data =========");
     for(int i = from; i < to; i++) begin
@@ -172,8 +218,8 @@ task test_Recorder_pause(
     $display("================================");
 endtask
 task test_Recorder_stop(
-    input [4:0] from,
-    input [4:0] to
+    input [8:0] from,
+    input [8:0] to
 );
     $display("========= stopped Data =========");
     for(int i = from; i < to; i++) begin
@@ -193,7 +239,7 @@ task test_Recorder_stop(
     $display("================================");
 endtask
 task test_Player_play(
-    input data_num
+    input [8:0] data_num
 );
     $display("========= Player Data =========");
     KEY1 = 1;
@@ -203,7 +249,7 @@ task test_Player_play(
     getDatabyAddress(SRAM_ADDR, play_data); // send first data
     
     for(int i = 1; i < data_num; i++) begin // input 4 play data
-        @(SRAM_ADDR != prev_address) begin // wait for player finish signal
+        @(SRAM_ADDR) begin // wait for player finish signal
             getDatabyAddress(SRAM_ADDR, play_data);
             prev_address = SRAM_ADDR;
         end
@@ -211,8 +257,8 @@ task test_Player_play(
     $display("================================");
 endtask
 task test_Player_Pause(
-    input data_num,
-    input stop_num
+    input [8:0] data_num,
+    input [8:0] stop_num
 );
     $display("======= play pause data ========");
     // pause
@@ -232,8 +278,8 @@ task test_Player_Pause(
     $display("================================");
 endtask
 task test_Player_Stop(
-    input data_num,
-    input stop_num
+    input [8:0] data_num,
+    input [8:0] stop_num
 );
     $display("======= play stop data ========");
     // stop 
@@ -256,16 +302,16 @@ task getDatabyAddress(
     input [19:0] address,
     output [15:0] sram_data
 );
-    if(address > 15) begin
+    if(address > 199) begin
         $display("========== Warning ==========");
         $display("Address 0x%5x out of range !!", address);
-        $display("return data #15 : 0x%4x", REC_DATA[15]);
+        $display("return data #15 : 0x%4x", REC_DATA[159]);
         $display("=============================");
-        sram_data = REC_DATA[15];
+        sram_data = REC_DATA[159];
     end
     else begin
         $display("====== Request Success ======");
-        $display("return data #%2d : 0x%4x", address, REC_DATA[15]);
+        $display("return data #%2d : 0x%4x", address, REC_DATA[address]);
         $display("=============================");
         sram_data = REC_DATA[address];
     end
@@ -294,22 +340,19 @@ initial begin
     test_I2C();
     test_LCD();
     
-    test_Player_play(2);
-    #(10 * CLK_100K);
+    test_Recorder_record(0, 33);
+    test_Recorder_pause(33, 66);
+    test_Recorder_record(66, 99);
+    test_Recorder_stop(99, 132);
+    test_Recorder_record(132, 165);
+    test_Recorder_stop(165, 198);
+
+    #(20 * CLK_100K);
+    test_Player_play(33);
     test_Player_Pause(2, 10);
-    #(10 * CLK_100K);
     test_Player_play(2);
     test_Player_Stop(2, 10);
     test_Player_play(2);
-
-    // test_Recorder_record(0, 3);
-    // test_Recorder_pause(3, 6);
-    // test_Recorder_record(6, 9);
-    // test_Recorder_stop(9, 12);
-    // test_Recorder_record(12, 15);
-    // test_Recorder_stop(15, 16);
-
-    
     
     $display("+=====================+");
 	$display("| Simulation Complete |");

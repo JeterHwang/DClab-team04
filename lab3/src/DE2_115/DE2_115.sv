@@ -181,7 +181,7 @@ Top top0(
 	.i_fast(SW[4]),
 	.i_slow_0(SW[5]),
 	.i_slow_1(SW[6]),
-	
+
 	// AudDSP and SRAM
 	.o_SRAM_ADDR(SRAM_ADDR), // [19:0]
 	.io_SRAM_DQ(SRAM_DQ), // [15:0]
@@ -213,7 +213,7 @@ Top top0(
 	.i_AUD_ADCLRCK(AUD_ADCLRCK),
 	.i_AUD_BCLK(AUD_BCLK),
 	.i_AUD_DACLRCK(AUD_DACLRCK),
-	.o_AUD_DACDAT(AUD_DACDAT)
+	.o_AUD_DACDAT(AUD_DACDAT),
 
 	// SEVENDECODER (optional display)
 	// .o_record_time(recd_time),
