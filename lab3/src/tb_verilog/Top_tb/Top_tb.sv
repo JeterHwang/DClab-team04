@@ -44,6 +44,7 @@ logic [23:0] I2C_inst;
 logic playing;
 logic [15:0] play_data;
 logic [15:0] record_data;
+logic [15:0] DAC_DATA;
 
 wire AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
 wire [15:0] SRAM_DQ;
@@ -187,26 +188,103 @@ task test_Recorder_stop(
     $display("================================");
 endtask
 task test_Player_play(
-    input [4:0] from,
-    input [4:0] to
+    input data_num
 );
     $display("========= Player Data =========");
-    for(int i = from; i < to; i++) begin
-        @(negedge clk_100k);
-        for(int j = 0; j < 16; j++) begin
-            @(negedge clk_12m);
-            AUD_ADCDAT = REC_DATA[i][15 - j];
-            if(i == from && j == 5)
-                KEY2 = 1;
-            else
-                KEY2 = 0;
-        end 
-        @(posedge clk_100k);
-        $display("Paused data/address %d : %4x", i, SRAM_DQ);
-        $display("                         %19b", SRAM_ADDR);   
+    @(negedge clk_100k)
+        KEY1 = 1;
+        getDatabyAddress(SRAM_ADDR, play_data); // send first data
+    #(clk_100k) KEY1 = 0;
+    for(int i = 1; i < data_num; i++) begin // input 4 play data
+        @(SRAM_ADDR) begin // wait for player finish signal
+            getDatabyAddress(SRAM_ADDR, play_data);
+        end
     end
     $display("================================");
 endtask
+task test_Player_Pause(
+    input data_num,
+    input stop_num
+);
+    $display("======= play pause data ========");
+    // start playing 
+    @(negedge clk_100k)
+        KEY1 = 1;
+        getDatabyAddress(SRAM_ADDR, play_data); // send first data
+    #(clk_100k) KEY1 = 0;
+    // playing 
+    for(int i = 1; i < data_num; i++) begin // input 4 play data
+        @(SRAM_ADDR) begin // wait for player finish signal
+            getDatabyAddress(SRAM_ADDR, play_data);
+        end
+    end
+    // pause
+    @(negedge clk_100k)
+        KEY1 = 1;
+    #(clk_100k) KEY1 = 0;    
+    // test paused data
+    for(int i = 0; i < stop_num; i++) begin
+        @(negedge clk_100k);
+        for(int j = 0; j < 16; j++) begin
+            @(negedge clk_12m)
+            DAC_DATA = ((DAC_DATA << 1) | AUD_DACDAT);
+        end
+        @(posedge clk_100k);
+        $display("Paused data : %4b_%4b_%4b_%4b", DAC_DATA);    
+    end
+    $display("================================");
+endtask
+task test_Player_Stop(
+    input data_num,
+    input stop_num
+);
+    $display("======= play stop data ========");
+    // start playing
+    @(negedge clk_100k)
+        KEY1 = 1;
+        getDatabyAddress(SRAM_ADDR, play_data); // send first data
+    #(clk_100k) KEY1 = 0;
+    // playing
+    for(int i = 1; i < data_num; i++) begin // input 4 play data
+        @(SRAM_ADDR) begin // wait for player finish signal
+            getDatabyAddress(SRAM_ADDR, play_data);
+        end
+    end
+    // stop 
+    @(negedge clk_100k)
+        KEY2 = 1;
+    #(clk_100k) KEY2 = 0;    
+    // test stop data
+    for(int i = 0; i < stop_num; i++) begin
+        @(negedge clk_100k);
+        for(int j = 0; j < 16; j++) begin
+            @(negedge clk_12m)
+            DAC_DATA = ((DAC_DATA << 1) | AUD_DACDAT);
+        end
+        @(posedge clk_100k);
+        $display("Stopped data : %4b_%4b_%4b_%4b", DAC_DATA);    
+    end
+    $display("================================");
+endtask
+task getDatabyAddress(
+    input [19:0] address,
+    output [15:0] sram_data
+);
+    if(address > 15) begin
+        $display("========== Warning ==========");
+        $display("Address 0x%5x out of range !!", address);
+        $display("return data #15 : 0x%4x", REC_DATA[15]);
+        $display("=============================");
+        sram_data = REC_DATA[15];
+    end
+    else begin
+        $display("====== Request Success ======");
+        $display("return data #%2d : 0x%4x", address, REC_DATA[15]);
+        $display("=============================");
+        sram_data = REC_DATA[address];
+    end
+endtask
+
 initial begin
     clk_100k    = 0;
     clk_800k    = 0;
@@ -233,7 +311,12 @@ initial begin
     test_Recorder_record(12, 15);
     test_Recorder_stop(15, 16);
 
-    test_Player_play();
+    test_Player_play(2);
+    test_Player_Pause(2, 10);
+    test_Player_play(2);
+    test_Player_Stop(2, 10);
+    test_Player_play(2);
+    
     $display("+=====================+");
 	$display("| Simulation Complete |");
 	$display("+=====================+");
