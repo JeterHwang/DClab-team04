@@ -153,7 +153,7 @@ always_comb begin
 					player_en_w = player_en_r;
 				else
 					begin
-						if(!i_daclrck || i_pause)begin
+						if(!i_daclrck || (pause_w && !pause_r))begin
 							player_en_w = 0;
 							state_w = S_PAUSE;
 						end
@@ -459,9 +459,9 @@ always_comb begin
 				if(i_stop)begin
 					state_w = S_IDLE;
 				end
-				if(i_pause)begin
+				if(start_w &&　!start_r)begin
 					if(i_fast)begin
-						state_w = S_FAST_FETCH;
+						state_w = S_FAST_SENT;
 					end
 					else if (i_slow_0) begin
 						state_w = S_SLOW_0_SENT;
