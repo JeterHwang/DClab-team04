@@ -130,6 +130,7 @@ task test_Recorder_record(
     $display("========= Recorded Data =========");
     #(CLK_100K);
     KEY0 = 1;
+    playing = 0;
     #(CLK_100K);
     KEY0 = 0;
     for(int i = from; i < to; i++) begin
@@ -193,6 +194,7 @@ task test_Player_play(
     @(negedge clk_100k)
         KEY1 = 1;
         switch = 4'd1;
+        playing = 1;
         getDatabyAddress(SRAM_ADDR, play_data); // send first data
     #(CLK_100K) KEY1 = 0;
     for(int i = 1; i < data_num; i++) begin // input 4 play data
@@ -207,19 +209,6 @@ task test_Player_Pause(
     input stop_num
 );
     $display("======= play pause data ========");
-    // start playing 
-    @(negedge clk_100k)
-        KEY1 = 1;
-        playing = 1;
-        switch = 4'd1;
-        getDatabyAddress(SRAM_ADDR, play_data); // send first data
-    #(CLK_100K) KEY1 = 0;
-    // playing 
-    for(int i = 1; i < data_num; i++) begin // input 4 play data
-        @(SRAM_ADDR) begin // wait for player finish signal
-            getDatabyAddress(SRAM_ADDR, play_data);
-        end
-    end
     // pause
     @(negedge clk_100k)
         KEY1 = 1;
@@ -241,18 +230,6 @@ task test_Player_Stop(
     input stop_num
 );
     $display("======= play stop data ========");
-    // start playing
-    @(negedge clk_100k)
-        KEY1 = 1;
-        switch = 4'd1;
-        getDatabyAddress(SRAM_ADDR, play_data); // send first data
-    #(CLK_100K) KEY1 = 0;
-    // playing
-    for(int i = 1; i < data_num; i++) begin // input 4 play data
-        @(SRAM_ADDR) begin // wait for player finish signal
-            getDatabyAddress(SRAM_ADDR, play_data);
-        end
-    end
     // stop 
     @(negedge clk_100k)
         KEY2 = 1;
@@ -314,7 +291,6 @@ initial begin
     test_Recorder_stop(9, 12);
     test_Recorder_record(12, 15);
     test_Recorder_stop(15, 16);
-
 
     test_Player_play(2);
     test_Player_Pause(2, 10);
