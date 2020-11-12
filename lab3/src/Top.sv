@@ -5,7 +5,10 @@ module Top (
 	input i_key_1,
 	input i_key_2,
 	input [3:0] i_speed, // design how user can decide mode on your own
-	
+	input i_fast,
+	input i_slow_0,
+	input i_slow_1,
+
 	// AudDSP and SRAM
 	output [19:0] o_SRAM_ADDR,
 	inout  [15:0] io_SRAM_DQ,
@@ -86,11 +89,6 @@ logic LCD_Wfin_r, LCD_Wfin_w;
 logic player_fin_r, player_fin_w;
 logic recorder_fin_r, recorder_fin_w;
 
-logic fast_r, fast_w;
-logic slow0_r, slow0_w;
-logic slow1_r, slow1_w;
-logic player_en_r, player_en_w;
-
 // i2C interface
 logic i2c_finish;
 logic i2c_oen, i2c_sdat;
@@ -149,13 +147,13 @@ I2cInitializer init0(
 AudDSP dsp0(
 	.i_rst_n(i_rst_n),
 	.i_clk(i_clk),
-	.i_start(i_key_1),
-	.i_pause(i_key_1),
+	.i_start(key1_r),
+	.i_pause(key1_r),
 	.i_stop(i_key_2),
 	.i_speed(i_speed),
-	.i_fast(fast_r),
-	.i_slow_0(slow0_r), // constant interpolation
-	.i_slow_1(slow1_r), // linear interpolation
+	.i_fast(i_fast),
+	.i_slow_0(i_slow_0), // constant interpolation
+	.i_slow_1(i_slow_1), // linear interpolation
 	.i_daclrck(i_AUD_DACLRCK),
 	.i_sent_finish(dsp_to_player_finished),
 	.i_record_counter(addr_record),
@@ -209,10 +207,6 @@ always_comb begin
 	// design your control here
 	state_w 		=  	state_r;
 	i2c_start_w		= 	i2c_start_r;
-	fast_w			= 	fast_r;
-	slow0_w			= 	slow0_r;
-	slow1_w			= 	slow1_r;
-	player_en_w		= 	player_en_r;
 	LCD_mode_w		= 	LCD_mode_r;
 	LCD_wr_enable_w	=  	LCD_wr_enable_r;
 	key0_w			= 	i_key_0;
@@ -320,10 +314,6 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		sda_data 		<=	io_I2C_SDAT;
 		state_r 		<=  S_LCD_INIT;
 		i2c_start_r		<= 	1'b0;
-		fast_r			<= 	1'b0;
-		slow0_r			<= 	1'b0;
-		slow1_r			<= 	1'b0;
-		player_en_r		<= 	1'b0;
 		LCD_mode_r		<= 	3'd0;
 		LCD_wr_enable_r	<= 	1'b0;
 		key0_r			<= 	1'b0;
@@ -337,10 +327,6 @@ always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
 		sda_data 		<=	io_I2C_SDAT; 
 		state_r 		<=  state_w;
 		i2c_start_r		<= 	i2c_start_w;
-		fast_r			<= 	fast_w;
-		slow0_r			<= 	slow0_w;
-		slow1_r			<= 	slow1_w;
-		player_en_r		<= 	player_en_w;
 		LCD_mode_r		<= 	LCD_mode_w;
 		LCD_wr_enable_r	<=  LCD_wr_enable_w;
 		key0_r			<= 	key0_w;
