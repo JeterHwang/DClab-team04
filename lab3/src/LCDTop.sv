@@ -21,10 +21,10 @@ parameter S_WRITE               = 3'd4;
 parameter instruction_count     = 3'd5;
 
 // CGROM characters
-parameter   chla = 8'b01100001, chlb = 8'b01100010, chlc = 8'b01100011, chid = 8'b01100100, chie = 8'b01100101, chif = 8'b01100110,
-            chlg = 8'b01100111, chlh = 8'b01101000, chli = 8'b01101001, chij = 8'b01101010, chik = 8'b01101011, chil = 8'b01101100,
-            chlm = 8'b01101101, chln = 8'b01101110, chlo = 8'b01101111, chip = 8'b01110000, chiq = 8'b01110001, chir = 8'b01110010,
-            chls = 8'b01110011, chlt = 8'b01110100, chlu = 8'b01110101, chiv = 8'b01110110, chiw = 8'b01110111, chix = 8'b01111000,
+parameter   chla = 8'b01100001, chlb = 8'b01100010, chlc = 8'b01100011, chld = 8'b01100100, chle = 8'b01100101, chlf = 8'b01100110,
+            chlg = 8'b01100111, chlh = 8'b01101000, chli = 8'b01101001, chlj = 8'b01101010, chlk = 8'b01101011, chll = 8'b01101100,
+            chlm = 8'b01101101, chln = 8'b01101110, chlo = 8'b01101111, chlp = 8'b01110000, chlq = 8'b01110001, chlr = 8'b01110010,
+            chls = 8'b01110011, chlt = 8'b01110100, chlu = 8'b01110101, chlv = 8'b01110110, chlw = 8'b01110111, chlx = 8'b01111000,
             chly = 8'b01111001, chlz = 8'b01111010;
 parameter   chuA = 8'b01000001, chuB = 8'b01000010, chuC = 8'b01000011, chuD = 8'b01000100, chuE = 8'b01000101, chuF = 8'b01000110,
             chuG = 8'b01000111, chuH = 8'b01001000, chuI = 8'b01001001, chuJ = 8'b01001010, chuK = 8'b01001011, chuL = 8'b01001100,

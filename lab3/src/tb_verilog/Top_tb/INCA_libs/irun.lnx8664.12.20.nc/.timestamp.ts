@@ -1,9 +1,9 @@
-1605182258 /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb/Top_tb.sv
+1605185723 /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb/Top_tb.sv
 1605178255 /home/team04/jeter/DClab-team04/lab3/src/Top.sv
-1605107535 /home/team04/jeter/DClab-team04/lab3/src/I2cInitializer.sv
-1605177247 /home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv
+1605183527 /home/team04/jeter/DClab-team04/lab3/src/I2cInitializer.sv
+1605185493 /home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv
 1605178425 /home/team04/jeter/DClab-team04/lab3/src/AudPlayer.sv
 1605170848 /home/team04/jeter/DClab-team04/lab3/src/AudRecorder.sv
-1605107535 /home/team04/jeter/DClab-team04/lab3/src/LCDTop.sv
-1605107535 /home/team04/jeter/DClab-team04/lab3/src/LCDinstructions.sv
+1605183785 /home/team04/jeter/DClab-team04/lab3/src/LCDTop.sv
+1605183447 /home/team04/jeter/DClab-team04/lab3/src/LCDinstructions.sv
 1605107535 /home/team04/jeter/DClab-team04/lab3/src/LCDdatacontroll.sv

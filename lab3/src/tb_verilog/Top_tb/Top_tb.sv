@@ -349,10 +349,10 @@ initial begin
 
     #(20 * CLK_100K);
     test_Player_play(33);
-    test_Player_Pause(2, 10);
-    test_Player_play(2);
-    test_Player_Stop(2, 10);
-    test_Player_play(2);
+    test_Player_Pause(2, 33);
+    test_Player_play(33);
+    test_Player_Stop(2, 33);
+    test_Player_play(33);
     
     $display("+=====================+");
 	$display("| Simulation Complete |");

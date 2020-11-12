@@ -73,9 +73,9 @@ argv[8]=../../LCDdatacontroll.sv
 argv[9]=../../LCDinstructions.sv
 argv[10]=+access+r
 74 profile - 100
-          CPU/Mem usage: 0.010 sys,  0.040 user,  79.47M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.030 user,  79.47M sys,  0.00M vm
 75 VC callback profile - scalar:0 vector:0
-76 Thu Nov 12 19:57:47 2020
+76 Thu Nov 12 20:55:28 2020
 77 pliAppInit
 78 *Verdi3* : Enable Parallel Dumping.
 79 pliAppMiscSet: New Sim Round
@@ -92,21 +92,21 @@ stack trace not available83 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
 90 *Verdi3* : Begin traversing the scopes, layer (0).
 91 *Verdi3* : End of traversing.
 92 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.010 sys,  0.050 user,  223.15M sys,  0.00M vm
-                   incr: 0.000 sys,  0.000 user,  4.11M sys,  0.00M vm
-                   accu: 0.000 sys,  0.000 user,  4.11M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.000 user,  4.11M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.040 user,  223.16M sys,  0.00M vm
+                   incr: 0.010 sys,  0.010 user,  4.11M sys,  0.00M vm
+                   accu: 0.010 sys,  0.010 user,  4.11M sys,  0.00M vm
+              accu incr: 0.010 sys,  0.010 user,  4.11M sys,  0.00M vm
 
           Count usage: 303 var,  245 idcode,  245 callback
                  incr: 303 var,  245 idcode,  245 callback
                  accu: 303 var,  245 idcode,  245 callback
             accu incr: 303 var,  245 idcode,  245 callback
 93 VC callback profile - scalar:0 vector:0
-94 Thu Nov 12 19:57:47 2020
+94 Thu Nov 12 20:55:28 2020
 95 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.010 sys,  0.050 user,  224.20M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.040 user,  224.21M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.000 sys,  0.000 user,  5.17M sys,  0.00M vm
+                   accu: 0.010 sys,  0.010 user,  5.16M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
 
           Count usage: 303 var,  245 idcode,  245 callback
@@ -114,10 +114,10 @@ stack trace not available83 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
                  accu: 303 var,  245 idcode,  245 callback
             accu incr: 0 var,  0 idcode,  0 callback
 96 VC callback profile - scalar:137 vector:108
-97 Thu Nov 12 19:57:47 2020
-98 End of simulation at 2000000000
-99 VC callback profile - scalar:15062955 vector:56708
-100 Thu Nov 12 19:57:49 2020
-101 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:182 BlockUsed:181
+97 Thu Nov 12 20:55:28 2020
+98 End of simulation at 290815140
+99 VC callback profile - scalar:2210871 vector:64182
+100 Thu Nov 12 20:55:29 2020
+101 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:28 BlockUsed:28
 102 SimExit
 103 Sim process exit
