@@ -45,6 +45,7 @@ logic playing;
 logic [15:0] play_data;
 logic [15:0] record_data;
 logic [15:0] DAC_DATA;
+logic [19:0] prev_address;
 
 wire AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
 wire [15:0] SRAM_DQ;
@@ -198,8 +199,9 @@ task test_Player_play(
         getDatabyAddress(SRAM_ADDR, play_data); // send first data
     #(CLK_100K) KEY1 = 0;
     for(int i = 1; i < data_num; i++) begin // input 4 play data
-        @(SRAM_ADDR) begin // wait for player finish signal
+        @(SRAM_ADDR != prev_address) begin // wait for player finish signal
             getDatabyAddress(SRAM_ADDR, play_data);
+            prev_address = SRAM_ADDR;
         end
     end
     $display("================================");
@@ -286,10 +288,10 @@ initial begin
     test_LCD();
     
     test_Player_play(2);
-    test_Player_Pause(2, 10);
-    test_Player_play(2);
-    test_Player_Stop(2, 10);
-    test_Player_play(2);
+    //test_Player_Pause(2, 10);
+    //test_Player_play(2);
+    //test_Player_Stop(2, 10);
+    //test_Player_play(2);
 
     // test_Recorder_record(0, 3);
     // test_Recorder_pause(3, 6);

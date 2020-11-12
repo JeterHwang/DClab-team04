@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 17:45:38 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 17:58:36 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,22 +11,21 @@ ncverilog
 	../../LCDdatacontroll.sv
 	../../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/Top.sv' is newer than expected.
-	expected: Thu Nov 12 17:01:19 2020
-	actual:   Thu Nov 12 17:45:12 2020
+Recompiling... reason: file './Top_tb.sv' is newer than expected.
+	expected: Thu Nov 12 17:57:42 2020
+	actual:   Thu Nov 12 17:58:15 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
 ncvlog: *W,ILLPDX (Top_tb.sv,50|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
-file: ../../Top.sv
-	module worklib.Top:sv
-		errors: 0, warnings: 0
+	module worklib.Top_tb:sv
+		errors: 0, warnings: 1
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Top:sv <0x5962f7e4>
-			streams:  34, words: 16949
+		worklib.Top_tb:sv <0x5cdd8a68>
+			streams:  38, words: 46191
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -101,24 +100,10 @@ instruction          31 : 1_0_00100000
 return data # 0 : 0xf012
 =============================
 ================================
-======= play pause data ========
-================================
-========= Player Data =========
-====== Request Success ======
-return data # 0 : 0xf012
-=============================
-================================
-======= play stop data ========
-================================
-========= Player Data =========
-====== Request Success ======
-return data # 0 : 0xf012
-=============================
-================================
 +=====================+
 | Simulation Complete |
 +=====================+
-Simulation complete via $finish(1) at time 25230 US + 0
-./Top_tb.sv:306 	$finish;
+Simulation complete via $finish(1) at time 25190 US + 0
+./Top_tb.sv:307 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 17:46:26 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 17:59:24 CST  (total: 00:00:48)
