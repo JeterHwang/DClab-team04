@@ -139,6 +139,10 @@ always_comb begin
 					state_w = S_IDLE;
 				else if(i_sent_finish)
 					state_w = S_FAST_FETCH;
+				// else if (pause_w && pause_r) begin
+				// 	player_en_w = 0;
+				// 	state_w = S_PAUSE;
+				// end
 				else
 					state_w = S_FAST_SENT;
 				// dac_data
@@ -153,9 +157,8 @@ always_comb begin
 					player_en_w = player_en_r;
 				else
 					begin
-						if(!i_daclrck || (pause_w && !pause_r))begin
+						if(!i_daclrck || i_pause)begin
 							player_en_w = 0;
-							state_w = S_PAUSE;
 						end
 						else
 							player_en_w = 1;
@@ -455,21 +458,21 @@ always_comb begin
 						finished_w = 0;
 				end
 			end
-			S_PAUSE:begin
-				if(i_stop)begin
-					state_w = S_IDLE;
-				end
-				if(start_w &&　!start_r)begin
-					if(i_fast)begin
-						state_w = S_FAST_SENT;
-					end
-					else if (i_slow_0) begin
-						state_w = S_SLOW_0_SENT;
-					end
-					else if (i_slow_1) begin
-						state_w = S_SLOW_1_SENT;
-					end
-				end
+			// S_PAUSE:begin
+			// 	if(i_stop)begin
+			// 		state_w = S_IDLE;
+			// 	end
+			// 	if(start_w &&!start_r)begin
+			// 		if(i_fast)begin
+			// 			state_w = S_FAST_SENT;
+			// 		end
+			// 		else if (i_slow_0) begin
+			// 			state_w = S_SLOW_0_SENT;
+			// 		end
+			// 		else if (i_slow_1) begin
+			// 			state_w = S_SLOW_1_SENT;
+			// 		end
+			// 	end
 
 			end
 
