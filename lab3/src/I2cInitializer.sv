@@ -49,7 +49,7 @@ always_comb begin
     SCL_w       = SCL_r;
     SDA_w       = SDA_r;
     oen_w       = oen_r;
-    counts_w    = counts_w;
+    counts_w    = counts_r;
     init_w      = init_r;
     if(i_start) start_w = 1'b1;
     else        start_w = 1'b0;
