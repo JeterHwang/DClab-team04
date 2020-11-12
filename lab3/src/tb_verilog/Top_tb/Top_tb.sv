@@ -285,18 +285,20 @@ initial begin
     test_I2C();
     test_LCD();
     
-    test_Recorder_record(0, 3);
-    test_Recorder_pause(3, 6);
-    test_Recorder_record(6, 9);
-    test_Recorder_stop(9, 12);
-    test_Recorder_record(12, 15);
-    test_Recorder_stop(15, 16);
-
     test_Player_play(2);
     test_Player_Pause(2, 10);
     test_Player_play(2);
     test_Player_Stop(2, 10);
     test_Player_play(2);
+
+    // test_Recorder_record(0, 3);
+    // test_Recorder_pause(3, 6);
+    // test_Recorder_record(6, 9);
+    // test_Recorder_stop(9, 12);
+    // test_Recorder_record(12, 15);
+    // test_Recorder_stop(15, 16);
+
+    
     
     $display("+=====================+");
 	$display("| Simulation Complete |");

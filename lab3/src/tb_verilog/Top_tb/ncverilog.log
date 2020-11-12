@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:53:22 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 17:45:38 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,24 +11,22 @@ ncverilog
 	../../LCDdatacontroll.sv
 	../../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv' is newer than expected.
-	expected: Thu Nov 12 16:47:38 2020
-	actual:   Thu Nov 12 16:52:29 2020
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/Top.sv' is newer than expected.
+	expected: Thu Nov 12 17:01:19 2020
+	actual:   Thu Nov 12 17:45:12 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
 ncvlog: *W,ILLPDX (Top_tb.sv,50|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
-file: ../../AudDSP.sv
-	module worklib.AudDSP:sv
+file: ../../Top.sv
+	module worklib.Top:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudDSP:sv <0x5e5b27b9>
-			streams:   5, words: 24430
-		worklib.Top:sv <0x2a81ab71>
-			streams:  33, words: 16408
+		worklib.Top:sv <0x5962f7e4>
+			streams:  34, words: 16949
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -36,12 +34,12 @@ file: ../../AudDSP.sv
 		Modules:                   9       9
 		Resolved nets:             0       1
 		Registers:               201     201
-		Scalar wires:             69       -
+		Scalar wires:             71       -
 		Vectored wires:           29       -
 		Always blocks:            20      20
 		Initial blocks:            3       3
 		Cont. assignments:        18      47
-		Pseudo assignments:       40      40
+		Pseudo assignments:       41      41
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.Top_tb:sv
 Loading snapshot worklib.Top_tb:sv .................... Done
@@ -98,73 +96,29 @@ instruction          29 : 1_0_00100000
 instruction          30 : 1_0_00100000
 instruction          31 : 1_0_00100000
 =================================
-========= Recorded Data =========
-The           0 data / address : 0123
-                        0000000000000000011
-The           1 data / address : 1234
-                        0000000000000000100
-The           2 data / address : 2345
-                        0000000000000000101
-=================================
-========= paused Data =========
-Paused data/address           3 : 3456
-                         0000000000000000110
-Paused data/address           4 : 3456
-                         0000000000000000110
-Paused data/address           5 : 3456
-                         0000000000000000110
-================================
-========= Recorded Data =========
-The           6 data / address : 6789
-                        0000000000000001000
-The           7 data / address : 789a
-                        0000000000000001001
-The           8 data / address : 89ab
-                        0000000000000001010
-=================================
-========= stopped Data =========
-Stopped data/address           9 : 99ab
-                         0000000000000001010
-Stopped data/address          10 : 99ab
-                         0000000000000001010
-Stopped data/address          11 : 99ab
-                         0000000000000001010
-================================
-========= Recorded Data =========
-The          12 data / address : cdef
-                        0000000000000000010
-The          13 data / address : def0
-                        0000000000000000011
-The          14 data / address : ef01
-                        0000000000000000100
-=================================
-========= stopped Data =========
-Stopped data/address          15 : f701
-                         0000000000000000100
-================================
 ========= Player Data =========
 ====== Request Success ======
-return data # 4 : 0xf012
+return data # 0 : 0xf012
 =============================
 ================================
 ======= play pause data ========
 ================================
 ========= Player Data =========
 ====== Request Success ======
-return data # 4 : 0xf012
+return data # 0 : 0xf012
 =============================
 ================================
 ======= play stop data ========
 ================================
 ========= Player Data =========
 ====== Request Success ======
-return data # 4 : 0xf012
+return data # 0 : 0xf012
 =============================
 ================================
 +=====================+
 | Simulation Complete |
 +=====================+
-Simulation complete via $finish(1) at time 25450 US + 0
-./Top_tb.sv:304 	$finish;
+Simulation complete via $finish(1) at time 25230 US + 0
+./Top_tb.sv:306 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:54:09 CST  (total: 00:00:47)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 17:46:26 CST  (total: 00:00:48)

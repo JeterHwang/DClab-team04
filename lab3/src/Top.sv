@@ -149,8 +149,8 @@ I2cInitializer init0(
 AudDSP dsp0(
 	.i_rst_n(i_rst_n),
 	.i_clk(i_clk),
-	.i_start(i_key_1),
-	.i_pause(i_key_1),
+	.i_start(key1_r),
+	.i_pause(key1_r),
 	.i_stop(i_key_2),
 	.i_speed(i_speed),
 	.i_fast(fast_r),
