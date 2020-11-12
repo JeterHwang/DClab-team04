@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:04:44 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:31:35 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,28 +11,29 @@ ncverilog
 	../../LCDdatacontroll.sv
 	../../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file './Top_tb.sv' is newer than expected.
-	expected: Thu Nov 12 15:58:03 2020
-	actual:   Thu Nov 12 16:04:16 2020
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudRecorder.sv' is newer than expected.
+	expected: Wed Nov 11 23:12:15 2020
+	actual:   Thu Nov 12 16:30:50 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
 ncvlog: *W,ILLPDX (Top_tb.sv,50|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
-	module worklib.Top_tb:sv
-		errors: 0, warnings: 1
+file: ../../AudRecorder.sv
+	module worklib.AudRecorder:sv
+		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Top_tb:sv <0x1476864e>
-			streams:  40, words: 52017
+		worklib.AudRecorder:sv <0x2414aca3>
+			streams:   4, words:  9594
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                   9       9
 		Resolved nets:             0       1
-		Registers:               199     199
+		Registers:               197     197
 		Scalar wires:             69       -
 		Vectored wires:           29       -
 		Always blocks:            20      20
@@ -96,47 +97,47 @@ instruction          30 : 1_0_00100000
 instruction          31 : 1_0_00100000
 =================================
 ========= Recorded Data =========
-The           0 data / address : xxxx
+The           0 data / address : 0123
                         0000000000000000011
-The           1 data / address : xxxx
+The           1 data / address : 1234
                         0000000000000000100
-The           2 data / address : xxxx
+The           2 data / address : 2345
                         0000000000000000101
 =================================
 ========= paused Data =========
-Paused data/address           3 : xxxx
+Paused data/address           3 : 3456
                          0000000000000000110
-Paused data/address           4 : xxxx
+Paused data/address           4 : 3456
                          0000000000000000110
-Paused data/address           5 : xxxx
+Paused data/address           5 : 3456
                          0000000000000000110
 ================================
 ========= Recorded Data =========
-The           6 data / address : xxxx
+The           6 data / address : 6789
                         0000000000000001000
-The           7 data / address : xxxx
+The           7 data / address : 789a
                         0000000000000001001
-The           8 data / address : xxxx
+The           8 data / address : 89ab
                         0000000000000001010
 =================================
 ========= stopped Data =========
-Stopped data/address           9 : xxxx
+Stopped data/address           9 : 99ab
                          0000000000000001010
-Stopped data/address          10 : xxxx
+Stopped data/address          10 : 99ab
                          0000000000000001010
-Stopped data/address          11 : xxxx
+Stopped data/address          11 : 99ab
                          0000000000000001010
 ================================
 ========= Recorded Data =========
-The          12 data / address : xxxx
+The          12 data / address : cdef
                         0000000000000000010
-The          13 data / address : xxxx
+The          13 data / address : def0
                         0000000000000000011
-The          14 data / address : xxxx
+The          14 data / address : ef01
                         0000000000000000100
 =================================
 ========= stopped Data =========
-Stopped data/address          15 : xxxx
+Stopped data/address          15 : f701
                          0000000000000000100
 ================================
 ========= Player Data =========
@@ -145,9 +146,6 @@ return data # 4 : 0xf012
 =============================
 ================================
 ======= play pause data ========
-====== Request Success ======
-return data # 4 : 0xf012
-=============================
 ================================
 ========= Player Data =========
 ====== Request Success ======
@@ -155,9 +153,6 @@ return data # 4 : 0xf012
 =============================
 ================================
 ======= play stop data ========
-====== Request Success ======
-return data # 4 : 0xf012
-=============================
 ================================
 ========= Player Data =========
 ====== Request Success ======
@@ -167,7 +162,7 @@ return data # 4 : 0xf012
 +=====================+
 | Simulation Complete |
 +=====================+
-Simulation complete via $finish(1) at time 25470 US + 0
-./Top_tb.sv:328 	$finish;
+Simulation complete via $finish(1) at time 25450 US + 0
+./Top_tb.sv:304 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:05:31 CST  (total: 00:00:47)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:32:23 CST  (total: 00:00:48)

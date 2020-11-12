@@ -253,3 +253,99 @@ wvAddSignal -win $_nWave1 -group {"G3" \
 wvSelectSignal -win $_nWave1 {( "G1" 7 )} 
 wvSetPosition -win $_nWave1 {("G1" 7)}
 wvGetSignalClose -win $_nWave1
+wvGetSignalOpen -win $_nWave1
+wvGetSignalSetScope -win $_nWave1 "/Top_tb"
+wvGetSignalSetScope -win $_nWave1 "/Top_tb"
+wvGetSignalSetScope -win $_nWave1 "/Top_tb/top0"
+wvGetSignalClose -win $_nWave1
+wvDisplayGridCount -win $_nWave1 -off
+wvGetSignalClose -win $_nWave1
+wvReloadFile -win $_nWave1
+wvDisplayGridCount -win $_nWave1 -off
+wvGetSignalClose -win $_nWave1
+wvReloadFile -win $_nWave1
+wvSelectGroup -win $_nWave1 {G3}
+wvSetPosition -win $_nWave1 {("G3" 0)}
+wvGetSignalOpen -win $_nWave1
+wvGetSignalSetScope -win $_nWave1 "/Top_tb/top0/dsp0"
+wvSetPosition -win $_nWave1 {("G3" 1)}
+wvSetPosition -win $_nWave1 {("G3" 1)}
+wvAddSignal -win $_nWave1 -clear
+wvAddSignal -win $_nWave1 -group {"G1" \
+{/Top_tb/switch\[3:0\]} \
+{/Top_tb/DAC_DATA\[15:0\]} \
+{/Top_tb/SRAM_ADDR\[19:0\]} \
+{/Top_tb/SRAM_DQ\[15:0\]} \
+{/Top_tb/play_data\[15:0\]} \
+{/Top_tb/record_data\[15:0\]} \
+{/Top_tb/playing} \
+}
+wvAddSignal -win $_nWave1 -group {"G2" \
+{/Top_tb/top0/i_AUD_ADCDAT} \
+{/Top_tb/top0/i_AUD_ADCLRCK} \
+{/Top_tb/top0/i_AUD_BCLK} \
+{/Top_tb/top0/i_AUD_DACLRCK} \
+{/Top_tb/top0/i_clk} \
+{/Top_tb/top0/i_rst_n} \
+{/Top_tb/top0/i_speed\[3:0\]} \
+{/Top_tb/top0/io_SRAM_DQ\[15:0\]} \
+{/Top_tb/top0/key0_r} \
+{/Top_tb/top0/key1_r} \
+{/Top_tb/top0/key2_r} \
+{/Top_tb/top0/o_AUD_DACDAT} \
+{/Top_tb/top0/o_SRAM_ADDR\[19:0\]} \
+{/Top_tb/top0/player_en_r} \
+{/Top_tb/top0/player_fin_r} \
+{/Top_tb/top0/player_finish} \
+{/Top_tb/top0/slow0_r} \
+{/Top_tb/top0/slow1_r} \
+{/Top_tb/top0/state_r\[2:0\]} \
+}
+wvAddSignal -win $_nWave1 -group {"G3" \
+{/Top_tb/top0/dsp0/state_r\[2:0\]} \
+}
+wvAddSignal -win $_nWave1 -group {"G4" \
+}
+wvSelectSignal -win $_nWave1 {( "G3" 1 )} 
+wvSetPosition -win $_nWave1 {("G3" 1)}
+wvSetPosition -win $_nWave1 {("G3" 1)}
+wvSetPosition -win $_nWave1 {("G3" 1)}
+wvAddSignal -win $_nWave1 -clear
+wvAddSignal -win $_nWave1 -group {"G1" \
+{/Top_tb/switch\[3:0\]} \
+{/Top_tb/DAC_DATA\[15:0\]} \
+{/Top_tb/SRAM_ADDR\[19:0\]} \
+{/Top_tb/SRAM_DQ\[15:0\]} \
+{/Top_tb/play_data\[15:0\]} \
+{/Top_tb/record_data\[15:0\]} \
+{/Top_tb/playing} \
+}
+wvAddSignal -win $_nWave1 -group {"G2" \
+{/Top_tb/top0/i_AUD_ADCDAT} \
+{/Top_tb/top0/i_AUD_ADCLRCK} \
+{/Top_tb/top0/i_AUD_BCLK} \
+{/Top_tb/top0/i_AUD_DACLRCK} \
+{/Top_tb/top0/i_clk} \
+{/Top_tb/top0/i_rst_n} \
+{/Top_tb/top0/i_speed\[3:0\]} \
+{/Top_tb/top0/io_SRAM_DQ\[15:0\]} \
+{/Top_tb/top0/key0_r} \
+{/Top_tb/top0/key1_r} \
+{/Top_tb/top0/key2_r} \
+{/Top_tb/top0/o_AUD_DACDAT} \
+{/Top_tb/top0/o_SRAM_ADDR\[19:0\]} \
+{/Top_tb/top0/player_en_r} \
+{/Top_tb/top0/player_fin_r} \
+{/Top_tb/top0/player_finish} \
+{/Top_tb/top0/slow0_r} \
+{/Top_tb/top0/slow1_r} \
+{/Top_tb/top0/state_r\[2:0\]} \
+}
+wvAddSignal -win $_nWave1 -group {"G3" \
+{/Top_tb/top0/dsp0/state_r\[2:0\]} \
+}
+wvAddSignal -win $_nWave1 -group {"G4" \
+}
+wvSelectSignal -win $_nWave1 {( "G3" 1 )} 
+wvSetPosition -win $_nWave1 {("G3" 1)}
+wvGetSignalClose -win $_nWave1

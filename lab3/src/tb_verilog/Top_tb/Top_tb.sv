@@ -307,7 +307,7 @@ always@(posedge clk_12m) begin
     record_data <= SRAM_DQ;
 end
 initial begin
-    #(10000 * CLK_100K)
+    #(20000 * CLK_100K)
     $display("Too slow, abort.");
     $finish;
 end

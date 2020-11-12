@@ -42,7 +42,7 @@ always_comb begin
     stop_w              = stop_r;
     case (state_r) 
         S_IDLE: begin
-            if(start_w && start_r) begin   // falls edge trigger
+            if(start_w && !start_r) begin   // falls edge trigger
                 state_w = S_WAIT;
                 data_w = 16'd0;
                 counter_w = 0;
