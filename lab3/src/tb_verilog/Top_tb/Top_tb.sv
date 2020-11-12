@@ -38,6 +38,7 @@ parameter [15:0] REC_DATA [0:15] = '{
 logic clk_12m, clk_100k, clk_800k;
 logic KEY0, KEY1, KEY2, KEY3;
 logic [3:0] switch;
+logic i_fast, i_slow0, i_slow1;
 logic AUD_ADCDAT;
 logic SW1;
 logic [23:0] I2C_inst;
@@ -63,7 +64,10 @@ Top top0(
 	.i_key_1(KEY1),
 	.i_key_2(KEY2),
 	.i_speed(switch), // design how user can decide mode on your own
-	
+	.i_fast(i_fast),
+    .i_slow_0(i_slow0),
+    .i_slow_1(i_slow1),
+
 	.o_SRAM_ADDR(SRAM_ADDR), // [19:0]
 	.io_SRAM_DQ(SRAM_DQ), // [15:0]
 	.o_SRAM_WE_N(SRAM_WE_N),
@@ -192,12 +196,12 @@ task test_Player_play(
     input data_num
 );
     $display("========= Player Data =========");
-    @(negedge clk_100k)
-        KEY1 = 1;
-        switch = 4'd1;
-        playing = 1;
-        getDatabyAddress(SRAM_ADDR, play_data); // send first data
+    KEY1 = 1;
     #(CLK_100K) KEY1 = 0;
+    switch = 4'd1;
+    playing = 1;
+    getDatabyAddress(SRAM_ADDR, play_data); // send first data
+    
     for(int i = 1; i < data_num; i++) begin // input 4 play data
         @(SRAM_ADDR != prev_address) begin // wait for player finish signal
             getDatabyAddress(SRAM_ADDR, play_data);
@@ -276,6 +280,9 @@ initial begin
     KEY2        = 0;
     KEY3        = 0;
     playing     = 0;
+    i_fast      = 1;
+    i_slow0     = 0;
+    i_slow1     = 0;
 end
 initial begin
     $fsdbDumpfile("Top.fsdb");
@@ -288,10 +295,12 @@ initial begin
     test_LCD();
     
     test_Player_play(2);
-    //test_Player_Pause(2, 10);
-    //test_Player_play(2);
-    //test_Player_Stop(2, 10);
-    //test_Player_play(2);
+    #(10 * CLK_100K);
+    test_Player_Pause(2, 10);
+    #(10 * CLK_100K);
+    test_Player_play(2);
+    test_Player_Stop(2, 10);
+    test_Player_play(2);
 
     // test_Recorder_record(0, 3);
     // test_Recorder_pause(3, 6);
