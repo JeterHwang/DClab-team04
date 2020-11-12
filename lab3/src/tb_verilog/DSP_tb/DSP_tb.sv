@@ -61,20 +61,19 @@ module DSP_tb();
 
     initial rst = 0;
     initial clk = 0;
-    initial start = 0;
+    initial start = 1;
     initial pause = 0;
     initial stop = 0;
-    initial fast = 0;
+    initial fast = 1;
     initial slow0 = 0;
     initial slow1 = 0;
     initial state = 0;
     initial lr_clk = 0;
     initial sent_finish = 0;
-    initial speed = 0;
-    initial sram_data = 16'd0;
-    initial record_counter = 20'd0;
-    // initial dac_data = 16'd0;
-    // initial sram_addr = 20'd0;
+    initial speed = 2;
+    initial sram_data = 16'b1001_1100_0101_1000;
+    initial record_counter = 20'b1101_0111_1000_0010_0111;
+
 
     always begin
         #(`H_CYCLE) clk=~clk;
@@ -86,18 +85,17 @@ module DSP_tb();
         $fsdbDumpfile("DSP.fsdb");
         $fsdbDumpvars;
 
-        stop = 0;
-        pause = 0;
+        #(`CYCLE*0.2) rst = 1'b0;
+        #(`CYCLE*1.5) rst = 1'b1;
+        #(`CYCLE*1.5) start = 1'b1;
+        #(`CYCLE*1) start = 1'b0;
+        #(`CYCLE*20) pause = 1;
+        #(`CYCLE*5) pause = 0;
 
-        fast = 0;
-        slow0 = 0;
-        slow1 = 0;
-        start = 0 ;
-
-        speed = 2;
-
-        #(`CYCLE*1.5) rst = 1;
-        #(`CYCLE*3.5) rst = 0;
+        #(`CYCLE*5) pause = 1;
+        #(`CYCLE*5) pause = 0;
+        #(`CYCLE*24) pause = 1;
+        #(`CYCLE*10) pause = 0;
 
         #(`CYCLE*2) sram_data = 0;
 
@@ -148,26 +146,25 @@ module DSP_tb();
         #(`CYCLE*2) fast = 0;
         start = 1 ;
         #(`CYCLE) start = 0 ;
-        
-        #(`CYCLE*100) speed = 3;
+        #(`CYCLE*10) sent_finish = 1;
     
         #(`CYCLE*1000) $finish;
         
         
 
 
-        for(int i = 0; i < 3; i++) begin
-                #(`CYCLE*1.5) rst = 1;
-	        	#(`CYCLE*3.5) rst = 0;
-                @(negedge lr_clk) begin
-                    record_counter = record_counter_arr[i];
-                    // dac_data    = dac_data_arr[i];
-                    // sram_addr   = sram_addr_arr[i];
-                    sram_data   = sram_data_arr[i];
+        // for(int i = 0; i < 3; i++) begin
+        //         #(`CYCLE*1.5) rst = 1;
+	    //     	#(`CYCLE*3.5) rst = 0;
+        //         @(negedge lr_clk) begin
+        //             record_counter = record_counter_arr[i];
+        //             // dac_data    = dac_data_arr[i];
+        //             // sram_addr   = sram_addr_arr[i];
+        //             sram_data   = sram_data_arr[i];
                     
-                    state   = i;
-                end
-            end
+        //             state   = i;
+        //         end
+        //     end
     end
 
 
