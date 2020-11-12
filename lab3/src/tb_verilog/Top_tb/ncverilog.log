@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 20:37:05 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 20:55:26 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,22 +11,21 @@ ncverilog
 	../../LCDdatacontroll.sv
 	../../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv' is newer than expected.
-	expected: Thu Nov 12 20:36:13 2020
-	actual:   Thu Nov 12 20:37:02 2020
+Recompiling... reason: file './Top_tb.sv' is newer than expected.
+	expected: Thu Nov 12 20:03:45 2020
+	actual:   Thu Nov 12 20:55:23 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
 ncvlog: *W,ILLPDX (Top_tb.sv,98|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
-file: ../../AudDSP.sv
-	module worklib.AudDSP:sv
-		errors: 0, warnings: 0
+	module worklib.Top_tb:sv
+		errors: 0, warnings: 1
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudDSP:sv <0x3cf620c2>
-			streams:   5, words: 25139
+		worklib.Top_tb:sv <0x64a5ddac>
+			streams:  38, words: 48385
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -508,8 +507,379 @@ Stopped data/address         197 : zzzz
 ====== Request Success ======
 return data # 0 : 0x0123
 =============================
-Too slow, abort.
-Simulation complete via $finish(1) at time 200 MS + 0
-./Top_tb.sv:368     $finish;
+====== Request Success ======
+return data # 1 : 0x1234
+=============================
+====== Request Success ======
+return data # 2 : 0x2345
+=============================
+====== Request Success ======
+return data # 3 : 0x3456
+=============================
+====== Request Success ======
+return data # 4 : 0x4567
+=============================
+====== Request Success ======
+return data # 5 : 0x5678
+=============================
+====== Request Success ======
+return data # 6 : 0x6789
+=============================
+====== Request Success ======
+return data # 7 : 0x789a
+=============================
+====== Request Success ======
+return data # 8 : 0x89ab
+=============================
+====== Request Success ======
+return data # 9 : 0x9abc
+=============================
+====== Request Success ======
+return data #10 : 0xabcd
+=============================
+====== Request Success ======
+return data #11 : 0xbcde
+=============================
+====== Request Success ======
+return data #12 : 0xcdef
+=============================
+====== Request Success ======
+return data #13 : 0xdef0
+=============================
+====== Request Success ======
+return data #14 : 0xef01
+=============================
+====== Request Success ======
+return data #15 : 0xf012
+=============================
+====== Request Success ======
+return data #16 : 0x0123
+=============================
+====== Request Success ======
+return data #17 : 0x1234
+=============================
+====== Request Success ======
+return data #18 : 0x2345
+=============================
+====== Request Success ======
+return data #19 : 0x3456
+=============================
+====== Request Success ======
+return data #20 : 0x4567
+=============================
+====== Request Success ======
+return data #21 : 0x5678
+=============================
+====== Request Success ======
+return data #22 : 0x6789
+=============================
+====== Request Success ======
+return data #23 : 0x789a
+=============================
+====== Request Success ======
+return data #24 : 0x89ab
+=============================
+====== Request Success ======
+return data #25 : 0x9abc
+=============================
+====== Request Success ======
+return data #26 : 0xabcd
+=============================
+====== Request Success ======
+return data #27 : 0xbcde
+=============================
+====== Request Success ======
+return data #28 : 0xcdef
+=============================
+====== Request Success ======
+return data #29 : 0xdef0
+=============================
+====== Request Success ======
+return data #30 : 0xef01
+=============================
+====== Request Success ======
+return data #31 : 0xf012
+=============================
+====== Request Success ======
+return data #32 : 0x0123
+=============================
+================================
+======= play pause data ========
+Paused data : 0000_0000_0000_0000
+Paused data : 0000_0000_1001_0001
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+Paused data : 1111_1111_1111_1111
+================================
+========= Player Data =========
+====== Request Success ======
+return data # 1 : 0x1234
+=============================
+====== Request Success ======
+return data # 2 : 0x2345
+=============================
+====== Request Success ======
+return data # 3 : 0x3456
+=============================
+====== Request Success ======
+return data # 4 : 0x4567
+=============================
+====== Request Success ======
+return data # 5 : 0x5678
+=============================
+====== Request Success ======
+return data # 6 : 0x6789
+=============================
+====== Request Success ======
+return data # 7 : 0x789a
+=============================
+====== Request Success ======
+return data # 8 : 0x89ab
+=============================
+====== Request Success ======
+return data # 9 : 0x9abc
+=============================
+====== Request Success ======
+return data #10 : 0xabcd
+=============================
+====== Request Success ======
+return data #11 : 0xbcde
+=============================
+====== Request Success ======
+return data #12 : 0xcdef
+=============================
+====== Request Success ======
+return data #13 : 0xdef0
+=============================
+====== Request Success ======
+return data #14 : 0xef01
+=============================
+====== Request Success ======
+return data #15 : 0xf012
+=============================
+====== Request Success ======
+return data #16 : 0x0123
+=============================
+====== Request Success ======
+return data #17 : 0x1234
+=============================
+====== Request Success ======
+return data #18 : 0x2345
+=============================
+====== Request Success ======
+return data #19 : 0x3456
+=============================
+====== Request Success ======
+return data #20 : 0x4567
+=============================
+====== Request Success ======
+return data #21 : 0x5678
+=============================
+====== Request Success ======
+return data #22 : 0x6789
+=============================
+====== Request Success ======
+return data #23 : 0x789a
+=============================
+====== Request Success ======
+return data #24 : 0x89ab
+=============================
+====== Request Success ======
+return data #25 : 0x9abc
+=============================
+====== Request Success ======
+return data #26 : 0xabcd
+=============================
+====== Request Success ======
+return data #27 : 0xbcde
+=============================
+====== Request Success ======
+return data #28 : 0xcdef
+=============================
+====== Request Success ======
+return data #29 : 0xdef0
+=============================
+====== Request Success ======
+return data #30 : 0xef01
+=============================
+====== Request Success ======
+return data #31 : 0xf012
+=============================
+====== Request Success ======
+return data #32 : 0x0123
+=============================
+====== Request Success ======
+return data #33 : 0x1234
+=============================
+================================
+======= play stop data ========
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+Stopped data : 0000_0000_0000_0000
+================================
+========= Player Data =========
+====== Request Success ======
+return data # 1 : 0x1234
+=============================
+====== Request Success ======
+return data # 2 : 0x2345
+=============================
+====== Request Success ======
+return data # 3 : 0x3456
+=============================
+====== Request Success ======
+return data # 4 : 0x4567
+=============================
+====== Request Success ======
+return data # 5 : 0x5678
+=============================
+====== Request Success ======
+return data # 6 : 0x6789
+=============================
+====== Request Success ======
+return data # 7 : 0x789a
+=============================
+====== Request Success ======
+return data # 8 : 0x89ab
+=============================
+====== Request Success ======
+return data # 9 : 0x9abc
+=============================
+====== Request Success ======
+return data #10 : 0xabcd
+=============================
+====== Request Success ======
+return data #11 : 0xbcde
+=============================
+====== Request Success ======
+return data #12 : 0xcdef
+=============================
+====== Request Success ======
+return data #13 : 0xdef0
+=============================
+====== Request Success ======
+return data #14 : 0xef01
+=============================
+====== Request Success ======
+return data #15 : 0xf012
+=============================
+====== Request Success ======
+return data #16 : 0x0123
+=============================
+====== Request Success ======
+return data #17 : 0x1234
+=============================
+====== Request Success ======
+return data #18 : 0x2345
+=============================
+====== Request Success ======
+return data #19 : 0x3456
+=============================
+====== Request Success ======
+return data #20 : 0x4567
+=============================
+====== Request Success ======
+return data #21 : 0x5678
+=============================
+====== Request Success ======
+return data #22 : 0x6789
+=============================
+====== Request Success ======
+return data #23 : 0x789a
+=============================
+====== Request Success ======
+return data #24 : 0x89ab
+=============================
+====== Request Success ======
+return data #25 : 0x9abc
+=============================
+====== Request Success ======
+return data #26 : 0xabcd
+=============================
+====== Request Success ======
+return data #27 : 0xbcde
+=============================
+====== Request Success ======
+return data #28 : 0xcdef
+=============================
+====== Request Success ======
+return data #29 : 0xdef0
+=============================
+====== Request Success ======
+return data #30 : 0xef01
+=============================
+====== Request Success ======
+return data #31 : 0xf012
+=============================
+====== Request Success ======
+return data #32 : 0x0123
+=============================
+====== Request Success ======
+return data #33 : 0x1234
+=============================
+================================
++=====================+
+| Simulation Complete |
++=====================+
+Simulation complete via $finish(1) at time 29081514 NS + 4
+./Top_tb.sv:360 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 20:37:09 CST  (total: 00:00:04)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 20:55:29 CST  (total: 00:00:03)
