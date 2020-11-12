@@ -1,19 +1,23 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 11, 2020 at 23:14:22 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:31:35 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
-	../../I2cInitializer.sv
 	../../AudDSP.sv
-	../../AudPlayer.sv
 	../../AudRecorder.sv
+	../../AudPlayer.sv
+	../../I2cInitializer.sv
 	../../LCDTop.sv
-	../../LCDinstructions.sv
 	../../LCDdatacontroll.sv
+	../../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv' is newer than expected.
-	expected: Wed Nov 11 18:13:17 2020
-	actual:   Wed Nov 11 23:12:15 2020
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudRecorder.sv' is newer than expected.
+	expected: Wed Nov 11 23:12:15 2020
+	actual:   Thu Nov 12 16:30:50 2020
+file: Top_tb.sv
+wire [15:0] SRAM_DQ;
+                  |
+ncvlog: *W,ILLPDX (Top_tb.sv,50|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
 file: ../../AudRecorder.sv
 	module worklib.AudRecorder:sv
 		errors: 0, warnings: 0
@@ -21,19 +25,20 @@ file: ../../AudRecorder.sv
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudRecorder:sv <0x0942d677>
-			streams:   4, words:  9590
+		worklib.AudRecorder:sv <0x2414aca3>
+			streams:   4, words:  9594
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                   9       9
-		Registers:               180     180
+		Resolved nets:             0       1
+		Registers:               197     197
 		Scalar wires:             69       -
-		Vectored wires:           27       -
-		Always blocks:            19      19
+		Vectored wires:           29       -
+		Always blocks:            20      20
 		Initial blocks:            3       3
-		Cont. assignments:        17      46
+		Cont. assignments:        18      47
 		Pseudo assignments:       40      40
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.Top_tb:sv
@@ -48,10 +53,16 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Create FSDB file 'Top.fsdb'
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
-=====  I2C instruction  ====
-data = 0011_0100_000_1111_0_0000_0000
-============================
-========= LCD display ========
+====== Test I2C Instruction ======
+instruction           0 = 0011_0100_000_1111_0_0000_0000
+instruction           1 = 0011_0100_000_0100_0_0001_0101
+instruction           2 = 0011_0100_000_0101_0_0000_0000
+instruction           3 = 0011_0100_000_0110_0_0000_0000
+instruction           4 = 0011_0100_000_0111_0_0100_0010
+instruction           5 = 0011_0100_000_1000_0_0001_1001
+instruction           6 = 0011_0100_000_1001_0_0000_0001
+===================================
+======= Test LCD Display ========
 instruction           0 : 1_0_00100000
 instruction           1 : 1_0_00100000
 instruction           2 : 1_0_00100000
@@ -84,7 +95,7 @@ instruction          28 : 1_0_00100000
 instruction          29 : 1_0_00100000
 instruction          30 : 1_0_00100000
 instruction          31 : 1_0_00100000
-==============================
+=================================
 ========= Recorded Data =========
 The           0 data / address : 0123
                         0000000000000000011
@@ -110,11 +121,11 @@ The           8 data / address : 89ab
                         0000000000000001010
 =================================
 ========= stopped Data =========
-Paused data/address           9 : 99ab
+Stopped data/address           9 : 99ab
                          0000000000000001010
-Paused data/address          10 : 99ab
+Stopped data/address          10 : 99ab
                          0000000000000001010
-Paused data/address          11 : 99ab
+Stopped data/address          11 : 99ab
                          0000000000000001010
 ================================
 ========= Recorded Data =========
@@ -126,13 +137,32 @@ The          14 data / address : ef01
                         0000000000000000100
 =================================
 ========= stopped Data =========
-Paused data/address          15 : f701
+Stopped data/address          15 : f701
                          0000000000000000100
+================================
+========= Player Data =========
+====== Request Success ======
+return data # 4 : 0xf012
+=============================
+================================
+======= play pause data ========
+================================
+========= Player Data =========
+====== Request Success ======
+return data # 4 : 0xf012
+=============================
+================================
+======= play stop data ========
+================================
+========= Player Data =========
+====== Request Success ======
+return data # 4 : 0xf012
+=============================
 ================================
 +=====================+
 | Simulation Complete |
 +=====================+
-Simulation complete via $finish(1) at time 25395 US + 0
-./Top_tb.sv:209 	$finish;
+Simulation complete via $finish(1) at time 25450 US + 0
+./Top_tb.sv:304 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 11, 2020 at 23:15:09 CST  (total: 00:00:47)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:32:23 CST  (total: 00:00:48)

@@ -95,8 +95,7 @@ always #HCLK_100K   clk_100k = ~clk_100k;
 
 task test_LCD();
     @(posedge LCD_RS);
-    $display("======= Test LCD Display ========");
-      
+    $display("======= Test LCD Display ========");  
     for(int i = 0; i < 32; i++) begin
         @(posedge LCD_EN)
         $display("instruction %d : %b_%b_%8b", i, LCD_RS, LCD_RW, LCD_DATA);    
@@ -131,6 +130,7 @@ task test_Recorder_record(
     $display("========= Recorded Data =========");
     #(CLK_100K);
     KEY0 = 1;
+    playing = 0;
     #(CLK_100K);
     KEY0 = 0;
     for(int i = from; i < to; i++) begin
@@ -193,8 +193,10 @@ task test_Player_play(
     $display("========= Player Data =========");
     @(negedge clk_100k)
         KEY1 = 1;
+        switch = 4'd1;
+        playing = 1;
         getDatabyAddress(SRAM_ADDR, play_data); // send first data
-    #(clk_100k) KEY1 = 0;
+    #(CLK_100K) KEY1 = 0;
     for(int i = 1; i < data_num; i++) begin // input 4 play data
         @(SRAM_ADDR) begin // wait for player finish signal
             getDatabyAddress(SRAM_ADDR, play_data);
@@ -207,21 +209,10 @@ task test_Player_Pause(
     input stop_num
 );
     $display("======= play pause data ========");
-    // start playing 
-    @(negedge clk_100k)
-        KEY1 = 1;
-        getDatabyAddress(SRAM_ADDR, play_data); // send first data
-    #(clk_100k) KEY1 = 0;
-    // playing 
-    for(int i = 1; i < data_num; i++) begin // input 4 play data
-        @(SRAM_ADDR) begin // wait for player finish signal
-            getDatabyAddress(SRAM_ADDR, play_data);
-        end
-    end
     // pause
     @(negedge clk_100k)
         KEY1 = 1;
-    #(clk_100k) KEY1 = 0;    
+    #(CLK_100K) KEY1 = 0;    
     // test paused data
     for(int i = 0; i < stop_num; i++) begin
         @(negedge clk_100k);
@@ -230,7 +221,7 @@ task test_Player_Pause(
             DAC_DATA = ((DAC_DATA << 1) | AUD_DACDAT);
         end
         @(posedge clk_100k);
-        $display("Paused data : %4b_%4b_%4b_%4b", DAC_DATA);    
+        $display("Paused data : %4b_%4b_%4b_%4b", DAC_DATA[15:12], DAC_DATA[11:8], DAC_DATA[7:4], DAC_DATA[3:0]);    
     end
     $display("================================");
 endtask
@@ -239,21 +230,10 @@ task test_Player_Stop(
     input stop_num
 );
     $display("======= play stop data ========");
-    // start playing
-    @(negedge clk_100k)
-        KEY1 = 1;
-        getDatabyAddress(SRAM_ADDR, play_data); // send first data
-    #(clk_100k) KEY1 = 0;
-    // playing
-    for(int i = 1; i < data_num; i++) begin // input 4 play data
-        @(SRAM_ADDR) begin // wait for player finish signal
-            getDatabyAddress(SRAM_ADDR, play_data);
-        end
-    end
     // stop 
     @(negedge clk_100k)
         KEY2 = 1;
-    #(clk_100k) KEY2 = 0;    
+    #(CLK_100K) KEY2 = 0;    
     // test stop data
     for(int i = 0; i < stop_num; i++) begin
         @(negedge clk_100k);
@@ -262,7 +242,7 @@ task test_Player_Stop(
             DAC_DATA = ((DAC_DATA << 1) | AUD_DACDAT);
         end
         @(posedge clk_100k);
-        $display("Stopped data : %4b_%4b_%4b_%4b", DAC_DATA);    
+        $display("Stopped data : %4b_%4b_%4b_%4b", DAC_DATA[15:12], DAC_DATA[11:8], DAC_DATA[7:4], DAC_DATA[3:0]);    
     end
     $display("================================");
 endtask
@@ -293,6 +273,7 @@ initial begin
     KEY1        = 0;
     KEY2        = 0;
     KEY3        = 0;
+    playing     = 0;
 end
 initial begin
     $fsdbDumpfile("Top.fsdb");
@@ -322,11 +303,11 @@ initial begin
 	$display("+=====================+");
 	$finish;
 end
-always@(posedge i_clk) begin
+always@(posedge clk_12m) begin
     record_data <= SRAM_DQ;
 end
 initial begin
-    #(10000 * CLK_100K)
+    #(20000 * CLK_100K)
     $display("Too slow, abort.");
     $finish;
 end

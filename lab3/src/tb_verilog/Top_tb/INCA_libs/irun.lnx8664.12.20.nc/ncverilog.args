@@ -4,11 +4,11 @@
 //
 Top_tb.sv
 ../../Top.sv
-../../I2cInitializer.sv
 ../../AudDSP.sv
-../../AudPlayer.sv
 ../../AudRecorder.sv
+../../AudPlayer.sv
+../../I2cInitializer.sv
 ../../LCDTop.sv
-../../LCDinstructions.sv
 ../../LCDdatacontroll.sv
+../../LCDinstructions.sv
 +access+r

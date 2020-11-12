@@ -23,17 +23,17 @@ HOME=/home/team04
 PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=140.112.245.184 56830 12345
-SSH_CONNECTION=140.112.245.184 56830 192.168.163.250 12345
-SSH_TTY=/dev/pts/14
+SSH_CLIENT=140.112.4.209 37085 12345
+SSH_CONNECTION=140.112.4.209 37085 192.168.163.250 12345
+SSH_TTY=/dev/pts/12
 TERM=xterm-256color
-DISPLAY=localhost:13.0
-XDG_SESSION_ID=c1898
+DISPLAY=localhost:14.0
+XDG_SESSION_ID=c1955
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
 PWD=/home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb
-OLDPWD=/home/team04/jeter
+OLDPWD=/home/team04/jeter/DClab-team04/lab3/src/tb_verilog
 LANG=en_US.UTF-8
 MOZ_PLUGIN_PATH=/usr/lib/mozilla/plugins
 PAGER=less
@@ -64,18 +64,18 @@ Runtime command line arguments:
 argv[0]=ncverilog
 argv[1]=Top_tb.sv
 argv[2]=../../Top.sv
-argv[3]=../../I2cInitializer.sv
-argv[4]=../../AudDSP.sv
+argv[3]=../../AudDSP.sv
+argv[4]=../../AudRecorder.sv
 argv[5]=../../AudPlayer.sv
-argv[6]=../../AudRecorder.sv
+argv[6]=../../I2cInitializer.sv
 argv[7]=../../LCDTop.sv
-argv[8]=../../LCDinstructions.sv
-argv[9]=../../LCDdatacontroll.sv
+argv[8]=../../LCDdatacontroll.sv
+argv[9]=../../LCDinstructions.sv
 argv[10]=+access+r
 74 profile - 100
-          CPU/Mem usage: 0.020 sys,  0.030 user,  90.57M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.020 user,  90.63M sys,  0.00M vm
 75 VC callback profile - scalar:0 vector:0
-76 Wed Nov 11 23:15:09 2020
+76 Thu Nov 12 16:32:22 2020
 77 pliAppInit
 78 *Verdi3* : Enable Parallel Dumping.
 79 pliAppMiscSet: New Sim Round
@@ -84,40 +84,40 @@ argv[10]=+access+r
 82 Catch signal 11. Stack trace follows:
 stack trace not available83 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 84 (C) 1996 - 2013 by Synopsys, Inc.
-85 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb/Top_tb.sv(190)
+85 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb/Top_tb.sv(279)
 86 argv[0]: Top.fsdb
 87 *Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
 88 *Verdi3* : Create FSDB file 'Top.fsdb'
-89 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb/Top_tb.sv(191)
+89 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/lab3/src/tb_verilog/Top_tb/Top_tb.sv(280)
 90 *Verdi3* : Begin traversing the scopes, layer (0).
 91 *Verdi3* : End of traversing.
 92 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.030 sys,  0.040 user,  234.25M sys,  0.00M vm
-                   incr: 0.000 sys,  0.010 user,  4.10M sys,  0.00M vm
-                   accu: 0.000 sys,  0.010 user,  4.10M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.010 user,  4.10M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.030 user,  234.31M sys,  0.00M vm
+                   incr: 0.000 sys,  0.000 user,  4.11M sys,  0.00M vm
+                   accu: 0.000 sys,  0.000 user,  4.11M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.000 user,  4.11M sys,  0.00M vm
 
-          Count usage: 289 var,  233 idcode,  233 callback
-                 incr: 289 var,  233 idcode,  233 callback
-                 accu: 289 var,  233 idcode,  233 callback
-            accu incr: 289 var,  233 idcode,  233 callback
+          Count usage: 300 var,  244 idcode,  244 callback
+                 incr: 300 var,  244 idcode,  244 callback
+                 accu: 300 var,  244 idcode,  244 callback
+            accu incr: 300 var,  244 idcode,  244 callback
 93 VC callback profile - scalar:0 vector:0
-94 Wed Nov 11 23:15:09 2020
+94 Thu Nov 12 16:32:22 2020
 95 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.030 sys,  0.040 user,  235.30M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.030 user,  235.36M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.000 sys,  0.010 user,  5.16M sys,  0.00M vm
+                   accu: 0.000 sys,  0.000 user,  5.16M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
 
-          Count usage: 289 var,  233 idcode,  233 callback
+          Count usage: 300 var,  244 idcode,  244 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 289 var,  233 idcode,  233 callback
+                 accu: 300 var,  244 idcode,  244 callback
             accu incr: 0 var,  0 idcode,  0 callback
-96 VC callback profile - scalar:136 vector:97
-97 Wed Nov 11 23:15:09 2020
-98 End of simulation at 253950000
-99 VC callback profile - scalar:1915807 vector:38767
-100 Wed Nov 11 23:15:09 2020
-101 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:24 BlockUsed:24
+96 VC callback profile - scalar:142 vector:102
+97 Thu Nov 12 16:32:22 2020
+98 End of simulation at 254500000
+99 VC callback profile - scalar:1920287 vector:39155
+100 Thu Nov 12 16:32:23 2020
+101 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:25 BlockUsed:24
 102 SimExit
 103 Sim process exit
