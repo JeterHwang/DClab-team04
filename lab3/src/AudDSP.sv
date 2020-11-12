@@ -153,9 +153,10 @@ always_comb begin
 					player_en_w = player_en_r;
 				else
 					begin
-						if(!i_daclrck || i_pause)
+						if(!i_daclrck || i_pause)begin
 							player_en_w = 0;
 							state_w = S_PAUSE;
+						end
 						else
 							player_en_w = 1;
 					end
