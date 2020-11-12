@@ -143,8 +143,8 @@ always_comb begin
     endcase
 end
 
-always_ff @(negedge i_clk or posedge i_rst_n) begin
-    if (i_rst_n) begin
+always_ff @(negedge i_clk or negedge i_rst_n) begin
+    if (!i_rst_n) begin
         state_r             <= S_IDLE;
         address_r           <= 0;
         data_r              <= 0;

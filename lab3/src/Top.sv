@@ -285,6 +285,11 @@ always_comb begin
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY;
 			end
+			else if(key2_w && !key2_r) begin
+				state_w			= S_LCD_RENDER;
+				LCD_wr_enable_w	= 1'b1;
+				LCD_mode_w		= M_STOP;
+			end
 		end
 		S_LCD_RENDER: begin
 			if(LCD_Wfin_w && !LCD_Wfin_r) begin	// rising edge triggered
@@ -309,8 +314,8 @@ always_comb begin
 	endcase
 end
 
-always_ff @(posedge i_AUD_BCLK or posedge i_rst_n) begin
-	if (i_rst_n) begin
+always_ff @(posedge i_AUD_BCLK or negedge i_rst_n) begin
+	if (!i_rst_n) begin
 		sda_data 		<=	io_I2C_SDAT;
 		state_r 		<=  S_LCD_INIT;
 		i2c_start_r		<= 	1'b0;
