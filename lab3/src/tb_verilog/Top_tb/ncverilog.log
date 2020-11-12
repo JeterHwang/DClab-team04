@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 18:53:48 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 19:57:45 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,27 +11,21 @@ ncverilog
 	../../LCDdatacontroll.sv
 	../../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudPlayer.sv' is newer than expected.
-	expected: Wed Nov 11 23:12:15 2020
-	actual:   Thu Nov 12 18:53:45 2020
+Recompiling... reason: file './Top_tb.sv' is newer than expected.
+	expected: Thu Nov 12 19:54:12 2020
+	actual:   Thu Nov 12 19:57:38 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
-ncvlog: *W,ILLPDX (Top_tb.sv,52|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
-file: ../../Top.sv
-	module worklib.Top:sv
-		errors: 0, warnings: 0
-file: ../../AudPlayer.sv
-	module worklib.AudPlayer:sv
-		errors: 0, warnings: 0
+ncvlog: *W,ILLPDX (Top_tb.sv,98|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
+	module worklib.Top_tb:sv
+		errors: 0, warnings: 1
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudPlayer:sv <0x192dcddc>
-			streams:   4, words:  3182
-		worklib.Top:sv <0x344af964>
-			streams:  31, words: 14592
+		worklib.Top_tb:sv <0x64a5ddac>
+			streams:  38, words: 47709
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -101,29 +95,522 @@ instruction          29 : 1_0_00100000
 instruction          30 : 1_0_00100000
 instruction          31 : 1_0_00100000
 =================================
+========= Recorded Data =========
+The           0 data / address : 0123
+                        0000000000000000011
+The           1 data / address : 1234
+                        0000000000000000100
+The           2 data / address : 2345
+                        0000000000000000101
+The           3 data / address : 3456
+                        0000000000000000110
+The           4 data / address : 4567
+                        0000000000000000111
+The           5 data / address : 5678
+                        0000000000000001000
+The           6 data / address : 6789
+                        0000000000000001001
+The           7 data / address : 789a
+                        0000000000000001010
+The           8 data / address : 89ab
+                        0000000000000001011
+The           9 data / address : 9abc
+                        0000000000000001100
+The          10 data / address : abcd
+                        0000000000000001101
+The          11 data / address : bcde
+                        0000000000000001110
+The          12 data / address : cdef
+                        0000000000000001111
+The          13 data / address : def0
+                        0000000000000010000
+The          14 data / address : ef01
+                        0000000000000010001
+The          15 data / address : f012
+                        0000000000000010010
+The          16 data / address : 0123
+                        0000000000000010011
+The          17 data / address : 1234
+                        0000000000000010100
+The          18 data / address : 2345
+                        0000000000000010101
+The          19 data / address : 3456
+                        0000000000000010110
+The          20 data / address : 4567
+                        0000000000000010111
+The          21 data / address : 5678
+                        0000000000000011000
+The          22 data / address : 6789
+                        0000000000000011001
+The          23 data / address : 789a
+                        0000000000000011010
+The          24 data / address : 89ab
+                        0000000000000011011
+The          25 data / address : 9abc
+                        0000000000000011100
+The          26 data / address : abcd
+                        0000000000000011101
+The          27 data / address : bcde
+                        0000000000000011110
+The          28 data / address : cdef
+                        0000000000000011111
+The          29 data / address : def0
+                        0000000000000100000
+The          30 data / address : ef01
+                        0000000000000100001
+The          31 data / address : f012
+                        0000000000000100010
+The          32 data / address : 0123
+                        0000000000000100011
+=================================
+========= paused Data =========
+Paused data/address          33 : zzzz
+                         0000000000000000000
+Paused data/address          34 : zzzz
+                         0000000000000000000
+Paused data/address          35 : zzzz
+                         0000000000000000000
+Paused data/address          36 : zzzz
+                         0000000000000000000
+Paused data/address          37 : zzzz
+                         0000000000000000000
+Paused data/address          38 : zzzz
+                         0000000000000000000
+Paused data/address          39 : zzzz
+                         0000000000000000000
+Paused data/address          40 : zzzz
+                         0000000000000000000
+Paused data/address          41 : zzzz
+                         0000000000000000000
+Paused data/address          42 : zzzz
+                         0000000000000000000
+Paused data/address          43 : zzzz
+                         0000000000000000000
+Paused data/address          44 : zzzz
+                         0000000000000000000
+Paused data/address          45 : zzzz
+                         0000000000000000000
+Paused data/address          46 : zzzz
+                         0000000000000000000
+Paused data/address          47 : zzzz
+                         0000000000000000000
+Paused data/address          48 : zzzz
+                         0000000000000000000
+Paused data/address          49 : zzzz
+                         0000000000000000000
+Paused data/address          50 : zzzz
+                         0000000000000000000
+Paused data/address          51 : zzzz
+                         0000000000000000000
+Paused data/address          52 : zzzz
+                         0000000000000000000
+Paused data/address          53 : zzzz
+                         0000000000000000000
+Paused data/address          54 : zzzz
+                         0000000000000000000
+Paused data/address          55 : zzzz
+                         0000000000000000000
+Paused data/address          56 : zzzz
+                         0000000000000000000
+Paused data/address          57 : zzzz
+                         0000000000000000000
+Paused data/address          58 : zzzz
+                         0000000000000000000
+Paused data/address          59 : zzzz
+                         0000000000000000000
+Paused data/address          60 : zzzz
+                         0000000000000000000
+Paused data/address          61 : zzzz
+                         0000000000000000000
+Paused data/address          62 : zzzz
+                         0000000000000000000
+Paused data/address          63 : zzzz
+                         0000000000000000000
+Paused data/address          64 : zzzz
+                         0000000000000000000
+Paused data/address          65 : zzzz
+                         0000000000000000000
+================================
+========= Recorded Data =========
+The          66 data / address : 2345
+                        0000000000000100110
+The          67 data / address : 3456
+                        0000000000000100111
+The          68 data / address : 4567
+                        0000000000000101000
+The          69 data / address : 5678
+                        0000000000000101001
+The          70 data / address : 6789
+                        0000000000000101010
+The          71 data / address : 789a
+                        0000000000000101011
+The          72 data / address : 89ab
+                        0000000000000101100
+The          73 data / address : 9abc
+                        0000000000000101101
+The          74 data / address : abcd
+                        0000000000000101110
+The          75 data / address : bcde
+                        0000000000000101111
+The          76 data / address : cdef
+                        0000000000000110000
+The          77 data / address : def0
+                        0000000000000110001
+The          78 data / address : ef01
+                        0000000000000110010
+The          79 data / address : f012
+                        0000000000000110011
+The          80 data / address : 0123
+                        0000000000000110100
+The          81 data / address : 1234
+                        0000000000000110101
+The          82 data / address : 2345
+                        0000000000000110110
+The          83 data / address : 3456
+                        0000000000000110111
+The          84 data / address : 4567
+                        0000000000000111000
+The          85 data / address : 5678
+                        0000000000000111001
+The          86 data / address : 6789
+                        0000000000000111010
+The          87 data / address : 789a
+                        0000000000000111011
+The          88 data / address : 89ab
+                        0000000000000111100
+The          89 data / address : 9abc
+                        0000000000000111101
+The          90 data / address : abcd
+                        0000000000000111110
+The          91 data / address : bcde
+                        0000000000000111111
+The          92 data / address : cdef
+                        0000000000001000000
+The          93 data / address : def0
+                        0000000000001000001
+The          94 data / address : ef01
+                        0000000000001000010
+The          95 data / address : f012
+                        0000000000001000011
+The          96 data / address : 0123
+                        0000000000001000100
+The          97 data / address : 1234
+                        0000000000001000101
+The          98 data / address : 2345
+                        0000000000001000110
+=================================
+========= stopped Data =========
+Stopped data/address          99 : zzzz
+                         0000000000000000000
+Stopped data/address         100 : zzzz
+                         0000000000000000000
+Stopped data/address         101 : zzzz
+                         0000000000000000000
+Stopped data/address         102 : zzzz
+                         0000000000000000000
+Stopped data/address         103 : zzzz
+                         0000000000000000000
+Stopped data/address         104 : zzzz
+                         0000000000000000000
+Stopped data/address         105 : zzzz
+                         0000000000000000000
+Stopped data/address         106 : zzzz
+                         0000000000000000000
+Stopped data/address         107 : zzzz
+                         0000000000000000000
+Stopped data/address         108 : zzzz
+                         0000000000000000000
+Stopped data/address         109 : zzzz
+                         0000000000000000000
+Stopped data/address         110 : zzzz
+                         0000000000000000000
+Stopped data/address         111 : zzzz
+                         0000000000000000000
+Stopped data/address         112 : zzzz
+                         0000000000000000000
+Stopped data/address         113 : zzzz
+                         0000000000000000000
+Stopped data/address         114 : zzzz
+                         0000000000000000000
+Stopped data/address         115 : zzzz
+                         0000000000000000000
+Stopped data/address         116 : zzzz
+                         0000000000000000000
+Stopped data/address         117 : zzzz
+                         0000000000000000000
+Stopped data/address         118 : zzzz
+                         0000000000000000000
+Stopped data/address         119 : zzzz
+                         0000000000000000000
+Stopped data/address         120 : zzzz
+                         0000000000000000000
+Stopped data/address         121 : zzzz
+                         0000000000000000000
+Stopped data/address         122 : zzzz
+                         0000000000000000000
+Stopped data/address         123 : zzzz
+                         0000000000000000000
+Stopped data/address         124 : zzzz
+                         0000000000000000000
+Stopped data/address         125 : zzzz
+                         0000000000000000000
+Stopped data/address         126 : zzzz
+                         0000000000000000000
+Stopped data/address         127 : zzzz
+                         0000000000000000000
+Stopped data/address         128 : zzzz
+                         0000000000000000000
+Stopped data/address         129 : zzzz
+                         0000000000000000000
+Stopped data/address         130 : zzzz
+                         0000000000000000000
+Stopped data/address         131 : zzzz
+                         0000000000000000000
+================================
+========= Recorded Data =========
+The         132 data / address : 4567
+                        0000000000000000010
+The         133 data / address : 5678
+                        0000000000000000011
+The         134 data / address : 6789
+                        0000000000000000100
+The         135 data / address : 789a
+                        0000000000000000101
+The         136 data / address : 89ab
+                        0000000000000000110
+The         137 data / address : 9abc
+                        0000000000000000111
+The         138 data / address : abcd
+                        0000000000000001000
+The         139 data / address : bcde
+                        0000000000000001001
+The         140 data / address : cdef
+                        0000000000000001010
+The         141 data / address : def0
+                        0000000000000001011
+The         142 data / address : ef01
+                        0000000000000001100
+The         143 data / address : f012
+                        0000000000000001101
+The         144 data / address : 0123
+                        0000000000000001110
+The         145 data / address : 1234
+                        0000000000000001111
+The         146 data / address : 2345
+                        0000000000000010000
+The         147 data / address : 3456
+                        0000000000000010001
+The         148 data / address : 4567
+                        0000000000000010010
+The         149 data / address : 5678
+                        0000000000000010011
+The         150 data / address : 6789
+                        0000000000000010100
+The         151 data / address : 789a
+                        0000000000000010101
+The         152 data / address : 89ab
+                        0000000000000010110
+The         153 data / address : 9abc
+                        0000000000000010111
+The         154 data / address : abcd
+                        0000000000000011000
+The         155 data / address : bcde
+                        0000000000000011001
+The         156 data / address : cdef
+                        0000000000000011010
+The         157 data / address : def0
+                        0000000000000011011
+The         158 data / address : ef01
+                        0000000000000011100
+The         159 data / address : f012
+                        0000000000000011101
+The         160 data / address : 0123
+                        0000000000000011110
+The         161 data / address : 1234
+                        0000000000000011111
+The         162 data / address : 2345
+                        0000000000000100000
+The         163 data / address : 3456
+                        0000000000000100001
+The         164 data / address : 4567
+                        0000000000000100010
+=================================
+========= stopped Data =========
+Stopped data/address         165 : zzzz
+                         0000000000000000000
+Stopped data/address         166 : zzzz
+                         0000000000000000000
+Stopped data/address         167 : zzzz
+                         0000000000000000000
+Stopped data/address         168 : zzzz
+                         0000000000000000000
+Stopped data/address         169 : zzzz
+                         0000000000000000000
+Stopped data/address         170 : zzzz
+                         0000000000000000000
+Stopped data/address         171 : zzzz
+                         0000000000000000000
+Stopped data/address         172 : zzzz
+                         0000000000000000000
+Stopped data/address         173 : zzzz
+                         0000000000000000000
+Stopped data/address         174 : zzzz
+                         0000000000000000000
+Stopped data/address         175 : zzzz
+                         0000000000000000000
+Stopped data/address         176 : zzzz
+                         0000000000000000000
+Stopped data/address         177 : zzzz
+                         0000000000000000000
+Stopped data/address         178 : zzzz
+                         0000000000000000000
+Stopped data/address         179 : zzzz
+                         0000000000000000000
+Stopped data/address         180 : zzzz
+                         0000000000000000000
+Stopped data/address         181 : zzzz
+                         0000000000000000000
+Stopped data/address         182 : zzzz
+                         0000000000000000000
+Stopped data/address         183 : zzzz
+                         0000000000000000000
+Stopped data/address         184 : zzzz
+                         0000000000000000000
+Stopped data/address         185 : zzzz
+                         0000000000000000000
+Stopped data/address         186 : zzzz
+                         0000000000000000000
+Stopped data/address         187 : zzzz
+                         0000000000000000000
+Stopped data/address         188 : zzzz
+                         0000000000000000000
+Stopped data/address         189 : zzzz
+                         0000000000000000000
+Stopped data/address         190 : zzzz
+                         0000000000000000000
+Stopped data/address         191 : zzzz
+                         0000000000000000000
+Stopped data/address         192 : zzzz
+                         0000000000000000000
+Stopped data/address         193 : zzzz
+                         0000000000000000000
+Stopped data/address         194 : zzzz
+                         0000000000000000000
+Stopped data/address         195 : zzzz
+                         0000000000000000000
+Stopped data/address         196 : zzzz
+                         0000000000000000000
+Stopped data/address         197 : zzzz
+                         0000000000000000000
+================================
 ========= Player Data =========
 ====== Request Success ======
-return data # 0 : 0xf012
+return data # 0 : 0x0123
 =============================
-================================
-======= play pause data ========
-================================
-========= Player Data =========
 ====== Request Success ======
-return data # 0 : 0xf012
+return data # 1 : 0x1234
 =============================
-================================
-======= play stop data ========
-================================
-========= Player Data =========
 ====== Request Success ======
-return data # 0 : 0xf012
+return data # 2 : 0x2345
 =============================
-================================
-+=====================+
-| Simulation Complete |
-+=====================+
-Simulation complete via $finish(1) at time 25430 US + 0
-./Top_tb.sv:317 	$finish;
+====== Request Success ======
+return data # 3 : 0x3456
+=============================
+====== Request Success ======
+return data # 4 : 0x4567
+=============================
+====== Request Success ======
+return data # 5 : 0x5678
+=============================
+====== Request Success ======
+return data # 6 : 0x6789
+=============================
+====== Request Success ======
+return data # 7 : 0x789a
+=============================
+====== Request Success ======
+return data # 8 : 0x89ab
+=============================
+====== Request Success ======
+return data # 9 : 0x9abc
+=============================
+====== Request Success ======
+return data #10 : 0xabcd
+=============================
+====== Request Success ======
+return data #11 : 0xbcde
+=============================
+====== Request Success ======
+return data #12 : 0xcdef
+=============================
+====== Request Success ======
+return data #13 : 0xdef0
+=============================
+====== Request Success ======
+return data #14 : 0xef01
+=============================
+====== Request Success ======
+return data #15 : 0xf012
+=============================
+====== Request Success ======
+return data #16 : 0x0123
+=============================
+====== Request Success ======
+return data #17 : 0x1234
+=============================
+====== Request Success ======
+return data #18 : 0x2345
+=============================
+====== Request Success ======
+return data #19 : 0x3456
+=============================
+====== Request Success ======
+return data #20 : 0x4567
+=============================
+====== Request Success ======
+return data #21 : 0x5678
+=============================
+====== Request Success ======
+return data #22 : 0x6789
+=============================
+====== Request Success ======
+return data #23 : 0x789a
+=============================
+====== Request Success ======
+return data #24 : 0x89ab
+=============================
+====== Request Success ======
+return data #25 : 0x9abc
+=============================
+====== Request Success ======
+return data #26 : 0xabcd
+=============================
+====== Request Success ======
+return data #27 : 0xbcde
+=============================
+====== Request Success ======
+return data #28 : 0xcdef
+=============================
+====== Request Success ======
+return data #29 : 0xdef0
+=============================
+====== Request Success ======
+return data #30 : 0xef01
+=============================
+====== Request Success ======
+return data #31 : 0xf012
+=============================
+====== Request Success ======
+return data #32 : 0x0123
+=============================
+====== Request Success ======
+return data #33 : 0x1234
+=============================
+====== Request Success ======
+return data # 0 : 0x0123
+=============================
+Too slow, abort.
+Simulation complete via $finish(1) at time 200 MS + 0
+./Top_tb.sv:368     $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 18:54:36 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 19:57:49 CST  (total: 00:00:04)
