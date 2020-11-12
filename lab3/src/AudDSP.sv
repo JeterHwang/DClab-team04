@@ -458,6 +458,7 @@ always_comb begin
 						finished_w = 0;
 				end
 			end
+<<<<<<< HEAD
 			// S_PAUSE:begin
 			// 	if(i_stop)begin
 			// 		state_w = S_IDLE;
@@ -473,6 +474,24 @@ always_comb begin
 			// 			state_w = S_SLOW_1_SENT;
 			// 		end
 			// 	end
+=======
+			S_PAUSE:begin
+				if(i_stop)begin
+					state_w = S_IDLE;
+				end
+				if(i_pause)begin
+					if(i_fast)begin
+						state_w = S_FAST_FETCH;
+					end
+					else if (i_slow_0) begin
+
+						state_w = S_SLOW_0_SENT;
+					end
+					else if (i_slow_1) begin
+						state_w = S_SLOW_1_SENT;
+					end
+				end
+>>>>>>> 7965d6123c248d978020ee5a02f7ac98338e9089
 
 			end
 
