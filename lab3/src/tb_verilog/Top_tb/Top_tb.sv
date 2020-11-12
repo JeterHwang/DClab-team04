@@ -41,12 +41,18 @@ logic [3:0] switch;
 logic AUD_ADCDAT;
 logic SW1;
 logic [23:0] I2C_inst;
+logic playing;
+logic [15:0] play_data;
+logic [15:0] record_data;
+
 wire AUD_ADCLRCK, AUD_BCLK, AUD_DACLRCK;
+wire [15:0] SRAM_DQ;
 
 assign SW1 = 1;
 assign AUD_ADCLRCK  = SW1 ? clk_100k : 1'bz;
 assign AUD_BCLK     = SW1 ? clk_12m : 1'bz;
 assign AUD_DACLRCK  = SW1 ? clk_100k : 1'bz;
+assign SRAM_DQ      = playing ? play_data : 16'bz;
 
 Top top0(
     .i_rst_n(KEY3),
@@ -88,31 +94,34 @@ always #HCLK_100K   clk_100k = ~clk_100k;
 
 task test_LCD();
     @(posedge LCD_RS);
-    $display("========= LCD display ========");
+    $display("======= Test LCD Display ========");
       
     for(int i = 0; i < 32; i++) begin
         @(posedge LCD_EN)
         $display("instruction %d : %b_%b_%8b", i, LCD_RS, LCD_RW, LCD_DATA);    
     end
     @(negedge LCD_RS);
-    $display("==============================");
+    $display("=================================");
 endtask
 task test_I2C();    
-    @(negedge I2C_SDAT);
-    @(negedge I2C_SCLK);
-    for(int i = 23; i > 0; i = i - 8) begin
-        for(int j = 0; j < 8; j = j + 1) begin
+    $display("====== Test I2C Instruction ======");
+    for(int k = 0; k < 7; k++) begin
+        @(negedge I2C_SDAT);
+        @(negedge I2C_SCLK);
+        for(int i = 23; i > 0; i = i - 8) begin
+            for(int j = 0; j < 8; j = j + 1) begin
+                @(posedge I2C_SCLK);
+                I2C_inst[i - j] = I2C_SDAT;    
+            end
             @(posedge I2C_SCLK);
-            I2C_inst[i - j] = I2C_SDAT;    
         end
         @(posedge I2C_SCLK);
+        @(posedge I2C_SDAT);
+        
+        
+        $display("instruction %d = %4b_%4b_%3b_%4b_%b_%4b_%4b", k, I2C_inst[23:20], I2C_inst[19:16], I2C_inst[15:13], I2C_inst[12:9], I2C_inst[8], I2C_inst[7:4], I2C_inst[3:0]);
     end
-    @(posedge I2C_SCLK);
-    @(posedge I2C_SDAT);
-    
-    $display("=====  I2C instruction  ====");
-    $display("data = %4b_%4b_%3b_%4b_%b_%4b_%4b", I2C_inst[23:20], I2C_inst[19:16], I2C_inst[15:13], I2C_inst[12:9], I2C_inst[8], I2C_inst[7:4], I2C_inst[3:0]);
-    $display("============================");
+    $display("===================================");    
 endtask
 task test_Recorder_record(
     input [4:0] from,
@@ -130,7 +139,7 @@ task test_Recorder_record(
             AUD_ADCDAT = REC_DATA[i][15 - j];
         end
         @(posedge clk_100k);
-        $display("The %d data / address : %4x", i, SRAM_DQ);
+        $display("The %d data / address : %4x", i, record_data);
         $display("                        %19b", SRAM_ADDR);
     end
     $display("=================================");
@@ -151,7 +160,7 @@ task test_Recorder_pause(
                 KEY0 = 0;
         end 
         @(posedge clk_100k);
-        $display("Paused data/address %d : %4x", i, SRAM_DQ);
+        $display("Paused data/address %d : %4x", i, record_data);
         $display("                         %19b", SRAM_ADDR);   
     end
     $display("================================");
@@ -161,6 +170,27 @@ task test_Recorder_stop(
     input [4:0] to
 );
     $display("========= stopped Data =========");
+    for(int i = from; i < to; i++) begin
+        @(negedge clk_100k);
+        for(int j = 0; j < 16; j++) begin
+            @(negedge clk_12m);
+            AUD_ADCDAT = REC_DATA[i][15 - j];
+            if(i == from && j == 5)
+                KEY2 = 1;
+            else
+                KEY2 = 0;
+        end 
+        @(posedge clk_100k);
+        $display("Stopped data/address %d : %4x", i, record_data);
+        $display("                         %19b", SRAM_ADDR);   
+    end
+    $display("================================");
+endtask
+task test_Player_play(
+    input [4:0] from,
+    input [4:0] to
+);
+    $display("========= Player Data =========");
     for(int i = from; i < to; i++) begin
         @(negedge clk_100k);
         for(int j = 0; j < 16; j++) begin
@@ -203,12 +233,15 @@ initial begin
     test_Recorder_record(12, 15);
     test_Recorder_stop(15, 16);
 
+    test_Player_play();
     $display("+=====================+");
 	$display("| Simulation Complete |");
 	$display("+=====================+");
 	$finish;
 end
-
+always@(posedge i_clk) begin
+    record_data <= SRAM_DQ;
+end
 initial begin
     #(10000 * CLK_100K)
     $display("Too slow, abort.");
