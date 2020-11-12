@@ -27,8 +27,8 @@ always_comb begin
     state_w             = state_r;
     case (state_r)
         S_IDLE: begin
-            if(i_en) begin
-                finished_w = 0;
+            finished_w = 0;
+            if(i_en) begin     
                 state_w = S_WAIT;
                 counter_w = 0;
             end

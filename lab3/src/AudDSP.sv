@@ -474,7 +474,7 @@ always_comb begin
 			// 		end
 			// 	end
 
-			end
+			// end
 
 	
 		default: begin

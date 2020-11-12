@@ -1,132 +1,162 @@
 module I2cInitializer(
-    input i_rst_n,
+    input i_rst,
     input i_clk,
     input i_start,
     output o_finished,
     output o_sclk,
-    output o_sdat,
-    output o_oen
+    output o_oen,
+    output o_sdat
 );
 
-parameter S_IDLE    = 3'd0;
-parameter S_BUFFER  = 3'd1;
-parameter S_BLUE    = 3'd2;
-parameter S_GREEN   = 3'd3;
-parameter S_DELAY   = 3'd4;
-parameter S_DONE    = 3'd5;
-
-parameter [27:0] INIT_DATA [6:0] = '{
-	// 24'b0011_0100_000_0000_0_1001_0111, // Left Line In
-	// 24'b0011_0100_000_0001_0_1001_0111,	// Right Line In
-	// 24'b0011_0100_000_0010_0_0111_1001, // Left Headphone Out 
-	// 24'b0011_0100_000_0011_0_0111_1001,	// Right Headphone Out
-	28'b0011_0100_1_000_1001_0_1_0000_0001_10,  // Active Control
-    28'b0011_0100_1_000_1000_0_1_0001_1001_10, // Sampling Control
-    28'b0011_0100_1_000_0111_0_1_0100_0010_10, // Digital Audio Interface Format
-    28'b0011_0100_1_000_0110_0_1_0000_0000_10, // Power Down Control
-    28'b0011_0100_1_000_0101_0_1_0000_0000_10, // Digital Audio Path Control
-    28'b0011_0100_1_000_0100_0_1_0001_0101_10, // Analogue Audio Path Control
-    28'b0011_0100_1_000_1111_0_1_0000_0000_10 // Reset
+parameter bit [23:0] data_array [0:10] = '{
+        24'b0011_0100_000_0000_0_1001_0111,
+        24'b0011_0100_000_0001_0_1001_0111,
+        24'b0011_0100_000_0010_0_0111_1001,
+        24'b0011_0100_000_0011_0_0111_1001,
+        24'b0011_0100_000_1111_0_0000_0000,
+        24'b0011_0100_000_0100_0_0001_1101,
+        24'b0011_0100_000_0101_0_0000_0000,
+        24'b0011_0100_000_0110_0_0000_0000,
+        24'b0011_0100_000_0111_0_0100_0010, 
+        24'b0011_0100_000_1000_0_0001_1001,
+        24'b0011_0100_000_1001_0_0000_0001
 };
+parameter S_IDLE = 0 ;
+parameter S_START = 1 ;
+parameter S_CHANGE = 2 ;
+parameter S_TRANS = 3 ;
+parameter S_PREPACK = 4 ;
+parameter S_ACK = 5 ;
+parameter S_HOLD = 6 ;
+parameter S_FINISH = 7 ;
 
-logic [2:0] state_r , state_w;
-logic       SCL_r, SCL_w;
-logic       oen_r, oen_w;
-logic       SDA_r, SDA_w;
-logic       finished_r, finished_w;
-logic [5:0] counts_r, counts_w;
-logic [4:0] init_r, init_w;
-logic       start_r, start_w;
+logic [2:0] state_w, state_r ;
+logic [4:0] bit_counter_w, bit_counter_r ;
+logic [3:0] data_counter_w, data_counter_r ;
+logic [23:0] data_w, data_r ;
+logic sclk_w, sclk_r ;
+logic sda_w, sda_r ;
+logic o_finished_w, o_finished_r ;
+logic o_oen_w, o_oen_r ; 
 
-assign o_finished   = finished_r;
-assign o_sclk       = SCL_r;
-assign o_sdat       = SDA_r;
-assign o_oen        = oen_r;
+assign o_finished = o_finished_r ;
+assign o_sclk = sclk_r ;
+assign o_oen = o_oen_r ;
+assign o_sdat = sda_r;
 
 always_comb begin
-    state_w     = state_r;
-    finished_w  = finished_r;
-    SCL_w       = SCL_r;
-    SDA_w       = SDA_r;
-    oen_w       = oen_r;
-    counts_w    = counts_w;
-    init_w      = init_r;
-    if(i_start) start_w = 1'b1;
-    else        start_w = 1'b0;
-    case (state_r)
-        S_IDLE: begin
-            if (start_w && !start_r) begin // rising edge trigger
-                SDA_w       = 1'b0;
-                state_w     = S_BUFFER;
-                init_w      = 5'd0;
-                counts_w    = 6'd0;
+    state_w = state_r ;
+    bit_counter_w = bit_counter_r ;
+    data_counter_w = data_counter_r ;
+    data_w = data_r ;
+    sclk_w = sclk_r ;
+    sda_w = sda_r ;
+    o_finished_w = o_finished_r ;
+    o_oen_w = o_oen_r ;
+    case(state_r)
+        S_IDLE : begin
+            sda_w = 1 ;
+            sclk_w = 1 ;
+            o_oen_w = 1 ;
+            bit_counter_w = 0 ;
+            if(data_counter_r == 11)
+            begin
+                o_finished_w = 1 ;
+                state_w = S_IDLE ;
             end
-        end
-        S_BUFFER: begin
-            state_w     = S_BLUE;
-            SCL_w       = 1'b0;
-            SDA_w       = INIT_DATA[init_r][27 - counts_r];
-        end
-        S_BLUE: begin
-            SCL_w       = 1'b1 ; 
-            if(counts_r == 27)
-                state_w     = S_DELAY;
             else
-                state_w     = S_GREEN;
-            counts_w    = counts_r + 1;
-        end
-        S_GREEN: begin
-            SCL_w       = 1'b0;
-            SDA_w       = INIT_DATA[init_r][27 - counts_r];
-            state_w     = S_BLUE;
-            if(counts_r == 8 || counts_r == 17 || counts_r == 26)  
-                oen_w       = 1'b0;
-            else 
-                oen_w       = 1'b1;
-            
-        end
-        S_DELAY: begin
-            state_w     = S_DONE;
-            SDA_w       = 1'b1;
-        end
-        S_DONE: begin
-            if(init_r == 6) begin
-                state_w      = S_IDLE;
-                finished_w   = 1'b1;
-            end
-            else begin
-                state_w     = S_BUFFER;
-                SDA_w       = 1'b0;
-                counts_w    = 6'd0;
-                init_w      = init_r + 1;    
+            begin
+                if(i_start)
+                begin
+                    state_w = S_START ;
+                end
+                else
+                begin
+                    state_w = S_IDLE ;
+                end
             end
         end
-    endcase
-    
+        S_START : begin
+            data_w = data_array[data_counter_r] ;
+            sda_w = 0 ;
+            state_w = S_CHANGE ;
+        end
+        S_CHANGE : begin
+            o_oen_w = 1 ;
+            sclk_w = 0 ;
+            sda_w = data_r[23-bit_counter_r] ;
+            bit_counter_w = bit_counter_r + 1 ;
+            state_w = S_TRANS ;            
+        end
+        S_TRANS : begin
+            if(bit_counter_r%8 == 0)
+            begin
+                sclk_w = 1 ;
+                state_w = S_PREPACK ;
+            end
+            else
+            begin
+                sclk_w = 1 ;
+                state_w = S_CHANGE ;
+            end
+        end
+        S_PREPACK : 
+        begin
+            sclk_w =  0 ;
+            o_oen_w = 0 ;
+            state_w = S_ACK ;
+        end
+        S_ACK : 
+        begin
+            if(bit_counter_r == 24)
+            begin
+                sclk_w = 1 ;
+                state_w = S_HOLD ;
+                bit_counter_w = 0 ;
+            end
+            else
+            begin
+                sclk_w = 1 ;
+                state_w = S_CHANGE ;
+            end
+        end
+        S_HOLD : begin
+            sclk_w = 0 ;
+            sda_w = 0 ;
+            o_oen_w = 1 ;
+            state_w = S_FINISH ;
+        end
+        S_FINISH : 
+        begin
+            sclk_w = 1 ;
+            state_w = S_IDLE ;
+            data_counter_w = data_counter_r + 1 ;
+        end               
+    endcase	
 end
 
-always_ff @(posedge i_clk or posedge i_rst_n) begin
-    if (i_rst_n) begin
-        state_r     <= S_IDLE;
-        oen_r       <= 1'b1;
-        SCL_r       <= 1'b1;
-        SDA_r       <= 1'b1;
-        finished_r  <= 1'b0;
-        counts_r    <= 6'd0;
-        init_r      <= 5'd0;   
-        start_r     <= 1'b0;
-    end
-    else begin
-        state_r		<= state_w;
-        SCL_r       <= SCL_w;
-        SDA_r       <= SDA_w;
-        finished_r  <= finished_w;
-        counts_r    <= counts_w;
-        init_r      <= init_w;
-        oen_r       <= oen_w;
-        start_r     <= start_w;
-    end
+always_ff @(posedge i_clk or posedge i_rst) 
+begin
+	if (i_rst) begin
+        state_r <= S_IDLE ;
+        bit_counter_r <= 0 ;
+        data_counter_r <= 0 ;
+        data_r <= 0 ;
+        sclk_r <= 0 ;
+        sda_r <= 0 ;
+        o_finished_r <= 0 ;
+        o_oen_r <= 1 ;		
+	end
+	else begin
+        state_r <= state_w ;
+        bit_counter_r <= bit_counter_w ;
+        data_counter_r <= data_counter_w ;
+        data_r <= data_w ;
+        sclk_r <= sclk_w ;
+        sda_r <= sda_w ;
+        o_finished_r <= o_finished_w ;
+        o_oen_r <= o_oen_w ;		
+	end
 end
 
 endmodule
-
