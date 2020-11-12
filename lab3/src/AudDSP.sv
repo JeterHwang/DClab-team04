@@ -25,6 +25,7 @@ parameter S_SLOW_0_FETCH =  3'd3;
 parameter S_SLOW_0_SENT  =  3'd4;
 parameter S_SLOW_1_FETCH =  3'd5;
 parameter S_SLOW_1_SENT =   3'd6;
+parameter S_PAUSE 		= 	3'd7;
 
 logic       finished_r, finished_w;
 logic       player_en_w, player_en_r;
@@ -68,8 +69,6 @@ always_comb begin
 				else
 					finished_w = 0;
 				// FSM
-
-
 				if(start_w && !start_r)	begin
 					if(i_fast)
 						state_w = S_FAST_FETCH;
@@ -156,6 +155,7 @@ always_comb begin
 					begin
 						if(!i_daclrck || i_pause)
 							player_en_w = 0;
+							state_w = S_PAUSE;
 						else
 							player_en_w = 1;
 					end
@@ -454,6 +454,24 @@ always_comb begin
 						finished_w = 0;
 				end
 			end
+			S_PAUSE:begin
+				if(i_stop)begin
+					state_w = S_IDLE;
+				end
+				if(i_pause)begin
+					if(i_fast)begin
+						state_w = S_FAST_FETCH;
+					end
+					else if (i_slow_0) begin
+						state_w = S_SLOW_0_SENT
+					end
+					else if (i_slow_1) begin
+						state_w = S_SLOW_1_SENT
+					end
+				end
+
+			end
+
 	
 		default: begin
 			state_w = S_IDLE;
@@ -471,8 +489,8 @@ always_comb begin
 end
 
 
-always_ff @(posedge i_clk) begin
-	if(!i_rst_n) begin
+always_ff @(posedge i_clk or posedge i_rst_n) begin
+	if(i_rst_n) begin
 		state_r <= S_IDLE;
 		addr_r <= 0;
 		finished_r <= 0;
