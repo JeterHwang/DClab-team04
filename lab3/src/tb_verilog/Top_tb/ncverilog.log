@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 20:23:09 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 20:37:05 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -12,29 +12,21 @@ ncverilog
 	../../LCDinstructions.sv
 	+access+r
 Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv' is newer than expected.
-	expected: Thu Nov 12 18:34:07 2020
-	actual:   Thu Nov 12 20:06:48 2020
+	expected: Thu Nov 12 20:36:13 2020
+	actual:   Thu Nov 12 20:37:02 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
 ncvlog: *W,ILLPDX (Top_tb.sv,98|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
-file: ../../LCDTop.sv
-	module worklib.LCD_Top:sv
+file: ../../AudDSP.sv
+	module worklib.AudDSP:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudDSP:sv <0x0ee4d2c1>
-			streams:   5, words: 24989
-		worklib.I2cInitializer:sv <0x4802258f>
-			streams:   4, words:  6145
-		worklib.LCD_Top:sv <0x7dd314cc>
-			streams:  26, words: 15206
-		worklib.LCD_instructions:sv <0x0230c266>
-			streams:   5, words:  3587
-		worklib.Top_tb:sv <0x64a5ddac>
-			streams:  38, words: 48385
+		worklib.AudDSP:sv <0x3cf620c2>
+			streams:   5, words: 25139
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -520,4 +512,4 @@ Too slow, abort.
 Simulation complete via $finish(1) at time 200 MS + 0
 ./Top_tb.sv:368     $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 20:23:59 CST  (total: 00:00:50)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 20:37:09 CST  (total: 00:00:04)
