@@ -471,8 +471,8 @@ always_comb begin
 end
 
 
-always_ff @(posedge i_clk) begin
-	if(!i_rst_n) begin
+always_ff @(posedge i_clk or posedge i_rst_n) begin
+	if(i_rst_n) begin
 		state_r <= S_IDLE;
 		addr_r <= 0;
 		finished_r <= 0;

@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:31:35 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:47:45 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -11,29 +11,29 @@ ncverilog
 	../../LCDdatacontroll.sv
 	../../LCDinstructions.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudRecorder.sv' is newer than expected.
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv' is newer than expected.
 	expected: Wed Nov 11 23:12:15 2020
-	actual:   Thu Nov 12 16:30:50 2020
+	actual:   Thu Nov 12 16:47:38 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
 ncvlog: *W,ILLPDX (Top_tb.sv,50|18): Multiple declarations for a port not allowed in module with ANSI list of port declarations (port 'SRAM_DQ') [12.3.4(IEEE-2001)].
-file: ../../AudRecorder.sv
-	module worklib.AudRecorder:sv
+file: ../../AudDSP.sv
+	module worklib.AudDSP:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudRecorder:sv <0x2414aca3>
-			streams:   4, words:  9594
+		worklib.AudDSP:sv <0x2163313a>
+			streams:   5, words: 24428
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                   9       9
 		Resolved nets:             0       1
-		Registers:               197     197
+		Registers:               201     201
 		Scalar wires:             69       -
 		Vectored wires:           29       -
 		Always blocks:            20      20
@@ -165,4 +165,4 @@ return data # 4 : 0xf012
 Simulation complete via $finish(1) at time 25450 US + 0
 ./Top_tb.sv:304 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:32:23 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:48:33 CST  (total: 00:00:48)
