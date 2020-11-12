@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:47:45 CST
+TOOL:	ncverilog	12.20-s012: Started on Nov 12, 2020 at 16:53:22 CST
 ncverilog
 	Top_tb.sv
 	../../Top.sv
@@ -12,8 +12,8 @@ ncverilog
 	../../LCDinstructions.sv
 	+access+r
 Recompiling... reason: file '/home/team04/jeter/DClab-team04/lab3/src/AudDSP.sv' is newer than expected.
-	expected: Wed Nov 11 23:12:15 2020
-	actual:   Thu Nov 12 16:47:38 2020
+	expected: Thu Nov 12 16:47:38 2020
+	actual:   Thu Nov 12 16:52:29 2020
 file: Top_tb.sv
 wire [15:0] SRAM_DQ;
                   |
@@ -25,8 +25,10 @@ file: ../../AudDSP.sv
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.AudDSP:sv <0x2163313a>
-			streams:   5, words: 24428
+		worklib.AudDSP:sv <0x5e5b27b9>
+			streams:   5, words: 24430
+		worklib.Top:sv <0x2a81ab71>
+			streams:  33, words: 16408
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -165,4 +167,4 @@ return data # 4 : 0xf012
 Simulation complete via $finish(1) at time 25450 US + 0
 ./Top_tb.sv:304 	$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:48:33 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Nov 12, 2020 at 16:54:09 CST  (total: 00:00:47)
