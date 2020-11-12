@@ -464,6 +464,7 @@ always_comb begin
 						state_w = S_FAST_FETCH;
 					end
 					else if (i_slow_0) begin
+
 						state_w = S_SLOW_0_SENT;
 					end
 					else if (i_slow_1) begin
