@@ -68,8 +68,6 @@ always_comb begin
 				else
 					finished_w = 0;
 				// FSM
-
-
 				if(start_w && !start_r)	begin
 					if(i_fast)
 						state_w = S_FAST_FETCH;
@@ -471,8 +469,8 @@ always_comb begin
 end
 
 
-always_ff @(posedge i_clk) begin
-	if(!i_rst_n) begin
+always_ff @(posedge i_clk or posedge i_rst_n) begin
+	if(i_rst_n) begin
 		state_r <= S_IDLE;
 		addr_r <= 0;
 		finished_r <= 0;
