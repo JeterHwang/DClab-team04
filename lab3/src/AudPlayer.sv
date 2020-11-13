@@ -18,7 +18,7 @@ logic [1:0]  state_r, state_w;
 logic finished_w, finished_r;
 
 assign o_sent_finished = finished_r;
-assign o_aud_dacdat = aud_dacdat_r;
+assign o_aud_dacdat = (!i_daclrck) ? aud_dacdat_r : 16'b0;
 
 always_comb begin
     finished_w          = finished_r;
@@ -39,18 +39,21 @@ always_comb begin
         end
         S_DELAY: begin
             if(!i_daclrck) begin
-                aud_dacdat_w = i_dac_data[15 - counter_r];
+                aud_dacdat_w = i_dac_data[14 - counter_r];
                 counter_w = counter_r + 1;
                 state_w = S_SEND;
             end
         end
         S_SEND: begin
-            if (counter_r == 16) begin
+            if (counter_r == 15) begin
                 state_w = S_IDLE;
-                finished_w = 1;
+                if(i_en)
+						finished_w = 1;
+					 else
+					   finished_w = 0;
             end
             else begin
-                aud_dacdat_w = i_dac_data[15-counter_r];
+                aud_dacdat_w = i_dac_data[14-counter_r];
                 counter_w = counter_r + 1;
             end
         end

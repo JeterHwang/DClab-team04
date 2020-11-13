@@ -39,7 +39,9 @@ logic signed [15:0] sram_r1, sram_r2, sram_w1, sram_w2; // store consecutive sra
 logic [3:0] interpolation_counter_r, interpolation_counter_w; // interpolation count
 logic [1:0] slow_fetch_counter_r, slow_fetch_counter_w;
 logic signed [15:0] step;
-logic start_r,start_w,pause_r,pause_w;
+logic pause_r, pause_w;
+logic pos_tri_r, pos_tri_w;
+
 
 
 assign o_sram_addr = addr_r;
@@ -50,8 +52,11 @@ assign step = ($signed(sram_r2) - $signed(sram_r1)) / $signed(speed_r);
 
 
 always_comb begin
-	start_w = i_start;
-	pause_w = i_pause;
+	pause_w = pause_r;
+	pos_tri_w = i_pause;
+	if(pos_tri_w && !pos_tri_r) begin
+		pause_w = ~pause_r;
+	end
 	case(state_r)
 		S_IDLE:
 			begin
@@ -63,13 +68,14 @@ always_comb begin
 				player_en_w = 0;
 				addr_w = 0;
 				dac_data_w = 0;
+				pause_w = 0;
 				// finished
 				if(i_stop)
 					finished_w = 1;
 				else
 					finished_w = 0;
 				// FSM
-				if(start_w && !start_r)	begin
+				if(pos_tri_w && !pos_tri_r)	begin
 					if(i_fast)
 						state_w = S_FAST_FETCH;
 					else if(i_slow_0)
@@ -107,7 +113,7 @@ always_comb begin
 				end
 				else begin
 					dac_data_w = i_sram_data;
-					if(i_daclrck && (!i_pause))
+					if(i_daclrck && (!pause_r))
 						player_en_w = 1;
 					else
 						player_en_w = 0;
@@ -157,7 +163,7 @@ always_comb begin
 					player_en_w = player_en_r;
 				else
 					begin
-						if(!i_daclrck || i_pause)begin
+						if(!i_daclrck || pause_r)begin
 							player_en_w = 0;
 						end
 						else
@@ -214,7 +220,7 @@ always_comb begin
 				if(i_stop || finished_r)
 					player_en_w = 0;
 				else if(slow_fetch_counter_r == 2) begin
-					if(i_daclrck && !i_pause)
+					if(i_daclrck && !pause_r)
 						player_en_w = 1'b1;
 					else
 						player_en_w = 0;
@@ -289,7 +295,7 @@ always_comb begin
 					player_en_w = player_en_r;
 				else
 					begin
-						if(!i_daclrck || i_pause)
+						if(!i_daclrck || pause_r)
 							player_en_w = 0;
 						else
 							player_en_w = 1;
@@ -347,7 +353,7 @@ always_comb begin
 				if(i_stop || finished_r)
 					player_en_w = 0;
 				else if(slow_fetch_counter_r == 2) begin
-					if(i_daclrck && !i_pause)
+					if(i_daclrck && !pause_r)
 						player_en_w = 1'b1;
 					else
 						player_en_w = 0;
@@ -434,7 +440,7 @@ always_comb begin
 					player_en_w = player_en_r;
 				else
 					begin
-						if(!i_daclrck || i_pause)
+						if(!i_daclrck || pause_r)
 							player_en_w = 0;
 						else
 							player_en_w = 1;
@@ -508,8 +514,8 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 		slow_fetch_counter_r <= 0;
 		max_count <= 0;
 		min_count <= 0;
-		start_r <= 0;
-		pause_r <= 0;
+		pause_r <= 1;
+		pos_tri_r <= 0;
 	end
 	else begin
 		state_r <= state_w;
@@ -525,8 +531,8 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 		slow_fetch_counter_r <= slow_fetch_counter_w;
 		max_count <= (speed_r * (i_record_counter - 1)) + 1; 
 		min_count <= i_record_counter / speed_r;
-		start_r <= start_w;
 		pause_r <= pause_w;
+		pos_tri_r <= pos_tri_w;
 	end
 end
 endmodule
