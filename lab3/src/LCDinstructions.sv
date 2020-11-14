@@ -54,7 +54,6 @@ always_comb begin
             if(i_start) begin
                 state_w     = S_EXE;
                 counter_w   = 32'd0;
-                finish_w    = 1'b0;
                 if(i_type == 3'd5)
                     inst_w  = {instructions[i_type][9:7], i_address};
                 else
