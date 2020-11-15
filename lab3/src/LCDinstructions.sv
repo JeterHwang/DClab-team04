@@ -21,27 +21,27 @@ logic finish_r, finish_w;
 parameter S_IDLE    = 1'b0;
 parameter S_EXE     = 1'b1;
 
-assign o_LCD_EN     = 1'b0;
+assign o_LCD_EN     = (state_r == S_EXE) ? 1'b1 : 1'b0;
 assign o_LCD_RS     = inst_r[9];
 assign o_LCD_RW     = inst_r[8];
 assign o_LCD_data   = inst_r[7:0];
 assign o_finish     = finish_r;
 
 parameter logic [9:0] instructions[0:5] = '{
-    10'b000011xxxx,     // precharge 
-    10'b00001110xx,     // function set 
+    10'b0000110000,     // precharge 
+    10'b0000111000,     // function set 
     10'b0000001100,     // display on
     10'b0000000001,     // clear display
     10'b0000000110,     // entry mode set
-    10'b001xxxxxxx     // set address (only 3 MSB used)
+    10'b0010000000     // set address (only 3 MSB used)
 };
 parameter logic [14:0] execution_time[0:5] = '{
-    15'd15000, 
-    15'd39, 
-    15'd39, 
-    15'd1530, 
-    15'd39, 
-    15'd39
+    15'd20000, 
+    15'd43, 
+    15'd43, 
+    15'd1600, 
+    15'd43, 
+    15'd43
 };
 always_comb begin
     state_w     = state_r;
@@ -54,6 +54,7 @@ always_comb begin
             if(i_start) begin
                 state_w     = S_EXE;
                 counter_w   = 32'd0;
+                finish_w    = 1'b0;
                 if(i_type == 3'd5)
                     inst_w  = {instructions[i_type][9:7], i_address};
                 else
