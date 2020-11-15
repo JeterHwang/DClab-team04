@@ -155,6 +155,7 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         start_r             <= 0;
         Tpause_r            <= 0;
         stop_r              <= 0;
+		  
     end
     else begin
         state_r             <= state_w;
@@ -167,6 +168,7 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         start_r             <= start_w;
         Tpause_r            <= Tpause_w;
         stop_r              <= stop_w;
+		  
     end
 
 end
