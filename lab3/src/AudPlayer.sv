@@ -1,82 +1,75 @@
 module AudPlayer(
-	input i_rst_n,
-	input i_bclk,
-	input i_daclrck,
-	input i_en, // enable AudPlayer only when playing audio, work with AudDSP
-	input [15:0] i_dac_data, //dac_data
-	output o_aud_dacdat,
-	output o_sent_finish
+    input   i_rst_n,
+    input   i_bclk,
+    input   i_daclrck,
+    input   i_en,
+    input   [15:0] i_dac_data,
+    output  o_aud_dacdat,
+    output  o_sent_finished
 );
-// parameters
-parameter IDLE = 0;
-parameter SENT = 1;
-// logic declaration
-logic [1:0] state_w, state_r;
-logic [4:0] sent_counter_w, sent_counter_r;
-logic finish_r, finish_w;
-logic aud_data_r, aud_data_w;
-// wire assignment
-assign o_sent_finish = finish_r;
-assign o_aud_dacdat = (!i_daclrck) ? aud_data_r : 1'b0;
-// start working only when i_en is high && i_daclrck is low && pause is low
-// ===== Combinational part ==
+localparam S_IDLE   = 0;
+localparam S_WAIT   = 1;
+localparam S_DELAY  = 2;
+localparam S_SEND   = 3;
+
+logic aud_dacdat_r, aud_dacdat_w;
+logic [4:0]  counter_r, counter_w;
+logic [1:0]  state_r, state_w;
+logic finished_w, finished_r;
+
+assign o_sent_finished = finished_r;
+assign o_aud_dacdat = aud_dacdat_r;
+
 always_comb begin
-	case(state_r)
-		IDLE: begin
-			// FSM && sent counter && o_aud_dacdat && finish
-			finish_w = 0;
-			if(i_en && !i_daclrck) begin
-				state_w = SENT;
-				sent_counter_w = sent_counter_r + 1;
-				aud_data_w = i_dac_data[15 - sent_counter_r[3:0]];
-			end
-			else begin
-				state_w = IDLE;
-				sent_counter_w = 0;
-				aud_data_w = 0;
-			end
-		end
-		SENT: begin
-			// finish
-			if(sent_counter_r == 16) begin
-				finish_w = 1;
-			end
-			else begin
-				finish_w = 0;
-			end
-			// FSM && sent counter
-			if(sent_counter_r == 16 || !i_en) begin
-				state_w = IDLE;
-				sent_counter_w = 0;
-				aud_data_w = 0;
-			end
-			else begin
-				state_w = SENT;
-				sent_counter_w = sent_counter_r + 1;
-				aud_data_w = i_dac_data[15 - sent_counter_r[3:0]];
-			end
-		end
-		default: begin
-			state_w = IDLE;
-			finish_w = 0;
-			sent_counter_w = 0;
-			aud_data_w = 0;
-		end
-	endcase
+    finished_w          = finished_r;
+    aud_dacdat_w        = aud_dacdat_r;
+    counter_w           = counter_r;
+    state_w             = state_r;
+    case (state_r)
+        S_IDLE: begin
+            finished_w = 0;
+            if(i_en) begin
+                state_w = S_WAIT;
+                counter_w = 0;
+            end
+        end
+        S_WAIT: begin
+            if(i_daclrck)
+                state_w = S_DELAY;
+        end
+        S_DELAY: begin
+            if(!i_daclrck) begin
+                aud_dacdat_w = i_dac_data[15 - counter_r];
+                counter_w = counter_r + 1;
+                state_w = S_SEND;
+            end
+        end
+        S_SEND: begin
+            if (counter_r == 16) begin
+                state_w = S_IDLE;
+                finished_w = 1;
+            end
+            else begin
+                aud_dacdat_w = i_dac_data[15-counter_r];
+                counter_w = counter_r + 1;
+            end
+        end
+    endcase
 end
-// ===== Sequential part =====
+
+// @ posedge i_nclk could be wrong !!!!!
 always_ff @(negedge i_bclk or negedge i_rst_n) begin
-	if(!i_rst_n) begin
-		state_r <= 0;
-		sent_counter_r <= 0;
-		finish_r <= 0;
-		aud_data_r <= 0;
-	end
-	else begin
-		state_r <= state_w;
-		sent_counter_r <= sent_counter_w;
-		finish_r <= finish_w;
-		aud_data_r <= aud_data_w;
-	end
+    if(!i_rst_n) begin
+        aud_dacdat_r    <= aud_dacdat_w;
+        counter_r       <= 0;
+        state_r         <= S_IDLE;
+        finished_r      <= 0;
+    end
+    else begin
+        aud_dacdat_r    <= aud_dacdat_w;
+        counter_r       <= counter_w;
+        state_r         <= state_w;
+        finished_r      <= finished_w;
+    end
 end
 endmodule
