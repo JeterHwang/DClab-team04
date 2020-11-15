@@ -9,7 +9,8 @@ module LCD_Top(
     output  o_LCD_RS,
     output  o_LCD_RW,
     output  o_init_finish,
-    output  o_render_finish
+    output  o_render_finish,
+	 output [2:0] o_state
 );
 
 parameter S_BEGIN               = 3'd0;
@@ -34,14 +35,15 @@ parameter   chuA = 8'b01000001, chuB = 8'b01000010, chuC = 8'b01000011, chuD = 8
 parameter   n0 = 8'b00110000, n1 = 8'b00110001, n2 = 8'b00110010, n3 = 8'b00110011, n4 = 8'b00110100, 
             n5 = 8'b00110101, n6 = 8'b00110110, n7 = 8'b00110111, n8 = 8'b00111000, n9 = 8'b00111001;
 parameter   NULL = 8'b00100000;
+//parameter   NULL = 8'b00100001;
 
 // printed data
 parameter logic [7:0] init[0:31] = '{             // 'i', 'n', 'i', 't', 'i', 'a', 'l', 'i', 'z', 'i', 'n', 'g'
-    NULL, NULL, NULL, chuI, chln, chli, chlt, chli, chla, chll, chli, chlz, chli, chln, chlg, NULL, 
+    NULL, NULL, chuI, chln, chli, chlt, chli, chla, chll, chli, chlz, chli, chln, chlg, NULL, NULL,
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 parameter logic [7:0] stop[0:31] = '{             // 's', 't', 'o', 'p'
-    NULL, NULL, NULL, chuS, chlt, chlo, chlp, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+    NULL, NULL, NULL, NULL, NULL, NULL, chuS, chlt, chlo, chlp, NULL, NULL, NULL, NULL, NULL, NULL,  
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 parameter logic [7:0] play_pause[0:31] = '{       // 'p', 'l', 'a', 'y', ' ', 'p', 'a', 'u', 's', 'e'
@@ -49,7 +51,7 @@ parameter logic [7:0] play_pause[0:31] = '{       // 'p', 'l', 'a', 'y', ' ', 'p
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 parameter logic [7:0] record_pause[0:31] = '{     // 'r', 'e', 'c', 'o', 'r', 'd', ' ', 'p', 'a', 'u', 's', 'e'
-    NULL, NULL, NULL, chuR, chle, chlc, chlo, chlr, chld, NULL, chuP, chla, chlu, chls, chle, NULL, 
+    NULL, NULL, chuR, chle, chlc, chlo, chlr, chld, NULL, chuP, chla, chlu, chls, chle, NULL, NULL,
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL  
 };
 parameter logic [7:0] playing[0:31] = '{          // 'p', 'l', 'a', 'y', 'i', 'n', 'g'
@@ -73,7 +75,7 @@ logic [6:0] address_r, address_w;
 
 logic [7:0] LCD_data_r, LCD_data_w;
 
-logic [5:0] counter_r, counter_w;
+logic [9:0] counter_r, counter_w;
 logic [2:0] index_r, index_w;
 
 // LCD instruction interface 
@@ -94,6 +96,7 @@ assign o_LCD_RW         = (state_r == S_SET_ADDRESS || state_r == S_INIT) ? LCD_
 
 assign o_init_finish    = (state_r != S_BEGIN && state_r != S_INIT) ? 1'b1 : 1'b0;
 assign o_render_finish  = render_finish_r;
+assign o_state = state_r;
 
 LCD_instructions instructions(
 	.i_clk(i_clk),
@@ -181,10 +184,10 @@ always_comb begin
             end
         end
         S_IDLE: begin
-            if(i_start && !start_r) begin       // posedge triggered
+            render_finish_w = 1'b0;
+				if(start_w && !start_r) begin       // posedge triggered
                 state_w         = S_SET_ADDRESS;
-                counter_w       = 6'd0;
-                render_finish_w = 1'b0;
+                counter_w       = 10'd0;
 
                 inst_type_w     = 3'd5;
                 inst_start_w    = 1'b1;
@@ -204,12 +207,13 @@ always_comb begin
         end
         S_WRITE: begin
             if(write_fin) begin
-                if(counter_r == 6'd32) begin
+                if(counter_r == 10'd33)begin
                     state_w         = S_IDLE;
                     render_finish_w = 1'b1;
                 end
-                else if(counter_r == 6'd16) begin
+                else if(counter_r == 10'd16) begin
                     state_w         = S_SET_ADDRESS;
+						  counter_w       = counter_r + 1;
                     inst_type_w     = 3'd5;
                     inst_start_w    = 1'b1;
                     address_w       = 7'b1000000;
@@ -235,7 +239,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
         inst_type_r     <= 3'd0;
         address_r       <= 7'd0;
         LCD_data_r      <= 8'd0;
-        counter_r       <= 6'd0;
+        counter_r       <= 10'd0;
         index_r         <= 3'd0;        
         render_finish_r <= 1'b0;
         start_r         <= 1'b0;
