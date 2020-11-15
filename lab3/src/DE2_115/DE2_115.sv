@@ -138,7 +138,8 @@ module DE2_115 (
 
 logic key0down, key1down, key2down, key3down;
 logic CLK_12M, CLK_100K, CLK_800K;
-
+logic [5:0] play_time;
+logic [5:0] recd_time;
 assign AUD_XCK = CLK_12M;
 
 out pll0( // generate with qsys, please follow lab2 tutorials
@@ -216,8 +217,8 @@ Top top0(
 	.o_AUD_DACDAT(AUD_DACDAT),
 
 	// SEVENDECODER (optional display)
-	// .o_record_time(recd_time),
-	// .o_play_time(play_time),
+	.o_record_time(recd_time[5:0]),
+	.o_play_time(play_time[5:0]),
 
 	//LCD (optional display)
 	.i_clk_800k(CLK_800K),
@@ -229,29 +230,41 @@ Top top0(
 	.o_LCD_BLON(LCD_BLON),
 
 	//LED
-	.o_ledg(LEDG) // [8:0]
-	//.o_ledr(LEDR) // [17:0]
+	.o_ledg(LEDG), // [8:0]
+	.o_ledr(LEDR) // [17:0]
 );
 
-// SevenHexDecoder seven_dec0(
-// 	.i_num(play_time),
-// 	.o_seven_ten(HEX1),
-// 	.o_seven_one(HEX0)
-// );
+SevenHexDecoder seven_dec0(
+ 	//.i_num0(play_time[0]),
+	//.i_num1(play_time[1]),
+	//.i_num2(play_time[2]),
+	//.i_num3(play_time[3]),
+	//.i_num4(play_time[4]),
+	//.i_num5(play_time[5]),
+	.i_num(recd_time),
+   .o_seven_ten(HEX1),
+ 	.o_seven_one(HEX0)
+);
 
-// SevenHexDecoder seven_dec1(
-// 	.i_num(recd_time),
-// 	.o_seven_ten(HEX5),
-//  	.o_seven_one(HEX4)
-// );
+SevenHexDecoder seven_dec1(
+ 	//.i_num0(recd_time[0]),
+	//.i_num1(recd_time[1]),
+	//.i_num2(recd_time[2]),
+	//.i_num3(recd_time[3]),
+	//.i_num4(recd_time[4]),
+	//.i_num5(recd_time[5]),
+	.i_num(play_time),
+ 	.o_seven_ten(HEX5),
+  	.o_seven_one(HEX4)
+);
 
 // comment those are use for display
-assign HEX0 = '1;
-assign HEX1 = '1;
+// assign HEX0 = '1;
+// assign HEX1 = '1;
 assign HEX2 = '1;
 assign HEX3 = '1;
-assign HEX4 = '1;
-assign HEX5 = '1;
+// assign HEX4 = '1;
+// assign HEX5 = '1;
 assign HEX6 = '1;
 assign HEX7 = '1;
 
