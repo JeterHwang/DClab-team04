@@ -43,8 +43,8 @@ module Top (
 	output o_AUD_DACDAT,
 
 	// SEVENDECODER (optional display)
-	// output [5:0] o_record_time,
-	// output [5:0] o_play_time,
+	output [5:0] o_record_time,
+	output [5:0] o_play_time,
 
 	//LCD (optional display)
 	input        i_clk_800k,
@@ -53,11 +53,11 @@ module Top (
 	output       o_LCD_RS,
 	output       o_LCD_RW,
 	output       o_LCD_ON,
-	output       o_LCD_BLON
+	output       o_LCD_BLON,
 
 	//LED
-	//output  [8:0] o_ledg,
-	//output [17:0] o_ledr
+	output  [8:0] o_ledg,
+	output [17:0] o_ledr
 );
 
 // design the FSM and states as you like
@@ -108,10 +108,15 @@ logic LCD_wr_enable_r, LCD_wr_enable_w;
 logic LCD_init_finish;
 logic LCD_render_finish;
 logic [7:0] LCD_data;
+logic [2:0] LCD_state;
+logic [27:0] rec_count_r, rec_count_w;
+logic [27:0] play_count_r, play_count_w;
+logic [5:0] rectime_r, rectime_w;
+logic [5:0] playtime_r, playtime_w;
 
 
 assign o_LCD_ON    = 1'b1;
-assign o_LCD_BLON  = 1'b1;
+assign o_LCD_BLON  = 1'b0;
 assign io_LCD_DATA = LCD_data;	// only output end will open 
 
 assign io_I2C_SDAT = (i2c_oen) ? i2c_sdat : 1'bz;
@@ -125,6 +130,9 @@ assign o_SRAM_CE_N = 1'b0;
 assign o_SRAM_OE_N = 1'b0;
 assign o_SRAM_LB_N = 1'b0;
 assign o_SRAM_UB_N = 1'b0;
+assign o_ledg = {6'b11111, state_r, LCD_render_finish};
+assign o_record_time = rectime_r;
+assign o_play_time = playtime_r;
 
 // below is a simple example for module division
 // you can design these as you like
@@ -174,6 +182,7 @@ AudPlayer player0(
 	.i_dac_data(dac_data), //dac_data
 	.o_aud_dacdat(o_AUD_DACDAT),
 	.o_sent_finished(dsp_to_player_finished)
+
 );
 
 // === AudRecorder ===
@@ -189,6 +198,7 @@ AudRecorder recorder0(
 	.o_address(addr_record),
 	.o_data(data_record),
 	.o_finish(record_finish)
+
 );
 LCD_Top LCDtop(
 	.i_clk(i_clk_800k),
@@ -200,7 +210,8 @@ LCD_Top LCDtop(
 	.o_LCD_RS(o_LCD_RS),
 	.o_LCD_RW(o_LCD_RW),
 	.o_init_finish(LCD_init_finish),
-	.o_render_finish(LCD_render_finish)
+	.o_render_finish(LCD_render_finish),
+	.o_state(LCD_state)
 );
 
 always_comb begin
@@ -208,13 +219,15 @@ always_comb begin
 	state_w 		=  	state_r;
 	i2c_start_w		= 	i2c_start_r;
 	LCD_mode_w		= 	LCD_mode_r;
-	LCD_wr_enable_w	=  	LCD_wr_enable_r;
+	LCD_wr_enable_w	= LCD_wr_enable_r;
 	key0_w			= 	i_key_0;
 	key1_w			= 	i_key_1;
 	key2_w			= 	i_key_2;
 	LCD_Wfin_w		= 	LCD_render_finish;
 	player_fin_w	= 	player_finish;
 	recorder_fin_w	= 	record_finish;
+	rec_count_w 	= rec_count_r;
+	rectime_w		= rectime_r;
 	case (state_r)
 		S_LCD_INIT: begin
 			if(LCD_init_finish) begin
@@ -235,7 +248,9 @@ always_comb begin
 			if(key0_w && !key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
-				LCD_mode_w		= M_RECD;	
+				LCD_mode_w		= M_RECD;
+				rec_count_w = 0;	
+				rectime_w = 0;
 			end	
 			else if(key1_w && !key1_r) begin
 				state_w			= S_LCD_RENDER;
@@ -248,24 +263,72 @@ always_comb begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
+				if(rec_count_r == 28'h0b71b00) begin
+					rec_count_w = 0;
+					rectime_w = rectime_r+1;
+				end
+				else begin
+					rec_count_w = 0;
+					rectime_w = rectime_r;
+				end
 			end
 			else if(key0_w && !key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD_PAUSE;
+				if(rec_count_r == 28'h0b71b00) begin
+					rec_count_w = 0;
+					rectime_w = rectime_r+1;
+				end
+				else begin
+					rec_count_w = rec_count_r;
+					rectime_w = rectime_r;
+				end
 			end
+			else if(rec_count_r == 28'h0b71b00) begin
+					rec_count_w = 0;
+					rectime_w = rectime_r+1;
+				end
+				else begin
+					rec_count_w = rec_count_r+1;
+					rectime_w = rectime_r;
+				end
 		end
 		S_RECD_PAUSE: begin
 			if(key0_w && !key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_RECD;
+				if(rec_count_r == 28'h0b71b00) begin
+					rec_count_w = 0;
+					rectime_w = rectime_r+1;
+				end
+				else begin
+					rec_count_w = rec_count_r;
+					rectime_w = rectime_r;
+				end
 			end
 			else if(key2_w && !key2_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
+				if(rec_count_r == 28'h0b71b00) begin
+					rec_count_w = 0;
+					rectime_w = rectime_r+1;
+				end
+				else begin
+					rec_count_w = rec_count_r;
+					rectime_w = rectime_r;
+				end
 			end
+			else if(rec_count_r == 28'h0b71b00) begin
+					rec_count_w = 0;
+					rectime_w = rectime_r+1;
+				end
+				else begin
+					rec_count_w = rec_count_r;
+					rectime_w = rectime_r;
+				end
 		end
 		S_PLAY: begin
 			if(player_fin_w && !player_fin_r) begin
@@ -292,7 +355,7 @@ always_comb begin
 			end
 		end
 		S_LCD_RENDER: begin
-			if(LCD_Wfin_w && !LCD_Wfin_r) begin	// rising edge triggered
+			if(LCD_render_finish) begin	// rising edge triggered
 				LCD_wr_enable_w = 1'b0;	  // LCD write sigmal must be longer !!
 				i2c_start_w		= 1'b0;   
 				case (LCD_mode_r)
@@ -314,7 +377,7 @@ always_comb begin
 	endcase
 end
 
-always_ff @(posedge i_AUD_BCLK or negedge i_rst_n) begin
+always_ff @(posedge i_clk or negedge i_rst_n) begin
 	if (!i_rst_n) begin
 		sda_data 		<=	io_I2C_SDAT;
 		state_r 		<=  S_LCD_INIT;
@@ -327,6 +390,8 @@ always_ff @(posedge i_AUD_BCLK or negedge i_rst_n) begin
 		LCD_Wfin_r		<= 	1'b0;
 		player_fin_r	<= 	1'b0;
 		recorder_fin_r	<= 	1'b0;
+		rec_count_r			 <= 0;
+		  rectime_r				 <= 0;
 	end
 	else begin
 		sda_data 		<=	io_I2C_SDAT; 
@@ -340,6 +405,8 @@ always_ff @(posedge i_AUD_BCLK or negedge i_rst_n) begin
 		LCD_Wfin_r		<= 	LCD_Wfin_w;
 		player_fin_r	<= 	player_fin_w;
 		recorder_fin_r	<= 	recorder_fin_w;
+		rec_count_r			 <= rec_count_w;
+		  rectime_r				 <= rectime_w;
 	end
 end
 
