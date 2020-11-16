@@ -223,24 +223,24 @@ task playcount(
 );
 	if(fast) begin
 		case(speed)
-			4'd1: count = 28'h0B71B00;
-			4'd2: count = 28'h05B8D80;
-			4'd3: count = 28'h03D0900;
-			4'd4: count = 28'h02DC6C0;
-			4'd5: count = 28'h0249F00;
-			4'd6: count = 28'h01E8480;
-			4'd7: count = 28'h001A286;
+			4'd1: count_upper = 28'h0B71B00;
+			4'd2: count_upper = 28'h05B8D80;
+			4'd3: count_upper = 28'h03D0900;
+			4'd4: count_upper = 28'h02DC6C0;
+			4'd5: count_upper = 28'h0249F00;
+			4'd6: count_upper = 28'h01E8480;
+			4'd7: count_upper = 28'h001A286;
 		endcase
 	end
 	else if(slow0 || slow1) begin
 		case(speed)
-			4'd1: count = 28'h0B71B00;
-			4'd2: count = 28'h16E3600;
-			4'd3: count = 28'h2255100;
-			4'd4: count = 28'h2DC6C00;
-			4'd5: count = 28'h3938700;
-			4'd6: count = 28'h44AA200;
-			4'd7: count = 28'h501BD00;
+			4'd1: count_upper = 28'h0B71B00;
+			4'd2: count_upper = 28'h16E3600;
+			4'd3: count_upper = 28'h2255100;
+			4'd4: count_upper = 28'h2DC6C00;
+			4'd5: count_upper = 28'h3938700;
+			4'd6: count_upper = 28'h44AA200;
+			4'd7: count_upper = 28'h501BD00;
 		endcase
 	end
 endtask
