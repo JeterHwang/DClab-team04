@@ -339,7 +339,7 @@ always_comb begin
 				LCD_mode_w		= M_STOP;
 				if(play_count_r == 28'h0b71b00) begin
 					play_count_w = 0;
-					playtime_w = playtime_r+ {24'b0, i_speed};
+					playtime_w = playtime_r+1;
 				end
 				else begin
 					play_count_w = 0;
@@ -352,7 +352,7 @@ always_comb begin
 				LCD_mode_w		= M_PLAY_PAUSE;	
 				if(play_count_r == 28'h0b71b00) begin
 					play_count_w = 0;
-					playtime_w = playtime_r + {24'b0, i_speed};
+					playtime_w = playtime_r+1;
 				end
 				else begin
 					play_count_w = play_count_r;
@@ -361,7 +361,7 @@ always_comb begin
 			end
 			else if(play_count_r == 28'h0b71b00) begin
 				play_count_w = 0;
-				playtime_w = playtime_r + {24'b0, i_speed};
+				playtime_w = playtime_r+1;
 			end
 			else begin
 				play_count_w = play_count_r + {24'b0, i_speed};
@@ -375,7 +375,7 @@ always_comb begin
 				LCD_mode_w		= M_PLAY;
 				if(play_count_r == 28'h0b71b00) begin
 					play_count_w = 0;
-					playtime_w = playtime_r + {24'b0, i_speed};
+					playtime_w = playtime_r+1;
 				end
 				else begin
 					play_count_w = play_count_r;
@@ -388,7 +388,7 @@ always_comb begin
 				LCD_mode_w		= M_STOP;
 				if(play_count_r == 28'h0b71b00) begin
 					play_count_w = 0;
-					playtime_w = playtime_r + {24'b0, i_speed};
+					playtime_w = playtime_r+1;
 				end
 				else begin
 					play_count_w = play_count_r;
@@ -397,7 +397,7 @@ always_comb begin
 			end
 			else if(play_count_r == 28'h0b71b00) begin
 				play_count_w = 0;
-				playtime_w = playtime_r + {24'b0, i_speed};
+				playtime_w = playtime_r+1;
 			end
 			else begin
 				play_count_w = play_count_r;
