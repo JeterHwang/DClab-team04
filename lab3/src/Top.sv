@@ -113,7 +113,7 @@ logic [27:0] rec_count_r, rec_count_w;
 logic [27:0] play_count_r, play_count_w;
 logic [5:0] rectime_r, rectime_w;
 logic [5:0] playtime_r, playtime_w;
-logic count_upper_r, count_upper_w;
+logic [27:0] count_upper_r, count_upper_w;
 
 assign o_LCD_ON    = 1'b1;
 assign o_LCD_BLON  = 1'b0;
@@ -223,7 +223,7 @@ task playcount(
 );
 	if(fast) begin
 		case(speed)
-			4'd1: count_upper = 28'h0B71B00;
+			4'd1: count_upper = 28'h0b71b00;
 			4'd2: count_upper = 28'h05B8D80;
 			4'd3: count_upper = 28'h03D0900;
 			4'd4: count_upper = 28'h02DC6C0;
@@ -234,7 +234,7 @@ task playcount(
 	end
 	else if(slow0 || slow1) begin
 		case(speed)
-			4'd1: count_upper = 28'h0B71B00;
+			4'd1: count_upper = 28'h0b71b00;
 			4'd2: count_upper = 28'h16E3600;
 			4'd3: count_upper = 28'h2255100;
 			4'd4: count_upper = 28'h2DC6C00;
