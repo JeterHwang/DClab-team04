@@ -258,6 +258,8 @@ always_comb begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w	 	= M_PLAY;
+				play_count_w = 0;	
+				playtime_w = 0;
 			end
 		end
 		S_RECD: begin
