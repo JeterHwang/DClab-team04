@@ -113,7 +113,7 @@ logic [27:0] rec_count_r, rec_count_w;
 logic [27:0] play_count_r, play_count_w;
 logic [5:0] rectime_r, rectime_w;
 logic [5:0] playtime_r, playtime_w;
-
+logic count_upper_r, count_upper_w;
 
 assign o_LCD_ON    = 1'b1;
 assign o_LCD_BLON  = 1'b0;
@@ -214,6 +214,36 @@ LCD_Top LCDtop(
 	.o_state(LCD_state)
 );
 
+task playcount(
+	input [3:0] speed,
+	input fast,
+	input slow0,
+	input slow1,
+	output [27:0] count_upper
+);
+	if(fast) begin
+		case(speed)
+			4'd1: count = 28'h0B71B00;
+			4'd2: count = 28'h05B8D80;
+			4'd3: count = 28'h03D0900;
+			4'd4: count = 28'h02DC6C0;
+			4'd5: count = 28'h0249F00;
+			4'd6: count = 28'h01E8480;
+			4'd7: count = 28'h001A286;
+		endcase
+	end
+	else if(slow0 || slow1) begin
+		case(speed)
+			4'd1: count = 28'h0B71B00;
+			4'd2: count = 28'h16E3600;
+			4'd3: count = 28'h2255100;
+			4'd4: count = 28'h2DC6C00;
+			4'd5: count = 28'h3938700;
+			4'd6: count = 28'h44AA200;
+			4'd7: count = 28'h501BD00;
+		endcase
+	end
+endtask
 always_comb begin
 	// design your control here
 	state_w 		=  	state_r;
@@ -230,6 +260,7 @@ always_comb begin
 	rectime_w		= rectime_r;
 	play_count_w    = play_count_r;
 	playtime_w	    = playtime_r;
+	count_upper_w   = count_upper_r;
 	case (state_r)
 		S_LCD_INIT: begin
 			if(LCD_init_finish) begin
@@ -247,6 +278,7 @@ always_comb begin
 			end
 		end
 		S_STOP: begin
+			playcount(i_speed, i_fast, i_slow_0, i_slow_1, count_upper_w);
 			if(key0_w && !key0_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
@@ -339,7 +371,7 @@ always_comb begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
-				if(play_count_r >= 28'h0b71b00) begin
+				if(play_count_r == count_upper_r) begin
 					play_count_w = 0;
 					playtime_w = playtime_r+1;
 				end
@@ -352,7 +384,7 @@ always_comb begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY_PAUSE;	
-				if(play_count_r >= 28'h0b71b00) begin
+				if(play_count_r == count_upper_r) begin
 					play_count_w = 0;
 					playtime_w = playtime_r+1;
 				end
@@ -361,12 +393,12 @@ always_comb begin
 					playtime_w = playtime_r;
 				end
 			end
-			else if(play_count_r >= 28'h0b71b00) begin
+			else if(play_count_r == count_upper_r) begin
 				play_count_w = 0;
 				playtime_w = playtime_r+1;
 			end
 			else begin
-				play_count_w = play_count_r + {24'b0, i_speed};
+				play_count_w = play_count_r + 1;
 				playtime_w = playtime_r;
 			end
 		end
@@ -375,7 +407,7 @@ always_comb begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY;
-				if(play_count_r >= 28'h0b71b00) begin
+				if(play_count_r == count_upper_r) begin
 					play_count_w = 0;
 					playtime_w = playtime_r+1;
 				end
@@ -388,7 +420,7 @@ always_comb begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
-				if(play_count_r >= 28'h0b71b00) begin
+				if(play_count_r == count_upper_r) begin
 					play_count_w = 0;
 					playtime_w = playtime_r+1;
 				end
@@ -397,7 +429,7 @@ always_comb begin
 					playtime_w = playtime_r;
 				end
 			end
-			else if(play_count_r >= 28'h0b71b00) begin
+			else if(play_count_r == count_upper_r) begin
 				play_count_w = 0;
 				playtime_w = playtime_r+1;
 			end
@@ -446,6 +478,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 		rectime_r		<= 	28'b0;
 		play_count_r	<= 	6'b0;
 		playtime_r		<= 	28'b0;
+		count_upper_r   <=  28'b0;
 	end
 	else begin
 		sda_data 		<=	io_I2C_SDAT; 
@@ -463,6 +496,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 		rectime_r		<= 	rectime_w;
 		play_count_r	<= 	play_count_w;
 		playtime_r		<= 	playtime_w;
+		count_upper_r   <= count_upper_w;
 	end
 end
 
