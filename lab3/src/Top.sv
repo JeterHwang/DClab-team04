@@ -108,7 +108,6 @@ logic LCD_wr_enable_r, LCD_wr_enable_w;
 logic LCD_init_finish;
 logic LCD_render_finish;
 logic [7:0] LCD_data;
-logic [2:0] LCD_state;
 logic [27:0] rec_count_r, rec_count_w;
 logic [27:0] play_count_r, play_count_w;
 logic [5:0] rectime_r, rectime_w;
@@ -130,7 +129,7 @@ assign o_SRAM_CE_N = 1'b0;
 assign o_SRAM_OE_N = 1'b0;
 assign o_SRAM_LB_N = 1'b0;
 assign o_SRAM_UB_N = 1'b0;
-assign o_ledg = {6'b11111, state_r, LCD_render_finish};
+assign o_ledg = {6'b11111, state_r};
 assign o_record_time = rectime_r;
 assign o_play_time = playtime_r;
 
@@ -182,7 +181,6 @@ AudPlayer player0(
 	.i_dac_data(dac_data), //dac_data
 	.o_aud_dacdat(o_AUD_DACDAT),
 	.o_sent_finished(dsp_to_player_finished)
-
 );
 
 // === AudRecorder ===
@@ -198,7 +196,6 @@ AudRecorder recorder0(
 	.o_address(addr_record),
 	.o_data(data_record),
 	.o_finish(record_finish)
-
 );
 LCD_Top LCDtop(
 	.i_clk(i_clk_800k),
@@ -211,7 +208,6 @@ LCD_Top LCDtop(
 	.o_LCD_RW(o_LCD_RW),
 	.o_init_finish(LCD_init_finish),
 	.o_render_finish(LCD_render_finish),
-	.o_state(LCD_state)
 );
 
 task playcount(
