@@ -228,6 +228,8 @@ always_comb begin
 	recorder_fin_w	= 	record_finish;
 	rec_count_w 	= rec_count_r;
 	rectime_w		= rectime_r;
+	play_count_w    = play_count_r;
+	playtime_w	    = playtime_r;
 	case (state_r)
 		S_LCD_INIT: begin
 			if(LCD_init_finish) begin
@@ -286,13 +288,13 @@ always_comb begin
 				end
 			end
 			else if(rec_count_r == 28'h0b71b00) begin
-					rec_count_w = 0;
-					rectime_w = rectime_r+1;
-				end
-				else begin
-					rec_count_w = rec_count_r+1;
-					rectime_w = rectime_r;
-				end
+				rec_count_w = 0;
+				rectime_w = rectime_r+1;
+			end
+			else begin
+				rec_count_w = rec_count_r+1;
+				rectime_w = rectime_r;
+			end
 		end
 		S_RECD_PAUSE: begin
 			if(key0_w && !key0_r) begin
@@ -322,24 +324,48 @@ always_comb begin
 				end
 			end
 			else if(rec_count_r == 28'h0b71b00) begin
-					rec_count_w = 0;
-					rectime_w = rectime_r+1;
-				end
-				else begin
-					rec_count_w = rec_count_r;
-					rectime_w = rectime_r;
-				end
+				rec_count_w = 0;
+				rectime_w = rectime_r+1;
+			end
+			else begin
+				rec_count_w = rec_count_r;
+				rectime_w = rectime_r;
+			end
 		end
 		S_PLAY: begin
 			if(player_fin_w && !player_fin_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
+				if(play_count_r == 28'h0b71b00) begin
+					play_count_w = 0;
+					playtime_w = playtime_r+ {24'b0, i_speed};
+				end
+				else begin
+					play_count_w = 0;
+					playtime_w = playtime_r;
+				end
 			end
 			else if(key1_w && !key1_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY_PAUSE;	
+				if(play_count_r == 28'h0b71b00) begin
+					play_count_w = 0;
+					playtime_w = playtime_r + {24'b0, i_speed};
+				end
+				else begin
+					play_count_w = play_count_r;
+					playtime_w = playtime_r;
+				end
+			end
+			else if(play_count_r == 28'h0b71b00) begin
+				play_count_w = 0;
+				playtime_w = playtime_r + {24'b0, i_speed};
+			end
+			else begin
+				play_count_w = play_count_r + {24'b0, i_speed};
+				playtime_w = playtime_r;
 			end
 		end
 		S_PLAY_PAUSE: begin
@@ -347,11 +373,35 @@ always_comb begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_PLAY;
+				if(play_count_r == 28'h0b71b00) begin
+					play_count_w = 0;
+					playtime_w = playtime_r + {24'b0, i_speed};
+				end
+				else begin
+					play_count_w = play_count_r;
+					playtime_w = playtime_r;
+				end
 			end
 			else if(key2_w && !key2_r) begin
 				state_w			= S_LCD_RENDER;
 				LCD_wr_enable_w	= 1'b1;
 				LCD_mode_w		= M_STOP;
+				if(play_count_r == 28'h0b71b00) begin
+					play_count_w = 0;
+					playtime_w = playtime_r + {24'b0, i_speed};
+				end
+				else begin
+					play_count_w = play_count_r;
+					playtime_w = playtime_r;
+				end
+			end
+			else if(play_count_r == 28'h0b71b00) begin
+				play_count_w = 0;
+				playtime_w = playtime_r + {24'b0, i_speed};
+			end
+			else begin
+				play_count_w = play_count_r;
+				playtime_w = playtime_r;
 			end
 		end
 		S_LCD_RENDER: begin
@@ -390,8 +440,10 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 		LCD_Wfin_r		<= 	1'b0;
 		player_fin_r	<= 	1'b0;
 		recorder_fin_r	<= 	1'b0;
-		rec_count_r			 <= 0;
-		  rectime_r				 <= 0;
+		rec_count_r		<= 	6'b0;
+		rectime_r		<= 	28'b0;
+		play_count_r	<= 	6'b0;
+		playtime_r		<= 	28'b0;
 	end
 	else begin
 		sda_data 		<=	io_I2C_SDAT; 
@@ -405,8 +457,10 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
 		LCD_Wfin_r		<= 	LCD_Wfin_w;
 		player_fin_r	<= 	player_fin_w;
 		recorder_fin_r	<= 	recorder_fin_w;
-		rec_count_r			 <= rec_count_w;
-		  rectime_r				 <= rectime_w;
+		rec_count_r		<= 	rec_count_w;
+		rectime_r		<= 	rectime_w;
+		play_count_r	<= 	play_count_w;
+		playtime_r		<= 	playtime_w;
 	end
 end
 
