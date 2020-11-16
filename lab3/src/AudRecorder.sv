@@ -52,7 +52,8 @@ always_comb begin
         end
         S_WAIT: begin
             if (i_stop) begin
-                state_w = S_IDLE;
+                finish_w = 1;
+                state_w = S_FINISH;
             end
             else begin
             if(i_lrc) begin
@@ -76,7 +77,11 @@ always_comb begin
         end
 
         S_REC: begin
-            if(Tpause_w && !Tpause_r) begin
+            if (i_stop) begin
+                finish_w = 1;
+                state_w = S_FINISH;
+            end
+            else if(Tpause_w && !Tpause_r) begin
                 counter_w = counter_r+1;
                 data_w[15-counter_r] = i_data;
                 pause_w = 1;
