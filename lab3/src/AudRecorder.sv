@@ -10,11 +10,11 @@ module AudRecorder(
     output  [15:0] o_data,
     output  o_finish
 );
-localparam S_IDLE = 0;
-localparam S_WAIT = 1;
-localparam S_REC = 2;
-localparam S_PAUSE = 3;
-localparam S_FINISH = 4;
+parameter S_IDLE 		= 4'd0;
+parameter S_WAIT 		= 4'd1;
+parameter S_REC 		= 4'd2;
+parameter S_PAUSE 	= 4'd3;
+parameter S_FINISH 	= 4'd4;
 
 logic [3:0] state_r, state_w;
 logic [19:0] address_r, address_w;
@@ -23,117 +23,66 @@ logic [4:0] counter_r, counter_w;
 logic cycle_w, cycle_r;
 logic pause_w, pause_r;
 logic finish_r, finish_w;
-logic start_r, start_w;
-logic Tpause_r, Tpause_w;
-logic stop_r, stop_w;
+
 assign o_address    = address_r;
 assign o_data       = data_r;
 assign o_finish     = finish_r;
+
 always_comb begin
     state_w             = state_r;
     address_w           = address_r;
     data_w              = data_r;
     counter_w           = counter_r;
     finish_w            = finish_r;
-    pause_w             = pause_r;
     cycle_w             = cycle_r;
-    start_w             = i_start;
-    Tpause_w            = i_pause;
-    stop_w              = stop_r;
-    case (state_r) 
+	 
+	 if(i_start) pause_w = ~pause_r;
+	 else pause_w = pause_r;
+	 
+	 case (state_r) 
         S_IDLE: begin
-            if(start_w && !start_r) begin   // falls edge trigger
+            if(i_start) begin   // rise edge trigger
                 state_w = S_WAIT;
                 data_w = 16'd0;
                 counter_w = 0;
                 finish_w  = 0;
                 address_w = 0;
+					 pause_w   = 0;
             end
         end
         S_WAIT: begin
-            if (i_stop) begin
-                state_w = S_IDLE;
+            if(i_stop) begin
+                finish_w = 1;
+                state_w = S_FINISH;
             end
-            else begin
-            if(i_lrc) begin
-                counter_w = 0;
-                cycle_w = 0;
-                pause_w = 0;
-                state_w = S_WAIT;
-            end
-            else if (!i_lrc && pause_r == 1) begin
-                state_w = S_WAIT;
-            end
-            else if (!i_lrc && pause_r == 0 && cycle_r == 0) begin
-                data_w[15-counter_r] = i_data;
-                counter_w = counter_r+1;
-                state_w = S_REC;
-            end
-            else if (!i_lrc && pause_r == 0 && cycle_r == 1) begin
-                state_w = S_WAIT;
-            end
-            end
+				else if(i_lrc) begin
+					counter_w = 0;
+					cycle_w = 0;
+				end
+				else if(!i_lrc && pause_r == 0 && cycle_r == 0) begin
+					data_w[15-counter_r] = i_data;
+					counter_w = counter_r+1;
+					state_w = S_REC;
+				end
+				
         end
-
         S_REC: begin
-            if(Tpause_w && !Tpause_r) begin
-                counter_w = counter_r+1;
-                data_w[15-counter_r] = i_data;
-                pause_w = 1;
-                state_w = S_PAUSE;
-            end
-            else if(address_r == 20'd1024000 || i_stop) begin
+				if(address_r == 20'd1024000 || i_stop) begin
                 state_w = S_FINISH;
                 counter_w = counter_r;
                 data_w = data_r;
                 finish_w = 1;
-            end
-            else begin
-                if(!i_lrc) begin
-                    if(counter_r == 16) begin
-                        address_w = address_r+1;
-                        counter_w = counter_r;
-                        cycle_w = 1;
-                        state_w = S_WAIT;
-                    end
-                    else begin
-                        data_w[15-counter_r] = i_data;
-                        counter_w = counter_r+1;
-                        state_w = S_REC;
-                    end
-                end
-                else begin 
-                    counter_w = 0;
-                end
-            end
-        end
-        S_PAUSE: begin           
-            if(i_stop == 1) begin
-                finish_w = 1;
-                state_w = S_FINISH;
-            end
-            else if (Tpause_w && !Tpause_r) begin
-                counter_w = counter_r;
-                data_w = data_r;
-                state_w = S_WAIT;
-            end
-            else begin
+            end 
+				else begin
                 if(counter_r == 16) begin
                     address_w = address_r+1;
-                    counter_w = counter_r+1;
-                    data_w = data_r;
-                    state_w = S_PAUSE;
-                end
-                else if (counter_r < 16) begin
-                    data_w[15-counter_r] = i_data;
-                    counter_w = counter_r+1;
-                    state_w = S_PAUSE;
+                    counter_w = counter_r;
+                    cycle_w = 1;
+                    state_w = S_WAIT;
                 end
                 else begin
-                    address_w = address_r;
-                    counter_w = counter_r;
-                    data_w = data_r;
-                    state_w = S_PAUSE;
+                    data_w[15-counter_r] = i_data;
+                    counter_w = counter_r+1;
                 end
             end
         end
@@ -150,12 +99,8 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         data_r              <= 0;
         counter_r           <= 0;
         finish_r            <= 0;
-        pause_r             <= 0;
+        pause_r             <= 1;
         cycle_r             <= 0;
-        start_r             <= 0;
-        Tpause_r            <= 0;
-        stop_r              <= 0;
-		  
     end
     else begin
         state_r             <= state_w;
@@ -165,10 +110,6 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         finish_r            <= finish_w;
         pause_r             <= pause_w;
         cycle_r             <= cycle_w;
-        start_r             <= start_w;
-        Tpause_r            <= Tpause_w;
-        stop_r              <= stop_w;
-		  
     end
 
 end
