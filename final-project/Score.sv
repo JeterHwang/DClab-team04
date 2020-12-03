@@ -20,7 +20,7 @@ parameter S_DOWN_LEFT 	= 4'd7;
 parameter S_DOWN_RIGHT 	= 4'd8;
 parameter S_EVALUATE 	= 4'd9;
 parameter S_ADD 		= 4'd10;
-parameter S_FIX 		= 4'd11;
+
 
 logic state_r, state_w;
 logic score_r, score_w;
@@ -31,7 +31,7 @@ always_comb begin
     state_w             = state_r;
 	score_w				= score_r;
 	 
-	case (state_r) 
+	case (state_r)
 
     endcase
 end
