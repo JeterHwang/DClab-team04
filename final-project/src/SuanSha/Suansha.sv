@@ -4,9 +4,12 @@ module Suansha(
 	input               i_rst_n,
 	input               i_start,
 	input  chess_board  i_board,
-    input               
+    input               i_turn,
+    output              o_sha,
+    output [159:0]      o_path      // 20 turns may be enough !!
 );
 parameter S_RESET = 3'd0;
+parameter S_ = ;
 
 logic [2:0] state_r, state_w;
 
