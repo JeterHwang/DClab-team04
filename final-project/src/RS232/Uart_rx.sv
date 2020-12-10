@@ -123,7 +123,6 @@ module uart_rx
             r_Rx_DV   <= 1'b0;
           end
          
-         
         default :
           r_SM_Main <= s_IDLE;
          
