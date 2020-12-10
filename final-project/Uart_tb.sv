@@ -19,12 +19,12 @@ module uart_tb ();
   parameter c_CLKS_PER_BIT    = 87;
   parameter c_BIT_PERIOD      = 8600;
    
-  reg r_Clock = 0;
-  reg r_Tx_DV = 0;
-  wire w_Tx_Done;
-  reg [7:0] r_Tx_Byte = 0;
-  reg r_Rx_Serial = 1;
-  wire [7:0] w_Rx_Byte;
+  logic r_Clock = 0;
+  logic r_Tx_DV = 0;
+  logic w_Tx_Done;
+  logic [7:0] r_Tx_Byte = 0;
+  logic r_Rx_Serial = 1;
+  logic [7:0] w_Rx_Byte;
    
  
   // Takes in input byte and serializes it 

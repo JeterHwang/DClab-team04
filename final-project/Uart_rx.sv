@@ -13,14 +13,14 @@ module uart_rx
   parameter s_RX_STOP_BIT  = 3'b011;
   parameter s_CLEANUP      = 3'b100;
    
-  reg           r_Rx_Data_R = 1'b1;
-  reg           r_Rx_Data   = 1'b1;
+  logic           r_Rx_Data_R = 1'b1;
+  logic           r_Rx_Data   = 1'b1;
    
-  reg [7:0]     r_Clock_Count = 0;
-  reg [2:0]     r_Bit_Index   = 0; //8 bits total
-  reg [7:0]     r_Rx_Byte     = 0;
-  reg           r_Rx_DV       = 0;
-  reg [2:0]     r_SM_Main     = 0;
+  logic [7:0]     r_Clock_Count = 0;
+  logic [2:0]     r_Bit_Index   = 0; //8 bits total
+  logic [7:0]     r_Rx_Byte     = 0;
+  logic           r_Rx_DV       = 0;
+  logic [2:0]     r_SM_Main     = 0;
    
   // Purpose: Double-register the incoming data.
   // This allows it to be used in the UART RX Clock Domain.
