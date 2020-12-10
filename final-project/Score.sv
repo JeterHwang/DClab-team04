@@ -45,9 +45,15 @@ always_comb begin
     pos_y_w             = pos_y_r;
 	case (state_r)
         S_IDLE: begin
-            if(i_turn == 1) begin
+            state_w = S_UP;
+        end
+        S_UP: begin
+            if (i_turn == 1) begin
                 
             end
+        end
+        S_DOWN: begin
+
         end
     endcase
 end
