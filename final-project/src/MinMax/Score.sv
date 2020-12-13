@@ -4,9 +4,9 @@ module Score (
 	input         i_rst_n,
 	input         i_start,
 	input         chess_board i_board,         // 15*15*2 bit chess boad
-    input         i_turn,
-    input  [16:0] i_parent_score,                     
-	output [16:0] o_score                      // 17 bit score
+    input         i_turn,                   
+	output signed [31:0] o_score,                      // 17 bit score
+    output        o_finish
 );
 
 parameter S_IDLE 		= 4'd0;
@@ -23,7 +23,7 @@ parameter S_ADD 		= 4'd10;
 parameter S_FIX 		= 4'd11;
 
 logic state_r, state_w;
-logic score_r, score_w;
+logic signed [31:0] score_r, score_w;
 
 assign o_score     = score_r;
 

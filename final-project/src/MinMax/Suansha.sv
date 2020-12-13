@@ -6,7 +6,7 @@ module Suansha(
 	input  chess_board  i_board,
     input               i_turn,
     output              o_sha,
-    output [159:0]      o_path      // 20 turns may be enough !!
+    output              o_finish,
 );
 parameter S_RESET = 3'd0;
 parameter S_ = ;
