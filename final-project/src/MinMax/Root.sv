@@ -1,15 +1,16 @@
 typedef logic [1:0] board [256];
-module Minmax (		// 
+module root (		// 
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,
-	input 		  i_next,			// 繼續找下一個放棋點
+	input 		  i_next,
 	input  board  i_board,          // 15*15*2 bit chess boad
     input         i_turn, 			// 0 -> 我方(max) / 1 -> 敵方(min)
-	output board  o_board,			// output board 給"下一級"
-	output signed [31:0] o_point,	// output point 給"上一級"
-	output 		  o_finish,			// 告訴"上一級"我所有點都做完了
-	output 		  o_start			// 告訴"下一級"開始動工
+    output [4:0]  o_horizontal,      //           
+	output [4:0]  o_vertical,       //
+	output board  o_board,
+	output 		  o_finish,
+    output        o_start
 );
 
 parameter S_IDLE = 3'd0;

@@ -3,3 +3,8 @@
 ## 空白：         10
 
 
+# MinMax
+## search depth = 5
+## max(root) - min - max - min - max - leaf
+
+
