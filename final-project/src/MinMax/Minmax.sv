@@ -1,16 +1,17 @@
 // search depth = 5
 // max(root) - min - max - min - max - leaf
-typedef logic [1:0] chess_board [224:0];
+typedef logic [1:0] board [256];
 module Minmax (		// 
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,
-	input         chess_board i_board,          // 15*15*2 bit chess boad
-    input         i_turn,                       
+	input  board  i_board,          // 15*15*2 bit chess boad
+    input         i_turn, 			// 0 -> 我方(max) / 1 -> 敵方(min)
 	input  [4:0]  i_depth,
-    output [4:0]  o_horizontal                  //
-	output [4:0]  o_vertical,                   //
-	output signed [31:0] o_point 
+    output [4:0]  o_horizontal      //           
+	output [4:0]  o_vertical,       //
+	output signed [31:0] o_point,
+	output 		  o_finish
 );
 
 parameter S_IDLE = 3'd0;
@@ -22,23 +23,9 @@ parameter S_IDLE = 3'd0;
 logic [2:0] state_r, state_w;
 logic signed [31:0] point_r, point_w;
 
-logic deep_start_r, deep_start_w;
-logic deep_finish;
-logic deep_output;
-
 logic pending_start_r, pending_start_w;
 logic signed [31:0] leaf_score;
 logic pending_finish;
-
-Suansha shasha(
-	.i_clk(i_clk),
-	.i_rst_n(i_rst_n),
-	.i_start(deep_start_r),
-	.i_board(i_board),
-	.i_turn(i_turn),
-	.o_sha(deep_output),
-	.o_finish(deep_finish)
-);
 
 Score score(
 	.i_clk(i_clk),
@@ -71,16 +58,14 @@ always_comb begin
 		S_IDLE: begin
 			if(i_start) begin
 				if(i_depth == 5'd0) begin
-					deep_start_w 	= 1'b1;
 					pending_start_w = 1'b1;
 					state_w 		= S_SHA;
 				end	
 			end
 		end
 		S_SHA: begin
-			deep_start_w	= 1'b0;
 			pending_start_w = 1'b0;
-			if(deep_finish && pending_finish) begin
+			if(pending_finish) begin
 				state_w	= S_RETURN;
 				if(o_sha) begin		//如果有殺招分數設到最大
 					point_w = leaf_score + 32'd10000000;				
