@@ -1,15 +1,16 @@
 typedef logic [1:0] board [256];
-module Minmax (		// 
+module root (		// 
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,
-	input 		  i_next,			// 繼續找下一個放棋點
+	input 		  i_next,
 	input  board  i_board,          // 15*15*2 bit chess boad
     input         i_turn, 			// 0 -> 我方(max) / 1 -> 敵方(min)
-	output board  o_board,			// output board 給"下一級"
-	output signed [31:0] o_point,	// output point 給"上一級"
-	output 		  o_finish,			// 告訴"上一級"我所有點都做完了
-	output 		  o_start			// 告訴"下一級"開始動工
+    output [4:0]  o_horizontal,      //           
+	output [4:0]  o_vertical,       //
+	output board  o_board,
+	output 		  o_finish,
+    output        o_start
 );
 
 parameter S_IDLE = 3'd0;
@@ -22,10 +23,14 @@ parameter S_IDLE = 3'd0;
 logic [2:0] state_r, state_w;
 logic signed [31:0] point_r, point_w;
 
+// output answer
+logic [4:0] max_x_r, max_x_w;
+logic [4:0] max_y_r, max_r_w;
+
 // point generator output
 logic       PG_ready_w;
-logic [4:0] cand_x_w;	// not used :(
-logic [4:0] cand_y_w;	// not used :(
+logic [4:0] cand_x_w;
+logic [4:0] cand_y_w;
 
 point_generator PG(
     .i_clk(i_clk),
@@ -60,10 +65,7 @@ always_comb begin
 	case(state_r)
 		S_IDLE: begin
 			if(i_start) begin
-				if(i_depth == 5'd0) begin
-					pending_start_w = 1'b1;
-					state_w 		= S_SHA;
-				end	
+					
 			end
 		end
 		S_COUNT: begin
@@ -80,7 +82,12 @@ always_comb begin
 end
 
 always_ff @(posedge i_clk, negedge i_rst_n) begin
-	
+	if(!i_rst_n) begin
+        state_r     <= S_IDLE;
+    end
+    else begin
+        state_r     <= state_w;
+    end
 end
 endmodule
 
