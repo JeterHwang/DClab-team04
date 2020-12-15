@@ -9,16 +9,18 @@ module Top(
     output  [4:0]   o_vertical
 );
 
-logic           finish_w[6];
-logic           start_w[6];
-board           board_w[6];
-MinMax_output   MinMax_output_w[6];
-
+// local variables 
 board chess_board_r, chess_board_w;
 logic MinMax_start_r, MinMax_start_w;
 logic [4:0] MinMax_x_pos_w; 
 logic [4:0] MinMax_y_pos_w;
 logic MinMax_finish_w;
+
+// modules interconnection
+logic           finish_w[6];
+logic           start_w[6];
+board           board_w[6];
+MinMax_output   MinMax_output_w[6];
 
 assign MinMax_finish_w = finish_w[0];
 

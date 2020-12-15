@@ -19,21 +19,30 @@ parameter S_RETURN = 3'd2;
 parameter S_COUNT = 3'd3;
 parameter S_IDLE = 3'd0;
 
+// local variables
 logic [2:0] state_r, state_w;
 logic signed [31:0] point_r, point_w;
 
-logic pending_start_r, pending_start_w;
-logic signed [31:0] leaf_score;
-logic pending_finish;
+// output answer
+logic [4:0] max_x_r, max_x_w;
+logic [4:0] max_y_r, max_r_w;
 
-Score score(
-	.i_clk(i_clk),
-	.i_rst_n(i_rst_n),
-	.i_start(pending_start_r),
-	.i_board(i_board),
-	.i_turn(i_turn),
-	.o_score(leaf_score),
-	.o_finish(pending_finish)
+// point generator output
+logic       PG_ready_w;
+logic [4:0] cand_x_w;
+logic [4:0] cand_y_w;
+
+point_generator PG(
+    .i_clk(i_clk),
+    .i_rst_n(i_rst_n),
+    .i_start(i_start),
+    .i_request(i_next),
+    .i_board(i_board),
+    .o_horizontal(cand_x_w),
+    .o_vertical(cand_y_w),
+    .o_board(o_board),
+    .o_ready(PG_ready_w),
+    .o_finish(o_finish)
 );
 
 task min(
@@ -56,22 +65,7 @@ always_comb begin
 	case(state_r)
 		S_IDLE: begin
 			if(i_start) begin
-				if(i_depth == 5'd0) begin
-					pending_start_w = 1'b1;
-					state_w 		= S_SHA;
-				end	
-			end
-		end
-		S_SHA: begin
-			pending_start_w = 1'b0;
-			if(pending_finish) begin
-				state_w	= S_RETURN;
-				if(o_sha) begin		//如果有殺招分數設到最大
-					point_w = leaf_score + 32'd10000000;				
-				end
-				else begin
-					point_w = leaf_score;					
-				end
+					
 			end
 		end
 		S_COUNT: begin
@@ -88,7 +82,12 @@ always_comb begin
 end
 
 always_ff @(posedge i_clk, negedge i_rst_n) begin
-	
+	if(!i_rst_n) begin
+        state_r     <= S_IDLE;
+    end
+    else begin
+        state_r     <= state_w;
+    end
 end
 endmodule
 
