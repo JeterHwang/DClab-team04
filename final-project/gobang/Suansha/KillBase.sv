@@ -8,18 +8,6 @@ module Kill_base(
     output              o_sha,
     output              o_finish
 );
-parameter S_IDLE    = 5'd0;
-parameter S_DEPTH0  = 5'd1;
-parameter S_DEPTH1  = 5'd2;
-parameter S_DEPTH2  = 5'd3;
-parameter S_DEPTH3  = 5'd4;
-parameter S_DEPTH4  = 5'd5;
-parameter S_DEPTH5  = 5'd6;
-parameter S_DEPTH6  = 5'd7;
-parameter S_DEPTH7  = 5'd8;
-parameter S_DEPTH8  = 5'd9;
-parameter S_DEPTH9  = 5'd10;
-parameter S_RETURN  = 5'd11;
 
 chess_board board_r, board_w;
 logic [4:0] state_r, state_w;
@@ -33,24 +21,20 @@ logic [4:0]  size_w   [0:9];
 logic result_r [0:9];
 logic result_r [0:9];
 
-// submodule variables
-logic threat_start_r, threat_start_w;
-logic threat_turn_r, threat_turn_w;
-logic [49:0] X_buffer, Y_buffer;
-logic [4:0] SZ_buffer;
-logic threat_finish;
-
-Threats threat(
-    .i_clk(i_clk),
-    .i_rst_n(i_rst_n),
-    .i_start(threat_start_r),
-    .i_turn(threat_turn_r),
-    .i_board(board_r),
-    .o_posX(X_buffer),
-    .o_posY(Y_buffer),
-    .o_size(SZ_buffer),
-    .o_finish(threat_finish)
-);
+generate;
+    for(genvar i = 0; i < 10; i++) begin
+        Kill_node node(
+            .i_clk(),
+            .i_rst_n(),
+            .i_start(),
+            .i_depth(),
+            .i_next(),
+            .i_sha(),
+            .i_board(),
+            .i_Xpos
+        );
+    end
+endgenerate
 
 always_comb begin
     case(state_r)

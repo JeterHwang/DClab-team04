@@ -5,8 +5,8 @@ module Kill_node(
     // Top module signal
     input               i_clk,
     input               i_rst_n,
-    input               i_start,
     input     [4:0]     i_depth,
+    input               i_start,
     // next module result
     input               i_next,
     input               i_sha,
@@ -16,13 +16,15 @@ module Kill_node(
     input     [4:0]     i_Ypos,
     output    [4:0]     o_Xpos,
     output    [4:0]     o_Ypos,
+    output chess_board  o_board,
     output              o_sha,     // 1代表我方必勝 或 對方守住了
     output              o_finish,
     output              o_start         
 );
 parameter S_IDLE = 2'd0;
-parameter S_PEND = 2'd1;
-parameter S_WAIT = 2'd2;
+parameter S_WIN  = 2'd1
+parameter S_PEND = 2'd2;
+parameter S_WAIT = 2'd3;
 
 // local variables
 chess_board board_r, board_w;
@@ -35,15 +37,23 @@ logic [4:0] cand_X_r, cand_X_w;
 logic [4:0] cand_Y_r, cand_Y_w;
 logic [9:0] 1D_coor_w;
 
-// submodule variables
+// Threats variables
 logic turn;
+logic threat
 logic [49:0] X_buffer;
 logic [49:0] Y_buffer;
 logic [4:0] SZ_buffer;
-logic threat_finish;
+logic threat_start;
 
-// input signal 
+// Win variables
+logic win_start;
+logic win_finish;
+logic who_win;
+
+// submodule input signal 
 assign turn     = i_depth[0] & 1;
+assign threat_start = (i_depth != 5'd0 && i_start) ? 1'b1 : 1'b0;
+assign win_start = (i_depth != 5'd0 && i_start) ? 1'b1 : 1'b0;
 // for prev level
 assign o_sha    = result_r;
 assign o_finish = finish_r;
@@ -51,17 +61,29 @@ assign o_finish = finish_r;
 assign o_start  = next_start_r;
 assign o_Xpos   = cand_X_r;
 assign o_Ypos   = cand_Y_r;
+assign o_board  = board_r;
 
 Threats threat(
     .i_clk(i_clk),
     .i_rst_n(i_rst_n),
-    .i_start(i_start),
+    .i_start(threat_start),
     .i_turn(turn),
-    .i_board(board_r),
+    .i_board(i_board),
     .o_posX(X_buffer),
     .o_posY(Y_buffer),
     .o_size(SZ_buffer),
     .o_finish(threat_finish)
+);
+Win win(
+    .i_clk(i_clk),
+    .i_rst_n(i_rst_n),
+    .i_start(win_start),
+    .i_turn(turn),
+    .i_Xpos(i_Xpos),
+    .i_Ypos(i_Ypos),
+    .i_board(i_board),
+    .o_win(who_win)
+    .o_finish(win_finish)
 );
 
 always_comb begin
@@ -76,7 +98,7 @@ always_comb begin
 
     case (state_r)
         S_IDLE: begin
-            if(i_start && i_depth != 5'd0) begin
+            if(i_start) begin
                 if(i_depth == 5'd0) begin
                     finish_w = 1'b1;
                     if(turn)
@@ -85,11 +107,14 @@ always_comb begin
                         result_w = 1'b0;
                 end
                 else begin
-                    state_w = S_PEND;
+                    state_w = S_WIN;
                     result_w = 1'b1;    
                 end
                 
             end
+        end
+        S_WIN: begin
+            
         end
         S_PEND: begin
             if(threat_finish) begin
