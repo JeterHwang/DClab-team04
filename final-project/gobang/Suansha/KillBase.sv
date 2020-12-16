@@ -3,6 +3,7 @@ module Kill_base(
     input               i_clk,
 	input               i_rst_n,
 	input               i_start,
+    input               i_next,
 	input  chess_board  i_board,
     input               i_turn,
     output              o_sha,
