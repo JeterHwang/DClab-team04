@@ -1,4 +1,4 @@
-module uart_tx 
+module Uart_tx 
   #(parameter CLKS_PER_BIT)
   (
    input       i_Clock,

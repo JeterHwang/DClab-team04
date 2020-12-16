@@ -53,14 +53,14 @@ module uart_tb ();
   endtask // UART_WRITE_BYTE
    
    
-  uart_rx #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) UART_RX_INST
+  Uart_rx #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) UART_RX_INST
     (.i_Clock(r_Clock),
      .i_Rx_Serial(r_Rx_Serial),
      .o_Rx_DV(),
      .o_Rx_Byte(w_Rx_Byte)
      );
    
-  uart_tx #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) UART_TX_INST
+  Uart_tx #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) UART_TX_INST
     (.i_Clock(r_Clock),
      .i_Tx_DV(r_Tx_DV),
      .i_Tx_Byte(r_Tx_Byte),
