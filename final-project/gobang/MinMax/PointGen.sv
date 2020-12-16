@@ -1,4 +1,4 @@
-typedef logic [1:0] board [256];
+typedef logic [1:0] board [225];
 module point_generator(
     input           i_clk,
     input           i_rst_n,

@@ -1,4 +1,4 @@
-typedef logic [1:0] chess_board [224:0];
+typedef logic [1:0] chess_board [225];
 // 找尋己方必須防守的點 和 可以攻擊的點
 module Threats(
     input               i_clk,

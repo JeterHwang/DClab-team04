@@ -1,4 +1,4 @@
-typedef logic [1:0] board [256];
+typedef logic [1:0] board [225];
 typedef logic signed [31:0] MinMax_output;
 
 module Top(

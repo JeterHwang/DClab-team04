@@ -1,5 +1,5 @@
-typedef logic [1:0] board [256];
-module root (		// 
+typedef logic [1:0] board [225];
+module root(		// 
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,

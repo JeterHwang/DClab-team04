@@ -1,4 +1,4 @@
-typedef logic [1:0] chess_board [224:0];
+typedef logic [1:0] chess_board [225];
 // 我方：找尋所有死四，活三點
 // 敵方：找尋所有死四，防守點
 module Kill_node(
@@ -21,6 +21,7 @@ module Kill_node(
 parameter S_IDLE = 2'd0;
 parameter S_PEND = 2'd1;
 parameter S_WAIT = 2'd2;
+parameter S_DFS  = 2'd3;
 
 // local variables
 chess_board board_r, board_w;
@@ -101,7 +102,7 @@ always_comb begin
                     state_w     = S_WAIT;
                     pointer_w   = SZ_buffer;    
                 end
-                else if(who_win == turn) begin // player considered wins
+                else if(who_win == turn) begin // player wins
                     state_w     = S_IDLE;
                     result_w    = 1'b1;
                     finish_w    = 1'b1;
@@ -114,25 +115,27 @@ always_comb begin
             end
         end
         S_WAIT: begin
+            if(pointer_r == 6'd0 || result_r == 1'b0) begin
+                finish_w    = 1'b1;
+                state_w     = S_IDLE;
+                result_w    = (~result_r);
+            end
+            else begin
+                next_start_w        = 1'b1;
+                1D_coor_w           = 15 * X_buffer[pointer_r : pointer_r - 4] + Y_buffer[pointer_r : pointer_r - 4];
+                board_w[1D_coor_w]  = turn;
+                if(pointer_r > 6'd5)
+                    pointer_w       = pointer_r - 6'd5;
+                else
+                    pointer_w       = 6'd0;
+            end
+        end
+        S_DFS: begin
             next_start_w    = 1'b0;
             if(i_next) begin
                 // calculate result
                 result_w    = result_r & i_sha;
-                // change state
-                if(pointer_r == 6'd0 || result_w == 1'b0) begin
-                    finish_w        = 1'b1;
-                    state_w         = S_IDLE;
-                    result_w        = ~result_w;
-                end
-                else begin
-                    next_start_w    = 1'b1;
-                    1D_coor_w       = 10'd15 * X_buffer[pointer_r : pointer_r - 4] + Y_buffer[pointer_r : pointer_r - 4];
-                    board_w[1D_coor_w] = turn;
-                    if(pointer_r > 6'd5)
-                        pointer_w       = pointer_r - 6'd5;
-                    else
-                        pointer_w       = 6'd0;
-                end
+                state_w     = S_WAIT;
             end
         end
     endcase    

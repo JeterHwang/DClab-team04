@@ -1,4 +1,4 @@
-typedef logic [1:0] chess_board [224:0];
+typedef logic [1:0] chess_board [225];
 module Kill_base(
     input               i_clk,
 	input               i_rst_n,
