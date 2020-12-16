@@ -24,7 +24,7 @@ MinMax_output   MinMax_output_w[6];
 
 assign MinMax_finish_w = finish_w[0];
 
-root base(
+root MinMax_Base(
     .i_clk(i_clk),
     .i_rst_n(i_rst_n),
     .i_start(MinMax_start_r),
@@ -40,7 +40,7 @@ root base(
 
 generate
     for(genvar i = 3'd1; i <= 3'd4; i = i + 3'd1) begin: iter1
-        Minmax node(
+        Minmax MinMax_Node(
             .i_clk(i_clk),
             .i_rst_n(i_rst_n),
             .i_start(start_w[i-1]),
@@ -55,7 +55,7 @@ generate
     end
 endgenerate
 
-leaf_node leaf(
+leaf_node MinMax_Leaf(
     .i_clk(i_clk),
     .i_rst_n(i_rst_n),
     .i_start(start_w[4]),
