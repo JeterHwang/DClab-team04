@@ -1,5 +1,5 @@
 typedef logic [1:0] board [225];
-module Minmax (		// 
+module Minmax(		// 
 	input         	i_clk,
 	input         	i_rst_n,
 	input   [4:0]   i_depth,
