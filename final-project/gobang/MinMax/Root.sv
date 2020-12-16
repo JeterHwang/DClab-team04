@@ -6,7 +6,7 @@ module root (		//
 	input 		  i_next,
 	input  board  i_board,          // 15*15*2 bit chess boad
     input         i_turn, 			// 0 -> 我方(max) / 1 -> 敵方(min)
-    output [4:0]  o_horizontal,      //           
+    output [4:0]  o_horizontal,     //           
 	output [4:0]  o_vertical,       //
 	output board  o_board,
 	output 		  o_finish,
