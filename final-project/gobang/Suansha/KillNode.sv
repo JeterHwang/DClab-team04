@@ -12,8 +12,6 @@ module Kill_node(
     input               i_sha,
     // previous module signal
     input  chess_board  i_board,
-    input     [4:0]     i_Xpos,
-    input     [4:0]     i_Ypos,
     output    [4:0]     o_Xpos,
     output    [4:0]     o_Ypos,
     output chess_board  o_board,
@@ -21,10 +19,10 @@ module Kill_node(
     output              o_finish,
     output              o_start         
 );
+
 parameter S_IDLE = 2'd0;
-parameter S_WIN  = 2'd1
-parameter S_PEND = 2'd2;
-parameter S_WAIT = 2'd3;
+parameter S_PEND = 2'd1;
+parameter S_WAIT = 2'd2;
 
 // local variables
 chess_board board_r, board_w;
@@ -48,7 +46,7 @@ logic threat_start;
 // Win variables
 logic win_start;
 logic win_finish;
-logic who_win;
+logic [1:0] who_win;
 
 // submodule input signal 
 assign turn     = i_depth[0] & 1;
@@ -72,18 +70,8 @@ Threats threat(
     .o_posX(X_buffer),
     .o_posY(Y_buffer),
     .o_size(SZ_buffer),
+    .o_win(who_win),
     .o_finish(threat_finish)
-);
-Win win(
-    .i_clk(i_clk),
-    .i_rst_n(i_rst_n),
-    .i_start(win_start),
-    .i_turn(turn),
-    .i_Xpos(i_Xpos),
-    .i_Ypos(i_Ypos),
-    .i_board(i_board),
-    .o_win(who_win)
-    .o_finish(win_finish)
 );
 
 always_comb begin
@@ -98,28 +86,37 @@ always_comb begin
 
     case (state_r)
         S_IDLE: begin
+            finish_w    = 1'b0;
             if(i_start) begin
                 if(i_depth == 5'd0) begin
-                    finish_w = 1'b1;
+                    finish_w    = 1'b1;
                     if(turn)
-                        result_w = 1'b1;
+                        result_w    = 1'b1;
                     else
-                        result_w = 1'b0;
+                        result_w    = 1'b0;
                 end
                 else begin
-                    state_w = S_WIN;
-                    result_w = 1'b1;    
+                    state_w     = S_PEND;
+                    result_w    = 1'b1;    
                 end
-                
             end
-        end
-        S_WIN: begin
-            
         end
         S_PEND: begin
             if(threat_finish) begin
-                state_w = S_WAIT;
-                pointer_w = SZ_buffer * 5;
+                if(who_win == 2'd2) begin
+                    state_w     = S_WAIT;
+                    pointer_w   = SZ_buffer * 5;    
+                end
+                else if(who_win == turn) begin
+                    state_w     = S_IDLE;
+                    result_w    = 1'b1;
+                    finish_w    = 1'b1;
+                end
+                else begin
+                    state_w     = S_IDLE;
+                    result_w    = 1'b0;
+                    finish_w    = 1'b1;
+                end
             end
         end
         S_WAIT: begin
