@@ -12,8 +12,6 @@ module Kill_node(
     input               i_sha,
     // previous module signal
     input  chess_board  i_board,
-    output    [4:0]     o_Xpos,
-    output    [4:0]     o_Ypos,
     output chess_board  o_board,
     output              o_sha,     // 1代表我方必勝 或 對方守住了
     output              o_finish,
@@ -27,12 +25,10 @@ parameter S_WAIT = 2'd2;
 // local variables
 chess_board board_r, board_w;
 logic [1:0] state_r, state_w;
-logic [49:0] pointer_r, pointer_w;
+logic [5:0] pointer_r, pointer_w;
 logic result_r, result_w;
 logic finish_r, finish_w;
 logic next_start_r, next_start_w;
-logic [4:0] cand_X_r, cand_X_w;
-logic [4:0] cand_Y_r, cand_Y_w;
 logic [9:0] 1D_coor_w;
 
 // Threats variables
@@ -40,7 +36,7 @@ logic turn;
 logic threat
 logic [49:0] X_buffer;
 logic [49:0] Y_buffer;
-logic [4:0] SZ_buffer;
+logic [5:0] SZ_buffer;
 logic threat_start;
 
 // Win variables
@@ -57,8 +53,6 @@ assign o_sha    = result_r;
 assign o_finish = finish_r;
 // for next level
 assign o_start  = next_start_r;
-assign o_Xpos   = cand_X_r;
-assign o_Ypos   = cand_Y_r;
 assign o_board  = board_r;
 
 Threats threat(
@@ -103,17 +97,17 @@ always_comb begin
         end
         S_PEND: begin
             if(threat_finish) begin
-                if(who_win == 2'd2) begin
+                if(who_win == 2'd2) begin // no one wins
                     state_w     = S_WAIT;
-                    pointer_w   = SZ_buffer * 5;    
+                    pointer_w   = SZ_buffer;    
                 end
-                else if(who_win == turn) begin
+                else if(who_win == turn) begin // player considered wins
                     state_w     = S_IDLE;
                     result_w    = 1'b1;
                     finish_w    = 1'b1;
                 end
                 else begin
-                    state_w     = S_IDLE;
+                    state_w     = S_IDLE; // oppponent wins
                     result_w    = 1'b0;
                     finish_w    = 1'b1;
                 end
@@ -125,18 +119,19 @@ always_comb begin
                 // calculate result
                 result_w    = result_r & i_sha;
                 // change state
-                if(pointer_r == 5'd0 || result_w == 1'b0) begin
+                if(pointer_r == 6'd0 || result_w == 1'b0) begin
                     finish_w        = 1'b1;
                     state_w         = S_IDLE;
                     result_w        = ~result_w;
                 end
                 else begin
                     next_start_w    = 1'b1;
-                    cand_X_w        = X_buffer[pointer_r : pointer_r - 4];
-                    cand_Y_w        = Y_buffer[pointer_r : pointer_r - 4];                    
-                    1D_coor_w       = 10'd15 * cand_X_w + cand_Y_w;
+                    1D_coor_w       = 10'd15 * X_buffer[pointer_r : pointer_r - 4] + Y_buffer[pointer_r : pointer_r - 4];
                     board_w[1D_coor_w] = turn;
-                    pointer_w       = pointer_r - 5'd1;
+                    if(pointer_r > 6'd5)
+                        pointer_w       = pointer_r - 6'd5;
+                    else
+                        pointer_w       = 6'd0;
                 end
             end
         end
@@ -147,12 +142,10 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
     if(!i_rst_n) begin
         borad_r         <= board_w;
         state_r         <= 2'd0;
-        pointer_r       <= 50'd0;
+        pointer_r       <= 6'd0;
         result_r        <= 1'b0;
         finish_r        <= 1'b0;
         next_start_r    <= 1'b0;
-        cand_X_r        <= 5'd0;
-        cand_Y_r        <= 5'd0;
     end
     else begin
         borad_r         <= board_w;
@@ -161,8 +154,6 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
         result_r        <= result_w;
         finish_r        <= finish_w;
         next_start_r    <= next_start_w;
-        cand_X_r        <= cand_X_w;
-        cand_Y_r        <= cand_Y_w;
     end
 end
 endmodule

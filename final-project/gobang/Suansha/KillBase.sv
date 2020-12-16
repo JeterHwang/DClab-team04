@@ -14,8 +14,6 @@ chess_board board_w[11];
 logic finish_w[11];
 logic result_w[11];
 logic start_w[11];
-logic [4:0] cand_X_w[11];
-logic [4:0] cand_Y_w[11];
 
 assign o_sha = result_w[0];
 assign o_finish = finish_w[0];
@@ -33,8 +31,6 @@ generate;
                 .i_next(finish_w[1]),
                 .i_sha(result_w[1]),
                 .i_board(i_board),
-                .o_Xpos(cand_X_w[0]),
-                .o_Ypos(cand_Y_w[0]),
                 .o_board(board_w[0]),
                 .o_sha(result_w[0]),
                 .o_finish(finish_w[0]),
@@ -50,14 +46,11 @@ generate;
                 .i_next(finish_w[i+1]),
                 .i_sha(result_w[i+1]),
                 .i_board(board_w[i-1]),
-                .o_Xpos(cand_X_w[i]),
-                .o_Ypos(cand_Y_w[i]),
                 .o_board(board_w[i]),
                 .o_sha(result_w[i]),
                 .o_finish(finish_w[i]),
                 .o_start(start_w[i])
             );
         end
-        
     end
 endgenerate

@@ -8,7 +8,7 @@ module Threats(
     input  chess_board  i_board,
     output   [49:0]     o_posX,
     output   [49:0]     o_posY,
-    output   [4:0]      o_size,
+    output   [5:0]      o_size,
     output   [1:0]      o_win,
     output              o_finish
 );
