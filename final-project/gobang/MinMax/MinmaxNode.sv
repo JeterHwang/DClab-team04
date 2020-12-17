@@ -33,7 +33,7 @@ logic pruning;
 logic 1D_coor_w;
 logic [2:0] state_r, state_w;
 logic signed [31:0] point_r, point_w;
-logic [6:0] pointer_r, pointer_w;
+logic [8:0] pointer_r, pointer_w;
 logic [4:0] cand_x_r, cand_x_w;
 logic [4:0] cand_y_r, cand_y_w;
 logic [4:0] ans_x_r, ans_x_w;
@@ -46,7 +46,7 @@ logic PG_start_r, PG_start_w;
 logic PG_finish;
 logic [399:0] X_buffer;
 logic [399:0] Y_buffer;
-logic [6:0] SZ_buffer;
+logic [8:0] SZ_buffer;
 
 // score signals 
 logic SC_start_r, SC_start_w;
@@ -156,7 +156,7 @@ always_comb begin
 		S_PG: begin
 			if(PG_finish) begin
 				state_w = S_WAIT;
-				pointer_w = SZ_buffer;
+				pointer_w = 9'd399;
 				if(turn)  // 設初值
 					point_w = MAXX;
 				else
@@ -167,20 +167,17 @@ always_comb begin
 			// alpha - beta pruning
 			prune(.score_child(point_r), .score_parent(i_prev_point), .MinorMax(turn), .valid(pruning));
 			
-			if(pointer_r == 7'd0 || pruning) begin
+			if(pointer_r == SZ_buffer || pruning) begin
 				finish_w 	= 1'b1;
 				state_w  	= S_IDLE;
 			end
 			else begin
 				next_start_w 		= 1'b1;
-				cand_x_w			= X_buffer[pointer_r : pointer_r - 4];
-				cand_y_w			= Y_buffer[pointer_r : pointer_r - 4];
+				cand_x_w			= X_buffer[pointer_r -: 5];
+				cand_y_w			= Y_buffer[pointer_r -: 5];
 				1D_coor_w 			= 15 * cand_x_w + cand_y_w;
 				board_w[1D_coor_w] 	= turn;
-				if(pointer_r > 7'd5)
-					pointer_w	= pointer_r - 7'd5;
-				else
-					pointer_w 	= 7'd0;
+				pointer_w			= pointer_r - 9'd5;
 			end
 		end
 		S_DFS: begin
@@ -209,7 +206,7 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		board_r			<= board_w;
 		state_r			<= S_IDLE;
 		point_r			<= 32'd0;
-		pointer_r		<= 7'd0;
+		pointer_r		<= 9'd0;
 		cand_x_r		<= 5'd0;
 		cand_y_r		<= 5'd0;
 		ans_x_r			<= 5'd0;
