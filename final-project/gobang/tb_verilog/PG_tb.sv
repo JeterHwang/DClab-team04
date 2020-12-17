@@ -33,7 +33,10 @@ module PG_tb;
         fp_i = $fopen("../pattern/PG_test1_i.txt");
         fp_o = $fopen("../pattern/PG_test1_o.txt");
         
-        
+        for(int i = 0; i < 15; i++) begin
+            $fscanf("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d ", board[15* i], board[15* i + 1], board[15* i + 2], board[15* i + 3], board[15* i + 4], board[15* i + 5], board[15* i + 6], board[15* i + 7], board[15* i + 8], board[15* i + 9], board[15* i + 10], board[15* i + 11], board[15* i + 12], board[15* i + 13], board[15* i + 14]);
+        end
+        $display("%d", board[0]);
         rst_n = 1;
         #CLK rst_n = 0;
         rst_n = 1;
