@@ -3,7 +3,8 @@
 // 14 23    19 6
 // 13 22 21 20 7
 // 12 11 10 9  8
-typedef logic [1:0] board [225];
+// typedef logic [1:0] board [225];
+typedef logic [7:0] column [15];
 module point_generator(
     input           i_clk,
     input           i_rst_n,
@@ -12,14 +13,14 @@ module point_generator(
     output  [399:0] o_posX,
     output  [399:0] o_posY,
     output  [8:0]   o_size,
-    output          o_finish          // 是否所有空點都被找完
+    output          o_finish          // whether all the empty points are found 
 );
 parameter S_IDLE    = 1'd0;
 parameter S_COUNT   = 1'd1;
 
 logic state_r, state_w;
 logic finish_r, finish_w;
-logic [8:0] pointer[226]
+logic [8:0] pointer[226];
 logic [399:0] output_X;
 logic [399:0] output_Y;
 
@@ -27,7 +28,7 @@ logic [399:0] output_Y;
 // logic [74:0] Y_buffer[15];
 // logic [6:0] pointer[15]
 
-logic [7:0] 1D_coor[15][15];
+column 1D_coor[15];
 logic valid[15][15];
 
 assign o_posX = output_X;
