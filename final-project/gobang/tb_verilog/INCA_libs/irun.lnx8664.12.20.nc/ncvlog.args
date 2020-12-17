@@ -6,6 +6,7 @@
 ./INCA_libs/irun.lnx8664.12.20.nc
 -RUNMODE
 PG_tb.sv
+../MinMax/PointGen.sv
 -CDSLIB
 ./INCA_libs/irun.lnx8664.12.20.nc/cdsrun.lib
 -HDLVAR

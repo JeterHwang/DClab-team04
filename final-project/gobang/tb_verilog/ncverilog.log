@@ -1,28 +1,230 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 17, 2020 at 22:17:46 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 17, 2020 at 22:43:47 CST
 ncverilog
 	PG_tb.sv
+	../MinMax/PointGen.sv
 	+access+r
-Recompiling... reason: file './PG_tb.sv' is newer than expected.
-	expected: Thu Dec 17 22:05:37 2020
-	actual:   Thu Dec 17 22:17:40 2020
-file: PG_tb.sv
-	module worklib.PG_tb:sv
-		errors: 0, warnings: 0
-		Caching library 'worklib' ....... Done
-	Elaborating the design hierarchy:
-	Building instance overlay tables: .................... Done
-	Generating native compiled code:
-		worklib.PG_tb:sv <0x18feaf1b>
-			streams:   3, words:  6782
-	Loading native compiled code:     .................... Done
-	Building instance specific data structures.
-	Design hierarchy summary:
-		                   Instances  Unique
-		Modules:                   1       1
-		Registers:                12      12
-		Always blocks:             1       1
-		Initial blocks:            2       2
-		Compilation units:         1       1
-		Simulation timescale:  100ps
-	Writing initial simulation snapshot: worklib.PG_tb:sv
+file: ../MinMax/PointGen.sv
+logic [7:0] 1D_coor[15][15];
+            |
+ncvlog: *E,EXPIDN (../MinMax/PointGen.sv,30|12): expecting an identifier [3.2][3.8][3.9(IEEE)].
+                            1D_coor[i][j] = (i - 2) * 15 + (j - 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,48|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,49|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,49|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 2) * 15 + (j - 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,54|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,55|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,55|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 2) * 15 + (j);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,60|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,61|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,61|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 2) * 15 + (j + 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,66|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,67|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,67|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 2) * 15 + (j + 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,72|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,73|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,73|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 1) * 15 + (j + 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,78|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,79|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,79|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = i * 15 + (j + 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,84|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,85|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,85|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 1) * 15 + (j + 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,90|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,91|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,91|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 2) * 15 + (j + 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,96|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,97|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,97|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 2) * 15 + (j + 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,102|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,103|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,103|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 2) * 15 + j;
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,108|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,109|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,109|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 2) * 15 + (j - 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,114|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,115|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,115|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 2) * 15 + (j - 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,120|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,121|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,121|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 1) * 15 + (j - 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,126|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,127|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,127|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = i * 15 + (j - 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,132|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,133|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,133|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 1) * 15 + (j - 2);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,138|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,139|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,139|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 1) * 15 + (j - 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,144|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,145|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,145|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 1) * 15 + j;
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,150|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,151|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,151|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i - 1) * 15 + (j + 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,156|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,157|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,157|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = i * 15 + (j + 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,162|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,163|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,163|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 1) * 15 + (j + 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,168|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,169|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,169|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 1) * 15 + j;
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,174|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,175|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,175|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = (i + 1) * 15 + (j - 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,180|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,181|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,181|52): expecting a right parenthesis (')') [9.4(IEEE)].
+                            1D_coor[i][j] = i * 15 + (j - 1);
+                            |
+ncvlog: *E,NOTSTT (../MinMax/PointGen.sv,186|28): expecting a statement [9(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                             |
+ncvlog: *E,EXPRBK (../MinMax/PointGen.sv,187|45): expecting a right bracket (']') [4.2.1][4.2][4.2.2(IEEE)].
+                            if(i_board[1D_coor[i][j]] != 2'd2)
+                                                    |
+ncvlog: *E,EXPRPA (../MinMax/PointGen.sv,187|52): expecting a right parenthesis (')') [9.4(IEEE)].
+	module worklib.point_generator:sv
+		errors: 73, warnings: 0
+ncverilog: *E,VLGERR: An error occurred during parsing.  Review the log file for errors with the code *E and fix those identified problems to proceed.  Exiting with code (status 1).
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 17, 2020 at 22:43:47 CST  (total: 00:00:00)
