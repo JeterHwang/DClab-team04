@@ -207,7 +207,7 @@ task Compare_six;
 endtask
 task Compare_three;
     input [224:0] pattern_cal;
-    input [3:0] pattern_check [0:1];
+    input [2:0] pattern_check [0:1];
     input [1:0] chess_board [0:224];
     input [11:0] counter;
 
