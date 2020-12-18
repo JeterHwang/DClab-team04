@@ -3,8 +3,6 @@
 // 14 23    19 6
 // 13 22 21 20 7
 // 12 11 10 9  8
-// typedef logic [1:0] board [225];
-typedef logic [7:0] column [15];
 module point_generator(
     input           i_clk,
     input           i_rst_n,
@@ -28,7 +26,6 @@ logic [399:0] output_Y;
 // logic [74:0] Y_buffer[15];
 // logic [6:0] pointer[15]
 
-column 1D_coor[15];
 logic valid[15][15];
 
 assign o_posX = output_X;
@@ -46,146 +43,122 @@ always_comb begin
                         valid[i][j] = 1'b0;
                         // 0
                         if(i >= 2 && j >= 2) begin
-                            1D_coor[i][j] = (i - 2) * 15 + (j - 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 2) * 15 + (j - 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 1
                         if(i >= 2 && j >= 1) begin
-                            1D_coor[i][j] = (i - 2) * 15 + (j - 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 2) * 15 + (j - 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 2
                         if(i >= 2) begin
-                            1D_coor[i][j] = (i - 2) * 15 + (j);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 2) * 15 + (j)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 3
                         if(i >= 2 && j + 1 <= 14) begin
-                            1D_coor[i][j] = (i - 2) * 15 + (j + 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 2) * 15 + (j + 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 4
                         if(i >= 2 && j + 2 <= 14) begin
-                            1D_coor[i][j] = (i - 2) * 15 + (j + 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 2) * 15 + (j + 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 5
                         if(i >= 1 && j + 2 <= 14) begin
-                            1D_coor[i][j] = (i - 1) * 15 + (j + 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 1) * 15 + (j + 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 6
                         if(j + 2 <= 14) begin
-                            1D_coor[i][j] = i * 15 + (j + 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[i * 15 + (j + 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 7
                         if(i + 1 <= 14 && j + 2 <= 14) begin
-                            1D_coor[i][j] = (i + 1) * 15 + (j + 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 1) * 15 + (j + 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 8
                         if(i + 2 <= 14 && j + 2 <= 14) begin
-                            1D_coor[i][j] = (i + 2) * 15 + (j + 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 2) * 15 + (j + 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 9
                         if(i + 2 <= 14 && j + 1 <= 14) begin
-                            1D_coor[i][j] = (i + 2) * 15 + (j + 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 2) * 15 + (j + 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 10
                         if(i + 2 <= 14) begin
-                            1D_coor[i][j] = (i + 2) * 15 + j;
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 2) * 15 + j] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 11
                         if(i + 2 <= 14 && j >= 1) begin
-                            1D_coor[i][j] = (i + 2) * 15 + (j - 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 2) * 15 + (j - 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 12
                         if(i + 2 <= 14 && j >= 2) begin
-                            1D_coor[i][j] = (i + 2) * 15 + (j - 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 2) * 15 + (j - 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 13
                         if(i + 1 <= 14 && j >= 2) begin
-                            1D_coor[i][j] = (i + 1) * 15 + (j - 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 1) * 15 + (j - 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 14
                         if(j >= 2) begin
-                            1D_coor[i][j] = i * 15 + (j - 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[i * 15 + (j - 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 15
                         if(i >= 1 && j >= 2) begin
-                            1D_coor[i][j] = (i - 1) * 15 + (j - 2);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 1) * 15 + (j - 2)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 16
                         if(i >= 1 && j >= 1) begin
-                            1D_coor[i][j] = (i - 1) * 15 + (j - 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 1) * 15 + (j - 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 17
                         if(i >= 1) begin
-                            1D_coor[i][j] = (i - 1) * 15 + j;
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 1) * 15 + j] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 18
                         if(i >= 1 && j + 1 <= 14) begin
-                            1D_coor[i][j] = (i - 1) * 15 + (j + 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i - 1) * 15 + (j + 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 19
                         if(j + 1 <= 14) begin
-                            1D_coor[i][j] = i * 15 + (j + 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[i * 15 + (j + 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 20
                         if(i + 1 <= 14 && j + 1 <= 14) begin
-                            1D_coor[i][j] = (i + 1) * 15 + (j + 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 1) * 15 + (j + 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 21
                         if(i + 1 <= 14) begin
-                            1D_coor[i][j] = (i + 1) * 15 + j;
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 1) * 15 + j] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 22
                         if(i + 1 <= 14 && j >= 1) begin
-                            1D_coor[i][j] = (i + 1) * 15 + (j - 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[(i + 1) * 15 + (j - 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                         // 23
                         if(j >= 1) begin
-                            1D_coor[i][j] = i * 15 + (j - 1);
-                            if(i_board[1D_coor[i][j]] != 2'd2)
+                            if(i_board[i * 15 + (j - 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
                     end
@@ -203,8 +176,8 @@ always_comb begin
                     //     pointer[i] = pointer[i] - 5;
                     // end
                     if(valid[i][j] == 1'b1) begin
-                        output_X[pointer -: 5] = i[4:0];
-                        output_Y[pointer -: 5] = j[4:0];
+                        output_X[pointer[i * 15 + j] -: 5] = i[4:0];
+                        output_Y[pointer[i * 15 + j] -: 5] = j[4:0];
                         pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 5;
                     end
                     else begin
