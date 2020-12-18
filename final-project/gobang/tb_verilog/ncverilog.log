@@ -1,21 +1,21 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 18, 2020 at 13:35:08 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 18, 2020 at 19:23:57 CST
 ncverilog
 	PG_tb.sv
 	../MinMax/PointGen.sv
 	+access+r
-Recompiling... reason: file './PG_tb.sv' is newer than expected.
-	expected: Fri Dec 18 13:32:54 2020
-	actual:   Fri Dec 18 13:35:04 2020
-file: PG_tb.sv
-	module worklib.PG_tb:sv
+Recompiling... reason: file '../MinMax/PointGen.sv' is newer than expected.
+	expected: Fri Dec 18 19:10:33 2020
+	actual:   Fri Dec 18 19:23:53 2020
+file: ../MinMax/PointGen.sv
+	module worklib.point_generator:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.PG_tb:sv <0x1875df17>
-			streams:  11, words: 18533
+		worklib.point_generator:sv <0x1f710c75>
+			streams:  11, words: 24448
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -26,7 +26,7 @@ file: PG_tb.sv
 		Vectored wires:            7       -
 		Always blocks:             3       3
 		Initial blocks:            3       3
-		Cont. assignments:         3       3
+		Cont. assignments:         3       4
 		Pseudo assignments:        5       5
 		Compilation units:         1       1
 		Simulation timescale:  100ps
@@ -43,8 +43,7 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 File was opened successfully : -2147483645
-Too slow, abort.
-Simulation complete via $finish(1) at time 500 NS + 0
-./PG_tb.sv:76 		$finish;
+Simulation complete via $finish(1) at time 45 NS + 3
+./PG_tb.sv:70         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 18, 2020 at 13:35:56 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 18, 2020 at 19:24:45 CST  (total: 00:00:48)

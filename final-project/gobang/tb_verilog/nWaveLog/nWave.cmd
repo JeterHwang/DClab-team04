@@ -1,10 +1,10 @@
+wvResizeWindow -win $_nWave1 0 23 1920 1017
 wvSetPosition -win $_nWave1 {("G1" 0)}
 wvOpenFile -win $_nWave1 \
            {/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/PointGenerator.fsdb}
 wvGetSignalOpen -win $_nWave1
 wvGetSignalSetScope -win $_nWave1 "/\$unit_0x7b7ddf31"
-wvGetSignalSetScope -win $_nWave1 "/PG_tb/PG"
-wvGetSignalSetScope -win $_nWave1 "/PG_tb/Unnamed_\$PG_tb_sv_47"
+wvGetSignalSetScope -win $_nWave1 "/PG_tb"
 wvGetSignalSetScope -win $_nWave1 "/PG_tb/PG"
 wvSetPosition -win $_nWave1 {("G1" 13)}
 wvSetPosition -win $_nWave1 {("G1" 13)}
@@ -51,10 +51,10 @@ wvAddSignal -win $_nWave1 -group {"G2" \
 wvSelectSignal -win $_nWave1 {( "G1" 1 2 3 4 5 6 7 8 9 10 11 12 13 )} 
 wvSetPosition -win $_nWave1 {("G1" 13)}
 wvGetSignalClose -win $_nWave1
+wvResizeWindow -win $_nWave1 0 23 1920 1017
+wvResizeWindow -win $_nWave1 0 23 1920 1017
+wvResizeWindow -win $_nWave1 0 23 1920 1017
 wvSelectGroup -win $_nWave1 {G2}
-wvResizeWindow -win $_nWave1 79 26 1840 1016
-wvResizeWindow -win $_nWave1 79 26 1840 1016
-wvSetPosition -win $_nWave1 {("G1" 0)}
 wvSetPosition -win $_nWave1 {("G2" 0)}
 wvGetSignalOpen -win $_nWave1
 wvGetSignalSetScope -win $_nWave1 "/\$unit_0x7b7ddf31"
@@ -134,27 +134,3 @@ wvAddSignal -win $_nWave1 -group {"G3" \
 wvSelectSignal -win $_nWave1 {( "G2" 1 2 3 4 5 6 7 8 9 10 11 12 )} 
 wvSetPosition -win $_nWave1 {("G2" 12)}
 wvGetSignalClose -win $_nWave1
-wvDisplayGridCount -win $_nWave1 -off
-wvGetSignalClose -win $_nWave1
-wvReloadFile -win $_nWave1
-wvDisplayGridCount -win $_nWave1 -off
-wvGetSignalClose -win $_nWave1
-wvReloadFile -win $_nWave1
-wvDisplayGridCount -win $_nWave1 -off
-wvGetSignalClose -win $_nWave1
-wvReloadFile -win $_nWave1
-wvDisplayGridCount -win $_nWave1 -off
-wvGetSignalClose -win $_nWave1
-wvReloadFile -win $_nWave1
-wvGetSignalOpen -win $_nWave1
-wvGetSignalClose -win $_nWave1
-wvDisplayGridCount -win $_nWave1 -off
-wvGetSignalClose -win $_nWave1
-wvReloadFile -win $_nWave1
-wvDisplayGridCount -win $_nWave1 -off
-wvGetSignalClose -win $_nWave1
-wvReloadFile -win $_nWave1
-wvDisplayGridCount -win $_nWave1 -off
-wvGetSignalClose -win $_nWave1
-wvReloadFile -win $_nWave1
-wvSetCursor -win $_nWave1 243.016802
