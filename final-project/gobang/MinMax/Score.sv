@@ -309,7 +309,7 @@ always_comb begin
             Compare_six(b1_con_four_w, black_blocked_con_four_r, i_board, counter_w);
             Compare_five(b1_jump_one_four_w, black_blocked_jump_one_four_o, i_board, counter_w);
             Compare_five(b1_jump_one_four_w, black_blocked_jump_one_four_r, i_board, counter_w);
-            Compare_five(b1_jump_two_four_w, black_blocked_jumped_two_four, i_board, counter_w);
+            Compare_five(b1_jump_two_four_w, black_blocked_jump_two_four, i_board, counter_w);
             Compare_five(n1_con_three_w, black_con_three, i_board, counter_w);
             Compare_six(n1_jump_one_three_w, black_jump_one_three_o, i_board, counter_w);
             Compare_six(n1_jump_one_three_w, black_jump_one_three_r, i_board, counter_w);
