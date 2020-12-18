@@ -51,7 +51,7 @@ parameter logic [1:0] black_blocked_jump_two_three_r [0:5] = '{w, b, l, b, b, l}
 parameter logic [1:0] black_blocked_blank_one_three_o [0:4] = '{b, l, l, b, b};
 parameter logic [1:0] black_blocked_blank_one_three_r [0:4] = '{b, b, l, l, b};
 parameter logic [1:0] black_blocked_blank_two_three [0:4] = '{b, l, b, l, b};
-parameter logic [1:0] black_blocked_double_three [0:5] = '{w, l, b, b ,b, l, w};
+parameter logic [1:0] black_blocked_double_three [0:6] = '{w, l, b, b ,b, l, w};
 parameter logic [1:0] black_blocked_con_two_o [0:5] = '{l, l, l, b, b, w };
 parameter logic [1:0] black_blocked_con_two_r [0:5] = '{w, b, b, l, l, l };
 parameter logic [1:0] black_blocked_blank_one_two_o [0:5] = '{l, l, b, l, b, w};
@@ -86,7 +86,7 @@ parameter logic [1:0] white_blocked_jump_two_three_r [0:5] = '{w, w, l, w, w, l}
 parameter logic [1:0] white_blocked_blank_one_three_o [0:4] = '{w, l, l, w, w};
 parameter logic [1:0] white_blocked_blank_one_three_r [0:4] = '{w, w, l, l, w};
 parameter logic [1:0] white_blocked_blank_two_three [0:4] = '{w, l, w, l, w};
-parameter logic [1:0] white_blocked_double_three [0:5] = '{b, l, w, w ,w, l, b};
+parameter logic [1:0] white_blocked_double_three [0:6] = '{b, l, w, w ,w, l, b};
 parameter logic [1:0] white_blocked_con_two_o [0:5] = '{l, l, l, w, w, b };
 parameter logic [1:0] white_blocked_con_two_r [0:5] = '{b, w, w, l, l, l };
 parameter logic [1:0] white_blocked_blank_one_two_o [0:5] = '{l, l, w, l, w, b};
@@ -181,6 +181,29 @@ task Compare_five;
     end
 endtask
 
+task Compare_seven;
+    input [224:0] pattern_cal ;
+    input [1:0] pattern_check [0:6];
+    input [1:0] chess_board [0:224];
+    input [11:0] counter;
+
+    begin
+    repeat(15) begin
+        for (int i = 0; i <= 8; i++) begin
+            if( '{chess_board[counter+i*15], chess_board[counter+(i+1)*15], chess_board[counter+(i+2)*15], 
+            chess_board[counter+(i+3)*15], chess_board[counter+(i+4)*15] } === pattern_check) begin
+                pattern_cal[counter+ i*15] = 1;
+            end
+            else begin
+                pattern_cal[counter+ i*15] = 0;
+            end      
+        end
+        counter ++;
+    end
+    counter = 0;
+
+    end
+endtask
 task Compare_six;
     input [224:0] pattern_cal;
     input [1:0] pattern_check [0:5];
@@ -322,7 +345,7 @@ always_comb begin
             Compare_five(b1_blank_one_three_w, black_blocked_blank_one_three_o, i_board, counter_w);
             Compare_five(b1_blank_one_three_w, black_blocked_blank_one_three_o, i_board, counter_w);
             Compare_five(b1_blank_two_three_w, black_blocked_blank_two_three, i_board, counter_w);
-            Compare_six(b1_double_three_w, black_blocked_double_three, i_board, counter_w);
+            Compare_seven(b1_double_three_w, black_blocked_double_three, i_board, counter_w);
             Compare_six(n1_con_two_w, black_con_two, i_board, counter_w);
             Compare_five(n1_blank_one_two_w, black_blank_one_two, i_board, counter_w);
             Compare_six(n1_blank_two_two_w, black_blank_two_two, i_board, counter_w);
@@ -360,7 +383,7 @@ always_comb begin
             Compare_five(b2_blank_one_three_w, white_blocked_blank_one_three_o, i_board, counter_w);
             Compare_five(b2_blank_one_three_w, white_blocked_blank_one_three_o, i_board, counter_w);
             Compare_five(b2_blank_two_three_w, white_blocked_blank_two_three, i_board, counter_w);
-            Compare_six(b2_double_three_w, white_blocked_double_three, i_board, counter_w);
+            Compare_seven(b2_double_three_w, white_blocked_double_three, i_board, counter_w);
             Compare_six(n2_con_two_w, white_con_two, i_board, counter_w);
             Compare_five(n2_blank_one_two_w, white_blank_one_two, i_board, counter_w);
             Compare_six(n2_blank_two_two_w, white_blank_two_two, i_board, counter_w);
