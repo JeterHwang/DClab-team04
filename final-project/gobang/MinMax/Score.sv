@@ -106,7 +106,7 @@ logic [16:0] score_r, score_w;
 logic [11:0] counter_r, counter_w;
 
 logic  [224:0] n1_five_r , n1_five_w ;                      
-logic  [224:0]  n1_four_r , n1_four_w ;                     
+logic  [224:0] n1_four_r , n1_four_w ;                     
 logic  [224:0] n1_con_three_r , n1_con_three_w ;           
 logic  [224:0] n1_jump_one_three_r , n1_jump_one_three_w ;          
 logic  [224:0] n1_con_two_r , n1_con_two_w ;                
@@ -159,7 +159,7 @@ logic  [224:0] b2_con_one_r , b2_con_one_w ;
   
 task Compare_five;
     input [224:0] pattern_cal ;
-    input [4:0] pattern_check;
+    input [4:0] pattern_check [0:1];
     input [1:0] chess_board [0:224];
     input [11:0] counter;
 
@@ -183,7 +183,7 @@ endtask
 
 task Compare_six;
     input [224:0] pattern_cal;
-    input [5:0] pattern_check;
+    input [5:0] pattern_check [0:1];
     input [1:0] chess_board [0:224];
     input [11:0] counter;
 
@@ -207,7 +207,7 @@ task Compare_six;
 endtask
 task Compare_three;
     input [224:0] pattern_cal;
-    input [3:0] pattern_check;
+    input [3:0] pattern_check [0:1];
     input [1:0] chess_board [0:224];
     input [11:0] counter;
 
@@ -230,7 +230,7 @@ endtask
 task Count;
 
     // input [23:0] pattern_store,
-    input pattern_board [0:224];
+    input [224:0] pattern_board;
     input [28:0] score;
     begin
     for (int i=0; i<=224; i++) begin
