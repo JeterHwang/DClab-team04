@@ -1,4 +1,4 @@
-typedef logic [1:0] chess_board [224:0]
+typedef logic [1:0] chess_board [224:0];
 module Score (
 	input         i_clk,
 	input         i_rst_n,
@@ -105,63 +105,63 @@ logic [16:0] black_score_r, black_score_w;
 logic [16:0] score_r, score_w;
 logic [11:0] counter_r, counter_w;
 
-logic   n1_five_r [0:224], n1_five_w [0:224];                      // 連五
-logic   n1_four_r [0:224], n1_four_w [0:224];                      // 活四
-logic   n1_con_three_r [0:224], n1_con_three_w [0:224];            // 連續活三
-logic   n1_jump_one_three_r [0:224], n1_jump_one_three_w [0:224];          // 跳一活三
-logic   n1_con_two_r [0:224], n1_con_two_w [0:224];                // 連續活二
-logic   n1_blank_one_two_r [0:224], n1_blank_one_two_w [0:224];      // 跳一活二
-logic   n1_blank_two_two_r [0:224], n1_blank_two_two_w [0:224];      // 跳二活二
-logic   n1_con_one_r [0:224], n1_con_one_w [0:224];                        // 活一
-logic   b1_con_four_r [0:224], b1_con_four_w [0:224];              // 連續衝四
-logic   b1_jump_one_four_r [0:224], b1_jum_one_four_w [0:224];    // 跳一衝四
-logic   b1_jump_two_four_r [0:224], b1_jump_two_four_w [0:224];    // 跳二衝四
-logic   b1_con_three_r [0:224], b1_con_three_w [0:224];            // 連續眠三
-logic   b1_jump_one_three_r [0:224], b1_jump_one_three_w [0:224]
-logic   b1_jump_two_three_r [0:224], b1_jump_two_three_w [0:224]
+logic  [224:0] n1_five_r , n1_five_w ;                      
+logic  [224:0]  n1_four_r , n1_four_w ;                     
+logic  [224:0] n1_con_three_r , n1_con_three_w ;           
+logic  [224:0] n1_jump_one_three_r , n1_jump_one_three_w ;          
+logic  [224:0] n1_con_two_r , n1_con_two_w ;                
+logic  [224:0] n1_blank_one_two_r , n1_blank_one_two_w ;      
+logic  [224:0] n1_blank_two_two_r , n1_blank_two_two_w ;     
+logic  [224:0] n1_con_one_r , n1_con_one_w ;                      
+logic  [224:0] b1_con_four_r , b1_con_four_w ;    
+logic  [224:0] b1_jump_one_four_r , b1_jum_one_four_w ;    
+logic  [224:0] b1_jump_two_four_r , b1_jump_two_four_w ;  
+logic  [224:0] b1_con_three_r , b1_con_three_w ;          
+logic  [224:0] b1_jump_one_three_r , b1_jump_one_three_w ;
+logic  [224:0] b1_jump_two_three_r , b1_jump_two_three_w ;
 
-logic   b1_blank_one_three_r [0:224], b1_blank_one_three_w [0:224];  // 跳一眠三
-logic   b1_blank_two_three_r [0:224], b1_blank_two_three_w [0:224];  // 跳二眠三
-logic   b1_double_three_r [0:224], b1_double_three_w [0:224];
-logic   b1_con_two_r [0:224], b1_con_two_w [0:224];                // 連續眠二
-logic   b1_blank_one_two_r [0:224], b1_blank_one_two_w [0:224];      // 跳一眠二
-logic   b1_blank_two_two_r [0:224], b1_blank_two_two_w [0:224];      // 跳二眠二
-logic   b1_blank_three_two_r [0:224], b1_jump_three_two_w [0:224];  // 跳三眠二
-logic   b1_con_one_r [0:224], b1_con_one_w [0:224];                        // 擋一
+logic  [224:0] b1_blank_one_three_r , b1_blank_one_three_w ; 
+logic  [224:0] b1_blank_two_three_r , b1_blank_two_three_w ; 
+logic  [224:0] b1_double_three_r , b1_double_three_w ;
+logic  [224:0] b1_con_two_r , b1_con_two_w ;              
+logic  [224:0] b1_blank_one_two_r , b1_blank_one_two_w ;      
+logic  [224:0] b1_blank_two_two_r , b1_blank_two_two_w ;    
+logic  [224:0] b1_blank_three_two_r , b1_jump_three_two_w ;  
+logic  [224:0] b1_con_one_r , b1_con_one_w ;               
 
-logic   n2_five_r [0:224], n2_five_w [0:224];                      // 連五
-logic   n2_four_r [0:224], n2_four_w [0:224];                      // 活四
-logic   n2_con_three_r [0:224], n2_con_three_w [0:224];            // 連續活三
-logic   n2_jump_one_three_r [0:224], n2_jump_one_three_w [0:224];          // 跳一活三
-logic   n2_con_two_r [0:224], n2_con_two_w [0:224];                // 連續活二
-logic   n2_blank_one_two_r [0:224], n2_blank_one_two_w [0:224];      // 跳一活二
-logic   n2_blank_two_two_r [0:224], n2_blank_two_two_w [0:224];      // 跳二活二
-logic   n2_con_one_r [0:224], n2_con_one_w [0:224];                        // 活一
-logic   b2_con_four_r [0:224], b2_con_four_w [0:224];              // 連續衝四
-logic   b2_jump_one_four_r [0:224], b2_jum_one_four_w [0:224];    // 跳一衝四
-logic   b2_jump_two_four_r [0:224], b2_jump_two_four_w [0:224];    // 跳二衝四
-logic   b2_con_three_r [0:224], b2_con_three_w [0:224];            // 連續眠三
-logic   b2_jump_one_three_r [0:224], b2_jump_one_three_w [0:224]
-logic   b2_jump_two_three_r [0:224], b2_jump_two_three_w [0:224]
+logic  [224:0] n2_five_r , n2_five_w ;               
+logic  [224:0] n2_four_r , n2_four_w ;                     
+logic  [224:0] n2_con_three_r , n2_con_three_w ;            
+logic  [224:0] n2_jump_one_three_r , n2_jump_one_three_w ;        
+logic  [224:0] n2_con_two_r , n2_con_two_w ;            
+logic  [224:0] n2_blank_one_two_r , n2_blank_one_two_w ;
+logic  [224:0] n2_blank_two_two_r , n2_blank_two_two_w ;    
+logic  [224:0] n2_con_one_r , n2_con_one_w ;                     
+logic  [224:0] b2_con_four_r , b2_con_four_w ;       
+logic  [224:0] b2_jump_one_four_r , b2_jum_one_four_w ;    
+logic  [224:0] b2_jump_two_four_r , b2_jump_two_four_w ;   
+logic  [224:0] b2_con_three_r , b2_con_three_w ;       
+logic  [224:0] b2_jump_one_three_r , b2_jump_one_three_w ;
+logic  [224:0] b2_jump_two_three_r , b2_jump_two_three_w ;
 
-logic   b2_blank_one_three_r [0:224], b2_blank_one_three_w [0:224];  // 跳一眠三
-logic   b2_blank_two_three_r [0:224], b2_blank_two_three_w [0:224];  // 跳二眠三
-logic   b2_double_three_r [0:224], b2_double_three_w [0:224];
-logic   b2_con_two_r [0:224], b2_con_two_w [0:224];                // 連續眠二
-logic   b2_blank_one_two_r [0:224], b2_blank_one_two_w [0:224];      // 跳一眠二
-logic   b2_blank_two_two_r [0:224], b2_blank_two_two_w [0:224];      // 跳二眠二
-logic   b2_blank_three_two_r [0:224], b2_jump_three_two_w [0:224];  // 跳三眠二
-logic   b2_con_one_r [0:224], b2_con_one_w [0:224];                        // 擋一
+logic  [224:0] b2_blank_one_three_r , b2_blank_one_three_w ; 
+logic  [224:0] b2_blank_two_three_r , b2_blank_two_three_w ;  
+logic  [224:0] b2_double_three_r , b2_double_three_w ;
+logic  [224:0] b2_con_two_r , b2_con_two_w ;              
+logic  [224:0] b2_blank_one_two_r , b2_blank_one_two_w ; 
+logic  [224:0] b2_blank_two_two_r , b2_blank_two_two_w ;    
+logic  [224:0] b2_blank_three_two_r , b2_jump_three_two_w ; 
+logic  [224:0] b2_con_one_r , b2_con_one_w ;                       
 
 
 
 
   
 task Compare_five;
-    input pattern_cal [0:224],
-    input [4:0] pattern_check,
-    input [1:0] chess_board [0:224],
-    input [11:0] counter
+    input [224:0] pattern_cal ;
+    input [4:0] pattern_check;
+    input [1:0] chess_board [0:224];
+    input [11:0] counter;
 
     begin
     repeat(15) begin
@@ -177,13 +177,15 @@ task Compare_five;
         counter ++;
     end
     counter = 0;
+
+    end
 endtask
 
 task Compare_six;
-    input pattern_cal [0:224],
-    input [5:0] pattern_check,
-    input [1:0] chess_board [0:224],
-    input [11:0] counter
+    input [224:0] pattern_cal;
+    input [5:0] pattern_check;
+    input [1:0] chess_board [0:224];
+    input [11:0] counter;
 
     begin
     repeat(15) begin
@@ -200,12 +202,14 @@ task Compare_six;
         counter ++;
     end
     counter = 0;
+
+    end
 endtask
 task Compare_three;
-    input pattern_cal [0:224],
-    input [3:0] pattern_check,
-    input [1:0] chess_board [0:224],
-    input [11:0] counter,
+    input [224:0] pattern_cal;
+    input [3:0] pattern_check;
+    input [1:0] chess_board [0:224];
+    input [11:0] counter;
 
     begin
     repeat(15) begin
@@ -220,19 +224,22 @@ task Compare_three;
         counter ++;
     end
     counter = 0;
+    end
 endtask
 
 task Count;
 
     // input [23:0] pattern_store,
-    input pattern_board [0:224],
-    input [28:0] score,
-
+    input pattern_board [0:224];
+    input [28:0] score;
+    begin
     for (int i=0; i<=224; i++) begin
         if (pattern_board[i] == 1) begin
             score += 1;
         end
     
+    end
+
     end
 endtask
 assign o_score     = score_r;
@@ -418,7 +425,8 @@ always_comb begin
             Count(white_score_w, b2_blank_two_two_w);
             Count(white_score_w, b2_blank_three_two_w);
             Count(white_score_w, b2_con_one_w);
-
+            score_w = black_score_w - white_score_w;
+            state_w = S_IDLE;
 
         end
     endcase
@@ -427,8 +435,9 @@ end
 always_ff @(negedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
         state_r                 <= S_IDLE;
-        white_score_w           = white_score_r;
-		score_r				    <= score_w;
+        black_score_r           <= 0;
+        white_score_r           <= 0;
+		score_r				    <= 0;
         counter_r               <= 0;
 
         n1_five_r               <= 0;
