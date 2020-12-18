@@ -10,7 +10,7 @@ module Score (
 );
 
 parameter S_BLACK 		= 4'd5;
-parameter S_DOWN        = 4'd6;
+parameter S_WHITE       = 4'd6;
 parameter S_EVALUATE    = 4'd7;
 
 
@@ -60,7 +60,7 @@ parameter logic [5:0] black_blocked_blank_two_two_o [0:1] = '{l, b, l, l, b, w};
 parameter logic [5:0] black_blocked_blank_two_two_r [0:1] = '{w, b, l, l, b, l};
 parameter logic [4:0] black_blocked_blank_three_two [0:1] = '{b, l, l, l, b};
 parameter logic [2:0] black_blocked_one_o [0:1] = '{w, b, l};
-parameter logic [2:0] black_blocked_one_o [0:1] = '{l, b, w};
+parameter logic [2:0] black_blocked_one_r [0:1] = '{l, b, w};
 
 parameter logic [4:0] white_con_five [0:1] = '{w, w, w, w, w};
 parameter logic [5:0] white_con_four [0:1] = '{l, w, w, w, w, l};
@@ -114,7 +114,7 @@ logic  [224:0] n1_blank_one_two_r , n1_blank_one_two_w ;
 logic  [224:0] n1_blank_two_two_r , n1_blank_two_two_w ;     
 logic  [224:0] n1_con_one_r , n1_con_one_w ;                      
 logic  [224:0] b1_con_four_r , b1_con_four_w ;    
-logic  [224:0] b1_jump_one_four_r , b1_jum_one_four_w ;    
+logic  [224:0] b1_jump_one_four_r , b1_jump_one_four_w ;    
 logic  [224:0] b1_jump_two_four_r , b1_jump_two_four_w ;  
 logic  [224:0] b1_con_three_r , b1_con_three_w ;          
 logic  [224:0] b1_jump_one_three_r , b1_jump_one_three_w ;
@@ -126,7 +126,7 @@ logic  [224:0] b1_double_three_r , b1_double_three_w ;
 logic  [224:0] b1_con_two_r , b1_con_two_w ;              
 logic  [224:0] b1_blank_one_two_r , b1_blank_one_two_w ;      
 logic  [224:0] b1_blank_two_two_r , b1_blank_two_two_w ;    
-logic  [224:0] b1_blank_three_two_r , b1_jump_three_two_w ;  
+logic  [224:0] b1_blank_three_two_r , b1_blank_three_two_w ;  
 logic  [224:0] b1_con_one_r , b1_con_one_w ;               
 
 logic  [224:0] n2_five_r , n2_five_w ;               
@@ -138,7 +138,7 @@ logic  [224:0] n2_blank_one_two_r , n2_blank_one_two_w ;
 logic  [224:0] n2_blank_two_two_r , n2_blank_two_two_w ;    
 logic  [224:0] n2_con_one_r , n2_con_one_w ;                     
 logic  [224:0] b2_con_four_r , b2_con_four_w ;       
-logic  [224:0] b2_jump_one_four_r , b2_jum_one_four_w ;    
+logic  [224:0] b2_jump_one_four_r , b2_jump_one_four_w ;    
 logic  [224:0] b2_jump_two_four_r , b2_jump_two_four_w ;   
 logic  [224:0] b2_con_three_r , b2_con_three_w ;       
 logic  [224:0] b2_jump_one_three_r , b2_jump_one_three_w ;
@@ -150,7 +150,7 @@ logic  [224:0] b2_double_three_r , b2_double_three_w ;
 logic  [224:0] b2_con_two_r , b2_con_two_w ;              
 logic  [224:0] b2_blank_one_two_r , b2_blank_one_two_w ; 
 logic  [224:0] b2_blank_two_two_r , b2_blank_two_two_w ;    
-logic  [224:0] b2_blank_three_two_r , b2_jump_three_two_w ; 
+logic  [224:0] b2_blank_three_two_r , b2_blank_three_two_w ; 
 logic  [224:0] b2_con_one_r , b2_con_one_w ;                       
 
 
@@ -405,7 +405,6 @@ always_comb begin
             Count(white_score_w, n2_four_w);
             Count(white_score_w, n2_con_three_w);
             Count(white_score_w, n2_jump_one_three_w);
-            Count(white_score_w, n2_jump_two_three_w);
             Count(white_score_w, n2_con_two_w);
             Count(white_score_w, n2_blank_one_two_w);
             Count(white_score_w, n2_blank_two_two_w);
@@ -426,7 +425,7 @@ always_comb begin
             Count(white_score_w, b2_blank_three_two_w);
             Count(white_score_w, b2_con_one_w);
             score_w = black_score_w - white_score_w;
-            state_w = S_IDLE;
+            state_w = S_BLACK;
 
         end
     endcase
@@ -434,7 +433,7 @@ end
 
 always_ff @(negedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
-        state_r                 <= S_IDLE;
+        state_r                 <= S_BLACK;
         black_score_r           <= 0;
         white_score_r           <= 0;
 		score_r				    <= 0;
