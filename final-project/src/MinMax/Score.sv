@@ -9,17 +9,10 @@ module Score (
 	output [16:0] o_score                      // 17 bit score
 );
 
-parameter S_IDLE 		= 4'd0;
-parameter S_UP 			= 4'd1;
-parameter S_DOWN 		= 4'd2;
-parameter S_RIGHT 		= 4'd3;
-parameter S_LEFT 		= 4'd4;
-parameter S_UPPER_LEFT 	= 4'd5;
-parameter S_UPPER_RIGHT = 4'd6;
-parameter S_DOWN_LEFT 	= 4'd7;
-parameter S_DOWN_RIGHT 	= 4'd8;
-parameter S_EVALUATE 	= 4'd9;
-parameter S_ADD 		= 4'd10;
+parameter S_BLACK 		= 4'd5;
+parameter S_DOWN        = 4'd6;
+parameter S_EVALUATE    = 4'd7;
+
 
 parameter FIVE              = 24'd1000000;
 parameter FOUR              = 24'd100000;
@@ -30,29 +23,402 @@ parameter BLOCKED_FOUR      = 24'd10000;
 parameter BLOCKED_THREE     = 24'd100;
 parameter BLOCKED_TWO       = 24'd10;
 
+parameter b         = 2'd0;
+parameter w         = 2'd1;
+parameter l         = 2'd2;
+
+parameter logic [4:0] black_con_five [0:1] = '{b, b, b, b, b};
+parameter logic [5:0] black_con_four [0:1] = '{l, b, b, b, b, l};
+parameter logic [4:0] black_con_three [0:1] = '{l, b, b, b, l};
+parameter logic [5:0] black_jump_one_three_o [0:1] = '{l, b, l, b, b, l};
+parameter logic [5:0] black_jump_one_three_r [0:1] = '{l, b, b, l, b, l};
+parameter logic [5:0] black_con_two [0:1] = '{l, l, b, b, l, l};
+parameter logic [4:0] black_blank_one_two [0:1] = '{l, b, l, b, l};
+parameter logic [5:0] black_blank_two_two [0:1] = '{l, b, l, l, b, l};
+parameter logic [2:0] black_con_one [0:1] = '{l, b, l};
+
+parameter logic [5:0] black_blocked_con_four_o [0:1] = '{l, b, b, b, b, w };
+parameter logic [5:0] black_blocked_con_four_r [0:1] = '{w, b, b, b, b, l };
+parameter logic [4:0] black_blocked_jump_one_four_o [0:1] = '{b, l, b, b, b};
+parameter logic [4:0] black_blocked_jump_one_four_r [0:1] = '{b, b, b, l, b};
+parameter logic [4:0] black_blocked_jump_two_four [0:1] = '{b, b, l, b, b};
+parameter logic [5:0] black_blocked_con_three_o [0:1] = '{l, l, b, b, b, w};
+parameter logic [5:0] black_blocked_con_three_r [0:1] = '{w, b, b, b, l, l};
+parameter logic [5:0] black_blocked_jump_one_three_o [0:1] = '{l, b, l, b, b, w};
+parameter logic [5:0] black_blocked_jump_one_three_r [0:1] = '{w, b, b, l, b, l};
+parameter logic [5:0] black_blocked_jump_two_three_o [0:1] = '{l, b, b, l, b, w};
+parameter logic [5:0] black_blocked_jump_two_three_r [0:1] = '{w, b, l, b, b, l};
+parameter logic [4:0] black_blocked_blank_one_three_o [0:1] = '{b, l, l, b, b};
+parameter logic [4:0] black_blocked_blank_one_three_r [0:1] = '{b, b, l, l, b};
+parameter logic [4:0] black_blocked_blank_two_three [0:1] = '{b, l, b, l, b};
+parameter logic [5:0] black_blocked_double_three [0:1] = '{w, l, b, b ,b, l, w};
+parameter logic [5:0] black_blocked_con_two_o [0:1] = '{l, l, l, b, b, w };
+parameter logic [5:0] black_blocked_con_two_r [0:1] = '{w, b, b, l, l, l };
+parameter logic [5:0] black_blocked_blank_one_two_o [0:1] = '{l, l, b, l, b, w};
+parameter logic [5:0] black_blocked_blank_one_two_r [0:1] = '{w, b, l, b, l, l};
+parameter logic [5:0] black_blocked_blank_two_two_o [0:1] = '{l, b, l, l, b, w};
+parameter logic [5:0] black_blocked_blank_two_two_r [0:1] = '{w, b, l, l, b, l};
+parameter logic [4:0] black_blocked_blank_three_two [0:1] = '{b, l, l, l, b};
+parameter logic [2:0] black_blocked_one_o [0:1] = '{w, b, l};
+parameter logic [2:0] black_blocked_one_o [0:1] = '{l, b, w};
+
+parameter logic [4:0] white_con_five [0:1] = '{w, w, w, w, w};
+parameter logic [5:0] white_con_four [0:1] = '{l, w, w, w, w, l};
+parameter logic [4:0] white_con_three [0:1] = '{l, w, w, w, l};
+parameter logic [5:0] white_jump_one_three_o [0:1] = '{l, w, l, w, w, l};
+parameter logic [5:0] white_jump_one_three_r [0:1] = '{l, w, w, l, w, l};
+parameter logic [5:0] white_con_two [0:1] = '{l, l, w, w, l, l};
+parameter logic [4:0] white_blank_one_two [0:1] = '{l, w, l, w, l};
+parameter logic [5:0] white_blank_two_two [0:1] = '{l, w, l, l, w, l};
+parameter logic [2:0] white_con_one [0:1] = '{l, w, l};
+
+parameter logic [5:0] white_blocked_con_four_o [0:1] = '{l, w, w, w, w, b };
+parameter logic [5:0] white_blocked_con_four_r [0:1] = '{b, w, w, w, w, l };
+parameter logic [4:0] white_blocked_jump_one_four_o [0:1] = '{w, l, w, w, w};
+parameter logic [4:0] white_blocked_jump_one_four_r [0:1] = '{w, w, w, l, w};
+parameter logic [4:0] white_blocked_jump_two_four [0:1] = '{w, w, l, w, w};
+parameter logic [5:0] white_blocked_con_three_o [0:1] = '{l, l, w, w, w, b};
+parameter logic [5:0] white_blocked_con_three_r [0:1] = '{b, w, w, w, l, l};
+parameter logic [5:0] white_blocked_jump_one_three_o [0:1] = '{l, w, l, w, w, b};
+parameter logic [5:0] white_blocked_jump_one_three_r [0:1] = '{b, w, w, l, b, l};
+parameter logic [5:0] white_blocked_jump_two_three_o [0:1] = '{l, w, w, l, w, w};
+parameter logic [5:0] white_blocked_jump_two_three_r [0:1] = '{w, w, l, w, w, l};
+parameter logic [4:0] white_blocked_blank_one_three_o [0:1] = '{w, l, l, w, w};
+parameter logic [4:0] white_blocked_blank_one_three_r [0:1] = '{w, w, l, l, w};
+parameter logic [4:0] white_blocked_blank_two_three [0:1] = '{w, l, w, l, w};
+parameter logic [5:0] white_blocked_double_three [0:1] = '{b, l, w, w ,w, l, b};
+parameter logic [5:0] white_blocked_con_two_o [0:1] = '{l, l, l, w, w, b };
+parameter logic [5:0] white_blocked_con_two_r [0:1] = '{b, w, w, l, l, l };
+parameter logic [5:0] white_blocked_blank_one_two_o [0:1] = '{l, l, w, l, w, b};
+parameter logic [5:0] white_blocked_blank_one_two_r [0:1] = '{b, w, l, w, l, l};
+parameter logic [5:0] white_blocked_blank_two_two_o [0:1] = '{l, w, l, l, w, b};
+parameter logic [5:0] white_blocked_blank_two_two_r [0:1] = '{b, w, l, l, w, l};
+parameter logic [4:0] white_blocked_blank_three_two [0:1] = '{w, l, l, l, w};
+parameter logic [2:0] white_blocked_one_o [0:1] = '{b, w, l};
+parameter logic [2:0] white_blocked_one_r [0:1] = '{l, w, b};
+
+
 
 logic [3:0]  state_r, state_w;
+logic [16:0] white_score_r, white_score_w;
+logic [16:0] black_score_r, black_score_w;
 logic [16:0] score_r, score_w;
-logic [3:0]  pos_x_w, pos_x_r;
-logic [3:0]  pos_y_w, pos_y_r;
+logic [11:0] counter_r, counter_w;
 
+logic   n1_five_r [0:224], n1_five_w [0:224];                      // 連五
+logic   n1_four_r [0:224], n1_four_w [0:224];                      // 活四
+logic   n1_con_three_r [0:224], n1_con_three_w [0:224];            // 連續活三
+logic   n1_jump_one_three_r [0:224], n1_jump_one_three_w [0:224];          // 跳一活三
+logic   n1_con_two_r [0:224], n1_con_two_w [0:224];                // 連續活二
+logic   n1_blank_one_two_r [0:224], n1_blank_one_two_w [0:224];      // 跳一活二
+logic   n1_blank_two_two_r [0:224], n1_blank_two_two_w [0:224];      // 跳二活二
+logic   n1_con_one_r [0:224], n1_con_one_w [0:224];                        // 活一
+logic   b1_con_four_r [0:224], b1_con_four_w [0:224];              // 連續衝四
+logic   b1_jump_one_four_r [0:224], b1_jum_one_four_w [0:224];    // 跳一衝四
+logic   b1_jump_two_four_r [0:224], b1_jump_two_four_w [0:224];    // 跳二衝四
+logic   b1_con_three_r [0:224], b1_con_three_w [0:224];            // 連續眠三
+logic   b1_jump_one_three_r [0:224], b1_jump_one_three_w [0:224]
+logic   b1_jump_two_three_r [0:224], b1_jump_two_three_w [0:224]
+
+logic   b1_blank_one_three_r [0:224], b1_blank_one_three_w [0:224];  // 跳一眠三
+logic   b1_blank_two_three_r [0:224], b1_blank_two_three_w [0:224];  // 跳二眠三
+logic   b1_double_three_r [0:224], b1_double_three_w [0:224];
+logic   b1_con_two_r [0:224], b1_con_two_w [0:224];                // 連續眠二
+logic   b1_blank_one_two_r [0:224], b1_blank_one_two_w [0:224];      // 跳一眠二
+logic   b1_blank_two_two_r [0:224], b1_blank_two_two_w [0:224];      // 跳二眠二
+logic   b1_blank_three_two_r [0:224], b1_jump_three_two_w [0:224];  // 跳三眠二
+logic   b1_con_one_r [0:224], b1_con_one_w [0:224];                        // 擋一
+
+logic   n2_five_r [0:224], n2_five_w [0:224];                      // 連五
+logic   n2_four_r [0:224], n2_four_w [0:224];                      // 活四
+logic   n2_con_three_r [0:224], n2_con_three_w [0:224];            // 連續活三
+logic   n2_jump_one_three_r [0:224], n2_jump_one_three_w [0:224];          // 跳一活三
+logic   n2_con_two_r [0:224], n2_con_two_w [0:224];                // 連續活二
+logic   n2_blank_one_two_r [0:224], n2_blank_one_two_w [0:224];      // 跳一活二
+logic   n2_blank_two_two_r [0:224], n2_blank_two_two_w [0:224];      // 跳二活二
+logic   n2_con_one_r [0:224], n2_con_one_w [0:224];                        // 活一
+logic   b2_con_four_r [0:224], b2_con_four_w [0:224];              // 連續衝四
+logic   b2_jump_one_four_r [0:224], b2_jum_one_four_w [0:224];    // 跳一衝四
+logic   b2_jump_two_four_r [0:224], b2_jump_two_four_w [0:224];    // 跳二衝四
+logic   b2_con_three_r [0:224], b2_con_three_w [0:224];            // 連續眠三
+logic   b2_jump_one_three_r [0:224], b2_jump_one_three_w [0:224]
+logic   b2_jump_two_three_r [0:224], b2_jump_two_three_w [0:224]
+
+logic   b2_blank_one_three_r [0:224], b2_blank_one_three_w [0:224];  // 跳一眠三
+logic   b2_blank_two_three_r [0:224], b2_blank_two_three_w [0:224];  // 跳二眠三
+logic   b2_double_three_r [0:224], b2_double_three_w [0:224];
+logic   b2_con_two_r [0:224], b2_con_two_w [0:224];                // 連續眠二
+logic   b2_blank_one_two_r [0:224], b2_blank_one_two_w [0:224];      // 跳一眠二
+logic   b2_blank_two_two_r [0:224], b2_blank_two_two_w [0:224];      // 跳二眠二
+logic   b2_blank_three_two_r [0:224], b2_jump_three_two_w [0:224];  // 跳三眠二
+logic   b2_con_one_r [0:224], b2_con_one_w [0:224];                        // 擋一
+
+
+
+
+  
+task Compare_five;
+    input pattern_cal [0:224],
+    input [4:0] pattern_check,
+    input [1:0] chess_board [0:224],
+    input [11:0] counter
+
+    begin
+    repeat(15) begin
+        for (int i = 0; i <= 10; i++) begin
+            if( '{chess_board[counter+i*15], chess_board[counter+(i+1)*15], chess_board[counter+(i+2)*15], 
+            chess_board[counter+(i+3)*15], chess_board[counter+(i+4)*15] } === pattern_check) begin
+                pattern_cal[counter+ i*15] = 1;
+            end
+            else begin
+                pattern_cal[counter+ i*15] = 0;
+            end      
+        end
+        counter ++;
+    end
+    counter = 0;
+endtask
+
+task Compare_six;
+    input pattern_cal [0:224],
+    input [5:0] pattern_check,
+    input [1:0] chess_board [0:224],
+    input [11:0] counter
+
+    begin
+    repeat(15) begin
+        for (int i = 0; i <= 9; i++) begin
+            if( '{chess_board[counter+i*15], chess_board[counter+(i+1)*15], chess_board[counter+(i+2)*15], 
+            chess_board[counter+(i+3)*15], chess_board[counter+(i+4)*15], chess_board[counter+(i+5)*15] } === pattern_check) begin
+                pattern_cal[counter+ i*15] = 1;
+            end
+            else begin
+                pattern_cal[counter+ i*15] = 0;
+            end
+            
+        end
+        counter ++;
+    end
+    counter = 0;
+endtask
+task Compare_three;
+    input pattern_cal [0:224],
+    input [3:0] pattern_check,
+    input [1:0] chess_board [0:224],
+    input [11:0] counter,
+
+    begin
+    repeat(15) begin
+        for (int i = 0; i <= 12; i++) begin
+            if( '{chess_board[counter+i*15], chess_board[counter+(i+1)*15], chess_board[counter+(i+2)*15] } === pattern_check) begin
+                pattern_cal[counter+ i*15] = 1;
+            end
+            else begin
+                pattern_cal[counter+ i*15] = 0;
+            end
+        end
+        counter ++;
+    end
+    counter = 0;
+endtask
+
+task Count;
+
+    // input [23:0] pattern_store,
+    input pattern_board [0:224],
+    input [28:0] score,
+
+    for (int i=0; i<=224; i++) begin
+        if (pattern_board[i] == 1) begin
+            score += 1;
+        end
+    
+    end
+endtask
 assign o_score     = score_r;
 
 always_comb begin
-    state_w             = state_r;
-	score_w				= score_r;
-	pos_x_w             = pos_x_r;
-    pos_y_w             = pos_y_r;
-	case (state_r)
-        S_IDLE: begin
-            state_w = S_UP;
-        end
-        S_UP: begin
-            if (i_turn == 1) begin
+    state_w                 = state_r;
+    black_score_w           = black_score_r;
+    white_score_w           = white_score_r;
+	score_w				    = score_r;
+    counter_w                = counter_r;
 
-            end
+    n1_five_w                = n1_five_r;
+    n1_four_w                = n1_four_r;
+    n1_con_three_w           = n1_con_three_r;
+    n1_jump_one_three_w      = n1_jump_one_three_r;
+    n1_con_two_w             = n1_con_two_r;
+    n1_blank_one_two_w       = n1_blank_one_two_r;
+    n1_blank_two_two_w       = n1_blank_two_two_r;
+    n1_con_one_w             = n1_con_one_r;
+
+    b1_con_four_w            = b1_con_four_r;
+    b1_jump_one_four_w       = b1_jump_one_four_r;
+    b1_jump_two_four_w       = b1_jump_two_four_r;
+    b1_con_three_w           = b1_con_three_r;      
+    b1_jump_one_three_w      = b1_jump_one_three_r; 
+    b1_jump_two_three_w      = b1_jump_two_three_r;
+    b1_blank_one_three_w     = b1_blank_one_three_r;
+    b1_blank_two_three_w     = b1_blank_two_three_r;
+    b1_double_three_w        = b1_double_three_r;  
+    b1_con_two_w             = b1_con_two_r;          
+    b1_blank_one_two_w       = b1_blank_one_two_r; 
+    b1_blank_two_two_w       = b1_blank_two_two_r;    
+    b1_blank_three_two_w     = b1_blank_three_two_r;
+    b1_con_one_w             = b1_con_one_r;
+
+    n2_five_w                = n2_five_r;
+    n2_four_w                = n2_four_r;
+    n2_con_three_w           = n2_con_three_r;
+    n2_jump_one_three_w      = n2_jump_one_three_r;
+    n2_con_two_w             = n2_con_two_r;
+    n2_blank_one_two_w       = n2_blank_one_two_r;
+    n2_blank_two_two_w       = n2_blank_two_two_r;
+    n2_con_one_w             = n2_con_one_r;
+
+    b2_con_four_w            = b2_con_four_r;
+    b2_jump_one_four_w       = b2_jump_one_four_r;
+    b2_jump_two_four_w       = b2_jump_two_four_r;
+    b2_con_three_w           = b2_con_three_r;      
+    b2_jump_one_three_w      = b2_jump_one_three_r; 
+    b2_jump_two_three_w      = b2_jump_two_three_r;
+    b2_blank_one_three_w     = b2_blank_one_three_r;
+    b2_blank_two_three_w     = b2_blank_two_three_r;
+    b2_double_three_w        = b2_double_three_r;  
+    b2_con_two_w             = b2_con_two_r;          
+    b2_blank_one_two_w       = b2_blank_one_two_r; 
+    b2_blank_two_two_w       = b2_blank_two_two_r;    
+    b2_blank_three_two_w     = b2_blank_three_two_r;
+    b2_con_one_w             = b2_con_one_r;
+
+    
+	case (state_r)
+        S_BLACK: begin
+
+            Compare_five(n1_five_w, black_con_five, i_board, counter_w);
+            Compare_six(n1_four_w, black_con_four, i_board, counter_w);
+            Compare_six(b1_con_four_w, black_blocked_con_four_o, i_board, counter_w);
+            Compare_six(b1_con_four_w, black_blocked_con_four_r, i_board, counter_w);
+            Compare_five(b1_jump_one_four_w, black_blocked_jump_one_four_o, i_board, counter_w);
+            Compare_five(b1_jump_one_four_w, black_blocked_jump_one_four_r, i_board, counter_w);
+            Compare_five(b1_jump_two_four_w, black_blocked_jumped_two_four, i_board, counter_w);
+            Compare_five(n1_con_three_w, black_con_three, i_board, counter_w);
+            Compare_six(n1_jump_one_three_w, black_jump_one_three_o, i_board, counter_w);
+            Compare_six(n1_jump_one_three_w, black_jump_one_three_r, i_board, counter_w);
+            Compare_six(b1_con_three_w, black_blocked_con_three_o, i_board, counter_w);
+            Compare_six(b1_con_three_w, black_blocked_con_three_r, i_board, counter_w);
+            Compare_six(b1_jump_one_three_w, black_blocked_jump_one_three_o, i_board, counter_w);
+            Compare_six(b1_jump_one_three_w, black_blocked_jump_one_three_r, i_board, counter_w);
+            Compare_six(b1_jump_two_three_w, black_blocked_jump_two_three_o, i_board, counter_w);
+            Compare_six(b1_jump_two_three_w, black_blocked_jump_two_three_r, i_board, counter_w);
+            Compare_five(b1_blank_one_three_w, black_blocked_blank_one_three_o, i_board, counter_w);
+            Compare_five(b1_blank_one_three_w, black_blocked_blank_one_three_o, i_board, counter_w);
+            Compare_five(b1_blank_two_three_w, black_blocked_blank_two_three, i_board, counter_w);
+            Compare_six(b1_double_three_w, black_blocked_double_three, i_board, counter_w);
+            Compare_six(n1_con_two_w, black_con_two, i_board, counter_w);
+            Compare_five(n1_blank_one_two_w, black_blank_one_two, i_board, counter_w);
+            Compare_six(n1_blank_two_two_w, black_blank_two_two, i_board, counter_w);
+            Compare_six(b1_con_two_w, black_blocked_con_two_o, i_board, counter_w);
+            Compare_six(b1_con_two_w, black_blocked_con_two_r, i_board, counter_w);
+            Compare_six(b1_blank_one_two_w, black_blocked_blank_one_two_o, i_board, counter_w);
+            Compare_six(b1_blank_one_two_w, black_blocked_blank_one_two_r, i_board, counter_w);
+            Compare_six(b1_blank_two_two_w, black_blocked_blank_two_two_o, i_board, counter_w);
+            Compare_six(b1_blank_two_two_w, black_blocked_blank_two_two_r, i_board, counter_w);
+            Compare_five(b1_blank_three_two_w, black_blocked_blank_three_two, i_board, counter_w);
+            Compare_three(n1_con_one_w, black_con_one, i_board, counter_w);
+            Compare_three(b1_con_one_w, black_blocked_one_o, i_board, counter_w);
+            Compare_three(b1_con_one_w, black_blocked_one_r, i_board, counter_w);
+            state_w = S_WHITE;
+
         end
-        S_DOWN: begin
+        S_WHITE: begin
+
+            Compare_five(n2_five_w, white_con_five, i_board, counter_w);
+            Compare_six(n2_four_w, white_con_four, i_board, counter_w);
+            Compare_six(b2_con_four_w, white_blocked_con_four_o, i_board, counter_w);
+            Compare_six(b2_con_four_w, white_blocked_con_four_r, i_board, counter_w);
+            Compare_five(b2_jump_one_four_w, white_blocked_jump_one_four_o, i_board, counter_w);
+            Compare_five(b2_jump_one_four_w, white_blocked_jump_one_four_r, i_board, counter_w);
+            Compare_five(b2_jump_two_four_w, white_blocked_jump_two_four, i_board, counter_w);
+            Compare_five(n2_con_three_w, white_con_three, i_board, counter_w);
+            Compare_six(n2_jump_one_three_w, white_jump_one_three_o, i_board, counter_w);
+            Compare_six(n2_jump_one_three_w, white_jump_one_three_r, i_board, counter_w);
+            Compare_six(b2_con_three_w, white_blocked_con_three_o, i_board, counter_w);
+            Compare_six(b2_con_three_w, white_blocked_con_three_r, i_board, counter_w);
+            Compare_six(b2_jump_one_three_w, white_blocked_jump_one_three_o, i_board, counter_w);
+            Compare_six(b2_jump_one_three_w, white_blocked_jump_one_three_r, i_board, counter_w);
+            Compare_six(b2_jump_two_three_w, white_blocked_jump_two_three_o, i_board, counter_w);
+            Compare_six(b2_jump_two_three_w, white_blocked_jump_two_three_r, i_board, counter_w);
+            Compare_five(b2_blank_one_three_w, white_blocked_blank_one_three_o, i_board, counter_w);
+            Compare_five(b2_blank_one_three_w, white_blocked_blank_one_three_o, i_board, counter_w);
+            Compare_five(b2_blank_two_three_w, white_blocked_blank_two_three, i_board, counter_w);
+            Compare_six(b2_double_three_w, white_blocked_double_three, i_board, counter_w);
+            Compare_six(n2_con_two_w, white_con_two, i_board, counter_w);
+            Compare_five(n2_blank_one_two_w, white_blank_one_two, i_board, counter_w);
+            Compare_six(n2_blank_two_two_w, white_blank_two_two, i_board, counter_w);
+            Compare_six(b2_con_two_w, white_blocked_con_two_o, i_board, counter_w);
+            Compare_six(b2_con_two_w, white_blocked_con_two_r, i_board, counter_w);
+            Compare_six(b2_blank_one_two_w, white_blocked_blank_one_two_o, i_board, counter_w);
+            Compare_six(b2_blank_one_two_w, white_blocked_blank_one_two_r, i_board, counter_w);
+            Compare_six(b2_blank_two_two_w, white_blocked_blank_two_two_o, i_board, counter_w);
+            Compare_six(b2_blank_two_two_w, white_blocked_blank_two_two_r, i_board, counter_w);
+            Compare_five(b2_blank_three_two_w, white_blocked_blank_three_two, i_board, counter_w);
+            Compare_three(n2_con_one_w, white_con_one, i_board, counter_w);
+            Compare_three(b2_con_one_w, white_blocked_one_o, i_board, counter_w);
+            Compare_three(b2_con_one_w, white_blocked_one_r, i_board, counter_w);
+
+        end
+        S_EVALUATE: begin
+            Count(black_score_w, n1_five_w);
+            Count(black_score_w, n1_four_w);
+            Count(black_score_w, n1_con_three_w);
+            Count(black_score_w, n1_jump_one_three_w);
+            Count(black_score_w, n1_con_two_w);
+            Count(black_score_w, n1_blank_one_two_w);
+            Count(black_score_w, n1_blank_two_two_w);
+            Count(black_score_w, n1_con_one_w);
+
+            Count(black_score_w, b1_con_four_w);
+            Count(black_score_w, b1_jump_one_four_w);
+            Count(black_score_w, b1_jump_two_four_w);
+            Count(black_score_w, b1_con_three_w);
+            Count(black_score_w, b1_jump_one_three_w);
+            Count(black_score_w, b1_jump_two_three_w);
+            Count(black_score_w, b1_blank_one_three_w);
+            Count(black_score_w, b1_blank_two_three_w);
+            Count(black_score_w, b1_double_three_w);
+            Count(black_score_w, b1_con_two_w);
+            Count(black_score_w, b1_blank_one_two_w);
+            Count(black_score_w, b1_blank_two_two_w);
+            Count(black_score_w, b1_blank_three_two_w);
+            Count(black_score_w, b1_con_one_w);
+
+            Count(white_score_w, n2_five_w);
+            Count(white_score_w, n2_four_w);
+            Count(white_score_w, n2_con_three_w);
+            Count(white_score_w, n2_jump_one_three_w);
+            Count(white_score_w, n2_jump_two_three_w);
+            Count(white_score_w, n2_con_two_w);
+            Count(white_score_w, n2_blank_one_two_w);
+            Count(white_score_w, n2_blank_two_two_w);
+            Count(white_score_w, n2_con_one_w);
+
+            Count(white_score_w, b2_con_four_w);
+            Count(white_score_w, b2_jump_one_four_w);
+            Count(white_score_w, b2_jump_two_four_w);
+            Count(white_score_w, b2_con_three_w);
+            Count(white_score_w, b2_jump_one_three_w);
+            Count(white_score_w, b2_jump_two_three_w);
+            Count(white_score_w, b2_blank_one_three_w);
+            Count(white_score_w, b2_blank_two_three_w);
+            Count(white_score_w, b2_double_three_w);
+            Count(white_score_w, b2_con_two_w);
+            Count(white_score_w, b2_blank_one_two_w);
+            Count(white_score_w, b2_blank_two_two_w);
+            Count(white_score_w, b2_blank_three_two_w);
+            Count(white_score_w, b2_con_one_w);
+
 
         end
     endcase
@@ -60,16 +426,114 @@ end
 
 always_ff @(negedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
-        state_r             <= S_IDLE;
-		score_r				<= score_w;
-        pos_x_r             <= 0;
-        pos_y_r             <= 0;
+        state_r                 <= S_IDLE;
+        white_score_w           = white_score_r;
+		score_r				    <= score_w;
+        counter_r               <= 0;
+
+        n1_five_r               <= 0;
+        n1_four_r               <= 0;
+        n1_con_three_r          <= 0;
+        n1_jump_one_three_r     <= 0;
+        n1_con_two_r            <= 0;
+        n1_blank_one_two_r      <= 0;
+        n1_blank_two_two_r      <= 0;
+        n1_con_one_r            <= 0;
+
+        b1_con_four_r           <= 0;
+        b1_jump_one_four_r      <= 0;
+        b1_jump_two_four_r      <= 0;
+        b1_con_three_r          <= 0;      
+        b1_jump_one_three_r     <= 0; 
+        b1_jump_two_three_r     <= 0;
+        b1_blank_one_three_r    <= 0;
+        b1_blank_two_three_r    <= 0;
+        b1_double_three_r       <= 0;  
+        b1_con_two_r            <= 0;          
+        b1_blank_one_two_r      <= 0;
+        b1_blank_two_two_r      <= 0;    
+        b1_blank_three_two_r    <= 0;
+        b1_con_one_r            <= 0;
+
+        n2_five_r               <= 0;
+        n2_four_r               <= 0;
+        n2_con_three_r          <= 0;
+        n2_jump_one_three_r     <= 0;
+        n2_con_two_r            <= 0;
+        n2_blank_one_two_r      <= 0;
+        n2_blank_two_two_r      <= 0;
+        n2_con_one_r            <= 0;
+
+        b2_con_four_r           <= 0;
+        b2_jump_one_four_r      <= 0;
+        b2_jump_two_four_r      <= 0;
+        b2_con_three_r          <= 0;      
+        b2_jump_one_three_r     <= 0; 
+        b2_jump_two_three_r     <= 0;
+        b2_blank_one_three_r    <= 0;
+        b2_blank_two_three_r    <= 0;
+        b2_double_three_r       <= 0;  
+        b2_con_two_r            <= 0;          
+        b2_blank_one_two_r      <= 0; 
+        b2_blank_two_two_r      <= 0;    
+        b2_blank_three_two_r    <= 0;
+        b2_con_one_r            <= 0;
     end
     else begin
-        state_r             <= state_w;
-		score_r				<= score_w;
-        pos_x_r             <= pos_x_w;
-        pos_y_r             <= pos_y_w;
+        state_r                 <= state_w;
+		score_r				    <= score_w;
+        counter_r               <= counter_w;
+        black_score_r           <= black_score_w;
+        white_score_r           <= white_score_w;
+
+        n1_five_r               <= n1_five_w;
+        n1_four_r               <= n1_four_w;
+        n1_con_three_r          <= n1_con_three_w;
+        n1_jump_one_three_r     <= n1_jump_one_three_w;
+        n1_con_two_r            <= n1_con_two_w;
+        n1_blank_one_two_r      <= n1_blank_one_two_w;
+        n1_blank_two_two_r      <= n1_blank_two_two_w;
+        n1_con_one_r            <= n1_con_one_w;
+
+        b1_con_four_r           <= b1_con_four_w;
+        b1_jump_one_four_r      <= b1_jump_one_four_w;
+        b1_jump_two_four_r      <= b1_jump_two_four_w;
+        b1_con_three_r          <= b1_con_three_w;      
+        b1_jump_one_three_r     <= b1_jump_one_three_w; 
+        b1_jump_two_three_r     <= b1_jump_two_three_w;
+        b1_blank_one_three_r    <= b1_blank_one_three_w;
+        b1_blank_two_three_r    <= b1_blank_two_three_w;
+        b1_double_three_r       <= b1_double_three_w;  
+        b1_con_two_r            <= b1_con_two_w;          
+        b1_blank_one_two_r      <= b1_blank_one_two_w; 
+        b1_blank_two_two_r      <= b1_blank_two_two_w;    
+        b1_blank_three_two_r    <= b1_blank_three_two_w;
+        b1_con_one_r            <= b1_con_one_w;
+
+        n2_five_r               <= n2_five_w;
+        n2_four_r               <= n2_four_w;
+        n2_con_three_r          <= n2_con_three_w;
+        n2_jump_one_three_r     <= n2_jump_one_three_w;
+        n2_con_two_r            <= n2_con_two_w;
+        n2_blank_one_two_r      <= n2_blank_one_two_w;
+        n2_blank_two_two_r      <= n2_blank_two_two_w;
+        n2_con_one_r            <= n2_con_one_w;
+
+        b2_con_four_r           <= b2_con_four_w;
+        b2_jump_one_four_r      <= b2_jump_one_four_w;
+        b2_jump_two_four_r      <= b2_jump_two_four_w;
+        b2_con_three_r          <= b2_con_three_w;      
+        b2_jump_one_three_r     <= b2_jump_one_three_w; 
+        b2_jump_two_three_r     <= b2_jump_two_three_w;
+        b2_blank_one_three_r    <= b2_blank_one_three_w;
+        b2_blank_two_three_r    <= b2_blank_two_three_w;
+        b2_double_three_r       <= b2_double_three_w;  
+        b2_con_two_r            <= b2_con_two_w;          
+        b2_blank_one_two_r      <= b2_blank_one_two_w; 
+        b2_blank_two_two_r      <= b2_blank_two_two_w;    
+        b2_blank_three_two_r    <= b2_blank_three_two_w;
+        b2_con_one_r            <= b2_con_one_w;
+
     end
 
 end
