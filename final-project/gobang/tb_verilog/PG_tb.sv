@@ -1,11 +1,10 @@
 `timescale 1ns/100ps
 
+`define CLK 10
+`define HCLK 5
 typedef logic [1:0] board [225];
+
 module PG_tb;
-
-    parameter CLK   = 10;
-    parameter HCLK  = 5;
-
     board i_board;
     logic clk;
     logic start;
@@ -31,7 +30,7 @@ module PG_tb;
     );
 
     initial clk = 0;
-    always #HCLK clk = ~clk;
+    always #(`HCLK) clk = ~clk;
 
     initial begin
         $fsdbDumpfile("PointGenerator.fsdb");
@@ -53,13 +52,13 @@ module PG_tb;
 
         
         
-
-        rst_n = 1;
-        #CLK rst_n = 0;
-        rst_n = 1;
-
-        #CLK start = 1;
         start = 0;
+        rst_n = 1;
+
+        #(`CLK) rst_n = 0;
+        #(`CLK) rst_n = 1;
+        #(`CLK) start = 1;
+        #(`CLK) start = 0;
 
         @(posedge PG_finish) begin
             for(int i = 399; i > buffer_size; i = i - 5) begin
@@ -72,7 +71,7 @@ module PG_tb;
     end  
     
     initial begin
-		#(50*CLK)
+		#(50 * (`CLK))
 		$display("Too slow, abort.");
 		$finish;
 	end  
