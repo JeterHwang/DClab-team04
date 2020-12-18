@@ -31,8 +31,11 @@ logic valid[15][15];
 assign o_posX = output_X;
 assign o_posY = output_Y;
 assign o_size = pointer[225];
+assign o_finish = finish_r;
 
 always_comb begin
+    state_w = state_r;
+    finish_w = finish_r;
     case(state_r)
         S_IDLE: begin
             finish_w    = 1'b0;
@@ -161,6 +164,8 @@ always_comb begin
                             if(i_board[i * 15 + (j - 1)] != 2'd2)
                                 valid[i][j] = 1'b1;               
                         end
+                        if(i_board[i * 15 + j] != 2'd2)
+                            valid[i][j] = 1'b0;
                     end
                 end            
             end
