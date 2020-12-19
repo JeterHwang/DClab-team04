@@ -2,6 +2,7 @@ module Score (
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,
+    input data,
                   
 	output [24:0] out
 );
@@ -10,8 +11,8 @@ parameter S_FINISH = 1'd1;
 logic [31:0] count_w, count_r;
 logic [31:0] state_w, state_r;
 assign out = count_r;
-task ff;
 
+task ff;
 input [31:0] count;
         begin
             for(int i=0; i<=2; i++) begin
@@ -29,8 +30,10 @@ always_comb begin
     count_w         = count_r;
     case(state_r)
         S_IDLE: begin
+        if(i_start) begin
             ff(count_w);
             state_w = S_FINISH;
+            end
         end
         S_FINISH: begin
             state_w = S_IDLE;
