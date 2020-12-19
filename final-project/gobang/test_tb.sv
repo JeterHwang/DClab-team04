@@ -25,7 +25,7 @@ module test;
         #(`CLK) rst_n = 0;
         #(`CLK) rst_n = 1;
         #(`CLK) start = 1;
-        #(`8*CLK) start = 0;
+        #(`CLK*8) start = 0;
 
 
             $display("     Simulation Complete !!   ");
