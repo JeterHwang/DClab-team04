@@ -12,25 +12,25 @@ logic [31:0] state_w, state_r;
 assign out = count_r;
 
 task ff;
-input [31:0] count;
-input data;
-        begin
-            for(int i=0; i<=2; i++) begin
-                count[31-i] = data;
-            end
-            for(int j=0; j<=6; j++) begin
-                count[31-j] = data;
-            end
+
+    input data;
+            begin
+                for(int i=0; i<=2; i++) begin
+                    count_w[31-i] = data;
+                end
+                for(int j=0; j<=6; j++) begin
+                    count_w[31-j] = data;
+                end
 
 
-        end
+            end
 endtask
 always_comb begin
     state_w         = state_r;
     count_w         = count_r;
     case(state_r)
         S_IDLE: begin
-            ff(count_w, i_data);
+            ff(i_data);
             state_w = S_FINISH;
             end
 
