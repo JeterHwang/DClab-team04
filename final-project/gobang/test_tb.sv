@@ -31,26 +31,24 @@ module test;
         rst     = 0;
         #(`CLK*2) rst = 1;
         #(`CLK*2) rst = 0;
+        #(`CLK)  data = 0;
+        #(`CLK)  data = 1;
+        #(`CLK)  data = 2;
+        #(`CLK)  data = 3;
+        #(`CLK)  data = 4;
+        #(`CLK)  data = 5;
 
 
-
-            @(negedge clk) begin
+            
                 
-                oo     = 25'd0;
-                
-            end
-            for(int i=0; i<=30; i++) begin
-            @(negedge clk) begin
-                oo = ((oo << 1) | out);
-                data = i;
-            end
-            end
 
 
 
 
 
 
+
+    #(`CLK)
         $display("     Simulation Complete !!   ");
         $display("==============================");
         
