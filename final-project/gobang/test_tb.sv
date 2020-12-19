@@ -1,6 +1,6 @@
 `timescale 1ns/100ps
 
-`define CYCLE 10
+`define CLK 10
 `define HCLK 5
 
 module test;
@@ -30,19 +30,19 @@ module test;
         $fsdbDumpvars;
 
         rst     = 0;
-        #(`CYCLE*2) rst = 1;
-        #(`CYCLE*2) rst = 0;
-        #(`CYCLE*2) start = 1;
-        #(`CYCLE*3) start = 0;
+        #(`CLK*2) rst = 1;
+        #(`CLK*2) rst = 0;
+        #(`CLK*2) start = 1;
+        #(`CLK*3) start = 0;
 
 
-            @(negedge i_clk) begin
+            @(negedge clk) begin
                 
                 oo     = 25'd0;
                 
             end
             for(int i=0; i<=2; i++) begin
-            @(negedge i_clk) begin
+            @(negedge clk) begin
                 oo = ((oo << 1) | out);
                 data = i;
             end
