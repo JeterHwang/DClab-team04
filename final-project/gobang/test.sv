@@ -14,12 +14,13 @@ assign out = count_r;
 
 task ff;
 input [31:0] count;
+input data;
         begin
             for(int i=0; i<=2; i++) begin
-                count[31 - i] = i;
+                count[31 - i] = data;
             end
             for(int j=0; j<=6; j++) begin
-                count[31 - j] = j;
+                count[31 - j] = data;
             end
 
 
@@ -31,7 +32,7 @@ always_comb begin
     case(state_r)
         S_IDLE: begin
         if(i_start) begin
-            ff(count_w);
+            ff(count_w, data);
             state_w = S_FINISH;
             end
         end
@@ -44,7 +45,7 @@ always_comb begin
 
 end
 
-always_ff @(negedge i_clk or negedge i_rst_n) begin
+always_ff @(negedge i_clk or posedge i_rst_n) begin
     if (!i_rst_n) begin
         state_r         <= S_IDLE;
         count_r         <= 0;
