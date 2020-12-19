@@ -3,12 +3,12 @@ module Score (
 	input         i_rst_n,
     input          i_data,
                   
-	output [24:0] out
+	output [2:0] out
 );
 parameter S_IDLE = 1'd0;
 parameter S_FINISH = 1'd1;
 logic [2:0] count_w, count_r;
-logic [31:0] state_w, state_r;
+logic  state_w, state_r;
 assign out = count_r;
 
 task ff;
@@ -44,7 +44,6 @@ always_comb begin
             count_w [0] = count_r[0] ;
        end
     endcase
-
 
 end
 
