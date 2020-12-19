@@ -9,7 +9,7 @@ parameter S_IDLE = 1'd0;
 parameter S_FINISH = 1'd1;
 logic [31:0] count_w, count_r;
 logic [31:0] state_w, state_r;
-
+assign out = count_r
 task ff;
 
 input [31:0] count;
