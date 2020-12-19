@@ -30,18 +30,15 @@ always_comb begin
     // count_w         = count_r;
     case(state_r)
         S_IDLE: begin
-            // ff(i_data);
-            count_w [2] = i_data;
-            count_w [1] = i_data;
-            count_w [0] = i_data;
+            ff(i_data);
+            // count_w [2] = i_data;
+            // count_w [1] = i_data;
+            // count_w [0] = i_data;
             state_w = S_FINISH;
             end
 
         S_FINISH: begin
             state_w = S_IDLE;
-            count_w [2] = count_r[2];
-            count_w [1] = count_r[1];
-            count_w [0] = count_r[0] ;
        end
     endcase
 

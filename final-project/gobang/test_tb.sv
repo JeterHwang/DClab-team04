@@ -7,7 +7,7 @@ module test;
 
     logic clk;
     logic rst;
-    logic data;
+    logic [2:0] data;
     logic [24:0] out;
     logic [24:0] oo;
 
