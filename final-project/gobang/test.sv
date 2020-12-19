@@ -5,7 +5,7 @@ module Score (
                   
 	output [24:0] out
 );
-logic [30:0] state_w, state_r;
+logic [31:0] state_w, state_r;
 
 always_comb begin
     for(int i=0; i<=2; i++) begin
@@ -28,3 +28,6 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         state_r         <= state_w;
 
     end
+end
+
+endmodule
