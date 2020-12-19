@@ -44,7 +44,7 @@ always_comb begin
 end
 
 always_ff @(negedge i_clk or posedge i_rst_n) begin
-    if (!i_rst_n) begin
+    if (i_rst_n) begin
         state_r         <= S_IDLE;
         count_r         <= 0;
 
