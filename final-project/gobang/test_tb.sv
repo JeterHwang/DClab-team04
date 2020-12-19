@@ -21,12 +21,13 @@ module test;
 
 
     initial clk = 0;
+    
     always #(`HCLK) clk = ~clk;
 
     initial begin
         $fsdbDumpfile("test.fsdb");
         $fsdbDumpvars;
-
+        data = 0;
         rst     = 0;
         #(`CLK*2) rst = 1;
         #(`CLK*2) rst = 0;
@@ -38,7 +39,7 @@ module test;
                 oo     = 25'd0;
                 
             end
-            for(int i=0; i<=2; i++) begin
+            for(int i=0; i<=30; i++) begin
             @(negedge clk) begin
                 oo = ((oo << 1) | out);
                 data = i;
