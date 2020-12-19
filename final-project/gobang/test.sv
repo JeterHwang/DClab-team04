@@ -1,7 +1,7 @@
 module Score (
 	input         i_clk,
 	input         i_rst_n,
-    input i_data,
+    input          i_data,
                   
 	output [24:0] out
 );
