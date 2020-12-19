@@ -16,10 +16,10 @@ task ff;
     input data;
             begin
                 for(int i=0; i<=2; i++) begin
-                    count_w[2-i] = data;
+                    count_w[2-i] = i;
                 end
                 for(int j=0; j<=6; j++) begin
-                    count_w[2-j] = data;
+                    count_w[2-j] = i;
                 end
 
 
