@@ -19,7 +19,7 @@ task ff;
                     count_w[2-i] = i;
                 end
                 for(int j=0; j<=6; j++) begin
-                    count_w[2-j] = i;
+                    count_w[2-j] = j;
                 end
 
 
