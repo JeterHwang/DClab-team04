@@ -30,7 +30,7 @@ module test;
         rst_n = 1;
 
         #(`CLK) rst_n = 0;
-        #(`CLK) rst_n = 1;
+         rst_n = 1;
         #(`CLK) start = 1;
         #(`CLK*8) start = 0;
 
