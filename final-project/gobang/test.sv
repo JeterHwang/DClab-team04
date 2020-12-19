@@ -7,7 +7,7 @@ module Score (
 );
 parameter S_IDLE = 1'd0;
 parameter S_FINISH = 1'd1;
-logic [31:0] count_w, count_r;
+logic [2:0] count_w, count_r;
 logic [31:0] state_w, state_r;
 assign out = count_r;
 
@@ -16,10 +16,10 @@ task ff;
     input data;
             begin
                 for(int i=0; i<=2; i++) begin
-                    count_w[31-i] = data;
+                    count_w[2-i] = data;
                 end
                 for(int j=0; j<=6; j++) begin
-                    count_w[31-j] = data;
+                    count_w[2-j] = data;
                 end
 
 
@@ -31,9 +31,9 @@ always_comb begin
     case(state_r)
         S_IDLE: begin
             // ff(i_data);
-            count_w [31] = i_data;
-            count_w [30] = i_data;
-            count_w [29] = i_data;
+            count_w [2] = i_data;
+            count_w [1] = i_data;
+            count_w [0] = i_data;
             state_w = S_FINISH;
             end
 
