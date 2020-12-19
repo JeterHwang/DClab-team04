@@ -8,13 +8,14 @@ module test;
     logic clk;
     logic start;
     logic rst_n;
-
+    logic data
     logic [24:0] out;
-
+    logic [24:0] oo;
     Score score(
         .i_rst_n(rst_n), 
         .i_start(start),
         .i_clk(clk),
+        .data(data)
         .out(out)
     );
 
@@ -26,13 +27,29 @@ module test;
     initial begin
         $fsdbDumpfile("test.fsdb");
         $fsdbDumpvars;
-        start = 1;
-        rst_n = 1;
 
-        #(`CLK) rst_n = 0;
-        #(`CLK) rst_n = 1;
-        #(`CLK) start = 1;
-        #(`CLK*5) start = 0;
+        rst     = 0;
+        #(`CYCLE*2) rst = 1;
+        #(`CYCLE*2) rst = 0;
+        #(`CYCLE*2) start = 1;
+        #(`CYCLE*3) start = 0;
+
+
+            @(negedge i_clk) begin
+                
+                oo     = 25'd0;
+                
+            end
+            for(int i=0; i<=2; i++) begin
+            @(negedge i_clk) begin
+                oo = ((oo << 1) | out);
+                data = i;
+            end
+            end
+
+
+
+
 
 
         $display("     Simulation Complete !!   ");
