@@ -1,7 +1,6 @@
 module Score (
 	input         i_clk,
 	input         i_rst_n,
-	input         i_start,
     input i_data,
                   
 	output [24:0] out
@@ -31,11 +30,10 @@ always_comb begin
     count_w         = count_r;
     case(state_r)
         S_IDLE: begin
-        if(i_start) begin
             ff(count_w, i_data);
             state_w = S_FINISH;
             end
-        end
+
         S_FINISH: begin
             state_w = S_IDLE;
 

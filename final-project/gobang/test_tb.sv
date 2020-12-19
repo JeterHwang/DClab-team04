@@ -6,7 +6,6 @@
 module test;
 
     logic clk;
-    logic start;
     logic rst;
     logic data;
     logic [24:0] out;
@@ -14,7 +13,6 @@ module test;
 
     Score score(
         .i_rst_n(rst),
-        .i_start(start),
         .i_clk(clk),
         .i_data(data),
         .out(out)
@@ -32,8 +30,7 @@ module test;
         rst     = 0;
         #(`CLK*2) rst = 1;
         #(`CLK*2) rst = 0;
-        #(`CLK*2) start = 1;
-        #(`CLK*3) start = 0;
+
 
 
             @(negedge clk) begin
