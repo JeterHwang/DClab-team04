@@ -17,10 +17,10 @@ input [31:0] count;
 input data;
         begin
             for(int i=0; i<=2; i++) begin
-                count[31 - i] = data;
+                count[31-i] = data;
             end
             for(int j=0; j<=6; j++) begin
-                count[31 - j] = data;
+                count[31-j] = data;
             end
 
 

@@ -1,6 +1,6 @@
 `timescale 1ns/100ps
 
-`define CLK 10
+`define CYCLE 10
 `define HCLK 5
 
 module test;
