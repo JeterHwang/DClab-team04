@@ -7,13 +7,13 @@ module test;
 
     logic clk;
     logic start;
-    logic rst_n;
+    logic rst;
     logic data;
     logic [24:0] out;
     logic [24:0] oo;
 
     Score score(
-        .i_rst_n(rst_n),
+        .i_rst_n(rst),
         .i_start(start),
         .i_clk(clk),
         .i_data(data),
