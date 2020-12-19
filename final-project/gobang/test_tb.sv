@@ -12,12 +12,12 @@ module test;
     logic [24:0] out;
     logic [24:0] oo;
 
-    Test score(
+    Score score(
         .i_rst_n(rst_n),
         .i_start(start),
         .i_clk(clk),
         .i_data(data),
-        .out(out),
+        .out(out)
     );
 
 
