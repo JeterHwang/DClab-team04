@@ -30,9 +30,9 @@ module test;
         rst_n = 1;
 
         #(`CLK) rst_n = 0;
-         rst_n = 1;
+        #(`CLK) rst_n = 1;
         #(`CLK) start = 1;
-        #(`CLK*8) start = 0;
+        #(`CLK*5) start = 0;
 
 
         $display("     Simulation Complete !!   ");
