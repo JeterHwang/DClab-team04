@@ -27,7 +27,7 @@ task ff;
 endtask
 always_comb begin
     state_w         = state_r;
-    // count_w         = count_r;
+    count_w         = count_r;
     case(state_r)
         S_IDLE: begin
             ff(i_data);
