@@ -11,6 +11,13 @@ module test;
 
     logic [24:0] out;
 
+    Score score(
+        .i_rst_n(rst_n), 
+        .i_start(start),
+        .i_clk(clk),
+        .out(out)
+    );
+
 
 
     initial clk = 0;
@@ -28,8 +35,8 @@ module test;
         #(`CLK*8) start = 0;
 
 
-            $display("     Simulation Complete !!   ");
-            $display("==============================");
+        $display("     Simulation Complete !!   ");
+        $display("==============================");
         
         $finish;
     end  
