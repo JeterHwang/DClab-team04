@@ -12,10 +12,8 @@ s = Serial(
     rtscts=False
 )
 
-key = fp_key.read(64)
-enc = fp_enc.read()
-assert len(enc) % 32 == 0
-a = 0xf5
+a = 0x64     #0110_0100
+a.to_bytes(1,byteorder = 'little')
 s.write(a)
-b = s.read(8)
+b = s.read(1)
 print("a", a ,"b:",b)

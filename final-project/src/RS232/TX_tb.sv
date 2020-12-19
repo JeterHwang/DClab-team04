@@ -52,7 +52,7 @@ module UART_TB ();
   initial
     begin
       // Tell UART to send a command (exercise TX)
-      @(posedge r_Clock);
+    //   @(posedge r_Clock);
       @(posedge r_Clock);
       r_TX_DV   <= 1'b1;
       r_TX_Byte <= 8'hF3;
@@ -65,7 +65,7 @@ module UART_TB ();
         $display("Test Passed - Correct Byte Received");
       else
         $display("Test Failed - Incorrect Byte Received");
-      @(posedge w_Tx_Done)
+      @(posedge w_Tx_Done);
         $display("Test finished - Correct Byte Received");
       $finish();
     end

@@ -29,10 +29,10 @@ module UART_TX
   localparam TX_STOP_BIT  = 3'b011;
   localparam CLEANUP      = 3'b100;
   
-  reg [2:0] r_SM_Main;
-  reg [$clog2(CLKS_PER_BIT):0] r_Clock_Count;
-  reg [2:0] r_Bit_Index;
-  reg [7:0] r_TX_Data;
+  logic [2:0] r_SM_Main;
+  logic [$clog2(CLKS_PER_BIT):0] r_Clock_Count;
+  logic [2:0] r_Bit_Index;
+  logic [7:0] r_TX_Data;
 
 
   // Purpose: Control TX state machine
