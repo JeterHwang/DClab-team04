@@ -27,7 +27,7 @@ if __name__ == "__main__":
         print('what operation do you prefer ? (input / write)')
         s = input()
         if s == 'write':
-            write_out('C:\\Users\\Jeter Hwang\\OneDrive\\桌面\\Github\\ICS\\DClab-team04\\final-project\\gobang\\pattern\\PG_test1_i.txt')
+            write_out('/Users/peterlin/DClab-team04/final-project/gobang/pattern/PG_test1_i.txt')
             # read_in('C:\\Users\\Jeter Hwang\\OneDrive\\桌面\\Github\\ICS\\DClab-team04\\final-project\\gobang\\pattern\\PG_test1_i.txt')
             break
         elif s == 'input':
