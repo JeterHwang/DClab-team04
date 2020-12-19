@@ -15,10 +15,10 @@ task ff;
 input [31:0] count;
         begin
             for(int i=0; i<=2; i++) begin
-                count[31 - i] = i;
+                count[31 - i] = ;
             end
             for(int j=0; j<=6; j++) begin
-                count[31 - i] = j;
+                count[31 - j] = j;
             end
 
 
