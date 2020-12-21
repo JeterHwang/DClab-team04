@@ -5,7 +5,7 @@ module Score (
 	input         i_start,
 	input         board i_board,         // 15*15*2 bit chess board
     input         i_turn,          
-	output [16:0] o_score,                      // 17 bit score
+	output [31:0] o_score,                      // 32 bit score
     output        o_finish
 );
 
@@ -100,9 +100,9 @@ parameter logic [1:0] white_blocked_one_r [0:2] = '{l, w, b};
 
 
 logic [3:0]  state_r, state_w;
-logic [16:0] white_score_r, white_score_w;
-logic [16:0] black_score_r, black_score_w;
-logic [16:0] score_r, score_w;
+logic [31:0] white_score_r, white_score_w;
+logic [31:0] black_score_r, black_score_w;
+logic [31:0] score_r, score_w;
 logic [11:0] counter_r, counter_w;
 logic finished_r, finished_w;
 
@@ -256,7 +256,7 @@ task Count;
 
     // input [23:0] pattern_store,
     input [224:0] pattern_board;
-    input [28:0] score;
+    input [31:0] score;
     begin
     for (int i=0; i<=224; i++) begin
         if (pattern_board[i] == 1) begin
