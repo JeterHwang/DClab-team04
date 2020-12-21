@@ -2,7 +2,7 @@
 
 `define CLK 10
 `define HCLK 5
-typedef logic [1:0] board [255];
+typedef logic [1:0] board [225];
 
 module minmax_tb;
     board i_board;
@@ -32,7 +32,7 @@ module minmax_tb;
     initial begin
         $fsdbDumpfile("PointGenerator.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../pattern/PG_test1_i.txt", "r");
+        fp_i = $fopen("../../pattern/PG_test1_i.txt", "r");
 
         if(fp_i) 
             $display("File was opened successfully : %0d", fp_i);

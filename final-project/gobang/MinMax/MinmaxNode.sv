@@ -63,7 +63,7 @@ assign o_Ypos 	= ans_y_r;
 point_generator PG(
     .i_clk(i_clk),
     .i_rst_n(i_rst_n),
-    .i_start(PG_start),
+    .i_start(PG_start_r),
     .i_board(i_board),
     .o_posX(X_buffer),
     .o_posY(Y_buffer),
@@ -176,7 +176,7 @@ always_comb begin
 				cand_y_w			= Y_buffer[pointer_r -: 5];
 				coor_1D 			= 15 * cand_x_w + cand_y_w;
 				board_w[coor_1D] 	= turn;
-				pointer_w			= pointer_r - 9'd5;
+				pointer_w			= pointer_r - 5;
 			end
 		end
 		S_DFS: begin
