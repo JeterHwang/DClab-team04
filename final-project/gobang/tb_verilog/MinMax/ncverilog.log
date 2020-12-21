@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 21, 2020 at 21:37:45 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 21, 2020 at 22:04:43 CST
 ncverilog
 	Minmax_tb.sv
 	../../MinMax/MinmaxWrapper.sv
@@ -8,208 +8,208 @@ ncverilog
 	../../MinMax/Score.sv
 	+access+r
 Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score.sv' is newer than expected.
-	expected: Mon Dec 21 19:17:58 2020
-	actual:   Mon Dec 21 21:37:36 2020
+	expected: Mon Dec 21 22:03:03 2020
+	actual:   Mon Dec 21 22:04:39 2020
 file: ../../MinMax/Score.sv
             Compare_five(n1_five_w, black_con_five, i_board, counter_w);
                                                           |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,328|58): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,333|58): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n1_four_w, black_con_four, i_board, counter_w);
                                                          |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,329|57): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,334|57): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_con_four_w, black_blocked_con_four_o, i_board, counter_w);
                                                                        |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,330|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,335|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_con_four_w, black_blocked_con_four_r, i_board, counter_w);
                                                                        |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,331|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,336|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b1_jump_one_four_w, black_blocked_jump_one_four_o, i_board, counter_w);
                                                                                   |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,332|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,337|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b1_jump_one_four_w, black_blocked_jump_one_four_r, i_board, counter_w);
                                                                                   |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,333|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,338|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b1_jump_two_four_w, black_blocked_jump_two_four, i_board, counter_w);
                                                                                 |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,334|80): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,339|80): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(n1_con_three_w, black_con_three, i_board, counter_w);
                                                                 |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,335|64): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,340|64): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n1_jump_one_three_w, black_jump_one_three_o, i_board, counter_w);
                                                                            |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,336|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,341|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n1_jump_one_three_w, black_jump_one_three_r, i_board, counter_w);
                                                                            |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,337|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,342|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_con_three_w, black_blocked_con_three_o, i_board, counter_w);
                                                                          |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,338|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,343|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_con_three_w, black_blocked_con_three_r, i_board, counter_w);
                                                                          |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,339|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,344|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_jump_one_three_w, black_blocked_jump_one_three_o, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,340|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,345|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_jump_one_three_w, black_blocked_jump_one_three_r, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,341|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,346|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_jump_two_three_w, black_blocked_jump_two_three_o, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,342|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,347|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_jump_two_three_w, black_blocked_jump_two_three_r, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,343|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,348|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b1_blank_one_three_w, black_blocked_blank_one_three_o, i_board, counter_w);
                                                                                       |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,344|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,349|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b1_blank_one_three_w, black_blocked_blank_one_three_o, i_board, counter_w);
                                                                                       |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,345|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,350|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b1_blank_two_three_w, black_blocked_blank_two_three, i_board, counter_w);
                                                                                     |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,346|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,351|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_seven(b1_double_three_w, black_blocked_double_three, i_board, counter_w);
                                                                                |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,347|79): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,352|79): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n1_con_two_w, black_con_two, i_board, counter_w);
                                                            |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,348|59): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,353|59): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(n1_blank_one_two_w, black_blank_one_two, i_board, counter_w);
                                                                         |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,349|72): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,354|72): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n1_blank_two_two_w, black_blank_two_two, i_board, counter_w);
                                                                        |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,350|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,355|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_con_two_w, black_blocked_con_two_o, i_board, counter_w);
                                                                      |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,351|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,356|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_con_two_w, black_blocked_con_two_r, i_board, counter_w);
                                                                      |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,352|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,357|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_blank_one_two_w, black_blocked_blank_one_two_o, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,353|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,358|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_blank_one_two_w, black_blocked_blank_one_two_r, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,354|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,359|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_blank_two_two_w, black_blocked_blank_two_two_o, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,355|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,360|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b1_blank_two_two_w, black_blocked_blank_two_two_r, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,356|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,361|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b1_blank_three_two_w, black_blocked_blank_three_two, i_board, counter_w);
                                                                                     |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,357|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,362|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_three(n1_con_one_w, black_con_one, i_board, counter_w);
                                                              |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,358|61): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,363|61): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_three(b1_con_one_w, black_blocked_one_o, i_board, counter_w);
                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,359|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,364|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_three(b1_con_one_w, black_blocked_one_r, i_board, counter_w);
                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,360|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,365|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(n2_five_w, white_con_five, i_board, counter_w);
                                                           |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,366|58): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,371|58): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n2_four_w, white_con_four, i_board, counter_w);
                                                          |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,367|57): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,372|57): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_con_four_w, white_blocked_con_four_o, i_board, counter_w);
                                                                        |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,368|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,373|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_con_four_w, white_blocked_con_four_r, i_board, counter_w);
                                                                        |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,369|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,374|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b2_jump_one_four_w, white_blocked_jump_one_four_o, i_board, counter_w);
                                                                                   |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,370|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,375|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b2_jump_one_four_w, white_blocked_jump_one_four_r, i_board, counter_w);
                                                                                   |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,371|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,376|82): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b2_jump_two_four_w, white_blocked_jump_two_four, i_board, counter_w);
                                                                                 |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,372|80): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,377|80): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(n2_con_three_w, white_con_three, i_board, counter_w);
                                                                 |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,373|64): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,378|64): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n2_jump_one_three_w, white_jump_one_three_o, i_board, counter_w);
                                                                            |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,374|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,379|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n2_jump_one_three_w, white_jump_one_three_r, i_board, counter_w);
                                                                            |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,375|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,380|75): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_con_three_w, white_blocked_con_three_o, i_board, counter_w);
                                                                          |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,376|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,381|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_con_three_w, white_blocked_con_three_r, i_board, counter_w);
                                                                          |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,377|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,382|73): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_jump_one_three_w, white_blocked_jump_one_three_o, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,378|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,383|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_jump_one_three_w, white_blocked_jump_one_three_r, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,379|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,384|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_jump_two_three_w, white_blocked_jump_two_three_o, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,380|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,385|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_jump_two_three_w, white_blocked_jump_two_three_r, i_board, counter_w);
                                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,381|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,386|83): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b2_blank_one_three_w, white_blocked_blank_one_three_o, i_board, counter_w);
                                                                                       |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,382|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,387|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b2_blank_one_three_w, white_blocked_blank_one_three_o, i_board, counter_w);
                                                                                       |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,383|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,388|86): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b2_blank_two_three_w, white_blocked_blank_two_three, i_board, counter_w);
                                                                                     |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,384|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,389|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_seven(b2_double_three_w, white_blocked_double_three, i_board, counter_w);
                                                                                |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,385|79): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,390|79): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n2_con_two_w, white_con_two, i_board, counter_w);
                                                            |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,386|59): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,391|59): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(n2_blank_one_two_w, white_blank_one_two, i_board, counter_w);
                                                                         |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,387|72): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,392|72): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(n2_blank_two_two_w, white_blank_two_two, i_board, counter_w);
                                                                        |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,388|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,393|71): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_con_two_w, white_blocked_con_two_o, i_board, counter_w);
                                                                      |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,389|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,394|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_con_two_w, white_blocked_con_two_r, i_board, counter_w);
                                                                      |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,390|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,395|69): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_blank_one_two_w, white_blocked_blank_one_two_o, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,391|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,396|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_blank_one_two_w, white_blocked_blank_one_two_r, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,392|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,397|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_blank_two_two_w, white_blocked_blank_two_two_o, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,393|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,398|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_six(b2_blank_two_two_w, white_blocked_blank_two_two_r, i_board, counter_w);
                                                                                  |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,394|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,399|81): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_five(b2_blank_three_two_w, white_blocked_blank_three_two, i_board, counter_w);
                                                                                     |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,395|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,400|84): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_three(n2_con_one_w, white_con_one, i_board, counter_w);
                                                              |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,396|61): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,401|61): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_three(b2_con_one_w, white_blocked_one_o, i_board, counter_w);
                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,397|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,402|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
             Compare_three(b2_con_one_w, white_blocked_one_r, i_board, counter_w);
                                                                    |
-ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,398|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
+ncvlog: *E,TYCMPAT (../../MinMax/Score.sv,403|67): formal and actual do not have assignment compatible data types (expecting datatype compatible with 'unpacked array [0:224] of packed array [1:0] of logic' but found '$unit::board (unpacked array [0:254] of packed array [1:0] of logic)' instead).
 	module worklib.Score:sv
 		errors: 66, warnings: 0
 ncverilog: *E,VLGERR: An error occurred during parsing.  Review the log file for errors with the code *E and fix those identified problems to proceed.  Exiting with code (status 1).
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 21, 2020 at 21:37:45 CST  (total: 00:00:00)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 21, 2020 at 22:04:43 CST  (total: 00:00:00)

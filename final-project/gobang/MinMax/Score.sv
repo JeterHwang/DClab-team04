@@ -1,3 +1,4 @@
+typedef logic [1:0] chess_board [224:0];
 module Score (
 	input         i_clk,
 	input         i_rst_n,
@@ -103,7 +104,7 @@ logic [16:0] white_score_r, white_score_w;
 logic [16:0] black_score_r, black_score_w;
 logic [16:0] score_r, score_w;
 logic [11:0] counter_r, counter_w;
-logic finished_r, finisfhed_w;
+logic finished_r, finished_w;
 
 logic  [224:0] n1_five_r , n1_five_w ;                      
 logic  [224:0] n1_four_r , n1_four_w ;                     
@@ -274,7 +275,7 @@ always_comb begin
     white_score_w           = white_score_r;
 	score_w				    = score_r;
     counter_w                = counter_r;
-    finisfhed_w             = finished_r;
+    finished_w             = finished_r;
 
     n1_five_w                = n1_five_r;
     n1_four_w                = n1_four_r;
@@ -521,7 +522,7 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         counter_r               <= counter_w;
         black_score_r           <= black_score_w;
         white_score_r           <= white_score_w;
-        finished_r              <= finisfhed_w;
+        finished_r              <= finished_w;
 
         n1_five_r               <= n1_five_w;
         n1_four_r               <= n1_four_w;
