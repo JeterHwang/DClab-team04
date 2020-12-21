@@ -100,8 +100,8 @@ parameter logic [1:0] white_blocked_one_r [0:2] = '{l, w, b};
 
 
 logic [3:0]  state_r, state_w;
-logic [31:0] white_score_r, white_score_w;
-logic [31:0] black_score_r, black_score_w;
+logic signed [31:0] white_score_r, white_score_w;
+logic signed [31:0] black_score_r, black_score_w;
 logic [31:0] score_r, score_w;
 logic [11:0] counter_r, counter_w;
 logic finished_r, finished_w;
@@ -193,7 +193,7 @@ task Compare_seven;
     repeat(15) begin
         for (int i = 0; i <= 8; i++) begin
             if( '{chess_board[counter+i*15], chess_board[counter+(i+1)*15], chess_board[counter+(i+2)*15], 
-            chess_board[counter+(i+3)*15], chess_board[counter+(i+4)*15] } === pattern_check) begin
+            chess_board[counter+(i+3)*15], chess_board[counter+(i+4)*15], chess_board[counter+(i+5)*15], chess_board[counter+(i+6)*15] } === pattern_check) begin
                 pattern_cal[counter+ i*15] = 1;
             end
             else begin
@@ -256,7 +256,7 @@ task Count;
 
     // input [23:0] pattern_store,
     input [224:0] pattern_board;
-    input [31:0] score;
+    input signed [31:0] score;
     begin
     for (int i=0; i<=224; i++) begin
         if (pattern_board[i] == 1) begin
