@@ -13,7 +13,7 @@ parameter MAXX = {1'b0, {31{1'b1}}};
 parameter MINN = {1'b1, {30{1'b0}}, 1'b1};
 
 // wires
-board board_w[6];
+board board_w0, board_w1, board_w2, board_w3, board_w4;
 logic finish_w[6];
 logic signed [31:0] point_w[6];
 logic start_w[6];
@@ -30,47 +30,86 @@ assign depth[2] = (i_depth >= 3) ? i_depth - 3 : 5'd0;
 assign depth[3] = (i_depth >= 4) ? i_depth - 4 : 5'd0;
 assign depth[4] = (i_depth >= 5) ? i_depth - 5 : 5'd0;
 
-genvar i;
-generate
-	for(i = 0; i < 5; i = i + 1) begin
-		if(i == 0) begin
-			Kill_node kill(
-				.i_clk(i_clk),
-				.i_rst_n(i_rst_n),
-				.i_depth(depth[i]),
-				.i_prev_point(MAXX),
-				.i_start(i_start),
-				.i_next(finish_w[1]),
-				.i_point(point_w[1]),
-				.i_board(i_board),
-				.o_board(board_w[0]),
-				.o_point(point_w[0]),
-				.o_finish(finish_w[0]),
-				.o_start(start_w[0]),
-				.o_Xpos(Xpos_w[0]),
-				.o_Ypos(Ypos_w[0])
-			);
-		end
-		else begin
-			Kill_node kill(
-				.i_clk(i_clk),
-				.i_rst_n(i_rst_n),
-				.i_depth(depth[i]),
-				.i_prev_point(point_w[i-1]),
-				.i_start(start_w[i-1]),
-				.i_next(finish_w[i+1]),
-				.i_point(point_w[i+1]),
-				.i_board(board_w[i-1]),
-				.o_board(board_w[i]),
-				.o_point(point_w[i]),
-				.o_finish(finish_w[i]),
-				.o_start(start_w[i]),
-				.o_Xpos(Xpos_w[i]),
-				.o_Ypos(Ypos_w[i])
-			);
-		end
-	end
-endgenerate
+Minmax minmax0(
+	.i_clk(i_clk),
+	.i_rst_n(i_rst_n),
+	.i_depth(depth[0]),
+	.i_prev_point(MAXX),
+	.i_start(i_start),
+	.i_next(finish_w[1]),
+	.i_point(point_w[1]),
+	.i_board(i_board),
+	.o_board(board_w0),
+	.o_point(point_w[0]),
+	.o_finish(finish_w[0]),
+	.o_start(start_w[0]),
+	.o_Xpos(Xpos_w[0]),
+	.o_Ypos(Ypos_w[0])
+);
+Minmax minmax1(
+	.i_clk(i_clk),
+	.i_rst_n(i_rst_n),
+	.i_depth(depth[1]),
+	.i_prev_point(point_w[0]),
+	.i_start(start_w[0]),
+	.i_next(finish_w[2]),
+	.i_point(point_w[2]),
+	.i_board(board_w0),
+	.o_board(board_w1),
+	.o_point(point_w[1]),
+	.o_finish(finish_w[1]),
+	.o_start(start_w[1]),
+	.o_Xpos(Xpos_w[1]),
+	.o_Ypos(Ypos_w[1])
+);
+Minmax minmax2(
+	.i_clk(i_clk),
+	.i_rst_n(i_rst_n),
+	.i_depth(depth[2]),
+	.i_prev_point(point_w[1]),
+	.i_start(start_w[1]),
+	.i_next(finish_w[3]),
+	.i_point(point_w[3]),
+	.i_board(board_w1),
+	.o_board(board_w2),
+	.o_point(point_w[2]),
+	.o_finish(finish_w[2]),
+	.o_start(start_w[2]),
+	.o_Xpos(Xpos_w[2]),
+	.o_Ypos(Ypos_w[2])
+);
+Minmax minmax3(
+	.i_clk(i_clk),
+	.i_rst_n(i_rst_n),
+	.i_depth(depth[3]),
+	.i_prev_point(point_w[2]),
+	.i_start(start_w[2]),
+	.i_next(finish_w[4]),
+	.i_point(point_w[4]),
+	.i_board(board_w2),
+	.o_board(board_w3),
+	.o_point(point_w[3]),
+	.o_finish(finish_w[3]),
+	.o_start(start_w[3]),
+	.o_Xpos(Xpos_w[3]),
+	.o_Ypos(Ypos_w[3])
+);
+Minmax minmax4(
+	.i_clk(i_clk),
+	.i_rst_n(i_rst_n),
+	.i_depth(depth[4]),
+	.i_prev_point(point_w[3]),
+	.i_start(start_w[3]),
+	.i_next(finish_w[5]),
+	.i_point(point_w[5]),
+	.i_board(board_w3),
+	.o_board(board_w4),
+	.o_point(point_w[4]),
+	.o_finish(finish_w[4]),
+	.o_start(start_w[4]),
+	.o_Xpos(Xpos_w[4]),
+	.o_Ypos(Ypos_w[4])
+);
 
 endmodule
 
