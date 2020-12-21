@@ -104,6 +104,7 @@ logic [16:0] white_score_r, white_score_w;
 logic [16:0] black_score_r, black_score_w;
 logic [16:0] score_r, score_w;
 logic [11:0] counter_r, counter_w;
+logic finished_r, finisfhed_w;
 
 logic  [224:0] n1_five_r , n1_five_w ;                      
 logic  [224:0] n1_four_r , n1_four_w ;                     
@@ -153,6 +154,7 @@ logic  [224:0] b2_blank_two_two_r , b2_blank_two_two_w ;
 logic  [224:0] b2_blank_three_two_r , b2_blank_three_two_w ; 
 logic  [224:0] b2_con_one_r , b2_con_one_w ;                       
 
+assign o_finish = finished_r;
 
 
 
@@ -273,6 +275,7 @@ always_comb begin
     white_score_w           = white_score_r;
 	score_w				    = score_r;
     counter_w                = counter_r;
+    finisfhed_w             = finished_r;
 
     n1_five_w                = n1_five_r;
     n1_four_w                = n1_four_r;
@@ -325,7 +328,8 @@ always_comb begin
     
 	case (state_r)
         S_BLACK: begin
-
+            if(i_start) begin
+            finished_w = 0;
             Compare_five(n1_five_w, black_con_five, i_board, counter_w);
             Compare_six(n1_four_w, black_con_four, i_board, counter_w);
             Compare_six(b1_con_four_w, black_blocked_con_four_o, i_board, counter_w);
@@ -360,7 +364,7 @@ always_comb begin
             Compare_three(b1_con_one_w, black_blocked_one_o, i_board, counter_w);
             Compare_three(b1_con_one_w, black_blocked_one_r, i_board, counter_w);
             state_w = S_WHITE;
-
+            end
         end
         S_WHITE: begin
 
@@ -449,6 +453,7 @@ always_comb begin
             Count(white_score_w, b2_con_one_w);
             score_w = black_score_w - white_score_w;
             state_w = S_BLACK;
+            finished_w  = 1;
 
         end
     endcase
@@ -461,6 +466,7 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         white_score_r           <= 0;
 		score_r				    <= 0;
         counter_r               <= 0;
+        finished_r              <= 0;
 
         n1_five_r               <= 0;
         n1_four_r               <= 0;
@@ -516,6 +522,7 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
         counter_r               <= counter_w;
         black_score_r           <= black_score_w;
         white_score_r           <= white_score_w;
+        finished_r              <= finisfhed_w;
 
         n1_five_r               <= n1_five_w;
         n1_four_r               <= n1_four_w;
