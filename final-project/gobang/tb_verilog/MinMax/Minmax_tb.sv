@@ -58,7 +58,7 @@ module minmax_tb;
             $display("(X, Y) = (%d, %d)\n", X_output, Y_output);
         end
 
-        $finish
+        $finish;
     end
 
     initial begin

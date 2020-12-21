@@ -1,4 +1,3 @@
-typedef logic [1:0] board [225];
 module Minmax(		// 
 	input         	i_clk,
 	input         	i_rst_n,
@@ -6,13 +5,13 @@ module Minmax(		//
 	input  signed [31:0] i_prev_point,
 	// pairing signals
 	input         	i_start,
-	input 		  	i_next,			// 繼續找下一個放棋點
+	input 		  	i_next,			// set high to start searching for the next point
 	input  signed [31:0] i_point,
 	input  board  	i_board,        // 15*15*2 bit chess boad
-	output board  	o_board,		// output board 給"下一級"
-	output signed [31:0] o_point,	// output point 給"上一級"
-	output 		  	o_finish,		// 告訴"上一級"我所有點都做完了
-	output 		  	o_start,		// 告訴"下一級"開始動工
+	output board  	o_board,		// output board to children
+	output signed [31:0] o_point,	// output point tp parent
+	output 		  	o_finish,		// tell parent that all the points have been searched 
+	output 		  	o_start,		// tell children to start searching their points
 	output  [4:0]   o_Xpos,
     output  [4:0]   o_Ypos
 );
@@ -30,7 +29,7 @@ parameter S_PEND 	= 3'd4;
 board board_r, board_w;
 logic turn;
 logic pruning;
-logic 1D_coor_w;
+logic [7:0] coor_1D;
 logic [2:0] state_r, state_w;
 logic signed [31:0] point_r, point_w;
 logic [8:0] pointer_r, pointer_w;
@@ -69,7 +68,7 @@ point_generator PG(
     .o_posX(X_buffer),
     .o_posY(Y_buffer),
     .o_size(SZ_buffer),
-    .o_finish(PG_finish)
+    .o_PGfinish(PG_finish)
 );
 Score score(
 	.i_clk(i_clk),
@@ -157,7 +156,7 @@ always_comb begin
 			if(PG_finish) begin
 				state_w = S_WAIT;
 				pointer_w = 9'd399;
-				if(turn)  // 設初值
+				if(turn)  			// initialize
 					point_w = MAXX;
 				else
 					point_w = MINN;
@@ -175,8 +174,8 @@ always_comb begin
 				next_start_w 		= 1'b1;
 				cand_x_w			= X_buffer[pointer_r -: 5];
 				cand_y_w			= Y_buffer[pointer_r -: 5];
-				1D_coor_w 			= 15 * cand_x_w + cand_y_w;
-				board_w[1D_coor_w] 	= turn;
+				coor_1D 			= 15 * cand_x_w + cand_y_w;
+				board_w[coor_1D] 	= turn;
 				pointer_w			= pointer_r - 9'd5;
 			end
 		end
