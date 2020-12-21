@@ -26,10 +26,10 @@ assign o_Ypos 	= Ypos_w[0];
 assign o_finish = finish_w[0];
 
 generate;
-	for(genvar i = 5'd0, j = i_depth; i < 5'd5; i = i + 5'd1) begin
-		if(j != 5'd0)
-			j = j - 5'd1;
-		if(i == 5'd0) begin
+	for(genvar i = 5'd0, j = i_depth; i < 5; i = i + 1) begin
+		if(j != 0)
+			j = j - 1;
+		if(i == 0) begin
 			Kill_node kill(
 				.i_clk(i_clk),
 				.i_rst_n(i_rst_n),
