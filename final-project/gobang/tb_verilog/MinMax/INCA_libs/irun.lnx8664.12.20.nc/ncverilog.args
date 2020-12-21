@@ -1,0 +1,10 @@
+//
+// File created by:  ncverilog
+// Do not modify this file
+//
+Minmax_tb.sv
+../../MinMax/MinmaxWrapper.sv
+../../MinMax/MinmaxNode.sv
+../../MinMax/PointGen.sv
+../../MinMax/Score.sv
++access+r

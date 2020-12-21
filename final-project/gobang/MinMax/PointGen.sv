@@ -11,7 +11,7 @@ module point_generator(
     output  [399:0] o_posX,
     output  [399:0] o_posY,
     output  [8:0]   o_size,
-    output          o_finish          // whether all the empty points are found 
+    output          o_PGfinish          // whether all the empty points are found 
 );
 parameter S_IDLE    = 1'd0;
 parameter S_COUNT   = 1'd1;
@@ -31,7 +31,7 @@ logic valid[15][15];
 assign o_posX = output_X;
 assign o_posY = output_Y;
 assign o_size = pointer[225];
-assign o_finish = finish_r;
+assign o_PGfinish = finish_r;
 
 always_comb begin
     state_w = state_r;
