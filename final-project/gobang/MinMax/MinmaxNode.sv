@@ -138,6 +138,18 @@ task prune(
 endtask
 
 always_comb begin
+	board_w			= board_r;
+	state_w			= state_r;
+	point_w			= point_r;
+	pointer_w		= pointer_r;
+	cand_x_w		= cand_x_r;
+	cand_y_w		= cand_y_r;
+	ans_x_w			= ans_x_r;
+	ans_y_w 		= ans_y_r;
+	finish_w		= finish_r;
+	next_start_w	= next_start_r;
+	PG_start_w		= PG_start_r;
+	SC_start_w		= SC_start_r;
 	case(state_r)
 		S_IDLE: begin
 			finish_w = 1'b0;
@@ -153,6 +165,7 @@ always_comb begin
 			end
 		end
 		S_PG: begin
+			PG_start_w = 1'b0;
 			if(PG_finish) begin
 				state_w = S_WAIT;
 				pointer_w = 9'd399;
@@ -191,6 +204,7 @@ always_comb begin
 			end
 		end
 		S_PEND: begin
+			SC_start_w = 1'b0;
 			if(SC_finish) begin
 				point_w 	= SC_score;
 				finish_w 	= 1'b1;
