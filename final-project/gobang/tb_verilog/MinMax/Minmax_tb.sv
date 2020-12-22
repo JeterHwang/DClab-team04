@@ -19,7 +19,7 @@ module minmax_tb;
         .i_clk(clk),
         .i_rst_n(rst_n),
         .i_start(start),
-        .i_depth(5'd1),
+        .i_depth(5'd0),
         .i_board(i_board),
         .o_Xpos(X_output),
         .o_Ypos(Y_output),
@@ -30,7 +30,7 @@ module minmax_tb;
     always #(`HCLK) clk = ~clk;
 
     initial begin
-        $fsdbDumpfile("PointGenerator.fsdb");
+        $fsdbDumpfile("Minmax.fsdb");
         $fsdbDumpvars;
         fp_i = $fopen("../../pattern/PG_test1_i.txt", "r");
 

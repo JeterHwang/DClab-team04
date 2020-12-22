@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 21, 2020 at 23:17:25 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 22, 2020 at 19:10:19 CST
 ncverilog
 	Minmax_tb.sv
 	../../MinMax/MinmaxWrapper.sv
@@ -7,12 +7,9 @@ ncverilog
 	../../MinMax/PointGen.sv
 	../../MinMax/Score.sv
 	+access+r
-Recompiling... reason: file './Minmax_tb.sv' is newer than expected.
-	expected: Mon Dec 21 22:11:36 2020
-	actual:   Mon Dec 21 23:17:16 2020
-file: Minmax_tb.sv
-	module worklib.minmax_tb:sv
-		errors: 0, warnings: 0
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv' is newer than expected.
+	expected: Tue Dec 22 18:43:13 2020
+	actual:   Tue Dec 22 19:10:15 2020
 file: ../../MinMax/MinmaxNode.sv
 	module worklib.Minmax:sv
 		errors: 0, warnings: 0
@@ -20,10 +17,8 @@ file: ../../MinMax/MinmaxNode.sv
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Minmax:sv <0x5e26f893>
-			streams:  18, words: 20401
-		worklib.minmax_tb:sv <0x3c1e1fef>
-			streams:  10, words: 17024
+		worklib.Minmax:sv <0x34cc4f57>
+			streams:  20, words: 25037
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -35,7 +30,7 @@ file: ../../MinMax/MinmaxNode.sv
 		Always blocks:            31       7
 		Initial blocks:            3       3
 		Cont. assignments:        29      21
-		Pseudo assignments:      106      70
+		Pseudo assignments:      116      72
 		Compilation units:         1       1
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.minmax_tb:sv
@@ -47,12 +42,13 @@ ncsim> run
 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 (C) 1996 - 2013 by Synopsys, Inc.
 *Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
-*Verdi3* : Create FSDB file 'PointGenerator.fsdb'
+*Verdi3* : Create FSDB file 'Minmax.fsdb'
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 File was opened successfully : -2147483645
-Too slow, abort.
-Simulation complete via $finish(1) at time 500 NS + 0
-./Minmax_tb.sv:67 		$finish;
+(X, Y) = ( 0,  0)
+
+Simulation complete via $finish(1) at time 75 NS + 4
+./Minmax_tb.sv:61         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 21, 2020 at 23:17:27 CST  (total: 00:00:02)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 22, 2020 at 19:11:06 CST  (total: 00:00:47)

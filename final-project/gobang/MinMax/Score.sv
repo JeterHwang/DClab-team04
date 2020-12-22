@@ -401,7 +401,7 @@ always_comb begin
             Compare_three(n2_con_one_w, white_con_one, i_board, counter_w);
             Compare_three(b2_con_one_w, white_blocked_one_o, i_board, counter_w);
             Compare_three(b2_con_one_w, white_blocked_one_r, i_board, counter_w);
-
+            state_w = S_EVALUATE;
         end
         S_EVALUATE: begin
             Count(black_score_w, n1_five_w);
@@ -459,7 +459,7 @@ always_comb begin
     endcase
 end
 
-always_ff @(negedge i_clk or negedge i_rst_n) begin
+always_ff @(posedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
         state_r                 <= S_BLACK;
         black_score_r           <= 0;
