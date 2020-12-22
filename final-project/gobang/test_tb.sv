@@ -1,7 +1,7 @@
 `timescale 1ns/100ps
 
 `define CLK 10
-`define HCLK 5
+`define HCLK 10
 
 module test;
 
@@ -24,14 +24,14 @@ module test;
         $fsdbDumpvars;
         data = 0;
         rst     = 0;
-        #(`CLK*2) rst = 1;
-        #(`CLK*2) rst = 0;
-        #(`CLK*2)  data = 0;
-        #(`CLK*2)  data = 1;
-        #(`CLK*2)  data = 2;
-        #(`CLK*2)  data = 3;
-        #(`CLK*2)  data = 4;
-        #(`CLK*2)  data = 5;
+        #(`CLK) rst = 1;
+        #(`CLK) rst = 0;
+        #(`CLK)  data = 0;
+        #(`CLK)  data = 1;
+        #(`CLK)  data = 2;
+        #(`CLK)  data = 3;
+        #(`CLK)  data = 4;
+        #(`CLK)  data = 5;
 
     #(`CLK)
         $display("     Simulation Complete !!   ");
