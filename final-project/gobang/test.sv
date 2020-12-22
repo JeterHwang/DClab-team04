@@ -14,7 +14,7 @@ assign out = count_r;
 
 task ff;
 
-    input [4:0] count_w, no_w;
+
     input [4:0] data;
             begin
                 for(int i=0; i<=2; i++) begin
@@ -33,7 +33,7 @@ always_comb begin
     no_w         = no_r;
     case(state_r)
         S_IDLE: begin
-            ff(i_data, count_w, no_w);
+            ff(i_data);
             // count_w [2] = i_data;
             // count_w [1] = i_data;
             // count_w [0] = i_data;
