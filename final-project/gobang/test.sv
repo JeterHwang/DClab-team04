@@ -18,8 +18,8 @@ task ff;
                 for(int i=0; i<=2; i++) begin
                     count_w[4-i] = i;
                 end
-                for(int j=0; j<=6; j++) begin
-                    count_w[4-j] = j;
+                for(int j=0; j<=4; j++) begin
+                    count_w[j] = j;
                 end
 
 

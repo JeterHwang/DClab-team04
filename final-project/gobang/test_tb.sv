@@ -9,17 +9,12 @@ module test;
     logic rst;
     logic [4:0] data;
     logic [4:0] out;
-
-
     Score score(
         .i_rst_n(rst),
         .i_clk(clk),
         .i_data(data),
         .out(out)
     );
-
-
-
     initial clk = 0;
     
     always #(`HCLK) clk = ~clk;
@@ -37,16 +32,6 @@ module test;
         #(`CLK*2)  data = 3;
         #(`CLK*2)  data = 4;
         #(`CLK*2)  data = 5;
-
-
-            
-                
-
-
-
-
-
-
 
     #(`CLK)
         $display("     Simulation Complete !!   ");
