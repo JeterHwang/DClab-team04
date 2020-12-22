@@ -3,11 +3,11 @@ module Score (
 	input         i_rst_n,
     input          i_data,
                   
-	output [2:0] out
+	output         [4:0] out
 );
 parameter S_IDLE = 1'd0;
 parameter S_FINISH = 1'd1;
-logic [2:0] count_w, count_r;
+logic [4:0] count_w, count_r;
 logic  state_w, state_r;
 assign out = count_r;
 
@@ -16,10 +16,10 @@ task ff;
     input data;
             begin
                 for(int i=0; i<=2; i++) begin
-                    count_w[2-i] = i;
+                    count_w[4-i] = i;
                 end
                 for(int j=0; j<=6; j++) begin
-                    count_w[2-j] = j;
+                    count_w[4-j] = j;
                 end
 
 

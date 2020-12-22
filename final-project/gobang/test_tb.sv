@@ -7,9 +7,9 @@ module test;
 
     logic clk;
     logic rst;
-    logic [2:0] data;
-    logic [24:0] out;
-    logic [24:0] oo;
+    logic [4:0] data;
+    logic [4:0] out;
+
 
     Score score(
         .i_rst_n(rst),
