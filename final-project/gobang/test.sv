@@ -1,7 +1,7 @@
 module Score (
 	input         i_clk,
 	input         i_rst_n,
-    input          i_data,
+    input          [4:0] i_data,
                   
 	output         [4:0] out
 );
@@ -13,14 +13,15 @@ logic  state_w, state_r;
 assign out = count_r;
 
 task ff;
-    
-    input data;
+
+    input [4:0] count_w, no_w;
+    input [4:0] data;
             begin
                 for(int i=0; i<=2; i++) begin
-                    count_w[4-i] = i;
+                    count_w = i_data;
                 end
                 for(int j=0; j<=4; j++) begin
-                    no_w[j] = j;
+                    no_w = i_data;
                 end
 
 
