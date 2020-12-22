@@ -167,8 +167,8 @@ task Compare_five;
 
     begin
     repeat(15) begin
-        for (int i = 0; i <= 10; i++) begin
-            if( '{chess_board[counter+i*15], chess_board[counter+(i+1)*15], chess_board[counter+(i+2)*15], 
+        for (int i = 0; i <= 224 ; i++) begin
+            if( {chess_board[counter+i*15], chess_board[counter+(i+1)*15], chess_board[counter+(i+2)*15], 
             chess_board[counter+(i+3)*15], chess_board[counter+(i+4)*15] } === pattern_check) begin
                 pattern_cal[counter+ i*15] = 1;
             end
@@ -330,6 +330,7 @@ always_comb begin
         S_BLACK: begin
             if(i_start) begin
             finished_w = 0;
+
             Compare_five(n1_five_w, black_con_five, i_board, counter_w);
             Compare_six(n1_four_w, black_con_four, i_board, counter_w);
             Compare_six(b1_con_four_w, black_blocked_con_four_o, i_board, counter_w);
