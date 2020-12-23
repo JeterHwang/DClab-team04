@@ -16,8 +16,14 @@ assign out = count_r;
 
 task ff;
 
-
+    input [4:0] counter_old;
     input [4:0] data;
+    output [4:0] counter_new;
+    
+    logic [4:0] cnt[225];
+    for(int i = 1; i < 225; i++) begin
+        cnt[i] = cnt[i-1] + 1
+    end
             begin
                 for(int i=0; i<=2; i++) begin
                     count_w = data;
