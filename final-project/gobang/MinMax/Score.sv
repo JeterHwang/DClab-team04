@@ -419,7 +419,7 @@ task Compare_three_upper_left;
             for(int k=0; k < 3; k++) begin
                 if(i == 0 && j == 0 && k == 0)
                     score[(i * 13 + j) * 3 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2] } === three[k]) begin
+                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2] } === three[k]) begin
                     if(i == 0 && j ==0 && k == 0)
                         score[(i * 13 + j) * 3 + k] = three_weight[k];
                     else
