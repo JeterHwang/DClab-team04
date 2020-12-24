@@ -31,7 +31,7 @@ module Score_tb;
     initial begin
         $fsdbDumpfile("Score.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("~/home/team04/peter/DClab-team04/final-project/gobang/pattern/SC_test_i.txt", "r");
+        fp_i = $fopen("~/home/team04/peter/DClab-team04/final-project/gobang/pattern/SC_test1_i.txt", "r");
         
         if(fp_i) 
             $display("Read file was opened successfully : %0d", fp_i);
