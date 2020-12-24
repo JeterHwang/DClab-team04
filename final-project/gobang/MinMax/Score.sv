@@ -1,4 +1,4 @@
-typedef logic [1:0] board [225];
+// typedef logic [1:0] board [225];
 module Score (
 	input         i_clk,
 	input         i_rst_n,
@@ -145,8 +145,6 @@ assign o_finish = finished_r;
 
 task Compare_five_up;
     output signed [31:0] score [4499:0];
-    output signed [100:0] black_score ;
-    output signed [100:0] white_score ;
     input [1:0] chess_board [0:224];
     // 3280
     for(int i = 0; i <= 10; i++) begin
@@ -588,7 +586,7 @@ always_comb begin
                                 + seven_score[275] + seven_score[276] + seven_score[277];
                 white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
                                 + seven_score[285] + seven_score[286] + seven_score[287];
-                seven_score = 0;
+                // seven_score = 0;
                 state_w = S_SEVEN_LEFT;
             end 
         end 
@@ -598,7 +596,7 @@ always_comb begin
                                 + seven_score[275] + seven_score[276] + seven_score[277];
             white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
                             + seven_score[285] + seven_score[286] + seven_score[287];
-            seven_score = 0;
+            // seven_score = 0;
             state_w = S_SEVEN_UL;  
         end
         S_SEVEN_UL:    begin  
@@ -607,7 +605,7 @@ always_comb begin
                                 + seven_score[275] + seven_score[276] + seven_score[277];
             white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
                             + seven_score[285] + seven_score[286] + seven_score[287];
-            seven_score = 0;
+            // seven_score = 0;
             state_w = S_SEVEN_UR;
         end
         S_SEVEN_UR:    begin  
@@ -616,7 +614,7 @@ always_comb begin
                                 + seven_score[275] + seven_score[276] + seven_score[277];
             white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
                             + seven_score[285] + seven_score[286] + seven_score[287];
-            seven_score = 0;
+            // seven_score = 0;
             state_w = S_SIX_UP;   
         end
         S_SIX_UP:      begin  
@@ -625,7 +623,7 @@ always_comb begin
                                 + six_score[5669] + six_score[5670] + six_score[5671];
             white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
                             + six_score[5679] + six_score[5680] + six_score[5681];
-            six_score = 0;
+            // six_score = 0;
             state_w = S_SIX_LEFT; 
         end
         S_SIX_LEFT:    begin  
@@ -634,7 +632,7 @@ always_comb begin
                                 + six_score[5669] + six_score[5670] + six_score[5671];
             white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
                             + six_score[5679] + six_score[5680] + six_score[5681];
-            six_score = 0;
+            // six_score = 0;
             state_w = S_SIX_UL;  
 
         end
@@ -644,7 +642,7 @@ always_comb begin
                                 + six_score[5669] + six_score[5670] + six_score[5671];
             white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
                             + six_score[5679] + six_score[5680] + six_score[5681];
-            six_score = 0;
+            // six_score = 0;
             state_w = S_SIX_UR;    
         end
         S_SIX_UR:      begin 
@@ -653,7 +651,7 @@ always_comb begin
                                 + six_score[5669] + six_score[5670] + six_score[5671];
             white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
                             + six_score[5679] + six_score[5680] + six_score[5681];
-            six_score = 0;
+            // six_score = 0;
             state_w = S_FIVE_UP;   
         end
         S_FIVE_UP:     begin 
@@ -662,7 +660,7 @@ always_comb begin
                                 + five_score[3287] + five_score[3288] + five_score[3289];
             white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
                             + five_score[3297] + five_score[3298] + five_score[3299];
-            five_score = 0;
+            // five_score = 0;
             state_w = S_FIVE_LEFT; 
         end
         S_FIVE_LEFT:   begin 
@@ -671,7 +669,7 @@ always_comb begin
                                 + five_score[3287] + five_score[3288] + five_score[3289];
             white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
                             + five_score[3297] + five_score[3298] + five_score[3299];
-            five_score = 0;
+            // five_score = 0;
             state_w = S_FIVE_UL; 
         end
         S_FIVE_UL:     begin 
@@ -680,7 +678,7 @@ always_comb begin
                                 + five_score[3287] + five_score[3288] + five_score[3289];
             white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
                             + five_score[3297] + five_score[3298] + five_score[3299];
-            five_score = 0;
+            // five_score = 0;
             state_w = S_FIVE_UR;   
         end
         S_FIVE_UR:     begin  
@@ -689,7 +687,7 @@ always_comb begin
                                 + five_score[3287] + five_score[3288] + five_score[3289];
             white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
                             + five_score[3297] + five_score[3298] + five_score[3299];
-            five_score = 0;
+            // five_score = 0;
             state_w = S_THREE_UP;  
         end
         S_THREE_UP:    begin 
@@ -698,7 +696,7 @@ always_comb begin
                                 + three_score[1171] + three_score[1172] + three_score[1173];
             white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
                             + three_score[1181] + three_score[1182] + three_score[1183];
-            three_score = 0;
+            // three_score = 0;
             state_w = S_THREE_LEFT;
         end
         S_THREE_LEFT:  begin 
@@ -707,7 +705,7 @@ always_comb begin
                                 + three_score[1171] + three_score[1172] + three_score[1173];
             white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
                             + three_score[1181] + three_score[1182] + three_score[1183];
-            three_score = 0;
+            // three_score = 0;
             state_w = S_THREE_UL;  
         end
         S_THREE_UL:    begin  
@@ -716,7 +714,7 @@ always_comb begin
                                 + three_score[1171] + three_score[1172] + three_score[1173];
             white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
                             + three_score[1181] + three_score[1182] + three_score[1183];
-            three_score = 0;
+            // three_score = 0;
             state_w = S_THREE_UR;  
         end
         S_THREE_UR:    begin  
@@ -725,7 +723,7 @@ always_comb begin
                                 + three_score[1171] + three_score[1172] + three_score[1173];
             white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
                             + three_score[1181] + three_score[1182] + three_score[1183];
-            three_score = 0;
+            // three_score = 0;
             state_w = S_EVALUATE;   
         end
         S_EVALUATE: begin
