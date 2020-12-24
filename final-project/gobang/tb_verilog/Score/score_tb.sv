@@ -8,7 +8,7 @@ module Score_tb;
     // board i_board;
     logic clk;
     logic start;
-    logic [1:0] board [225];
+    logic [1:0] i_board [225];
     logic rst_n;
     logic turn;
     logic SC_finish;
