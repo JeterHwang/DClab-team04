@@ -26,15 +26,17 @@ logic [4:0] avm_address_r, avm_address_w;
 logic avm_read_r, avm_read_w, avm_write_r, avm_write_w;
 
 logic [7:0] data_r,data_w;
-logic [7:0] cal_data
+
+logic in_data_r,in_data_w;
 logic cal_start_r,cal_start_w;
+logic [7:0] cal_data
 logic cal_finished;
 
 Flip f0(
     .i_clk(avm_clk),
     .i_rst(avm_rst),
-    .i_start(cal_start_w),
-    .i_data(data_w),
+    .i_start(cal_start_r),
+    .i_data(in_data_r),
     .o_data(cal_data),
     .o_finished(cal_finished)
 );
@@ -49,6 +51,7 @@ always_comb begin
 	state_w = state_r;
     avm_read_w = avm_read_r;
     avm_write_w = avm_write_r;
+    in_data_w = in_data_r;
     data_w = data_r;
     avm_address_w = avm_address_r;
     cal_start_w = cal_start_r;
@@ -63,17 +66,20 @@ always_comb begin
                     state_w = state_r;
                     avm_address_w = RX_BASE;
                     data_w = data_r;
+                    in_data_w = in_data_r;
                 end
                 else if (avm_address_r == RX_BASE) begin
                     state_w = S_WAIT_CALCULATE;
                     cal_start_w = 1;
                     avm_address_w = STATUS_BASE;
                     data_w = avm_readdata[7:0];
+                    in_data_w = avm_readdata[7:0];
                 end
                 else begin
                     state_w = state_r;
                     avm_address_w = avm_address_r;
                     data_w = data_r;
+                    in_data_w = in_data_r;
                     avm_read_w = avm_read_r;
                     avm_write_w = avm_write_r;
                 end
@@ -82,6 +88,7 @@ always_comb begin
                 state_w = state_r;
                 avm_address_w = avm_address_r;
                 data_w = data_r;
+                in_data_w = in_data_r;
                 avm_read_w = avm_read_r;
                 avm_write_w = avm_write_r;
             end
@@ -97,6 +104,7 @@ always_comb begin
                 state_w = state_r;
                 avm_address_w = avm_address_r;
                 data_w = data_r;
+                in_data_w = in_data_r;
                 avm_read_w = avm_read_r;
                 avm_write_w = avm_write_r;
             end
@@ -136,6 +144,7 @@ always_comb begin
             state_w = state_r;
             avm_read_w = avm_read_r;
             avm_write_w = avm_write_r;
+            in_data_w = in_data_r;
             data_w = data_r;
             avm_address_w = avm_address_r;
         end
@@ -144,6 +153,7 @@ end
 
 always_ff @(posedge avm_clk or negedge avm_rst) begin
     if (!avm_rst) begin
+        in_data_r       <= 8'b0;
         data_r          <= 8'b0;
         avm_address_r   <= STATUS_BASE;
         avm_read_r      <= 1;
@@ -152,6 +162,7 @@ always_ff @(posedge avm_clk or negedge avm_rst) begin
         cal_start_r     <= 0;
     end 
     else begin
+        in_data_r       <= in_data_w;
         data_r          <= data_w;
         avm_address_r   <= avm_address_w;
         avm_read_r      <= avm_read_w;
