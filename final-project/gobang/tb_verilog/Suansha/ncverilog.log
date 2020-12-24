@@ -1,39 +1,9 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 24, 2020 at 22:10:48 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 25, 2020 at 01:37:43 CST
 ncverilog
 	Threats_tb.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv' is newer than expected.
-	expected: Thu Dec 24 22:08:49 2020
-	actual:   Thu Dec 24 22:10:45 2020
-file: ../../Suansha/Threats.sv
-	module worklib.Threats:sv
-		errors: 0, warnings: 0
-		Caching library 'worklib' ....... Done
-	Elaborating the design hierarchy:
-        .o_win(win),
-                 |
-ncelab: *W,CUVMPW (./Threats_tb.sv,31|17): port sizes differ in port connection (1/2).
-	Building instance overlay tables: .................... Done
-	Generating native compiled code:
-		worklib.Threats:sv <0x0bfa723d>
-			streams:  11, words: 64882
-	Loading native compiled code:     .................... Done
-	Building instance specific data structures.
-	Design hierarchy summary:
-		                   Instances  Unique
-		Modules:                   2       2
-		Registers:                34      34
-		Scalar wires:              7       -
-		Vectored wires:            9       -
-		Always blocks:             3       3
-		Initial blocks:            3       3
-		Cont. assignments:         2       5
-		Pseudo assignments:        6       6
-		Compilation units:         1       1
-		Simulation timescale:  100ps
-	Writing initial simulation snapshot: worklib.TH_tb:sv
 Loading snapshot worklib.TH_tb:sv .................... Done
 *Verdi3* Loading libsscore_ius122.so
 *Verdi3* : Enable Parallel Dumping.
@@ -55,19 +25,19 @@ Write file was opened successfully : -2147483644
 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
+0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 1 1 0 0 1 0 0 0 0
+
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+
 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
 
-0 0 0 0 0 0 1 1 0 0 0 0 0 0 0
+0 0 0 0 0 0 1 1 0 0 1 0 0 0 0
 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-0 0 0 0 0 0 1 1 0 0 0 0 0 0 0
-
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
@@ -80,4 +50,4 @@ Write file was opened successfully : -2147483644
 Simulation complete via $finish(1) at time 50 NS + 3
 ./Threats_tb.sv:78         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 24, 2020 at 22:10:51 CST  (total: 00:00:03)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 25, 2020 at 01:38:30 CST  (total: 00:00:47)
