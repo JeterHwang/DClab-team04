@@ -316,69 +316,168 @@ task blocked_four(
     if( (X < 11) &&
         (i_board[X+2] == turn && i_board[X+3] == turn && i_board[X+4] == turn) &&
         (i_board[X+1] == l))
+    else 
 // .lA.. ,0
     if( (X < 13 && X > 1) &&
         (i_board[X-2] == turn && i_board[X+1] == turn && i_board[X+2] == turn) &&
         (i_board[X-1] == l))
+    else
 // .l.A. ,0
     if( (X < 14 && X > 2) &&
         (i_board[X-3] == turn && i_board[X-1] == turn && i_board[X+1] == turn) &&
         (i_board[X-2] == l))
+    else
 // .l..A ,0
-    if( (X < 15 && X > 3) &&
+    if( ( X > 3) &&
         (i_board[X-4] == turn && i_board[X-2] == turn && i_board[X-1] == turn) &&
         (i_board[X-3] == l))
+    else
 
 // Al... ,45
     if( (X < 11 && Y < 11) &&
         (i_board[(X+2)*15+(Y+2)] == turn && i_board[(X+3)*15+(Y+3)] == turn && i_board[(X+4)*15+(Y+4)] == turn) &&
         (i_board[(X+1)*15+(Y+1)] == l))
+    else
 // .lA.. ,45
     if( (X < 13 && X > 1 && Y < 13 && Y > 1) &&
-        (i_board[(X-2)*15+(Y-2)] == turn && i_board[(X+1)*15+(Y+1)] == turn && i_board[(X+2)*15+(Y+2))] == turn) &&
+        (i_board[(X-2)*15+(Y-2)] == turn && i_board[(X+1)*15+(Y+1)] == turn && i_board[(X+2)*15+(Y+2)] == turn) &&
         (i_board[(X-1)*15+(Y-1)] == l))
+    else
 // .l.A. ,45
     if( (X < 14 && X > 2 && Y < 14 && Y > 2) &&
-        (i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-1*15+(Y-3))] == turn && i_board[(X+1)*15+(Y+1)] == turn) &&
+        (i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-1)*15+(Y-1)] == turn && i_board[(X+1)*15+(Y+1)] == turn) &&
         (i_board[(X-2)*15+(Y-2)] == l))
 // .l..A ,45
-    if( (X < 15 && X > 3 && Y < 15 && Y > 3) &&
+    if( (X > 3 &&  Y > 3) &&
         (i_board[(X-4)*15+(Y-4)] == turn && i_board[(X-2)*15+(Y-2)] == turn && i_board[(X-1)*15+(Y-1)] == turn) &&
         (i_board[(X-3)*15+(Y-3)] == l))
+    else
 
 // Al... ,90
     if( (Y < 11) &&
         (i_board[Y+2] == turn && i_board[Y+3] == turn && i_board[Y+4] == turn) &&
         (i_board[Y+1] == l))
+    else
 // .lA.. ,90
     if( (Y < 13 && Y > 1) &&
         (i_board[Y-2] == turn && i_board[Y+1] == turn && i_board[Y+2] == turn) &&
         (i_board[Y-1] == l))
+    else
 // .l.A. ,90
     if( (Y < 14 && Y > 2) &&
         (i_board[Y-3] == turn && i_board[Y-1] == turn && i_board[Y+1] == turn) &&
         (i_board[Y-2] == l))
+    else
 // .l..A ,90
-    if( (Y < 15 && Y > 3) &&
+    if( (Y > 3) &&
         (i_board[Y-4] == turn && i_board[Y-2] == turn && i_board[Y-1] == turn) &&
         (i_board[Y-3] == l))
+    else
 
 // ...lA ,135
     if( (X > 3 && Y < 11) &&
         (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X-3)*15+(Y+3)] == turn && i_board[(X-4)*15+(Y+4)] == turn) &&
         (i_board[(X-1)*15+(Y+1)] == l))
+    else
 // ..Al. ,135
     if( (X < 13 && X > 1 && Y < 13 && Y > 1) &&
-        (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X-1)*15+(Y+1)] == turn && i_board[(X+2)*15+(Y-2))] == turn) &&
-        (i_board[(X-1)*15+(Y-1)] == l))
+        (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X-1)*15+(Y+1)] == turn && i_board[(X+2)*15+(Y-2)] == turn) &&
+        (i_board[(X+1)*15+(Y-1)] == l))
+    else
 // .A.l. ,135
-    if( (X < 14 && X > 2 && Y < 14 && Y > 2) &&
-        (i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-1*15+(Y-3))] == turn && i_board[(X+1)*15+(Y+1)] == turn) &&
+    if( (X < 12 && X > 0 && Y < 14 && Y > 2) &&
+        (i_board[(X-1)*15+(Y+1)] == turn && i_board[(X+1)*15+(Y-1)] == turn && i_board[(X+3)*15+(Y-3)] == turn) &&
         (i_board[(X-2)*15+(Y-2)] == l))
+    else
 // A..l. ,135
-    if( (X < 15 && X > 3 && Y < 15 && Y > 3) &&
-        (i_board[(X-4)*15+(Y-4)] == turn && i_board[(X-2)*15+(Y-2)] == turn && i_board[(X-1)*15+(Y-1)] == turn) &&
-        (i_board[(X-3)*15+(Y-3)] == l))
+    if( (X < 11 && Y > 3) &&
+        (i_board[(X+1)*15+(Y-1)] == turn && i_board[(X+2)*15+(Y-2)] == turn && i_board[(X+4)*15+(Y-4)] == turn) &&
+        (i_board[(X+3)*15+(Y-3)] == l))
+    else
+
+// ...lA ,180
+    if( (X > 3) &&
+        (i_board[X-2] == turn && i_board[X-3] == turn && i_board[X-4] == turn) &&
+        (i_board[X-1] == l))
+    else
+// ..Al. ,180
+    if( (X < 13 && X > 1) &&
+        (i_board[X-2] == turn && i_board[X-1] == turn && i_board[X+2] == turn) &&
+        (i_board[X-1] == l))
+    else
+// .A.l. ,180
+    if( (X < 12 && X > 0) &&
+        (i_board[X+3] == turn && i_board[X-1] == turn && i_board[X+1] == turn) &&
+        (i_board[X+2] == l))
+    else
+// A..l. ,180
+    if( (X < 11 ) &&
+        (i_board[X+4] == turn && i_board[X+2] == turn && i_board[X+1] == turn) &&
+        (i_board[X+3] == l))
+    else
+
+// ...lA ,225
+    if( (X > 3 && Y > 3) &&
+        (i_board[(X-2)*15+(Y-2)] == turn && i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-4)*15+(Y-4)] == turn) &&
+        (i_board[(X-1)*15+(Y-1)] == l))
+    else
+// ..Al. ,225
+    if( (X < 13 && X > 1 && Y < 13 && Y > 1) &&
+        (i_board[(X-2)*15+(Y-2)] == turn && i_board[(X-1)*15+(Y-1)] == turn && i_board[(X+2)*15+(Y+2)] == turn) &&
+        (i_board[(X+1)*15+(Y+1)] == l))
+    else
+// .A.l. ,225
+    if( (X < 12 && X > 0 && Y < 12 && Y > 0) &&
+        (i_board[(X+3)*15+(Y+3)] == turn && i_board[(X+1)*15+(Y+1)] == turn && i_board[(X-1)*15+(Y-1)] == turn) &&
+        (i_board[(X+2)*15+(Y+2)] == l))
+    else
+// A..l. ,225
+    if( (X < 11 &&  Y < 11) &&
+        (i_board[(X+4)*15+(Y+4)] == turn && i_board[(X+2)*15+(Y+2)] == turn && i_board[(X+1)*15+(Y+1)] == turn) &&
+        (i_board[(X+3)*15+(Y+3)] == l))
+    else
+
+// Al... ,270
+    if( (Y > 3) &&
+        (i_board[Y-2] == turn && i_board[Y-3] == turn && i_board[Y-4] == turn) &&
+        (i_board[Y-1] == l))
+    else
+// .lA.. ,270
+    if( (Y < 13 && Y > 1) &&
+        (i_board[Y+2] == turn && i_board[Y-1] == turn && i_board[Y-2] == turn) &&
+        (i_board[Y+1] == l))
+    else
+// .l.A. ,270
+    if( (Y < 14 && Y > 2) &&
+        (i_board[Y+3] == turn && i_board[Y+1] == turn && i_board[Y-1] == turn) &&
+        (i_board[Y+2] == l))
+    else
+// .l..A ,270
+    if( (Y < 11) &&
+        (i_board[Y+4] == turn && i_board[Y+2] == turn && i_board[Y+1] == turn) &&
+        (i_board[Y+3] == l))
+    else
+
+// Al... ,315
+    if( (X < 11 && Y > 3) &&
+        (i_board[(X+2)*15+(Y-2)] == turn && i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-4)*15+(Y-4)] == turn) &&
+        (i_board[(X+1)*15+(Y-1)] == l))
+    else
+// .lA.. ,315
+    if( (X < 13 && X > 1 && Y < 13 && Y > 1) &&
+        (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X+1)*15+(Y-1)] == turn && i_board[(X+2)*15+(Y-2)] == turn) &&
+        (i_board[(X-1)*15+(Y-1)] == l))
+    else
+// .l.A. ,315
+    if( (X < 14 && X > 2 && Y < 14 && Y > 2) &&
+        (i_board[(X-3)*15+(Y+3)] == turn && i_board[(X-1)*15+(Y+1)] == turn && i_board[(X+1)*15+(Y-1)] == turn) &&
+        (i_board[(X-2)*15+(Y+2)] == l))
+    else
+// .l..A ,315
+    if( (X > 3 &&  Y > 3) &&
+        (i_board[(X-4)*15+(Y+4)] == turn && i_board[(X-2)*15+(Y+2)] == turn && i_board[(X-1)*15+(Y+1)] == turn) &&
+        (i_board[(X-3)*15+(Y+3)] == l))
+    else
 
 endtask
 always_comb begin
