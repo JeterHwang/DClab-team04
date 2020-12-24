@@ -208,7 +208,7 @@ task Compare_five_upper_left(
             for(int k=0; k < 20; k++) begin
                 if(i == 0 && j == 0 && k == 0)
                     score[(i * 11 + j) * 20 + k] = 0;
-                if( { chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k]) begin
+                if( { chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k]) begin
                     if(i == 0 && j == 0 && k == 0)
                         score[(i * 11 + j) * 20 + k] = five_weight[k];
                     else
@@ -315,7 +315,7 @@ task Compare_six_upper_left;
             for(int k=0; k < 38; k++) begin
                 if(i == 0 && j == 0 && k == 0)
                     score[(i * 10 + j) * 38 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5] } === six[k]) begin
+                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5] } === six[k]) begin
                     if(i == 0 && j ==0 && k == 0)
                         score[(i * 10 + j) * 38 + k] = seven_weight[k];
                     else
@@ -523,7 +523,7 @@ task Compare_seven_upper_left;
             for(int k=0; k < 2; k++) begin
                 if(i == 0 && j == 0 && k == 0)
                     score[(i * 9 + j) * 2 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[k]) begin
+                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[k]) begin
                     if(i == 0 && j ==0 && k == 0)
                         score[(i * 9 + j) * 2 + k] = seven_weight[k];
                     else
