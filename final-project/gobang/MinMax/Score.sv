@@ -341,7 +341,7 @@ task Compare_six_upper_right;
             for(int k=0; k < 38; k++) begin
                 if(i == 0 && j == 0 && k == 0)
                     score[(i * 10 + j) * 38 + k] = 0;
-                if({chess_board[(i * 15 + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j] } === six[k]) begin
+                if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j] } === six[k]) begin
                     if(i == 0 && j ==0 && k == 0)
                         score[(i * 10 + j) * 38 + k] = seven_weight[k];
                     else
