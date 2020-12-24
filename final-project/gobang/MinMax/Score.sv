@@ -745,7 +745,7 @@ end
 
 always_ff @(negedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
-        state_r                 <= S_BLACK;
+        state_r                 <= S_SEVEN_UP;
         black_score_r           <= 0;
         white_score_r           <= 0;
 		score_r				    <= 0;
