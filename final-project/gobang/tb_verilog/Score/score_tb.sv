@@ -31,8 +31,8 @@ module Score_tb;
     initial begin
         $fsdbDumpfile("PointGenerator.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../../pattern/PG_test1_i.txt", "r");
-        fp_o = $fopen("../../output/PG_test1_o.txt", "w");
+        fp_i = $fopen("../pattern/PG_test1_i.txt", "r");
+        fp_o = $fopen("../output/PG_test1_o.txt", "w");
         
         if(fp_i) 
             $display("Read file was opened successfully : %0d", fp_i);
