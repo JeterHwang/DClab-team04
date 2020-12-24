@@ -2,13 +2,12 @@
 
 `define CLK 10
 `define HCLK 5
-
+typedef logic [1:0] board [225];
 
 module Score_tb;
-    // board i_board;
+    board i_board;
     logic clk;
     logic start;
-    logic [1:0] i_board [225];
     logic rst_n;
     logic turn;
     logic SC_finish;
@@ -20,7 +19,7 @@ module Score_tb;
         .i_clk(clk),
         .i_rst_n(rst_n),
         .i_start(start),
-        .i_board(board),
+        .i_board(i_board),
         .i_turn(1'b0),
         .o_score(score),
         .o_finish(SC_finish)
