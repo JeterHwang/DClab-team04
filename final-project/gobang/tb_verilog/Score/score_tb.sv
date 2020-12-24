@@ -2,7 +2,7 @@
 
 `define CLK 10
 `define HCLK 5
-typedef logic [1:0] board [225];
+`define logic [1:0] board [225];
 
 module PG_tb;
     board i_board;

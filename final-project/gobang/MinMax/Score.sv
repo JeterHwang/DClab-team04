@@ -1,4 +1,4 @@
-
+// typedef logic [1:0] board [224:0];
 module Score (
 	input         i_clk,
 	input         i_rst_n,
