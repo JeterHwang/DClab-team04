@@ -297,19 +297,6 @@ task blocked_four(
         (i_board[(X+4)*15+(Y-4)] == {turn[1],~turn[0]}) &&
         (i_board[(X-1)*15+(Y+1)] == l))
 // l.A..x ,315
-
-
-
-
-
-
-
-
-
-
-
-
-
     if((X < 12 && Y < 12 && X > 2 && Y > 2) && 
         (i_board[(X+1)*15+(Y-1)] == turn &&  i_board[(X+2)*15+(Y-2)] == turn  && i_board[(X-1)*15+(Y+1)] == turn)  &&
         (i_board[(X+3)*15+(Y-3)] == {turn[1],~turn[0]}) &&
