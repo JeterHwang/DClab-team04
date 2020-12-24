@@ -3,7 +3,7 @@ module Score (
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,
-	input   board i_board,         // 15*15*2 bit chess board
+	input         i_board,         // 15*15*2 bit chess board
     input         i_turn,          
 	output signed [31:0] o_score,                      // 32 bit score
     output        o_finish

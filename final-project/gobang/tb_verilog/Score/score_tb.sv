@@ -2,12 +2,13 @@
 
 `define CLK 10
 `define HCLK 5
-typedef logic [1:0] board [225];
+
 
 module Score_tb;
     // board i_board;
     logic clk;
     logic start;
+    logic [1:0] board [225];
     logic rst_n;
     logic turn;
     logic SC_finish;
