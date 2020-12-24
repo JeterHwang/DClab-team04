@@ -579,7 +579,7 @@ always_comb begin
 
     
 	case (state_r)
-        S_BLACK: begin
+        S_SEVEN_UP: begin
             if(i_start) begin
                 finished_w = 0;
                 Compare_seven_up(.chess_board(i_board), .score(seven_score));
@@ -588,7 +588,7 @@ always_comb begin
                 white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
                                 + seven_score[285] + seven_score[286] + seven_score[287];
                 seven_score = 0;
-                state_w = S_SEVEN_UP;
+                state_w = S_SEVEN_LEFT;
             end 
         end 
         S_SEVEN_LEFT:  begin 
