@@ -15,7 +15,7 @@ module Score_tb;
     int fp_i, fp_o;
     int status;
 
-    Score score(
+    Score sc(
         .i_clk(clk),
         .i_rst_n(rst_n),
         .i_start(start),
