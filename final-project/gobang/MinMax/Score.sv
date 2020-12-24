@@ -3,7 +3,7 @@ module Score (
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,
-	input         board i_board,         // 15*15*2 bit chess board
+	input   board i_board,         // 15*15*2 bit chess board
     input         i_turn,          
 	output signed [31:0] o_score,                      // 32 bit score
     output        o_finish
@@ -24,6 +24,7 @@ parameter S_THREE_UP   = 5'd23;
 parameter S_THREE_LEFT = 5'd24;
 parameter S_THREE_UL   = 5'd25;
 parameter S_THREE_UR   = 5'd26;
+parameter S_EVALUATE   = 5'd27;
 
 
 
