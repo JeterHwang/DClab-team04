@@ -63,7 +63,7 @@ parameter  black_blocked_jump_two_three_r = {w, b, l, b, b, l};
 parameter  black_blocked_blank_one_three_o = {b, l, l, b, b};
 parameter  black_blocked_blank_one_three_r = {b, b, l, l, b};
 parameter  black_blocked_blank_two_three = {b, l, b, l, b};
-parameter  black_blocked_double_three [0:6] = {w, l, b, b ,b, l, w};
+parameter  black_blocked_double_three = {w, l, b, b ,b, l, w};
 parameter  black_blocked_con_two_o  = {l, l, l, b, b, w };
 parameter  black_blocked_con_two_r  = {w, b, b, l, l, l };
 parameter  black_blocked_blank_one_two_o = {l, l, b, l, b, w};
@@ -72,7 +72,7 @@ parameter  black_blocked_blank_two_two_o = {l, b, l, l, b, w};
 parameter  black_blocked_blank_two_two_r = {w, b, l, l, b, l};
 parameter  black_blocked_blank_three_two = {b, l, l, l, b};
 parameter  black_blocked_one_o = {w, b, l};
-parameter  black_blocked_one_r = {l, b, w}
+parameter  black_blocked_one_r = {l, b, w};
 parameter  white_con_five  = {w, w, w, w, w};
 parameter  white_con_four  = {l, w, w, w, w, l};
 parameter  white_con_three  = {l, w, w, w, l};
@@ -117,7 +117,7 @@ parameter logic [4:0] five [0:19] = '{black_con_five, black_con_three, black_bla
 parameter logic [2:0] three [0:5] =  '{black_con_one, black_blocked_one_o, black_blocked_one_r, white_con_one, white_blocked_one_o, white_blocked_one_r};                                               
 
 parameter logic [31:0] seven_weight [0:1] = '{BLOCKED_THREE, BLOCKED_THREE};
-parameter logic [31:0] six_weight [0:37] = '{FOUR, THREE, BLOCKED_THREE, TWO, TWO, BLOCKED_FOUR, BLOCKED_FOUR, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE
+parameter logic [31:0] six_weight [0:37] = '{FOUR, THREE, BLOCKED_THREE, TWO, TWO, BLOCKED_FOUR, BLOCKED_FOUR, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE,
                                             BLOCKED_THREE, BLOCKED_THREE, BLOCKED_TWO, BLOCKED_TWO, BLOCKED_TWO, BLOCKED_TWO, BLOCKED_TWO, BLOCKED_TWO, FOUR, THREE, THREE,
                                             TWO, TWO, BLOCKED_FOUR, BLOCKED_FOUR, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_TWO, BLOCKED_TWO,
                                             BLOCKED_TWO, BLOCKED_TWO, BLOCKED_TWO, BLOCKED_TWO};
@@ -172,7 +172,7 @@ task Compare_five_up;
 
                            
 endtask
-task Compare_five_left
+task Compare_five_left;
     output signed [31:0] score [4499:0];
     input [1:0] chess_board [0:224];
     
