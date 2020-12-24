@@ -199,16 +199,16 @@ task Compare_five_left;
     end
 
 endtask
-task Compare_five_upper_left;
-    output signed [31:0] score [4499:0];
-    input [1:0] chess_board [0:224];
-    
+task Compare_five_upper_left(
+    input [1:0] chess_board [0:224],
+    output signed [31:0] score [4499:0]
+);
     for(int i = 0; i <= 10; i++) begin
         for(int j = 0; j <= 10 ; j++) begin
             for(int k=0; k < 20; k++) begin
                 if(i == 0 && j == 0 && k == 0)
                     score[(i * 11 + j) * 20 + k] = 0;
-                if( {chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k]) begin
+                if( { chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k]) begin
                     if(i == 0 && j == 0 && k == 0)
                         score[(i * 11 + j) * 20 + k] = five_weight[k];
                     else
