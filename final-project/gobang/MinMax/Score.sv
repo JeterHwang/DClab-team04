@@ -1,4 +1,4 @@
-// typedef logic [1:0] board [224:0];
+// typedef logic [1:0] board [224:0];d
 module Score (
 	input         i_clk,
 	input         i_rst_n,
@@ -728,10 +728,16 @@ always_comb begin
             state_w = S_EVALUATE;   
         end
         S_EVALUATE: begin
-            score_w = black_score_w - white_score_w;
-            state_w = S_SEVEN_UP;
-            finished_w  = 1;
-
+            if(i_turn === 0) begin
+                score_w = black_score_w - white_score_w;
+                state_w = S_SEVEN_UP;
+                finished_w  = 1;
+            end
+            else begin
+                score_w = white_score_w - black_score_w;
+                state_w = S_SEVEN_UP;
+                finished_w  = 1;
+            end
         end
     endcase
 end

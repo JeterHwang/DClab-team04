@@ -4,23 +4,23 @@
 `define HCLK 5
 typedef logic [1:0] board [225];
 
-module PG_tb;
+module Score_tb;
     board i_board;
     logic clk;
     logic start;
     logic rst_n;
     logic turn;
     logic SC_finish;
-    logic [31:0] score;
+    logic signed [31:0] score;
     int fp_i, fp_o;
     int status;
 
-    point_generator PG(
+    Score score(
         .i_clk(clk),
         .i_rst_n(rst_n),
         .i_start(start),
         .i_board(i_board),
-        .i_turn(turn),
+        .i_turn(1'b0),
         .o_score(score),
         .o_finish(SC_finish)
     );
