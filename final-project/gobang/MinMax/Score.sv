@@ -1,29 +1,29 @@
-typedef logic [1:0] chess_board [224:0];
+typedef logic [1:0] board [224:0];
 module Score (
 	input         i_clk,
 	input         i_rst_n,
 	input         i_start,
-	input         chess_board i_board,         // 15*15*2 bit chess board
+	input         board i_board,         // 15*15*2 bit chess board
     input         i_turn,          
 	output signed [31:0] o_score,                      // 32 bit score
     output        o_finish
 );
-parameter S_SEVEN_UP   = 7'd11;
-parameter S_SEVEN_LEFT = 7'd12;
-parameter S_SEVEN_UL   = 7'd13;
-parameter S_SEVEN_UR   = 7'd14;
-parameter S_SIX_UP     = 7'd15;
-parameter S_SIX_LEFT   = 7'd16;
-parameter S_SIX_UL     = 7'd17;
-parameter S_SIX_UR     = 7'd18;
-parameter S_FIVE_UP    = 7'd19;
-parameter S_FIVE_LEFT  = 7'd20;
-parameter S_FIVE_UL    = 7'd21;
-parameter S_FIVE_UR    = 7'd22;
-parameter S_THREE_UP   = 7'd23;
-parameter S_THREE_LEFT = 7'd24;
-parameter S_THREE_UL   = 7'd25;
-parameter S_THREE_UR   = 7'd26;
+parameter S_SEVEN_UP   = 5'd11;
+parameter S_SEVEN_LEFT = 5'd12;
+parameter S_SEVEN_UL   = 5'd13;
+parameter S_SEVEN_UR   = 5'd14;
+parameter S_SIX_UP     = 5'd15;
+parameter S_SIX_LEFT   = 5'd16;
+parameter S_SIX_UL     = 5'd17;
+parameter S_SIX_UR     = 5'd18;
+parameter S_FIVE_UP    = 5'd19;
+parameter S_FIVE_LEFT  = 5'd20;
+parameter S_FIVE_UL    = 5'd21;
+parameter S_FIVE_UR    = 5'd22;
+parameter S_THREE_UP   = 5'd23;
+parameter S_THREE_LEFT = 5'd24;
+parameter S_THREE_UL   = 5'd25;
+parameter S_THREE_UR   = 5'd26;
 
 
 
@@ -108,7 +108,7 @@ parameter  white_blocked_one_o = {b, w, l};
 parameter  white_blocked_one_r= {l, w, b};
 
 parameter logic [6:0] seven [0:1] = '{black_blocked_double_three, white_blocked_double_three};
-parameter logic [5:0] six [0:37] = '{black_con_four, black_jump_one_three_o, black_blocked_jump_one_three_r, black_con_two, black_blank_two_two, black_blocked_con_four_o, black_blocked_con_four_r, black_blocked_con_three_o, black_blocked_con_three_r, black_blocked_jump_one_three_o, black_blocked_jump_one_three_r
+parameter logic [5:0] six [0:37] = '{black_con_four, black_jump_one_three_o, black_blocked_jump_one_three_r, black_con_two, black_blank_two_two, black_blocked_con_four_o, black_blocked_con_four_r, black_blocked_con_three_o, black_blocked_con_three_r, black_blocked_jump_one_three_o, black_blocked_jump_one_three_r,
                                       black_blocked_jump_two_three_o, black_blocked_jump_two_three_r, black_blocked_con_two_o, black_blocked_con_two_r, black_blocked_blank_one_two_o, black_blocked_blank_one_two_r, black_blocked_blank_two_two_o, black_blocked_blank_two_two_r, white_con_four, white_jump_one_three_o, white_jump_one_three_r,
                                       white_con_two, white_blank_two_two, white_blocked_con_four_o, white_blocked_con_four_r, white_blocked_con_three_o, white_blocked_con_three_r, white_blocked_jump_one_three_o, white_blocked_jump_one_three_r, white_blocked_jump_two_three_o, white_blocked_jump_two_three_r, white_blocked_con_two_o, white_blocked_con_two_r, 
                                       white_blocked_blank_one_two_o, white_blocked_blank_one_two_r, white_blocked_blank_two_two_o, white_blocked_blank_two_two_r};
@@ -208,14 +208,14 @@ task Compare_five_upper_left;
             for(int k=0; k < 20; k++) begin
                 if(i == 0 && j == 0 && k == 0)
                     score[(i * 11 + j) * 20 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } === five[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
+                if( {chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k]) begin
+                    if(i == 0 && j == 0 && k == 0)
                         score[(i * 11 + j) * 20 + k] = five_weight[k];
                     else
                         score[(i * 11 + j) * 20 + k] = score[(i * 11 + j) * 20 + k - 1] + five_weight[k];
                 end
                 else begin
-                    if(i == 0 && j ==0 && k == 0)
+                    if(i == 0 && j == 0 && k == 0)
                         score[(i * 11 + j) * 20 + k] = 0;
                     else
                         score[(i * 11 + j) * 20 + k] = score[(i * 11 + j) * 20 + k - 1];
