@@ -591,7 +591,148 @@ always_comb begin
                 state_w = S_SEVEN_LEFT;
             end 
         end 
-        
+        S_SEVEN_LEFT:  begin 
+            Compare_seven_left(.chess_board(i_board), .score(seven_score));
+            black_score_w = black_score_r + seven_score[268] + seven_score[269] + seven_score[270] + seven_score[271] + seven_score[272] + seven_score[273] + seven_score[274]
+                                + seven_score[275] + seven_score[276] + seven_score[277];
+            white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
+                            + seven_score[285] + seven_score[286] + seven_score[287];
+            seven_score = 0;
+            state_w = S_SEVEN_UL;  
+        end
+        S_SEVEN_UL:    begin  
+            Compare_seven_upper_left(.chess_board(i_board), .score(seven_score));
+            black_score_w = black_score_r + seven_score[268] + seven_score[269] + seven_score[270] + seven_score[271] + seven_score[272] + seven_score[273] + seven_score[274]
+                                + seven_score[275] + seven_score[276] + seven_score[277];
+            white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
+                            + seven_score[285] + seven_score[286] + seven_score[287];
+            seven_score = 0;
+            state_w = S_SEVEN_UR;
+        end
+        S_SEVEN_UR:    begin  
+            Compare_seven_upper_right(.chess_board(i_board), .score(seven_score));
+            black_score_w = black_score_r + seven_score[268] + seven_score[269] + seven_score[270] + seven_score[271] + seven_score[272] + seven_score[273] + seven_score[274]
+                                + seven_score[275] + seven_score[276] + seven_score[277];
+            white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
+                            + seven_score[285] + seven_score[286] + seven_score[287];
+            seven_score = 0;
+            state_w = S_SIX_UP;   
+        end
+        S_SIX_UP:      begin  
+            Compare_six_up(.chess_board(i_board), .score(six_score));
+            black_score_w = black_score_r + six_score[5662] + six_score[5663] + six_score[5664] + six_score[5665] + six_score[5666] + six_score[5667] + six_score[5668]
+                                + six_score[5669] + six_score[5670] + six_score[5671];
+            white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
+                            + six_score[5679] + six_score[5680] + six_score[5681];
+            six_score = 0;
+            state_w = S_SIX_LEFT; 
+        end
+        S_SIX_LEFT:    begin  
+            Compare_six_left(.chess_board(i_board), .score(six_score));
+            black_score_w = black_score_r + six_score[5662] + six_score[5663] + six_score[5664] + six_score[5665] + six_score[5666] + six_score[5667] + six_score[5668]
+                                + six_score[5669] + six_score[5670] + six_score[5671];
+            white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
+                            + six_score[5679] + six_score[5680] + six_score[5681];
+            six_score = 0;
+            state_w = S_SIX_UL;  
+
+        end
+        S_SIX_UL:      begin  
+            Compare_six_upper_left(.chess_board(i_board), .score(six_score));
+            black_score_w = black_score_r + six_score[5662] + six_score[5663] + six_score[5664] + six_score[5665] + six_score[5666] + six_score[5667] + six_score[5668]
+                                + six_score[5669] + six_score[5670] + six_score[5671];
+            white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
+                            + six_score[5679] + six_score[5680] + six_score[5681];
+            six_score = 0;
+            state_w = S_SIX_UR;    
+        end
+        S_SIX_UR:      begin 
+            Compare_six_upper_right(.chess_board(i_board), .score(six_score));
+            black_score_w = black_score_r + six_score[5662] + six_score[5663] + six_score[5664] + six_score[5665] + six_score[5666] + six_score[5667] + six_score[5668]
+                                + six_score[5669] + six_score[5670] + six_score[5671];
+            white_score_w = white_score_r + six_score[5672] + six_score[5673] + six_score[5674] + six_score[5675] + six_score[5676] + six_score[5677] + six_score[5678]
+                            + six_score[5679] + six_score[5680] + six_score[5681];
+            six_score = 0;
+            state_w = S_FIVE_UP;   
+        end
+        S_FIVE_UP:     begin 
+            Compare_five_up(.chess_board(i_board), .score(five_score));
+            black_score_w = black_score_r + five_score[3280] + five_score[3281] + five_score[3282] + five_score[3283] + five_score[3284] + five_score[3285] + five_score[3286]
+                                + five_score[3287] + five_score[3288] + five_score[3289];
+            white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
+                            + five_score[3297] + five_score[3298] + five_score[3299];
+            five_score = 0;
+            state_w = S_FIVE_LEFT; 
+        end
+        S_FIVE_LEFT:   begin 
+            Compare_five_left(.chess_board(i_board), .score(five_score));
+            black_score_w = black_score_r + five_score[3280] + five_score[3281] + five_score[3282] + five_score[3283] + five_score[3284] + five_score[3285] + five_score[3286]
+                                + five_score[3287] + five_score[3288] + five_score[3289];
+            white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
+                            + five_score[3297] + five_score[3298] + five_score[3299];
+            five_score = 0;
+            state_w = S_FIVE_UL; 
+        end
+        S_FIVE_UL:     begin 
+            Compare_five_upper_left(.chess_board(i_board), .score(five_score)); 
+            black_score_w = black_score_r + five_score[3280] + five_score[3281] + five_score[3282] + five_score[3283] + five_score[3284] + five_score[3285] + five_score[3286]
+                                + five_score[3287] + five_score[3288] + five_score[3289];
+            white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
+                            + five_score[3297] + five_score[3298] + five_score[3299];
+            five_score = 0;
+            state_w = S_FIVE_UR;   
+        end
+        S_FIVE_UR:     begin  
+            Compare_five_upper_right(.chess_board(i_board), .score(five_score));
+            black_score_w = black_score_r + five_score[3280] + five_score[3281] + five_score[3282] + five_score[3283] + five_score[3284] + five_score[3285] + five_score[3286]
+                                + five_score[3287] + five_score[3288] + five_score[3289];
+            white_score_w = white_score_r + five_score[3290] + five_score[3291] + five_score[3292] + five_score[3293] + five_score[3294] + five_score[3295] + five_score[3296]
+                            + five_score[3297] + five_score[3298] + five_score[3299];
+            five_score = 0;
+            state_w = S_THREE_UP;  
+        end
+        S_THREE_UP:    begin 
+            Compare_three_up(.chess_board(i_board), .score(three_score));
+            black_score_w = black_score_r + three_score[1164] + three_score[1165] + three_score[1166] + three_score[1167] + three_score[1168] + three_score[1169] + three_score[1170]
+                                + three_score[1171] + three_score[1172] + three_score[1173];
+            white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
+                            + three_score[1181] + three_score[1182] + three_score[1183];
+            three_score = 0;
+            state_w = S_THREE_LEFT;
+        end
+        S_THREE_LEFT:  begin 
+            Compare_three_left(.chess_board(i_board), .score(three_score));
+            black_score_w = black_score_r + three_score[1164] + three_score[1165] + three_score[1166] + three_score[1167] + three_score[1168] + three_score[1169] + three_score[1170]
+                                + three_score[1171] + three_score[1172] + three_score[1173];
+            white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
+                            + three_score[1181] + three_score[1182] + three_score[1183];
+            three_score = 0;
+            state_w = S_THREE_UL;  
+        end
+        S_THREE_UL:    begin  
+            Compare_three_upper_left(.chess_board(i_board), .score(three_score));
+            black_score_w = black_score_r + three_score[1164] + three_score[1165] + three_score[1166] + three_score[1167] + three_score[1168] + three_score[1169] + three_score[1170]
+                                + three_score[1171] + three_score[1172] + three_score[1173];
+            white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
+                            + three_score[1181] + three_score[1182] + three_score[1183];
+            three_score = 0;
+            state_w = S_THREE_UR;  
+        end
+        S_THREE_UR:    begin  
+            Compare_three_upper_right(.chess_board(i_board), .score(three_score));
+            black_score_w = black_score_r + three_score[1164] + three_score[1165] + three_score[1166] + three_score[1167] + three_score[1168] + three_score[1169] + three_score[1170]
+                                + three_score[1171] + three_score[1172] + three_score[1173];
+            white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
+                            + three_score[1181] + three_score[1182] + three_score[1183];
+            three_score = 0;
+            state_w = S_EVALUATE;   
+        end
+        S_EVALUATE: begin
+            score_w = black_score_w - white_score_w;
+            state_w = S_SEVEN_UP;
+            finished_w  = 1;
+
+        end
     endcase
 end
 
