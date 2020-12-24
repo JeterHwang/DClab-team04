@@ -36,10 +36,10 @@ module TH_tb;
     always #(`HCLK) clk = ~clk;
 
     initial begin
-        $fsdbDumpfile("PointGenerator.fsdb");
+        $fsdbDumpfile("Threats.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../pattern/PG_test1_i.txt", "r");
-        fp_o = $fopen("../output/PG_test1_o.txt", "w");
+        fp_i = $fopen("../../pattern/TH_test1_i.txt", "r");
+        fp_o = $fopen("../../output/TH_test1_o.txt", "w");
         
         if(fp_i) 
             $display("Read file was opened successfully : %0d", fp_i);
@@ -68,8 +68,8 @@ module TH_tb;
         #(`CLK) start = 1;
         #(`CLK) start = 0;
 
-        @(posedge PG_finish) begin
-            for(int i = 49; i > buffer_size; i = i - 4) begin
+        @(posedge TH_finish) begin
+            for(int i = 49; i > buffer_pointer; i = i - 4) begin
                 X = X_output[i -: 4];
                 Y = Y_output[i -: 4];
                 $fwrite(fp_o, "%d %d\n", X, Y);

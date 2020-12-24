@@ -39,7 +39,6 @@ task three(
     input   [1:0] turn,
     output  check 
 );
-    assign check = valid[X][Y][36];
     valid[X][Y][0] = 0;
     // middle blank
     if(X < 14 && X > 1 && Y < 14 && Y > 1 && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn) 
@@ -124,11 +123,11 @@ task three(
         valid[X][Y][20] = valid[X][Y][19] | 1;
     else
         valid[X][Y][20] = valid[X][Y][19];
-    if(X - 3 > 0 && Y - 3 > 0 && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l && i_board[(x - 3) * 15 + (Y - 3)] == turn)
+    if(X - 3 > 0 && Y - 3 > 0 && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l && i_board[(X - 3) * 15 + (Y - 3)] == turn)
         valid[X][Y][21] = valid[X][Y][20] | 1;
     else
         valid[X][Y][21] = valid[X][Y][20];
-    if(X - 3 > 0 && Y - 3 > 0 && i_board[(X - 1) * 15 + (Y - 1)] == l && i_board[(X - 2) * 15 + (Y - 2)] == turn && i_board[(x - 3) * 15 + (Y - 3)] == turn)
+    if(X - 3 > 0 && Y - 3 > 0 && i_board[(X - 1) * 15 + (Y - 1)] == l && i_board[(X - 2) * 15 + (Y - 2)] == turn && i_board[(X - 3) * 15 + (Y - 3)] == turn)
         valid[X][Y][22] = valid[X][Y][21] | 1;
     else
         valid[X][Y][22] = valid[X][Y][21];
@@ -148,11 +147,11 @@ task three(
         valid[X][Y][26] = valid[X][Y][25] | 1;
     else
         valid[X][Y][26] = valid[X][Y][25];
-    if(X + 3 < 15 i_board[(X + 1) * 15 + Y] == turn && i_board[(X + 2) * 15 + Y] == l && i_board[(X + 3) * 15 + Y] == turn)
+    if(X + 3 < 15 && i_board[(X + 1) * 15 + Y] == turn && i_board[(X + 2) * 15 + Y] == l && i_board[(X + 3) * 15 + Y] == turn)
         valid[X][Y][27] = valid[X][Y][26] | 1;
     else
         valid[X][Y][27] = valid[X][Y][26];
-    if(X + 3 < 15 i_board[(X + 1) * 15 + Y] == l && i_board[(X + 2) * 15 + Y] == turn && i_board[(X + 3) * 15 + Y] == turn)
+    if(X + 3 < 15 && i_board[(X + 1) * 15 + Y] == l && i_board[(X + 2) * 15 + Y] == turn && i_board[(X + 3) * 15 + Y] == turn)
         valid[X][Y][28] = valid[X][Y][27] | 1;
     else
         valid[X][Y][28] = valid[X][Y][27];
@@ -189,6 +188,7 @@ task three(
         valid[X][Y][36] = valid[X][Y][35] | 1;
     else
         valid[X][Y][36] = valid[X][Y][35];
+    check = valid[X][Y][36];
 endtask
 // task blocked_four(
 //     input   [3:0] X,
@@ -243,18 +243,20 @@ always_comb begin
         S_IDLE: begin
             finish_w = 1'b0;
             if(i_start) begin
+                state_w = S_COUNT;
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        three(.X(Y[3:0]), .Y(j[3:0]), .turn(i_turn), .check(valid[i][j][37]));
-                        if(i_board[X][Y] == l && valid[i][j][37])
+                        three(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(valid[i][j][37]));
+                        if(i_board[i * 15 + j] == l && valid[i][j][37])
                             ok[i][j] = 1;
                         else
                             ok[i][j] = 0;
                     end
+                    $display("%b %b %b %b %b %b %b %b %b %b %b %b %b %b %b\n", ok[i][0], ok[i][1], ok[i][2], ok[i][3], ok[i][4], ok[i][5], ok[i][6], ok[i][7], ok[i][8], ok[i][9], ok[i][10], ok[i][11], ok[i][12], ok[i][13], ok[i][14]);
                 end
             end
         end
-        S_DEFEND: begin
+        S_COUNT: begin
             pointer[0] = 6'd49;
             for(int i = 0; i < 15; i++) begin
                 for(int j = 0; j < 15; j++) begin
