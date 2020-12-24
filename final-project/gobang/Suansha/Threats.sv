@@ -57,13 +57,36 @@ logic []
 logic finish_r, finish_w;
 
 task three(
-    input [3:0] X,
-    input [3:0] Y,
-    input [1:0] turn
+    input   [3:0] X,
+    input   [3:0] Y,
+    input   [1:0] turn,
+    output  [11:0] out
 );
-    if(X + 1 < 15 && X - 1 > 0 && Y + 1 < 15 && Y - 1 > 0 && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[X * 15 + Y] == l) begin
-        
-    end
+    // middle blank
+    if(X + 1 < 15 && X - 1 > 0 && Y + 1 < 15 && Y - 1 > 0 && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn) 
+        out = out & 1;
+    if(X + 1 < 15 && X - 1 > 0 && i_board[(X + 1) * 15 + Y] == turn && i_board[(X - 1) * 15 + Y] == turn)
+
+    if(Y + 1 < 15 && Y - 1 > 0 && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y - 1)] == turn)
+
+    if(X + 1 < 15 && Y + 1 < 15 && X - 1 > 0 && Y - 1 > 0 && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X + 1) * 15 + (Y - 1)]) 
+
+    // 
+    if(X + 2 < 15 && Y + 2 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X + 2) * 15 + (Y + 2)] == turn)
+
+    if(X - 2 < 15 && Y - 2 < 15 && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == turn)
+
+    if(X + 2 < 15 && X - 2 > 0 && Y + 2 < 15 && Y - 2 > 0 && i_board[(X + 1) * 15 + (Y - 1)] == turn && i_board[(X + 2) * 15 + (Y - 2)] == turn)
+
+    if(X + 2 < 15 && X - 2 > 0 && Y + 2 < 15 && Y - 2 > 0 && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X - 2) * 15 + (Y + 2)] == turn)
+
+    if(X + 2 < 15 && i_board[(X + 1) * 15 + Y] == turn && i_board[(X + 2) * 15 + Y] == turn)
+
+    if(X - 2 > 0 && i_board[(X - 1) * 15 + Y] == turn && i_board[(X - 2) * 15 + Y] == turn)
+
+    if(Y + 2 < 15 && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y + 2)] == turn)
+
+    if(Y - 2 > 0 && i_board[X * 15 + (Y - 1)] == turn && i_board[X * 15 + (Y - 2)] == turn)
 endtask
 
 always_comb begin
