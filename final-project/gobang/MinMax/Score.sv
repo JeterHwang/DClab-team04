@@ -707,7 +707,7 @@ always_comb begin
             white_score_w = white_score_r + three_score[1174] + three_score[1175] + three_score[1176] + three_score[1177] + three_score[1178] + three_score[1179] + three_score[1180]
                             + three_score[1181] + three_score[1182] + three_score[1183];
             // three_score = 0;
-            state_w = S_THREE_UL;  
+            // state_w = S_THREE_UL;  
         // end
         // S_THREE_UL:    begin  
         //     Compare_three_upper_left(.chess_board(i_board), .score(three_score));
