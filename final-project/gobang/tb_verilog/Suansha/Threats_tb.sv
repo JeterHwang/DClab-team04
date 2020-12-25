@@ -9,13 +9,13 @@ module TH_tb;
     logic clk;
     logic start;
     logic rst_n;
-    logic [49:0] X_output;
-    logic [49:0] Y_output;
-    logic [5:0] buffer_pointer;
+    logic [999:0] X_output;
+    logic [999:0] Y_output;
+    logic [9:0] buffer_pointer;
     logic [3:0] X;
     logic [3:0] Y;
     logic TH_finish;
-    logic win;
+    logic [1:0] win;
     int fp_i, fp_o;
     int status;
 

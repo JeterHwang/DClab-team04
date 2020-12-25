@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 25, 2020 at 01:37:43 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 26, 2020 at 01:03:21 CST
 ncverilog
 	Threats_tb.sv
 	../../Suansha/Threats.sv
@@ -25,19 +25,19 @@ Write file was opened successfully : -2147483644
 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
-0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
-
-0 0 0 0 0 0 1 1 0 0 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
 
-0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
-0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
-0 0 0 0 0 0 1 1 0 0 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
@@ -50,4 +50,4 @@ Write file was opened successfully : -2147483644
 Simulation complete via $finish(1) at time 50 NS + 3
 ./Threats_tb.sv:78         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 25, 2020 at 01:38:30 CST  (total: 00:00:47)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 26, 2020 at 01:04:08 CST  (total: 00:00:47)
