@@ -488,13 +488,15 @@ task Compare_seven_up;
     //         end     
     //     end
     // end
-    for(int i = 0; i <= 8; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 1; k++) begin
-                score[(i * 15 + j) * 1 + k] = i;
-            end     
-        end
-    end
+    // for(int i = 0; i <= 8; i++) begin
+    //     for(int j = 0; j < 15; j++) begin
+    //         for(int k=0; k < 1; k++) begin
+    //             score[(i * 15 + j) * 1 + k] = i;
+    //         end     
+    //     end
+    // end
+    score[0] = 32'b1;
+    
 endtask
 task Compare_seven_left;
     output signed [31:0] score [449:0];
