@@ -64,7 +64,7 @@ module Score_tb;
     end  
     
     initial begin
-		#(50 * (`CLK))
+		#(1000 * (`CLK))
         $display("==============================");
 		$display("Too slow, abort.");
 		$display("==============================");
