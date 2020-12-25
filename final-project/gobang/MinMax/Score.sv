@@ -467,24 +467,31 @@ task Compare_seven_up;
     output signed [31:0] score [449:0];
     input [1:0] chess_board [0:224];
     // 268
+    // for(int i = 0; i <= 8; i++) begin
+    //     for(int j = 0; j < 15; j++) begin
+    //         for(int k=0; k < 1; k++) begin
+    //             if(i == 0 && j == 0 && k == 0)
+    //                 score[(i * 15 + j) * 1 + k] = 0;
+    //             if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15], chess_board[j+(i+6)*15] } === seven[k]) begin
+    //                 if(i == 0 && j ==0 && k == 0)
+    //                     score[(i * 15 + j) * 1 + k] = seven_weight[k];
+    //                 else
+    //                     score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1] + seven_weight[k];
+    //             end
+    //             else begin
+    //                 if(i == 0 && j ==0 && k == 0)
+    //                     score[(i * 15 + j) * 1 + k] = 0;
+    //                 else
+    //                     score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1];
+    //             end
+                       
+    //         end     
+    //     end
+    // end
     for(int i = 0; i <= 8; i++) begin
         for(int j = 0; j < 15; j++) begin
             for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 15 + j) * 1 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15], chess_board[j+(i+6)*15] } === seven[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 1 + k] = seven_weight[k];
-                    else
-                        score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1] + seven_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 1 + k] = 0;
-                    else
-                        score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1];
-                end
-                       
+                score[(i * 15 + j) * 1 + k] = i;
             end     
         end
     end
