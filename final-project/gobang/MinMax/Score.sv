@@ -584,9 +584,10 @@ always_comb begin
                 Compare_seven_up(.chess_board(i_board), .score(seven_score));
                 // black_score_w = black_score_r + seven_score[268] + seven_score[269] + seven_score[270] + seven_score[271] + seven_score[272] + seven_score[273] + seven_score[274]
                 //                 + seven_score[275] + seven_score[276] + seven_score[277];
-                black_score_w = seven_score
-                white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
-                                + seven_score[285] + seven_score[286] + seven_score[287];
+                black_score_w = seven_score[1];
+                // white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
+                //                 + seven_score[285] + seven_score[286] + seven_score[287];
+                white_score_w = 31'b11;
                 // seven_score = 0;
                 // state_w = S_SEVEN_LEFT;
                 state_w = S_EVALUATE;
