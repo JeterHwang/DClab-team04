@@ -8,23 +8,23 @@ module Score (
 	output signed [31:0] o_score,                      // 32 bit score
     output        o_finish
 );
-parameter S_SEVEN_UP   = 5'd11;
-parameter S_SEVEN_LEFT = 5'd12;
-parameter S_SEVEN_UL   = 5'd13;
-parameter S_SEVEN_UR   = 5'd14;
-parameter S_SIX_UP     = 5'd15;
-parameter S_SIX_LEFT   = 5'd16;
-parameter S_SIX_UL     = 5'd17;
-parameter S_SIX_UR     = 5'd18;
-parameter S_FIVE_UP    = 5'd19;
-parameter S_FIVE_LEFT  = 5'd20;
-parameter S_FIVE_UL    = 5'd21;
-parameter S_FIVE_UR    = 5'd22;
-parameter S_THREE_UP   = 5'd23;
-parameter S_THREE_LEFT = 5'd24;
-parameter S_THREE_UL   = 5'd25;
-parameter S_THREE_UR   = 5'd26;
-parameter S_EVALUATE   = 5'd27;
+parameter S_SEVEN_UP   = 8'd11;
+parameter S_SEVEN_LEFT = 8'd12;
+parameter S_SEVEN_UL   = 8'd13;
+parameter S_SEVEN_UR   = 8'd14;
+parameter S_SIX_UP     = 8'd15;
+parameter S_SIX_LEFT   = 8'd16;
+parameter S_SIX_UL     = 8'd17;
+parameter S_SIX_UR     = 8'd18;
+parameter S_FIVE_UP    = 8'd19;
+parameter S_FIVE_LEFT  = 8'd20;
+parameter S_FIVE_UL    = 8'd21;
+parameter S_FIVE_UR    = 8'd22;
+parameter S_THREE_UP   = 8'd23;
+parameter S_THREE_LEFT = 8'd24;
+parameter S_THREE_UL   = 8'd25;
+parameter S_THREE_UR   = 8'd26;
+parameter S_EVALUATE   = 8'd27;
 
 
 
@@ -731,6 +731,7 @@ always_comb begin
         end
         S_EVALUATE: begin
             if(i_turn == 0) begin
+
                 score_w = black_score_w - white_score_w;
                 state_w = S_SEVEN_UP;
                 finished_w  = 1;
