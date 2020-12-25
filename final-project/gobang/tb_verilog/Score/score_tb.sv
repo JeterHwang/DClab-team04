@@ -46,11 +46,11 @@ module Score_tb;
         end
 
         start = 0;
-        rst_n = 1;
+        rst_n = 0;
         turn = 1'b0;    // default calculate black chess score
 
-        #(`CLK) rst_n = 0;
         #(`CLK) rst_n = 1;
+        #(`CLK) rst_n = 0;
         #(`CLK) start = 1;
         #(`CLK) start = 0;
 
