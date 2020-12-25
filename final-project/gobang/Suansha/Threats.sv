@@ -20,6 +20,7 @@ parameter S_COUNT   = 1'd1;
 
 logic state_r, state_w;
 logic finish_r, finish_w;
+logic win_r, win_w;
 logic [9:0] pointer[226];
 logic [999:0] output_X;
 logic [999:0] output_Y;
@@ -34,7 +35,7 @@ assign o_posX   = output_X;
 assign o_posY   = output_Y;
 assign o_size   = pointer[225];
 assign o_finish = finish_r;
-assign o_win    = 1'b1;
+assign o_win    = win_r;
 
 task Offense(
     input   [3:0] X,
@@ -1586,6 +1587,7 @@ endtask
 always_comb begin
     state_w         = state_r;
     finish_w        = finish_r;
+    win_w           = 1'b0;
     case (state_r)
         S_IDLE: begin
             finish_w = 1'b0;
@@ -1593,13 +1595,10 @@ always_comb begin
                 state_w = S_COUNT;
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        Offense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(offense[i][j]));
-                        Defense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(defense[i][j]));
+                        Offense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd0), .check(offense[i][j]));
+                        Defense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd132), .check(defense[i][j]));
                         Win(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(win[i][j]));
                         
-                        if(win[i][j])
-                            
-
                         if(i_board[i * 15 + j] == l && offense[i][j] && defense[i][j])
                             ok[i][j] = 1;
                         else
@@ -1621,6 +1620,9 @@ always_comb begin
                     else begin
                         pointer[i * 15 + j + 1] = pointer[i * 15 + j];
                     end
+
+                    if(win[i][j])
+                        win_w = 1'b1;
                 end
             end
             finish_w    = 1'b1;
@@ -1633,10 +1635,12 @@ always_ff @(negedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
         state_r         <= S_IDLE;
         finish_r        <= 1'b0;
+        win_r           <= 1'b0;
     end
     else begin
         state_r         <= state_w;
         finish_r        <= finish_w;
+        win_r           <= win_w;
     end
 end
 endmodule
