@@ -133,7 +133,7 @@ logic signed [31:0] six_score   [8549:0];
 logic signed [31:0] five_score  [4499:0];
 logic signed [31:0] three_score [1349:0];
 
-logic signed [31:0] seven_test_w [449:0], seven_test_r [449:0]
+logic signed [31:0] seven_test_w [449:0], seven_test_r [449:0];
 
 
 
