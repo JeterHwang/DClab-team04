@@ -133,6 +133,8 @@ logic signed [31:0] six_score   [8549:0];
 logic signed [31:0] five_score  [4499:0];
 logic signed [31:0] three_score [1349:0];
 
+logic signed [31:0] seven_test_w [449:0], seven_test_r [449:0]
+
 
 
 logic [3:0]  state_r, state_w;
@@ -575,7 +577,7 @@ always_comb begin
     white_score_w           = white_score_r;
 	score_w				    = score_r;
     finished_w             = finished_r;
-
+    seven_test_w           = seven_test_r;
     
 	case (state_r)
         S_SEVEN_UP: begin
@@ -588,6 +590,7 @@ always_comb begin
                 // white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
                 //                 + seven_score[285] + seven_score[286] + seven_score[287];
                 white_score_w = 31'b11;
+                seven_test_w = seven_score;
                 // seven_score = 0;
                 // state_w = S_SEVEN_LEFT;
                 state_w = S_EVALUATE;
@@ -752,6 +755,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
         white_score_r           <= 0;
 		score_r				    <= 0;
         finished_r              <= 0;
+        seven_test_r            <= '{450{1}};
     end
     else begin
         state_r                 <= state_w;
@@ -759,6 +763,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
         black_score_r           <= black_score_w;
         white_score_r           <= white_score_w;
         finished_r              <= finished_w;
+        seven_test_r            <= seven_test_w;
     end
 end
 
