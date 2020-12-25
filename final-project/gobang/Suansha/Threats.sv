@@ -6,7 +6,7 @@ module Threats(
     input     board     i_board,
     output   [999:0]     o_posX,
     output   [999:0]     o_posY,
-    output   [5:0]      o_size,
+    output   [9:0]      o_size,
     output   [1:0]      o_win,
     output              o_finish
 );
@@ -35,7 +35,7 @@ assign o_posX   = output_X;
 assign o_posY   = output_Y;
 assign o_size   = pointer[225];
 assign o_finish = finish_r;
-assign o_win    = win_r;
+assign o_win    = (win_r != 1'b1 && win_r != 1'b0) ? 2'd2 : {1'b0, win_r};
 
 task Offense(
     input   [3:0] X,
@@ -47,7 +47,7 @@ task Offense(
     
 // live threes
     // middle blank
-    if(X < 13 && X >= 2 && Y < 13 && Y >= 2 && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l) 
+    if(X < 13 && X >= 2 && Y < 13 && Y >= 2 && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l)
         valid[X][Y][pointer + 0] = 1;
     else 
         valid[X][Y][pointer + 0] = 0;
@@ -59,7 +59,7 @@ task Offense(
         valid[X][Y][pointer + 2] = 1;
     else
         valid[X][Y][pointer + 2] = 0;
-    if(X < 13 && Y < 13 && X >= 2 && Y >= 2 && i_board[(X - 2) * 15 + (Y + 2)] == l &&i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X + 1) * 15 + (Y - 1)] == turn && i_board[(X + 2) * 15 + (Y - 2)] == turn) 
+    if(X < 13 && Y < 13 && X >= 2 && Y >= 2 && i_board[(X - 2) * 15 + (Y + 2)] == l && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X + 1) * 15 + (Y - 1)] == turn && i_board[(X + 2) * 15 + (Y - 2)] == l)
         valid[X][Y][pointer + 3] = 1;
     else
         valid[X][Y][pointer + 3] = 0;
@@ -1599,7 +1599,7 @@ always_comb begin
                         Defense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd132), .check(defense[i][j]));
                         Win(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(win[i][j]));
                         
-                        if(i_board[i * 15 + j] == l && offense[i][j] && defense[i][j])
+                        if(i_board[i * 15 + j] == l && (defense[i][j]))
                             ok[i][j] = 1;
                         else
                             ok[i][j] = 0;
