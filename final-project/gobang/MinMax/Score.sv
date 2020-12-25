@@ -8,23 +8,23 @@ module Score (
 	output signed [31:0] o_score,                      // 32 bit score
     output        o_finish
 );
-parameter S_SEVEN_UP   = 8'd11;
-parameter S_SEVEN_LEFT = 8'd12;
-parameter S_SEVEN_UL   = 8'd13;
-parameter S_SEVEN_UR   = 8'd14;
-parameter S_SIX_UP     = 8'd15;
-parameter S_SIX_LEFT   = 8'd16;
-parameter S_SIX_UL     = 8'd17;
-parameter S_SIX_UR     = 8'd18;
-parameter S_FIVE_UP    = 8'd19;
-parameter S_FIVE_LEFT  = 8'd20;
-parameter S_FIVE_UL    = 8'd21;
-parameter S_FIVE_UR    = 8'd22;
-parameter S_THREE_UP   = 8'd23;
-parameter S_THREE_LEFT = 8'd24;
-parameter S_THREE_UL   = 8'd25;
-parameter S_THREE_UR   = 8'd26;
-parameter S_EVALUATE   = 8'd27;
+parameter S_SEVEN_UP   = 8'd1;
+parameter S_SEVEN_LEFT = 8'd2;
+parameter S_SEVEN_UL   = 8'd3;
+parameter S_SEVEN_UR   = 8'd4;
+parameter S_SIX_UP     = 8'd5;
+parameter S_SIX_LEFT   = 8'd6;
+parameter S_SIX_UL     = 8'd7;
+parameter S_SIX_UR     = 8'd8;
+parameter S_FIVE_UP    = 8'd9;
+parameter S_FIVE_LEFT  = 8'd10;
+parameter S_FIVE_UL    = 8'd11;
+parameter S_FIVE_UR    = 8'd12;
+parameter S_THREE_UP   = 8'd13;
+parameter S_THREE_LEFT = 8'd14;
+parameter S_THREE_UL   = 8'd15;
+parameter S_THREE_UR   = 8'd16;
+parameter S_EVALUATE   = 8'd17;
 
 
 
@@ -745,7 +745,7 @@ always_comb begin
     endcase
 end
 
-always_ff @(negedge i_clk or negedge i_rst_n) begin
+always_ff @(posedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
         state_r                 <= S_SEVEN_UP;
         black_score_r           <= 0;
