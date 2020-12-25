@@ -149,20 +149,20 @@ task Compare_five_up;
     // 3280
     for(int i = 0; i <= 10; i++) begin
         for(int j = 0; j <= 14; j++) begin
-            for(int k=0; k <= 19; k++) begin
+            for(int k=0; k <= 9; k++) begin
                 if(i == 0 && j == 0 && k == 0)
-                    score[(i * 15 + j) * 20 + k] = 0;
+                    score[(i * 15 + j) * 10 + k] = 0;
                 if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15] } === five[k]) begin
                     if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 20 + k] = five_weight[k];
+                        score[(i * 15 + j) * 10 + k] = five_weight[k];
                     else
-                        score[(i * 15 + j) * 20 + k] = score[(i * 15 + j) * 20 + k - 1] + five_weight[k];
+                        score[(i * 15 + j) * 10 + k] = score[(i * 15 + j) * 10 + k - 1] + five_weight[k];
                 end
                 else begin
                     if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 20 + k] = 0;
+                        score[(i * 15 + j) * 10 + k] = 0;
                     else
-                        score[(i * 15 + j) * 20 + k] = score[(i * 15 + j) * 20 + k - 1];
+                        score[(i * 15 + j) * 10 + k] = score[(i * 15 + j) * 10 + k - 1];
                 end
                        
             end     
@@ -467,20 +467,20 @@ task Compare_seven_up;
     // 268
     for(int i = 0; i <= 8; i++) begin
         for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 2; k++) begin
+            for(int k=0; k < 1; k++) begin
                 if(i == 0 && j == 0 && k == 0)
-                    score[(i * 15 + j) * 2 + k] = 0;
+                    score[(i * 15 + j) * 1 + k] = 0;
                 if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15], chess_board[j+(i+6)*15] } === seven[k]) begin
                     if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 2 + k] = seven_weight[k];
+                        score[(i * 15 + j) * 1 + k] = seven_weight[k];
                     else
-                        score[(i * 15 + j) * 2 + k] = score[(i * 15 + j) * 2 + k - 1] + seven_weight[k];
+                        score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1] + seven_weight[k];
                 end
                 else begin
                     if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 2 + k] = 0;
+                        score[(i * 15 + j) * 1 + k] = 0;
                     else
-                        score[(i * 15 + j) * 2 + k] = score[(i * 15 + j) * 2 + k - 1];
+                        score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1];
                 end
                        
             end     
@@ -582,13 +582,14 @@ always_comb begin
             if(i_start) begin
                 finished_w = 0;
                 Compare_seven_up(.chess_board(i_board), .score(seven_score));
-                black_score_w = black_score_r + seven_score[268] + seven_score[269] + seven_score[270] + seven_score[271] + seven_score[272] + seven_score[273] + seven_score[274]
-                                + seven_score[275] + seven_score[276] + seven_score[277];
+                // black_score_w = black_score_r + seven_score[268] + seven_score[269] + seven_score[270] + seven_score[271] + seven_score[272] + seven_score[273] + seven_score[274]
+                //                 + seven_score[275] + seven_score[276] + seven_score[277];
+                black_score_w = seven_score
                 white_score_w = white_score_r + seven_score[278] + seven_score[279] + seven_score[280] + seven_score[281] + seven_score[282] + seven_score[283] + seven_score[284]
                                 + seven_score[285] + seven_score[286] + seven_score[287];
                 // seven_score = 0;
                 // state_w = S_SEVEN_LEFT;
-                state_w = S_THREE_LEFT;
+                state_w = S_EVALUATE;
             end 
         end 
         // S_SEVEN_LEFT:  begin 
@@ -728,7 +729,7 @@ always_comb begin
             state_w = S_EVALUATE;   
         end
         S_EVALUATE: begin
-            if(i_turn === 0) begin
+            if(i_turn == 0) begin
                 score_w = black_score_w - white_score_w;
                 state_w = S_SEVEN_UP;
                 finished_w  = 1;
