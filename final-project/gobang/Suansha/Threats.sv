@@ -489,13 +489,13 @@ task Offense(
 
 
 //Second condition
-    // Al... ,0
-        if( (X < 11) &&
-            (i_board[(X+2)*15+Y] == turn && i_board[(X+3)*15+Y] == turn && i_board[(X+4)*15+Y] == turn) &&
-            (i_board[(X+1)*15+Y] == l))
-            valid[X][Y][pointer +68] = 1;
-        else 
-            valid[X][Y][pointer +68] = 0;
+    // // Al... ,0
+    //     if( (X < 11) &&
+    //         (i_board[(X+2)*15+Y] == turn && i_board[(X+3)*15+Y] == turn && i_board[(X+4)*15+Y] == turn) &&
+    //         (i_board[(X+1)*15+Y] == l))
+    //         valid[X][Y][pointer +68] = 1;
+    //     else 
+    //         valid[X][Y][pointer +68] = 0;
     // .lA.. ,0
         if( (X < 13 && X > 1) &&
             (i_board[(X-2)*15+Y] == turn && i_board[(X+1)*15+Y] == turn && i_board[(X+2)*15+Y] == turn) &&
@@ -557,13 +557,13 @@ task Offense(
         else
             valid[X][Y][pointer +75] = 0;
 
-    // Al... ,90
-        if( (Y < 11) &&
-            (i_board[X*15+Y+2] == turn && i_board[X*15+Y+3] == turn && i_board[X*15+Y+4] == turn) &&
-            (i_board[X*15+Y+1] == l))
-            valid[X][Y][pointer +76] = 1;
-        else
-            valid[X][Y][pointer +76] = 0;
+    // // Al... ,90
+    //     if( (Y < 11) &&
+    //         (i_board[X*15+Y+2] == turn && i_board[X*15+Y+3] == turn && i_board[X*15+Y+4] == turn) &&
+    //         (i_board[X*15+Y+1] == l))
+    //         valid[X][Y][pointer +76] = 1;
+    //     else
+    //         valid[X][Y][pointer +76] = 0;
     // .lA.. ,90
         if( (Y < 13 && Y > 1) &&
             (i_board[X*15+Y-2] == turn && i_board[X*15+Y+1] == turn && i_board[X*15+Y+2] == turn) &&
@@ -587,12 +587,12 @@ task Offense(
             valid[X][Y][pointer +79] = 0;
 
     // ...lA ,135
-        if( (X > 3 && Y < 11) &&
-            (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X-3)*15+(Y+3)] == turn && i_board[(X-4)*15+(Y+4)] == turn) &&
-            (i_board[(X-1)*15+(Y+1)] == l))
-            valid[X][Y][pointer +80] = 1;
-        else
-            valid[X][Y][pointer +80] = 0;
+        // if( (X > 3 && Y < 11) &&
+        //     (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X-3)*15+(Y+3)] == turn && i_board[(X-4)*15+(Y+4)] == turn) &&
+        //     (i_board[(X-1)*15+(Y+1)] == l))
+        //     valid[X][Y][pointer +80] = 1;
+        // else
+        //     valid[X][Y][pointer +80] = 0;
     // ..Al. ,135
         if( (X < 13 && X > 1 && Y < 13 && Y > 1) &&
             (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X-1)*15+(Y+1)] == turn && i_board[(X+2)*15+(Y-2)] == turn) &&
@@ -616,12 +616,12 @@ task Offense(
             valid[X][Y][pointer +83] = 0;
 
     // ...lA ,180
-        if( (X > 3) &&
-            (i_board[(X-2)*15+Y] == turn && i_board[(X-3)*15+Y] == turn && i_board[(X-4)*15+Y] == turn) &&
-            (i_board[(X-1)*15+Y] == l))
-            valid[X][Y][pointer +84] = 1;
-        else
-            valid[X][Y][pointer +84] = 0;
+        // if( (X > 3) &&
+        //     (i_board[(X-2)*15+Y] == turn && i_board[(X-3)*15+Y] == turn && i_board[(X-4)*15+Y] == turn) &&
+        //     (i_board[(X-1)*15+Y] == l))
+        //     valid[X][Y][pointer +84] = 1;
+        // else
+        //     valid[X][Y][pointer +84] = 0;
     // ..Al. ,180
         if( (X < 13 && X > 1) &&
             (i_board[(X-2)*15+Y] == turn && i_board[(X-1)*15+Y] == turn && i_board[(X+2)*15+Y] == turn) &&
@@ -645,12 +645,12 @@ task Offense(
             valid[X][Y][pointer +87] = 0;
 
     // ...lA ,225
-        if( (X > 3 && Y > 3) &&
-            (i_board[(X-2)*15+(Y-2)] == turn && i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-4)*15+(Y-4)] == turn) &&
-            (i_board[(X-1)*15+(Y-1)] == l))
-            valid[X][Y][pointer +88] = 1;
-        else
-            valid[X][Y][pointer +88] = 0;
+        // if( (X > 3 && Y > 3) &&
+        //     (i_board[(X-2)*15+(Y-2)] == turn && i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-4)*15+(Y-4)] == turn) &&
+        //     (i_board[(X-1)*15+(Y-1)] == l))
+        //     valid[X][Y][pointer +88] = 1;
+        // else
+        //     valid[X][Y][pointer +88] = 0;
     // ..Al. ,225
         if( (X < 13 && X > 1 && Y < 13 && Y > 1) &&
             (i_board[(X-2)*15+(Y-2)] == turn && i_board[(X-1)*15+(Y-1)] == turn && i_board[(X+2)*15+(Y+2)] == turn) &&
@@ -674,12 +674,12 @@ task Offense(
             valid[X][Y][pointer +91] = 0;
 
     // Al... ,270
-        if( (Y > 3) &&
-            (i_board[X*15+Y-2] == turn && i_board[X*15+Y-3] == turn && i_board[X*15+Y-4] == turn) &&
-            (i_board[X*15+Y-1] == l))
-            valid[X][Y][pointer +92] = 1;
-        else
-            valid[X][Y][pointer +92] = 0;
+        // if( (Y > 3) &&
+        //     (i_board[X*15+Y-2] == turn && i_board[X*15+Y-3] == turn && i_board[X*15+Y-4] == turn) &&
+        //     (i_board[X*15+Y-1] == l))
+        //     valid[X][Y][pointer +92] = 1;
+        // else
+        //     valid[X][Y][pointer +92] = 0;
     // .lA.. ,270
         if( (Y < 13 && Y > 1) &&
             (i_board[X*15+Y+2] == turn && i_board[X*15+Y-1] == turn && i_board[X*15+Y-2] == turn) &&
@@ -703,12 +703,12 @@ task Offense(
             valid[X][Y][pointer +95] = 0;
 
     // Al... ,315
-        if( (X < 11 && Y > 3) &&
-            (i_board[(X+2)*15+(Y-2)] == turn && i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-4)*15+(Y-4)] == turn) &&
-            (i_board[(X+1)*15+(Y-1)] == l))
-            valid[X][Y][pointer +96] = 1;
-        else
-            valid[X][Y][pointer +96] = 0;
+        // if( (X < 11 && Y > 3) &&
+        //     (i_board[(X+2)*15+(Y-2)] == turn && i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-4)*15+(Y-4)] == turn) &&
+        //     (i_board[(X+1)*15+(Y-1)] == l))
+        //     valid[X][Y][pointer +96] = 1;
+        // else
+        //     valid[X][Y][pointer +96] = 0;
     // .lA.. ,315
         if( (X < 13 && X > 1 && Y < 13 && Y > 1) &&
             (i_board[(X-2)*15+(Y+2)] == turn && i_board[(X+1)*15+(Y-1)] == turn && i_board[(X+2)*15+(Y-2)] == turn) &&
@@ -880,8 +880,10 @@ task Offense(
     // lA...l ,180
         if ((X > 3 ) && 
             (i_board[(X-1)*15+Y] == turn && i_board[(X-2)*15+Y] == turn && i_board[(X-3)*15+Y] == turn ) &&
-            (i_board[(X-4)*15+Y] == l && i_board[(X+1)*15+Y] == l))
+            (i_board[(X-4)*15+Y] == l && i_board[(X+1)*15+Y] == l)) begin
             valid[X][Y][pointer +120] = 1;
+            $display("Hit !!");
+        end
         else
             valid[X][Y][pointer +120] = 0;
     // lA...l ,225
@@ -894,8 +896,9 @@ task Offense(
     // lA...l ,270
         if ((Y > 3) && 
             (i_board[X*15+Y-1] == turn && i_board[X*15+Y-2] == turn && i_board[X*15+Y-3] == turn ) &&
-            (i_board[X*15+Y-4] == l && i_board[X*15+Y+1] == l))
+            (i_board[X*15+Y-4] == l && i_board[X*15+Y+1] == l)) begin
             valid[X][Y][pointer +122] = 1;
+        end
         else
             valid[X][Y][pointer +122] = 0;
     // lA...l ,315
@@ -965,7 +968,7 @@ task Offense(
             valid[X][Y][pointer +131] = 0;
 
 
-    check = valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
+    assign check = valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
      | valid[X][Y][pointer + 4] | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7]
       | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9] | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11]
        | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15]

@@ -71,7 +71,7 @@ always_comb begin
         S_IDLE: begin
             finish_w    = 1'b0;
             if(i_start) begin
-                if(i_depth == 6'd1 && i_board[6 * 15 + 7] == 2'd0 && i_board[5 * 15 + 7] == 2'd1) begin
+                if(i_depth == 6'd1) begin
                     $display("=========== depth : %d ===========\n", i_depth);
                     for(int i = 0; i < 15; i++) begin
                         $display("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n", i_board[i*15+0], i_board[i*15+1], i_board[i*15+2], i_board[i*15+3], i_board[i*15+4], i_board[i*15+5], i_board[i*15+6], i_board[i*15+7], i_board[i*15+8], i_board[i*15+9], i_board[i*15+10], i_board[i*15+11], i_board[i*15+12], i_board[i*15+13], i_board[i*15+14]);
