@@ -18,8 +18,8 @@ logic [4:0] depth[11];
 
 assign o_sha    = result_w[0];
 assign o_finish = finish_w[0];
-assign depth[0] = 5'd0;
-assign depth[1] = 5'd0;
+assign depth[0] = 5'd2;
+assign depth[1] = 5'd1;
 assign depth[2] = 5'd0;
 assign depth[3] = 5'd0;
 assign depth[4] = 5'd0;
