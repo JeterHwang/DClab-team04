@@ -234,8 +234,11 @@ task Offense(
     if((X < 11 &&  X > 0) && 
         (i_board[(X+1)*15 + Y] == turn &&  i_board[(X+2)*15 + Y] == turn  && i_board[(X+3)*15 + Y] == turn)  &&
         (i_board[(X+4)*15 + Y] == {turn[1],~turn[0]}) &&
-        (i_board[(X-1)*15 + Y] == l))
-        valid[X][Y][pointer + 36] = 1;
+        (i_board[(X-1)*15 + Y] == l)) begin
+            valid[X][Y][pointer + 36] = 1;
+            // $display("Hit!!");                
+        end
+        
     else    
         valid[X][Y][pointer + 36] = 0;
     // l.A..x ,0
@@ -486,6 +489,8 @@ task Offense(
         valid[X][Y][pointer + 67] = 1;
     else
         valid[X][Y][pointer + 67] = 0;
+
+
 //Second condition
     // Al... ,0
         if( (X < 11) &&
@@ -528,7 +533,7 @@ task Offense(
             (i_board[(X-1)*15+(Y-1)] == l))
             valid[X][Y][pointer +73] = 1;
         else
-            valid[X][Y][pointer +73] = 1;
+            valid[X][Y][pointer +73] = 0;
     // .l.A. ,45
         if( (X < 14 && X > 2 && Y < 14 && Y > 2) &&
             (i_board[(X-3)*15+(Y-3)] == turn && i_board[(X-1)*15+(Y-1)] == turn && i_board[(X+1)*15+(Y+1)] == turn) &&
@@ -1599,7 +1604,7 @@ always_comb begin
                         Defense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd132), .check(defense[i][j]));
                         Win(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(win[i][j]));
                         
-                        if(i_board[i * 15 + j] == l && (defense[i][j]))
+                        if(i_board[i * 15 + j] == l && (offense[i][j] || defense[i][j]) )
                             ok[i][j] = 1;
                         else
                             ok[i][j] = 0;
