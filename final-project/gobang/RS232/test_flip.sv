@@ -1,6 +1,6 @@
 module Flip(
     input       i_clk,
-    input       i_rst
+    input       i_rst,
     input       i_start,
     input [7:0] i_data,
     output[7:0] o_data,
