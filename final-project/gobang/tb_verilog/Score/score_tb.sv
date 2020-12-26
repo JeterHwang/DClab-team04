@@ -31,8 +31,9 @@ module Score_tb;
     initial begin
         $fsdbDumpfile("Score.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("~/home/team04/peter/DClab-team04/final-project/gobang/pattern/SC_test1_i.txt", "r");
-        
+        // fp_i = $fopen("~/home/team04/peter/DClab-team04/final-project/gobang/pattern/SC_test1_i.txt", "r");
+        fp_i = $fopen("../../pattern/SC_test1_i.txt", "r");
+
         if(fp_i) 
             $display("Read file was opened successfully : %0d", fp_i);
         else
@@ -46,15 +47,18 @@ module Score_tb;
         end
 
         start = 0;
-        rst_n = 0;
+        rst_n = 1;
         turn = 1'b0;    // default calculate black chess score
 
-        #(`CLK) rst_n = 1;
         #(`CLK) rst_n = 0;
+        #(`CLK) rst_n = 1;
         #(`CLK) start = 1;
         #(`CLK) start = 0;
 
         @(posedge SC_finish) begin
+            // for(int i=0; i<120; i++) begin
+            //     $display()
+            // end
             $display("     Simulation Complete !!   ");
             $display("==============================");
             $display("The score is : %d\n", score);
@@ -64,7 +68,7 @@ module Score_tb;
     end  
     
     initial begin
-		#(1000 * (`CLK))
+		#(10000 * (`CLK))
         $display("==============================");
 		$display("Too slow, abort.");
 		$display("==============================");
