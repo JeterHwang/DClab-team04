@@ -31,7 +31,7 @@ module TH_tb;
     always #(`HCLK) clk = ~clk;
 
     initial begin
-        $fsdbDumpfile("KillNode.fsdb");
+        $fsdbDumpfile("KillWrapper.fsdb");
         $fsdbDumpvars;
         fp_i = $fopen("../../pattern/TH_test1_i.txt", "r");
         
