@@ -7,7 +7,7 @@ module Threats(
     output   [999:0]     o_posX,
     output   [999:0]     o_posY,
     output   [9:0]      o_size,
-    output   [1:0]      o_win,
+    output              o_win,
     output              o_finish
 );
 
@@ -35,7 +35,7 @@ assign o_posX   = output_X;
 assign o_posY   = output_Y;
 assign o_size   = pointer[225];
 assign o_finish = finish_r;
-assign o_win    = (win_r != 1'b1 && win_r != 1'b0) ? 2'd2 : {1'b0, win_r};
+assign o_win    = win_r;
 
 task Offense(
     input   [3:0] X,
@@ -234,11 +234,8 @@ task Offense(
     if((X < 11 &&  X > 0) && 
         (i_board[(X+1)*15 + Y] == turn &&  i_board[(X+2)*15 + Y] == turn  && i_board[(X+3)*15 + Y] == turn)  &&
         (i_board[(X+4)*15 + Y] == {turn[1],~turn[0]}) &&
-        (i_board[(X-1)*15 + Y] == l)) begin
+        (i_board[(X-1)*15 + Y] == l))
             valid[X][Y][pointer + 36] = 1;
-            // $display("Hit!!");                
-        end
-        
     else    
         valid[X][Y][pointer + 36] = 0;
     // l.A..x ,0
@@ -1603,13 +1600,13 @@ always_comb begin
                         Offense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd0), .check(offense[i][j]));
                         Defense(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd132), .check(defense[i][j]));
                         Win(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(win[i][j]));
-                        
+
                         if(i_board[i * 15 + j] == l && (offense[i][j] || defense[i][j]) )
                             ok[i][j] = 1;
                         else
                             ok[i][j] = 0;
                     end
-                    $display("%b %b %b %b %b %b %b %b %b %b %b %b %b %b %b\n", ok[i][0], ok[i][1], ok[i][2], ok[i][3], ok[i][4], ok[i][5], ok[i][6], ok[i][7], ok[i][8], ok[i][9], ok[i][10], ok[i][11], ok[i][12], ok[i][13], ok[i][14]);
+                    //$display("%b %b %b %b %b %b %b %b %b %b %b %b %b %b %b\n", ok[i][0], ok[i][1], ok[i][2], ok[i][3], ok[i][4], ok[i][5], ok[i][6], ok[i][7], ok[i][8], ok[i][9], ok[i][10], ok[i][11], ok[i][12], ok[i][13], ok[i][14]);
                 end
             end
         end
