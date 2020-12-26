@@ -74,6 +74,12 @@ module TH_tb;
                 Y = Y_output[i -: 4];
                 $fwrite(fp_o, "%d %d\n", X, Y);
             end
+            if(win == 2'd0)
+                $display("I win !!");
+            else if(win == 2'd1)
+                $display("I lose !!");
+            else
+                $display("No one win !!");
         end
         $finish;
     end  
