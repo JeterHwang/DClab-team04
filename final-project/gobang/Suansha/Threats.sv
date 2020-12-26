@@ -847,7 +847,7 @@ task Offense(
             (i_board[(X+4)*15+Y] == l && i_board[(X-1)*15+Y] == l))
             valid[X][Y][pointer +116] = 1;
         else
-            valid[X][Y][pointer +117] = 0;
+            valid[X][Y][pointer +116] = 0;
     // lA...l ,45
         if ((X < 11 && Y < 11 ) && 
             (i_board[(X+1)*15+Y+1] == turn && i_board[(X+2)*15+Y+2] == turn && i_board[(X+3)*15+Y+3] == turn ) &&
