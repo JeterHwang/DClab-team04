@@ -32,6 +32,7 @@ logic [9:0] coor_1D_w;
 
 // Threats variables
 logic turn;
+logic you_win;
 logic [999:0] X_buffer;
 logic [999:0] Y_buffer;
 logic [9:0] SZ_buffer;

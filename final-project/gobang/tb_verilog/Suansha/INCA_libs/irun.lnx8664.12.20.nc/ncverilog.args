@@ -2,8 +2,6 @@
 // File created by:  ncverilog
 // Do not modify this file
 //
-KillWrapper_tb.sv
-../../Suansha/KillWrapper.sv
-../../Suansha/KillNode.sv
+Threats_tb.sv
 ../../Suansha/Threats.sv
 +access+r

@@ -1618,10 +1618,10 @@ task LiveThreeThreat(
         | defense_livethree[8][0] | defense_livethree[8][1] | defense_livethree[8][2] | defense_livethree[8][3] | defense_livethree[8][4] | defense_livethree[8][5] | defense_livethree[8][6] | defense_livethree[8][7] | defense_livethree[8][8] | defense_livethree[8][9] | defense_livethree[8][10] | defense_livethree[8][11] | defense_livethree[8][12] | defense_livethree[8][13] | defense_livethree[8][14]
         | defense_livethree[9][0] | defense_livethree[9][1] | defense_livethree[9][2] | defense_livethree[9][3] | defense_livethree[9][4] | defense_livethree[9][5] | defense_livethree[9][6] | defense_livethree[9][7] | defense_livethree[9][8] | defense_livethree[9][9] | defense_livethree[9][10] | defense_livethree[9][11] | defense_livethree[9][12] | defense_livethree[9][13] | defense_livethree[9][14]
         | defense_livethree[10][0] | defense_livethree[10][1] | defense_livethree[10][2] | defense_livethree[10][3] | defense_livethree[10][4] | defense_livethree[10][5] | defense_livethree[10][6] | defense_livethree[10][7] | defense_livethree[10][8] | defense_livethree[10][9] | defense_livethree[10][10] | defense_livethree[10][11] | defense_livethree[10][12] | defense_livethree[10][13] | defense_livethree[10][14]
-        | defense_livethree[11][0] | defense_livethree[11][1] | defense_livethree[11][2] | defense_livethree[11][3] | defense_livethree[11][4] | defense_livethree[11][5] | defense_livethree[11][6] | defense_livethree[11][7] | defense_livethree[12][8] | defense_livethree[11][9] | defense_livethree[11][10] | defense_livethree[11][11] | defense_livethree[11][12] | defense_livethree[11][13] | defense_livethree[11][14]
-        | defense_livethree[12][0] | defense_livethree[12][1] | defense_livethree[12][2] | defense_livethree[12][3] | defense_livethree[12][4] | defense_livethree[12][5] | defense_livethree[12][6] | defense_livethree[12][7] | defense_livethree[13][8] | defense_livethree[12][9] | defense_livethree[12][10] | defense_livethree[12][11] | defense_livethree[12][12] | defense_livethree[12][13] | defense_livethree[12][14]
-        | defense_livethree[13][0] | defense_livethree[13][1] | defense_livethree[13][2] | defense_livethree[13][3] | defense_livethree[13][4] | defense_livethree[13][5] | defense_livethree[13][6] | defense_livethree[13][7] | defense_livethree[14][8] | defense_livethree[13][9] | defense_livethree[13][10] | defense_livethree[13][11] | defense_livethree[13][12] | defense_livethree[13][13] | defense_livethree[13][14]
-        | defense_livethree[14][0] | defense_livethree[14][1] | defense_livethree[14][2] | defense_livethree[14][3] | defense_livethree[14][4] | defense_livethree[14][5] | defense_livethree[14][6] | defense_livethree[14][7] | defense_livethree[15][8] | defense_livethree[14][9] | defense_livethree[14][10] | defense_livethree[14][11] | defense_livethree[14][12] | defense_livethree[14][13] | defense_livethree[14][14];
+        | defense_livethree[11][0] | defense_livethree[11][1] | defense_livethree[11][2] | defense_livethree[11][3] | defense_livethree[11][4] | defense_livethree[11][5] | defense_livethree[11][6] | defense_livethree[11][7] | defense_livethree[11][8] | defense_livethree[11][9] | defense_livethree[11][10] | defense_livethree[11][11] | defense_livethree[11][12] | defense_livethree[11][13] | defense_livethree[11][14]
+        | defense_livethree[12][0] | defense_livethree[12][1] | defense_livethree[12][2] | defense_livethree[12][3] | defense_livethree[12][4] | defense_livethree[12][5] | defense_livethree[12][6] | defense_livethree[12][7] | defense_livethree[12][8] | defense_livethree[12][9] | defense_livethree[12][10] | defense_livethree[12][11] | defense_livethree[12][12] | defense_livethree[12][13] | defense_livethree[12][14]
+        | defense_livethree[13][0] | defense_livethree[13][1] | defense_livethree[13][2] | defense_livethree[13][3] | defense_livethree[13][4] | defense_livethree[13][5] | defense_livethree[13][6] | defense_livethree[13][7] | defense_livethree[13][8] | defense_livethree[13][9] | defense_livethree[13][10] | defense_livethree[13][11] | defense_livethree[13][12] | defense_livethree[13][13] | defense_livethree[13][14]
+        | defense_livethree[14][0] | defense_livethree[14][1] | defense_livethree[14][2] | defense_livethree[14][3] | defense_livethree[14][4] | defense_livethree[14][5] | defense_livethree[14][6] | defense_livethree[14][7] | defense_livethree[14][8] | defense_livethree[14][9] | defense_livethree[14][10] | defense_livethree[14][11] | defense_livethree[14][12] | defense_livethree[14][13] | defense_livethree[14][14];
 endtask
 task BlockedFourThreat(
     output check
@@ -1637,10 +1637,10 @@ task BlockedFourThreat(
         | defense_blockedfour[8][0] | defense_blockedfour[8][1] | defense_blockedfour[8][2] | defense_blockedfour[8][3] | defense_blockedfour[8][4] | defense_blockedfour[8][5] | defense_blockedfour[8][6] | defense_blockedfour[8][7] | defense_blockedfour[8][8] | defense_blockedfour[8][9] | defense_blockedfour[8][10] | defense_blockedfour[8][11] | defense_blockedfour[8][12] | defense_blockedfour[8][13] | defense_blockedfour[8][14]
         | defense_blockedfour[9][0] | defense_blockedfour[9][1] | defense_blockedfour[9][2] | defense_blockedfour[9][3] | defense_blockedfour[9][4] | defense_blockedfour[9][5] | defense_blockedfour[9][6] | defense_blockedfour[9][7] | defense_blockedfour[9][8] | defense_blockedfour[9][9] | defense_blockedfour[9][10] | defense_blockedfour[9][11] | defense_blockedfour[9][12] | defense_blockedfour[9][13] | defense_blockedfour[9][14]
         | defense_blockedfour[10][0] | defense_blockedfour[10][1] | defense_blockedfour[10][2] | defense_blockedfour[10][3] | defense_blockedfour[10][4] | defense_blockedfour[10][5] | defense_blockedfour[10][6] | defense_blockedfour[10][7] | defense_blockedfour[10][8] | defense_blockedfour[10][9] | defense_blockedfour[10][10] | defense_blockedfour[10][11] | defense_blockedfour[10][12] | defense_blockedfour[10][13] | defense_blockedfour[10][14]
-        | defense_blockedfour[11][0] | defense_blockedfour[11][1] | defense_blockedfour[11][2] | defense_blockedfour[11][3] | defense_blockedfour[11][4] | defense_blockedfour[11][5] | defense_blockedfour[11][6] | defense_blockedfour[11][7] | defense_blockedfour[12][8] | defense_blockedfour[11][9] | defense_blockedfour[11][10] | defense_blockedfour[11][11] | defense_blockedfour[11][12] | defense_blockedfour[11][13] | defense_blockedfour[11][14]
-        | defense_blockedfour[12][0] | defense_blockedfour[12][1] | defense_blockedfour[12][2] | defense_blockedfour[12][3] | defense_blockedfour[12][4] | defense_blockedfour[12][5] | defense_blockedfour[12][6] | defense_blockedfour[12][7] | defense_blockedfour[13][8] | defense_blockedfour[12][9] | defense_blockedfour[12][10] | defense_blockedfour[12][11] | defense_blockedfour[12][12] | defense_blockedfour[12][13] | defense_blockedfour[12][14]
-        | defense_blockedfour[13][0] | defense_blockedfour[13][1] | defense_blockedfour[13][2] | defense_blockedfour[13][3] | defense_blockedfour[13][4] | defense_blockedfour[13][5] | defense_blockedfour[13][6] | defense_blockedfour[13][7] | defense_blockedfour[14][8] | defense_blockedfour[13][9] | defense_blockedfour[13][10] | defense_blockedfour[13][11] | defense_blockedfour[13][12] | defense_blockedfour[13][13] | defense_blockedfour[13][14]
-        | defense_blockedfour[14][0] | defense_blockedfour[14][1] | defense_blockedfour[14][2] | defense_blockedfour[14][3] | defense_blockedfour[14][4] | defense_blockedfour[14][5] | defense_blockedfour[14][6] | defense_blockedfour[14][7] | defense_blockedfour[15][8] | defense_blockedfour[14][9] | defense_blockedfour[14][10] | defense_blockedfour[14][11] | defense_blockedfour[14][12] | defense_blockedfour[14][13] | defense_blockedfour[14][14];   
+        | defense_blockedfour[11][0] | defense_blockedfour[11][1] | defense_blockedfour[11][2] | defense_blockedfour[11][3] | defense_blockedfour[11][4] | defense_blockedfour[11][5] | defense_blockedfour[11][6] | defense_blockedfour[11][7] | defense_blockedfour[11][8] | defense_blockedfour[11][9] | defense_blockedfour[11][10] | defense_blockedfour[11][11] | defense_blockedfour[11][12] | defense_blockedfour[11][13] | defense_blockedfour[11][14]
+        | defense_blockedfour[12][0] | defense_blockedfour[12][1] | defense_blockedfour[12][2] | defense_blockedfour[12][3] | defense_blockedfour[12][4] | defense_blockedfour[12][5] | defense_blockedfour[12][6] | defense_blockedfour[12][7] | defense_blockedfour[12][8] | defense_blockedfour[12][9] | defense_blockedfour[12][10] | defense_blockedfour[12][11] | defense_blockedfour[12][12] | defense_blockedfour[12][13] | defense_blockedfour[12][14]
+        | defense_blockedfour[13][0] | defense_blockedfour[13][1] | defense_blockedfour[13][2] | defense_blockedfour[13][3] | defense_blockedfour[13][4] | defense_blockedfour[13][5] | defense_blockedfour[13][6] | defense_blockedfour[13][7] | defense_blockedfour[13][8] | defense_blockedfour[13][9] | defense_blockedfour[13][10] | defense_blockedfour[13][11] | defense_blockedfour[13][12] | defense_blockedfour[13][13] | defense_blockedfour[13][14]
+        | defense_blockedfour[14][0] | defense_blockedfour[14][1] | defense_blockedfour[14][2] | defense_blockedfour[14][3] | defense_blockedfour[14][4] | defense_blockedfour[14][5] | defense_blockedfour[14][6] | defense_blockedfour[14][7] | defense_blockedfour[14][8] | defense_blockedfour[14][9] | defense_blockedfour[14][10] | defense_blockedfour[14][11] | defense_blockedfour[14][12] | defense_blockedfour[14][13] | defense_blockedfour[14][14];   
 endtask
 
 task Win(
@@ -1693,7 +1693,7 @@ always_comb begin
                         Offense_live_four(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd116), .check(offense_livefour[i][j]));
                         Defense_three(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd132), .check(defense_livethree[i][j]));
                         Defense_four(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd164), .check(defense_blockedfour[i][j]));
-                        Win(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(win[i][j]);
+                        Win(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(win[i][j]));
                     end
                     //$display("%b %b %b %b %b %b %b %b %b %b %b %b %b %b %b\n", ok[i][0], ok[i][1], ok[i][2], ok[i][3], ok[i][4], ok[i][5], ok[i][6], ok[i][7], ok[i][8], ok[i][9], ok[i][10], ok[i][11], ok[i][12], ok[i][13], ok[i][14]);
                 end
@@ -1704,9 +1704,10 @@ always_comb begin
         S_COUNT: begin
             pointer[0] = 10'd999;
             if(blocked_four_threat) begin
+                $display("blocked four threat !!");
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(offense_blockedfour[i][j]) begin
+                        if(offense_blockedfour[i][j] && i_board[i * 15 + j] == l) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
@@ -1718,9 +1719,10 @@ always_comb begin
                 end    
             end
             else if(live_three_threat) begin
+                $display("live three threat !!");
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(Offense_blocked_four[i][j] || defense_livethree[i][j]) begin
+                        if(i_board[i * 15 + j] == l && (offense_blockedfour[i][j] || defense_livethree[i][j])) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
@@ -1734,7 +1736,7 @@ always_comb begin
             else begin  // no threat !!
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(Offense_blocked_four[i][j] || Offense_live_four[i][j] || Offense_live_three[i][j]) begin
+                        if(i_board[i * 15 + j] == l && (offense_blockedfour[i][j] || offense_livefour[i][j] || offense_livethree[i][j])) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
