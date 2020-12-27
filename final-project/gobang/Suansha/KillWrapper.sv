@@ -10,7 +10,7 @@ module Suansha(
 );
 
 // wires 
-board board_w0, board_w1, board_w2, board_w3, board_w4, board_w5, board_w6;
+board board_w0, board_w1, board_w2, board_w3, board_w4, board_w5, board_w6, board_w7, board_w8;
 logic finish_w[11];
 logic result_w[11];
 logic start_w[11];
@@ -18,12 +18,14 @@ logic [4:0] depth[11];
 
 assign o_sha    = result_w[0];
 assign o_finish = finish_w[0];
-assign depth[0] = 5'd2;
-assign depth[1] = 5'd1;
-assign depth[2] = 5'd0;
-assign depth[3] = 5'd0;
-assign depth[4] = 5'd0;
-assign depth[5] = 5'd0;
+assign depth[0] = 5'd8;
+assign depth[1] = 5'd7;
+assign depth[2] = 5'd6;
+assign depth[3] = 5'd5;
+assign depth[4] = 5'd4;
+assign depth[5] = 5'd3;
+assign depth[6] = 5'd2;
+assign depth[6] = 5'd1;
 assign depth[6] = 5'd0;
 
 //genvar j;
@@ -124,5 +126,30 @@ Kill_node node6(
     .o_finish(finish_w[6]),
     .o_start(start_w[6])
 );
-
+Kill_node node7(
+    .i_clk(i_clk),
+    .i_rst_n(i_rst_n),
+    .i_start(start_w[6]),
+    .i_depth(depth[7]),
+    .i_next(finish_w[8]),
+    .i_sha(result_w[8]),
+    .i_board(board_w6),
+    .o_board(board_w7),
+    .o_sha(result_w[7]),
+    .o_finish(finish_w[7]),
+    .o_start(start_w[7])
+);
+Kill_node node8(
+    .i_clk(i_clk),
+    .i_rst_n(i_rst_n),
+    .i_start(start_w[7]),
+    .i_depth(depth[8]),
+    .i_next(finish_w[9]),
+    .i_sha(result_w[9]),
+    .i_board(board_w7),
+    .o_board(board_w8),
+    .o_sha(result_w[8]),
+    .o_finish(finish_w[8]),
+    .o_start(start_w[8])
+);
 endmodule

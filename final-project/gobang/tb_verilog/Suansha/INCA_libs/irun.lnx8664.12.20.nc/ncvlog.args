@@ -5,7 +5,9 @@
 -XLMODE
 ./INCA_libs/irun.lnx8664.12.20.nc
 -RUNMODE
-Threats_tb.sv
+KillWrapper_tb.sv
+../../Suansha/KillWrapper.sv
+../../Suansha/KillNode.sv
 ../../Suansha/Threats.sv
 -CDSLIB
 ./INCA_libs/irun.lnx8664.12.20.nc/cdsrun.lib
