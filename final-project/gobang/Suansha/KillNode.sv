@@ -73,17 +73,7 @@ always_comb begin
             finish_w    = 1'b0;
             result_w    = 1'b1;
             if(i_start) begin
-                state_w     = S_PEND;     
-                //if(1) begin
-                //    $display("=========== depth : %d ===========\n", i_depth);
-                //    $display("Youwin : %b\n", i_sha);
-                //    $display("Pointer Lowerbound = %d\n", SZ_buffer);
-                //    $display("Pointer = %d %d\n", pointer_r, pointer_w);
-                //    for(int i = 0; i < 15; i++) begin
-                //        $display("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n", i_board[i*15+0], i_board[i*15+1], i_board[i*15+2], i_board[i*15+3], i_board[i*15+4], i_board[i*15+5], i_board[i*15+6], i_board[i*15+7], i_board[i*15+8], i_board[i*15+9], i_board[i*15+10], i_board[i*15+11], i_board[i*15+12], i_board[i*15+13], i_board[i*15+14]);
-                //    end
-                //    $display("==================================");
-                //end
+                state_w     = S_PEND;
             end
         end
         S_PEND: begin

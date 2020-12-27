@@ -233,7 +233,7 @@ task Offense_live_three(
     else
         valid[X][Y][pointer + 35] = 0;
 
-    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
+    assign check = i_board[X * 15 + Y][1] & (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
      | valid[X][Y][pointer + 4] | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7]
       | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9] | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11]
        | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15]
@@ -865,7 +865,7 @@ task Offense_blocked_four(
         else
             valid[X][Y][pointer +79] = 0;
 
-        assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
+        assign check = i_board[X * 15 + Y][1] & (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
      | valid[X][Y][pointer + 4] | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7]
       | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9] | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11]
        | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15]
@@ -968,7 +968,7 @@ task Offense_live_four(
         else
             valid[X][Y][pointer +9] = 0;
     // l.A..l ,90
-        if ((Y < 12 && Y < 2 ) && 
+        if ((Y < 12 && Y > 2 ) && 
             (i_board[X*15+Y-1] == turn && i_board[X*15+Y+1] == turn && i_board[X*15+Y+2] == turn ) &&
             (i_board[X*15+Y+3] == l && i_board[X*15+Y-2] == l))
             valid[X][Y][pointer +10] = 1;
@@ -982,7 +982,7 @@ task Offense_live_four(
         else
             valid[X][Y][pointer +11] = 0;
     // l.A..l ,180
-        if ((X > 2 && X > 13 ) && 
+        if ((X > 2 && X < 13 ) && 
             (i_board[(X+1)*15+Y] == turn && i_board[(X-1)*15+Y] == turn && i_board[(X-2)*15+Y] == turn ) &&
             (i_board[(X-3)*15+Y] == l && i_board[(X+2)*15+Y] == l))
             valid[X][Y][pointer +12] = 1;
@@ -1011,7 +1011,7 @@ task Offense_live_four(
             valid[X][Y][pointer +15] = 0;
 
 
-    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
+    assign check = i_board[X * 15 + Y][1] & (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
      | valid[X][Y][pointer + 4] | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7]
       | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9] | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11]
        | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15]);
@@ -1346,7 +1346,7 @@ task Defense_three(
     else
         valid[X][Y][pointer + 31] = 0;
     
-    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
+    assign check = i_board[X * 15 + Y][1] & (valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
      | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7] | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9]
       | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11] | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14]
        | valid[X][Y][pointer + 15] | valid[X][Y][pointer + 16] | valid[X][Y][pointer + 17] | valid[X][Y][pointer + 18] | valid[X][Y][pointer + 19]
@@ -1597,7 +1597,7 @@ task Defense_four(
     else
         valid[X][Y][pointer + 23] = 0;
     
-    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
+    assign check = i_board[X * 15 + Y][1] & (valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
      | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7] | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9]
       | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11] | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14]
        | valid[X][Y][pointer + 15] | valid[X][Y][pointer + 16] | valid[X][Y][pointer + 17] | valid[X][Y][pointer + 18] | valid[X][Y][pointer + 19]
