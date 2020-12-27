@@ -71,9 +71,9 @@ always_comb begin
     case (state_r)
         S_IDLE: begin
             finish_w    = 1'b0;
+            result_w    = 1'b1;
             if(i_start) begin
-                state_w     = S_PEND;
-                result_w    = 1'b1;
+                state_w     = S_PEND;     
             end
         end
         S_PEND: begin
