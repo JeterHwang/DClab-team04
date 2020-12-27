@@ -41,7 +41,7 @@ logic [9:0] SZ_buffer;
 assign turn     = i_depth[0] & 1;
 assign win_start = (i_depth != 5'd0 && i_start) ? 1'b1 : 1'b0;
 // for prev level
-assign o_sha    = result_r;
+assign o_sha    = ~result_r;
 assign o_finish = finish_r;
 // for next level
 assign o_start  = next_start_r;
@@ -74,33 +74,33 @@ always_comb begin
             result_w    = 1'b1;
             if(i_start) begin
                 state_w     = S_PEND;     
+                //if(1) begin
+                //    $display("=========== depth : %d ===========\n", i_depth);
+                //    $display("Youwin : %b\n", i_sha);
+                //    $display("Pointer Lowerbound = %d\n", SZ_buffer);
+                //    $display("Pointer = %d %d\n", pointer_r, pointer_w);
+                //    for(int i = 0; i < 15; i++) begin
+                //        $display("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n", i_board[i*15+0], i_board[i*15+1], i_board[i*15+2], i_board[i*15+3], i_board[i*15+4], i_board[i*15+5], i_board[i*15+6], i_board[i*15+7], i_board[i*15+8], i_board[i*15+9], i_board[i*15+10], i_board[i*15+11], i_board[i*15+12], i_board[i*15+13], i_board[i*15+14]);
+                //    end
+                //    $display("==================================");
+                //end
             end
         end
         S_PEND: begin
             if(threat_finish) begin
-                if(i_depth == 3 && i_board[7 * 15 + 7] == 2'd0) begin
-                    $display("=========== depth : %d ===========\n", i_depth);
-                    $display("Youwin : %b\n", you_win);
-                    $display("Pointer Lowerbound = %d\n", SZ_buffer);
-                    $display("Pointer = %d %d\n", pointer_r, pointer_w);
-                    for(int i = 0; i < 15; i++) begin
-                        $display("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n", i_board[i*15+0], i_board[i*15+1], i_board[i*15+2], i_board[i*15+3], i_board[i*15+4], i_board[i*15+5], i_board[i*15+6], i_board[i*15+7], i_board[i*15+8], i_board[i*15+9], i_board[i*15+10], i_board[i*15+11], i_board[i*15+12], i_board[i*15+13], i_board[i*15+14]);
-                    end
-                    $display("==================================");
-                end
-                if(i_depth == 0) begin
+                if(i_depth == 0 || SZ_buffer == 999) begin
                     state_w = S_IDLE;
                     finish_w = 1'b1;
                     if(turn)
-                        result_w = 1'b1;
+                        result_w = 1'b0;
                     else
-                        result_w = you_win;
+                        result_w = ~you_win;
                 end
                 else begin
                     if(you_win) begin
                         state_w = S_IDLE;
                         finish_w = 1'b1;
-                        result_w = 1'b1;
+                        result_w = 1'b0;
                     end
                     else begin
                         state_w     = S_WAIT;
@@ -113,7 +113,7 @@ always_comb begin
             if(pointer_r <= SZ_buffer || result_r == 1'b0) begin
                 finish_w    = 1'b1;
                 state_w     = S_IDLE;
-                result_w    = (~result_r);
+                result_w    = result_r;
             end
             else begin
                 next_start_w        = 1'b1;

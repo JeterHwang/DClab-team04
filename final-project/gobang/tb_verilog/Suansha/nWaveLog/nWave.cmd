@@ -856,3 +856,29 @@ wvGetSignalClose -win $_nWave1
 wvDisplayGridCount -win $_nWave1 -off
 wvGetSignalClose -win $_nWave1
 wvReloadFile -win $_nWave1
+wvDisplayGridCount -win $_nWave1 -off
+wvGetSignalClose -win $_nWave1
+wvReloadFile -win $_nWave1
+wvDisplayGridCount -win $_nWave1 -off
+wvGetSignalClose -win $_nWave1
+wvReloadFile -win $_nWave1
+wvDisplayGridCount -win $_nWave1 -off
+wvGetSignalClose -win $_nWave1
+wvReloadFile -win $_nWave1
+wvGetSignalOpen -win $_nWave1
+wvGetSignalSetScope -win $_nWave1 "/TH_tb/SS/node0"
+wvGetSignalClose -win $_nWave1
+wvZoom -win $_nWave1 2.042067 228.494718
+wvZoom -win $_nWave1 2.042067 800.176056
+wvSelectSignal -win $_nWave1 {( "G1" 16 )} 
+wvDisplayGridCount -win $_nWave1 -off
+wvGetSignalClose -win $_nWave1
+wvReloadFile -win $_nWave1
+wvSelectSignal -win $_nWave1 {( "G2" 1 )} 
+wvSelectSignal -win $_nWave1 {( "G2" 1 )} 
+wvSetRadix -win $_nWave1 -format UDec
+wvSelectSignal -win $_nWave1 {( "G1" 7 )} 
+wvSelectSignal -win $_nWave1 {( "G2" 1 )} 
+wvSelectSignal -win $_nWave1 {( "G1" 1 )} 
+wvSelectSignal -win $_nWave1 {( "G1" 1 )} 
+wvSetRadix -win $_nWave1 -format UDec

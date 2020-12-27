@@ -15,7 +15,7 @@ module TH_tb;
     int fp_i, fp_o;
     int status;
 
-    parameter i_depth = 5'd4;  // only even numbers are allowed !!
+    parameter i_depth = 5'd8;  // only even numbers are allowed !!
 
     Suansha SS(
         .i_clk(clk),
@@ -58,7 +58,7 @@ module TH_tb;
     end  
     
     initial begin
-		#(100000 * (`CLK))
+		#(10000000 * (`CLK))
 		$display("Too slow, abort.");
 		$finish;
 	end  

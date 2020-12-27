@@ -1,35 +1,37 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 27, 2020 at 19:36:16 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 27, 2020 at 20:24:23 CST
 ncverilog
 	KillWrapper_tb.sv
 	../../Suansha/KillWrapper.sv
 	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillNode.sv' is newer than expected.
-	expected: Sun Dec 27 19:18:11 2020
-	actual:   Sun Dec 27 19:36:13 2020
-file: ../../Suansha/KillNode.sv
-	module worklib.Kill_node:sv
+Recompiling... reason: file './KillWrapper_tb.sv' is newer than expected.
+	expected: Sun Dec 27 19:48:42 2020
+	actual:   Sun Dec 27 20:23:54 2020
+file: ../../Suansha/KillWrapper.sv
+	module worklib.Suansha:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Kill_node:sv <0x2e3a35cb>
-			streams:  16, words: 25742
+		worklib.Suansha:sv <0x23a0ff5f>
+			streams:  83, words: 37436
+		worklib.TH_tb:sv <0x15403c9b>
+			streams:  10, words: 16772
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
-		Modules:                  16       4
-		Registers:               603     105
-		Scalar wires:            111       -
-		Vectored wires:           86       -
-		Always blocks:            30       6
+		Modules:                  20       4
+		Registers:               762     106
+		Scalar wires:            141       -
+		Vectored wires:          110       -
+		Always blocks:            38       6
 		Initial blocks:            3       3
-		Cont. assignments:        45      20
-		Pseudo assignments:      108      72
+		Cont. assignments:        66      22
+		Pseudo assignments:      138      90
 		Compilation units:         1       1
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.TH_tb:sv
@@ -45,49 +47,10 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 Read file was opened successfully : -2147483645
-=========== depth :  3 ===========
-
-Youwin : 0
-
-Pointer Lowerbound =  983
-
-Pointer =  995  995
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 0 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 0 0 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 0 2 0 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-
-==================================
 ========= output result =========
 AI got a kill !!
 ============= end ==============
-Simulation complete via $finish(1) at time 7745 NS + 4
+Simulation complete via $finish(1) at time 42085 NS + 4
 ./KillWrapper_tb.sv:82         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 27, 2020 at 19:37:05 CST  (total: 00:00:49)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 27, 2020 at 20:25:14 CST  (total: 00:00:51)
