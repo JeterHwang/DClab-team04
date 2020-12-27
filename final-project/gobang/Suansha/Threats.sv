@@ -1453,10 +1453,10 @@ task Defense_four(
 
     // A o o o o  180
     if(X - 4 >= 0 &&
-        i_board[(X - 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && 
-        i_board[(X - 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && 
-        i_board[(X - 3) * 15 + (Y + 3)] == {turn[1], ~turn[0]} && 
-        i_board[(X - 4) * 15 + (Y + 4)] == {turn[1], ~turn[0]})
+        i_board[(X - 1) * 15 + Y] == {turn[1], ~turn[0]} && 
+        i_board[(X - 2) * 15 + Y] == {turn[1], ~turn[0]} && 
+        i_board[(X - 3) * 15 + Y] == {turn[1], ~turn[0]} && 
+        i_board[(X - 4) * 15 + Y] == {turn[1], ~turn[0]})
         valid[X][Y][pointer + 9] = 1;
     else
         valid[X][Y][pointer + 9] = 0;
@@ -1574,8 +1574,10 @@ task Defense_four(
         i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && 
         i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && 
         i_board[(X + 3) * 15 + Y] == {turn[1], ~turn[0]} && 
-        i_board[(X + 4) * 15 + Y] == {turn[1], ~turn[0]})
-        valid[X][Y][pointer + 21] = 1;
+        i_board[(X + 4) * 15 + Y] == {turn[1], ~turn[0]}) begin
+        valid[X][Y][pointer + 21] = 1;    
+        $display("Blocked four detected !!");
+    end    
     else
         valid[X][Y][pointer + 21] = 0;
     // o A o o o  0
