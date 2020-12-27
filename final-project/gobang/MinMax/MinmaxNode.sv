@@ -12,8 +12,8 @@ module Minmax(		//
 	output signed [31:0] o_point,	// output point tp parent
 	output 		  	o_finish,		// tell parent that all the points have been searched 
 	output 		  	o_start,		// tell children to start searching their points
-	output  [4:0]   o_Xpos,
-    output  [4:0]   o_Ypos
+	output  [3:0]   o_Xpos,
+    output  [3:0]   o_Ypos
 );
 
 parameter MAXX = {1'b0, {31{1'b1}}};
@@ -33,10 +33,10 @@ logic [7:0] coor_1D;
 logic [2:0] state_r, state_w;
 logic signed [31:0] point_r, point_w;
 logic [8:0] pointer_r, pointer_w;
-logic [4:0] cand_x_r, cand_x_w;
-logic [4:0] cand_y_r, cand_y_w;
-logic [4:0] ans_x_r, ans_x_w;
-logic [4:0] ans_y_r, ans_y_w;
+logic [3:0] cand_x_r, cand_x_w;
+logic [3:0] cand_y_r, cand_y_w;
+logic [3:0] ans_x_r, ans_x_w;
+logic [3:0] ans_y_r, ans_y_w;
 logic finish_r, finish_w;
 logic next_start_r, next_start_w;
 
@@ -83,12 +83,12 @@ Score score(
 task min(
 	input signed [31:0] score_A,
 	input signed [31:0] score_B,
-	input [4:0] cand_x,
-	input [4:0] cand_y,
-	input [4:0] old_x,
-	input [4:0] old_y,
-	output [4:0] new_x,
-	output [4:0] new_y,
+	input [3:0] cand_x,
+	input [3:0] cand_y,
+	input [3:0] old_x,
+	input [3:0] old_y,
+	output [3:0] new_x,
+	output [3:0] new_y,
 	output signed [31:0] score_min
 );
 	if(score_A <= score_B) begin
@@ -106,12 +106,12 @@ endtask
 task max(
 	input signed [31:0] score_A,
 	input signed [31:0] score_B,
-	input [4:0] cand_x,
-	input [4:0] cand_y,
-	input [4:0] old_x,
-	input [4:0] old_y,
-	output [4:0] new_x,
-	output [4:0] new_y,
+	input [3:0] cand_x,
+	input [3:0] cand_y,
+	input [3:0] old_x,
+	input [3:0] old_y,
+	output [3:0] new_x,
+	output [3:0] new_y,
 	output signed [31:0] score_max
 );
 	if(score_A >= score_B) begin
@@ -154,7 +154,7 @@ always_comb begin
 		S_IDLE: begin
 			finish_w = 1'b0;
 			if(i_start) begin
-				if(i_depth == 5'd0) begin
+				if(i_depth == 0) begin
 					SC_start_w 	= 1'b1;
 					state_w 	= S_PEND;
 				end
@@ -185,11 +185,12 @@ always_comb begin
 			end
 			else begin
 				next_start_w 		= 1'b1;
-				cand_x_w			= X_buffer[pointer_r -: 5];
-				cand_y_w			= Y_buffer[pointer_r -: 5];
+				cand_x_w			= X_buffer[pointer_r -: 4];
+				cand_y_w			= Y_buffer[pointer_r -: 4];
 				coor_1D 			= 15 * cand_x_w + cand_y_w;
 				board_w[coor_1D] 	= turn;
-				pointer_w			= pointer_r - 5;
+				pointer_w			= pointer_r - 4;
+				state_w				= S_DFS;
 			end
 		end
 		S_DFS: begin
@@ -220,10 +221,10 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		state_r			<= S_IDLE;
 		point_r			<= 32'd0;
 		pointer_r		<= 9'd0;
-		cand_x_r		<= 5'd0;
-		cand_y_r		<= 5'd0;
-		ans_x_r			<= 5'd0;
-		ans_y_r 		<= 5'd0;
+		cand_x_r		<= 4'd0;
+		cand_y_r		<= 4'd0;
+		ans_x_r			<= 4'd0;
+		ans_y_r 		<= 4'd0;
 		finish_r		<= 1'b0;
 		next_start_r	<= 1'b0;
 		PG_start_r		<= 1'b0;
