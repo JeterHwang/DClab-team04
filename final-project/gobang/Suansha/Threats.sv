@@ -1709,7 +1709,7 @@ always_comb begin
                 $display("blocked four threat !!");
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(offense_blockedfour[i][j] && i_board[i * 15 + j] == l) begin
+                        if(defense_blockedfour[i][j] && i_board[i * 15 + j] == l) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
@@ -1724,7 +1724,7 @@ always_comb begin
                 $display("live three threat !!");
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(i_board[i * 15 + j] == l && (offense_blockedfour[i][j] || defense_livethree[i][j])) begin
+                        if(i_board[i * 15 + j] == l && (offense_blockedfour[i][j] || offense_livefour[i][j] || defense_livethree[i][j])) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
