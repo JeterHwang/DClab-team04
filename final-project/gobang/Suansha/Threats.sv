@@ -46,7 +46,7 @@ task Offense_live_three(
     input   [3:0] X,
     input   [3:0] Y,
     input   [1:0] turn,
-    input   [5:0] pointer,
+    input   [7:0] pointer,
     output  check 
 );
     
@@ -233,7 +233,7 @@ task Offense_live_three(
     else
         valid[X][Y][pointer + 35] = 0;
 
-    assign check = valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
+    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
      | valid[X][Y][pointer + 4] | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7]
       | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9] | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11]
        | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15]
@@ -241,7 +241,7 @@ task Offense_live_three(
          | valid[X][Y][pointer + 20] | valid[X][Y][pointer + 21] | valid[X][Y][pointer + 22] | valid[X][Y][pointer + 23]
           | valid[X][Y][pointer + 24] | valid[X][Y][pointer + 25] | valid[X][Y][pointer + 26] | valid[X][Y][pointer + 27]
            | valid[X][Y][pointer + 28] | valid[X][Y][pointer + 29] | valid[X][Y][pointer + 30] | valid[X][Y][pointer + 31]
-            | valid[X][Y][pointer + 32] | valid[X][Y][pointer + 33] | valid[X][Y][pointer + 34] | valid[X][Y][pointer + 35];
+            | valid[X][Y][pointer + 32] | valid[X][Y][pointer + 33] | valid[X][Y][pointer + 34] | valid[X][Y][pointer + 35]);
 
 
 endtask
@@ -251,7 +251,7 @@ task Offense_blocked_four(
     input   [3:0] X,
     input   [3:0] Y,
     input   [1:0] turn,
-    input   [6:0] pointer,
+    input   [7:0] pointer,
     output  check 
 );
 // blocked fours
@@ -865,7 +865,7 @@ task Offense_blocked_four(
         else
             valid[X][Y][pointer +79] = 0;
 
-        assign check = valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
+        assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
      | valid[X][Y][pointer + 4] | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7]
       | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9] | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11]
        | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15]
@@ -884,14 +884,14 @@ task Offense_blocked_four(
                     | valid[X][Y][pointer + 64] | valid[X][Y][pointer + 65] | valid[X][Y][pointer + 66] | valid[X][Y][pointer + 67]
                      | valid[X][Y][pointer + 68] | valid[X][Y][pointer + 69] | valid[X][Y][pointer + 70] | valid[X][Y][pointer + 71]
                       | valid[X][Y][pointer + 72] | valid[X][Y][pointer + 73] | valid[X][Y][pointer + 74] | valid[X][Y][pointer + 75]
-                       | valid[X][Y][pointer + 76] | valid[X][Y][pointer + 77] | valid[X][Y][pointer + 78] | valid[X][Y][pointer + 79];
+                       | valid[X][Y][pointer + 76] | valid[X][Y][pointer + 77] | valid[X][Y][pointer + 78] | valid[X][Y][pointer + 79]);
 endtask
 
 task Offense_live_four(
     input   [3:0] X,
     input   [3:0] Y,
     input   [1:0] turn,
-    input   [4:0] pointer,
+    input   [7:0] pointer,
     output  check 
 );
 // live four first condition 
@@ -1011,17 +1011,17 @@ task Offense_live_four(
             valid[X][Y][pointer +15] = 0;
 
 
-        assign check = valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
+    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3]
      | valid[X][Y][pointer + 4] | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7]
       | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9] | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11]
-       | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15];
+       | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14] | valid[X][Y][pointer + 15]);
 endtask
 
 task Defense_three(
     input [3:0] X,
     input [3:0] Y,
     input [1:0] turn,
-    input [5:0] pointer,
+    input [7:0] pointer,
     output check
 );
     // A o o o *  45
@@ -1346,13 +1346,13 @@ task Defense_three(
     else
         valid[X][Y][pointer + 31] = 0;
     
-    assign check = valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
-     | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 1]
+    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
+     | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7] | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9]
       | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11] | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14]
        | valid[X][Y][pointer + 15] | valid[X][Y][pointer + 16] | valid[X][Y][pointer + 17] | valid[X][Y][pointer + 18] | valid[X][Y][pointer + 19]
         | valid[X][Y][pointer + 20] | valid[X][Y][pointer + 21] | valid[X][Y][pointer + 22] | valid[X][Y][pointer + 23] | valid[X][Y][pointer + 24]
          | valid[X][Y][pointer + 25] | valid[X][Y][pointer + 26] | valid[X][Y][pointer + 27] | valid[X][Y][pointer + 28] | valid[X][Y][pointer + 29]
-          | valid[X][Y][pointer + 30] | valid[X][Y][pointer + 31] ;
+          | valid[X][Y][pointer + 30] | valid[X][Y][pointer + 31]);
 endtask
 
 
@@ -1361,7 +1361,7 @@ task Defense_four(
     input [3:0] X,
     input [3:0] Y,
     input [1:0] turn,
-    input [5:0] pointer,
+    input [7:0] pointer,
     output check
 );
     // A o o o o  45
@@ -1574,10 +1574,8 @@ task Defense_four(
         i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && 
         i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && 
         i_board[(X + 3) * 15 + Y] == {turn[1], ~turn[0]} && 
-        i_board[(X + 4) * 15 + Y] == {turn[1], ~turn[0]}) begin
-        valid[X][Y][pointer + 21] = 1;    
-        $display("Blocked four detected !!");
-    end    
+        i_board[(X + 4) * 15 + Y] == {turn[1], ~turn[0]})
+        valid[X][Y][pointer + 21] = 1;
     else
         valid[X][Y][pointer + 21] = 0;
     // o A o o o  0
@@ -1599,11 +1597,11 @@ task Defense_four(
     else
         valid[X][Y][pointer + 23] = 0;
     
-    assign check = valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
-     | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 1]
+    assign check = i_board[X * 15 + Y][1] && (valid[X][Y][pointer + 0] | valid[X][Y][pointer + 1] | valid[X][Y][pointer + 2] | valid[X][Y][pointer + 3] | valid[X][Y][pointer + 4]
+     | valid[X][Y][pointer + 5] | valid[X][Y][pointer + 6] | valid[X][Y][pointer + 7] | valid[X][Y][pointer + 8] | valid[X][Y][pointer + 9]
       | valid[X][Y][pointer + 10] | valid[X][Y][pointer + 11] | valid[X][Y][pointer + 12] | valid[X][Y][pointer + 13] | valid[X][Y][pointer + 14]
        | valid[X][Y][pointer + 15] | valid[X][Y][pointer + 16] | valid[X][Y][pointer + 17] | valid[X][Y][pointer + 18] | valid[X][Y][pointer + 19]
-        | valid[X][Y][pointer + 20] | valid[X][Y][pointer + 21] | valid[X][Y][pointer + 22] | valid[X][Y][pointer + 23] ;
+        | valid[X][Y][pointer + 20] | valid[X][Y][pointer + 21] | valid[X][Y][pointer + 22] | valid[X][Y][pointer + 23]);
 endtask
 
 task LiveThreeThreat(
@@ -1651,7 +1649,7 @@ task Win(
     input turn,
     output check
 );
-    if((X + 4 < 15 && Y + 4 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X + 2) * 15 + (Y + 2)] == turn && i_board[(X + 3) * 15 + (Y + 3)] == turn && i_board[(X + 4) * 15 + (Y + 4)] == turn) ||
+    if(i_board[X * 15 + Y][1] && ((X + 4 < 15 && Y + 4 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X + 2) * 15 + (Y + 2)] == turn && i_board[(X + 3) * 15 + (Y + 3)] == turn && i_board[(X + 4) * 15 + (Y + 4)] == turn) ||
         (Y + 4 < 15 && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y + 2)] == turn && i_board[X * 15 + (Y + 3)] == turn && i_board[X * 15 + (Y + 4)] == turn) ||
         (X - 4 >= 0 && Y + 4 < 15 && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X - 2) * 15 + (Y + 2)] == turn && i_board[(X - 3) * 15 + (Y + 3)] == turn && i_board[(X - 4) * 15 + (Y + 4)] == turn) ||
         (X - 4 >= 0 && i_board[(X - 1) * 15 + Y] == turn && i_board[(X - 2) * 15 + Y] == turn && i_board[(X - 3) * 15 + Y] == turn && i_board[(X - 4) * 15 + Y] == turn) ||
@@ -1673,7 +1671,7 @@ task Win(
         (Y - 2 >= 0 && Y + 2 < 15 && i_board[X * 15 + (Y - 2)] == turn && i_board[X * 15 + (Y - 1)] == turn && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y + 2)] == turn) ||
         (X + 2 < 15 && X - 2 >= 0 && Y + 2 < 15 && Y - 2 >= 0 && i_board[(X - 2) * 15 + (Y + 2)] == turn && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X + 1) * 15 + (Y - 1)] == turn && i_board[(X + 2) * 15 + (Y - 2)] == turn) ||
         (X + 2 < 15 && X - 2 >= 0 && i_board[(X - 2) * 15 + Y] == turn && i_board[(X - 1) * 15 + Y] == turn && i_board[(X + 1) * 15 + Y] == turn && i_board[(X + 2) * 15 + Y] == turn)
-    )
+    ))
         check = 1;
     else
         check = 0;
@@ -1697,7 +1695,6 @@ always_comb begin
                         Defense_four(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .pointer(8'd164), .check(defense_blockedfour[i][j]));
                         Win(.X(i[3:0]), .Y(j[3:0]), .turn(i_turn), .check(win[i][j]));
                     end
-                    //$display("%b %b %b %b %b %b %b %b %b %b %b %b %b %b %b\n", ok[i][0], ok[i][1], ok[i][2], ok[i][3], ok[i][4], ok[i][5], ok[i][6], ok[i][7], ok[i][8], ok[i][9], ok[i][10], ok[i][11], ok[i][12], ok[i][13], ok[i][14]);
                 end
                 LiveThreeThreat(.check(live_three_threat));
                 BlockedFourThreat(.check(blocked_four_threat));
@@ -1706,10 +1703,10 @@ always_comb begin
         S_COUNT: begin
             pointer[0] = 10'd999;
             if(blocked_four_threat) begin
-                $display("blocked four threat !!");
+                //$display("blocked four threat !!");
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(defense_blockedfour[i][j] && i_board[i * 15 + j] == l) begin
+                        if(defense_blockedfour[i][j]) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
@@ -1721,10 +1718,10 @@ always_comb begin
                 end    
             end
             else if(live_three_threat) begin
-                $display("live three threat !!");
+                //$display("live three threat !!");
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(i_board[i * 15 + j] == l && (offense_blockedfour[i][j] || offense_livefour[i][j] || defense_livethree[i][j])) begin
+                        if(offense_blockedfour[i][j] || offense_livefour[i][j] || defense_livethree[i][j]) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
@@ -1738,7 +1735,7 @@ always_comb begin
             else begin  // no threat !!
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if(i_board[i * 15 + j] == l && (offense_blockedfour[i][j] || offense_livefour[i][j] || offense_livethree[i][j])) begin
+                        if(offense_blockedfour[i][j] || offense_livefour[i][j] || offense_livethree[i][j]) begin
                             output_X[pointer[i * 15 + j] -: 4] = i[3:0];
                             output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
                             pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
@@ -1763,7 +1760,7 @@ always_comb begin
     endcase
 end
 
-always_ff @(negedge i_clk or negedge i_rst_n) begin
+always_ff @(posedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
         state_r         <= S_IDLE;
         finish_r        <= 1'b0;
