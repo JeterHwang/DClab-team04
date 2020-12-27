@@ -15,7 +15,7 @@ module TH_tb;
     logic [3:0] X;
     logic [3:0] Y;
     logic TH_finish;
-    logic [1:0] win;
+    logic win;
     int fp_i, fp_o;
     int status;
 

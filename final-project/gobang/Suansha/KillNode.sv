@@ -32,6 +32,7 @@ logic [9:0] coor_1D_w;
 
 // Threats variables
 logic turn;
+logic you_win;
 logic [999:0] X_buffer;
 logic [999:0] Y_buffer;
 logic [9:0] SZ_buffer;
@@ -112,6 +113,15 @@ always_comb begin
                     for(int j = 0; j < 15; j++) begin
                         board_w[i * 15 + j] = i_board[i * 15 + j];
                     end
+                end
+                if(i_depth == 5'd1) begin
+                    $display("=========== depth : %d ===========\n", i_depth);
+                    $display("Pointer Lowerbound = %d\n", SZ_buffer);
+                    $display("Pointer = %d %d\n", pointer_r, pointer_w);
+                    for(int i = 0; i < 15; i++) begin
+                        $display("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n", board_w[i*15+0], board_w[i*15+1], board_w[i*15+2], board_w[i*15+3], board_w[i*15+4], board_w[i*15+5], board_w[i*15+6], board_w[i*15+7], board_w[i*15+8], board_w[i*15+9], board_w[i*15+10], board_w[i*15+11], board_w[i*15+12], board_w[i*15+13], board_w[i*15+14]);
+                    end
+                    $display("==================================");
                 end
                 board_w[coor_1D_w]  = turn;
                 pointer_w           = pointer_r - 4;
