@@ -11,6 +11,12 @@ def cor():
     #     return [1,4]
     # else:
     return "[2,5]"
+@app.route('/api', methods=['POST'])
+def cord():
+    # if time.localtime().tm_sec % 2 == 0:
+    #     return [1,4]
+    # else:
+    return "[2,5]"
 if __name__ == "__main__":
     app.debug = True
     app.run(port=5000)

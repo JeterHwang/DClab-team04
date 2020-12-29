@@ -85,23 +85,24 @@ function Sidebar(props) {
     </aside>
   );
 }
-function App() {
-  const [cord, setCord] = useState(null);
-  
-  // Fetch coordinates
-  const fetchData = async () => {
-    const res = await fetch("/api");
-    const json = await res.json();
-    console.log(res)
-    setCord(json);
-  };
-  useEffect(() => {
-    fetchData()
-  }, []);
-  return (<Coordinate fetchData={fetchData} cord={cord}/>)
-}
 
-function Coordinate (props){
+
+function App (){
+      const [cord, setCord] = useState(null);
+      
+      // Fetch coordinates
+      const fetchData = async () => {
+        const res = await fetch("/api");
+        const json = await res.json();
+        console.log(res)
+        setCord(json);
+      };
+      // const fetchData = async () => {
+      //   const res = await fetch("/api", { method: "POST", body: );
+      //   const json = await res.json();
+      //   console.log(res)
+      //   setCord(json);
+      // };
       const [history, setHistory] = useState([
                                         {
                                           squares: Array(line * line).fill(null),
@@ -151,7 +152,7 @@ function Coordinate (props){
     console.log("stepNumber: ", stepNumber)
     console.log("xIsNext: ", xIsNext)
     console.log("toggle: ", toggle)
-    console.log("cord: ", props.cord)
+    console.log("cord: ", cord)
 
     const current = history[stepNumber];
     const winner = calculateWinner(current.squares, current.currentX, current.currentY);
