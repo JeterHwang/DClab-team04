@@ -101,25 +101,37 @@ function App() {
   return (<Coordinate fetchData={fetchData} cord={cord}/>)
 }
 
-function Coordinate (props){
-      const [history, setHistory] = useState([
-                                        {
-                                          squares: Array(line * line).fill(null),
-                                          currentX: null,
-                                          currentY: null,
-                                        },
-                                      ])
-      const [stepNumber, setStepNumber] =  useState(0)                       
-      const [xIsNext, setIsNext] = useState(true)
-      const [toggle, setToggle] = useState(false)
+class Coordinate extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      history: [
+        {
+          squares: Array(line * line).fill(null),
+          currentX: null,
+          currentY: null,
+        },
+      ],
+      stepNumber: 0,
+      xIsNext: true,
+      toggle: false,
+      // cord: props.cord
+    };
+  }
 
-  const toggleClick = () => { setToggle(!toggle) }
+  toggleClick = () => {
+    const { toggle } = this.state;
+    this.setState({
+      toggle: !toggle,
+    });
+  }
 
   
-  const handleClick = (i) => {
+  handleClick = (i) => {
+    const { history, xIsNext, stepNumber } = this.state;
     const allhistory = history.slice(0, stepNumber + 1);
-  
+    
     console.log("allHistory: ", allhistory)
     const current = allhistory[allhistory.length - 1]; //下完後的上一步
     const squares = current.squares.slice(); // return an array of null or white or black
@@ -129,31 +141,36 @@ function Coordinate (props){
       return;
     }
     squares[i] = xIsNext ? 'black' : 'white'; // xIsNext是判斷黑或白 1為黑 0為白
-    setHistory(allhistory.concat([
-      {
-        squares,
-        currentX: (i % line),
-        currentY: parseInt((i / line), 10),
-      },
-    ]))
-    setStepNumber(allhistory.length)
-    setIsNext(!xIsNext)
+    this.setState({
+      history: allhistory.concat([
+        {
+          squares,
+          currentX: (i % line),
+          currentY: parseInt((i / line), 10),
+        },
+      ]),
+      stepNumber: allhistory.length,
+      xIsNext: !xIsNext,
+    });
   }
 
 
-  const jumpTo = (step) => {
-    setStepNumber(step)
-    setIsNext((step % 2) === 0)
+  jumpTo = (step) => {
+    this.setState({
+      stepNumber: step,
+      xIsNext: (step % 2) === 0,
+    });
   }
 
+  render() {
+    console.log("history: ", this.state.history)
+    console.log("stepNumber: ", this.state.stepNumber)
+    console.log("xIsNext: ", this.state.xIsNext)
+    console.log("toggle: ", this.state.toggle)
+    console.log("cord: ", this.props.cord)
 
-    console.log("history: ", history)
-    console.log("stepNumber: ", stepNumber)
-    console.log("xIsNext: ", xIsNext)
-    console.log("toggle: ", toggle)
-    console.log("cord: ", props.cord)
-
-    const current = history[stepNumber];
+    const { history, toggle } = this.state;
+    const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares, current.currentX, current.currentY);
 
     const moves = history.map((step, move) => (
@@ -161,7 +178,7 @@ function Coordinate (props){
         <button
           className="btn move"
           type="button"
-          onClick={() => jumpTo(move)}
+          onClick={() => this.jumpTo(move)}
         >
           {move ? `Go to move #${move}` : 'Restart'}
         </button>
@@ -172,14 +189,14 @@ function Coordinate (props){
     if (winner) {
       status = `Winner : ${winner}`;
     } else {
-      status = `Next player: ${(xIsNext ? 'black' : 'white')}`;
+      status = `Next player: ${(this.state.xIsNext ? 'black' : 'white')}`;
     }
 
     return (
       <div>
         <div className={toggle ? 'game active' : 'game'}>
           <Goback
-            onClick={toggleClick}
+            onClick={this.toggleClick}
           />
           <Info
             winner={winner}
@@ -189,7 +206,7 @@ function Coordinate (props){
             winner={winner}
             squares={current.squares}
             line={line}
-            onClick={i => handleClick(i)}
+            onClick={i => this.handleClick(i)}
           />
         </div>
         <Sidebar
@@ -199,6 +216,6 @@ function Coordinate (props){
       </div>
     );
   }
-
+}
 
 export default App;
