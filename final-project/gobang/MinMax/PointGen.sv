@@ -45,85 +45,85 @@ always_comb begin
                     for(int j = 0; j < 15; j++) begin
                         valid[i][j] = 1'b0;
                         // 0
-                        if(i >= 2 && j >= 2) begin
-                            if(i_board[(i - 2) * 15 + (j - 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i >= 2 && j >= 2) begin
+                        //    if(i_board[(i - 2) * 15 + (j - 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 1
-                        if(i >= 2 && j >= 1) begin
-                            if(i_board[(i - 2) * 15 + (j - 1)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i >= 2 && j >= 1) begin
+                        //    if(i_board[(i - 2) * 15 + (j - 1)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 2
-                        if(i >= 2) begin
-                            if(i_board[(i - 2) * 15 + (j)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i >= 2) begin
+                        //    if(i_board[(i - 2) * 15 + (j)] != 2'd2)
+                        //        valid[i][j] = //1'b1;               
+                        //end
                         // 3
-                        if(i >= 2 && j + 1 <= 14) begin
-                            if(i_board[(i - 2) * 15 + (j + 1)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i >= 2 && j + 1 <= 14) begin
+                        //    if(i_board[(i - 2) * 15 + (j + 1)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 4
-                        if(i >= 2 && j + 2 <= 14) begin
-                            if(i_board[(i - 2) * 15 + (j + 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i >= 2 && j + 2 <= 14) begin
+                        //    if(i_board[(i - 2) * 15 + (j + 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 5
-                        if(i >= 1 && j + 2 <= 14) begin
-                            if(i_board[(i - 1) * 15 + (j + 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i >= 1 && j + 2 <= 14) begin
+                        //    if(i_board[(i - 1) * 15 + (j + 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 6
-                        if(j + 2 <= 14) begin
-                            if(i_board[i * 15 + (j + 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(j + 2 <= 14) begin
+                        //    if(i_board[i * 15 + (j + 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 7
-                        if(i + 1 <= 14 && j + 2 <= 14) begin
-                            if(i_board[(i + 1) * 15 + (j + 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i + 1 <= 14 && j + 2 <= 14) begin
+                        //    if(i_board[(i + 1) * 15 + (j + 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 8
-                        if(i + 2 <= 14 && j + 2 <= 14) begin
-                            if(i_board[(i + 2) * 15 + (j + 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i + 2 <= 14 && j + 2 <= 14) begin
+                        //    if(i_board[(i + 2) * 15 + (j + 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 9
-                        if(i + 2 <= 14 && j + 1 <= 14) begin
-                            if(i_board[(i + 2) * 15 + (j + 1)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i + 2 <= 14 && j + 1 <= 14) begin
+                        //    if(i_board[(i + 2) * 15 + (j + 1)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 10
-                        if(i + 2 <= 14) begin
-                            if(i_board[(i + 2) * 15 + j] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i + 2 <= 14) begin
+                        //    if(i_board[(i + 2) * 15 + j] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 11
-                        if(i + 2 <= 14 && j >= 1) begin
-                            if(i_board[(i + 2) * 15 + (j - 1)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i + 2 <= 14 && j >= 1) begin
+                        //    if(i_board[(i + 2) * 15 + (j - 1)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 12
-                        if(i + 2 <= 14 && j >= 2) begin
-                            if(i_board[(i + 2) * 15 + (j - 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i + 2 <= 14 && j >= 2) begin
+                        //    if(i_board[(i + 2) * 15 + (j - 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 13
-                        if(i + 1 <= 14 && j >= 2) begin
-                            if(i_board[(i + 1) * 15 + (j - 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i + 1 <= 14 && j >= 2) begin
+                        //    if(i_board[(i + 1) * 15 + (j - 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 14
-                        if(j >= 2) begin
-                            if(i_board[i * 15 + (j - 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(j >= 2) begin
+                        //    if(i_board[i * 15 + (j - 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 15
-                        if(i >= 1 && j >= 2) begin
-                            if(i_board[(i - 1) * 15 + (j - 2)] != 2'd2)
-                                valid[i][j] = 1'b1;               
-                        end
+                        //if(i >= 1 && j >= 2) begin
+                        //    if(i_board[(i - 1) * 15 + (j - 2)] != 2'd2)
+                        //        valid[i][j] = 1'b1;               
+                        //end
                         // 16
                         if(i >= 1 && j >= 1) begin
                             if(i_board[(i - 1) * 15 + (j - 1)] != 2'd2)
@@ -176,14 +176,14 @@ always_comb begin
                 for(int j = 0; j < 15; j++) begin
                     // pointer[i] = 7'd74;
                     // if(valid[i][j]) begin
-                    //     X_buffer[i][pointer[i] -: 5] = i[4:0];
-                    //     X_buffer[i][pointer[i] -: 5] = j[4:0];
-                    //     pointer[i] = pointer[i] - 5;
+                    //     X_buffer[i][pointer[i] -: 4] = i[3:0];
+                    //     X_buffer[i][pointer[i] -: 4] = j[3:0];
+                    //     pointer[i] = pointer[i] - 4;
                     // end
                     if(valid[i][j] == 1'b1) begin
-                        output_X[pointer[i * 15 + j] -: 5] = i[4:0];
-                        output_Y[pointer[i * 15 + j] -: 5] = j[4:0];
-                        pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 5;
+                        output_X[pointer[i * 15 + j] -: 4] = i[3:0];
+                        output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
+                        pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
                     end
                     else begin
                         pointer[i * 15 + j + 1] = pointer[i * 15 + j];

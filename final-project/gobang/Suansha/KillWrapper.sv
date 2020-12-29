@@ -18,15 +18,15 @@ logic [4:0] depth[11];
 
 assign o_sha    = result_w[0];
 assign o_finish = finish_w[0];
-assign depth[0] = 5'd8;
-assign depth[1] = 5'd7;
-assign depth[2] = 5'd6;
-assign depth[3] = 5'd5;
-assign depth[4] = 5'd4;
-assign depth[5] = 5'd3;
-assign depth[6] = 5'd2;
-assign depth[7] = 5'd1;
-assign depth[8] = 5'd0;
+assign depth[0] = (i_depth >= 0) ? i_depth - 0 : 5'd0;
+assign depth[1] = (i_depth >= 1) ? i_depth - 0 : 5'd0;
+assign depth[2] = (i_depth >= 2) ? i_depth - 0 : 5'd0;
+assign depth[3] = (i_depth >= 3) ? i_depth - 0 : 5'd0;
+assign depth[4] = (i_depth >= 4) ? i_depth - 0 : 5'd0;
+assign depth[5] = (i_depth >= 5) ? i_depth - 0 : 5'd0;
+assign depth[6] = (i_depth >= 6) ? i_depth - 0 : 5'd0;
+assign depth[7] = (i_depth >= 7) ? i_depth - 0 : 5'd0;
+assign depth[8] = (i_depth >= 8) ? i_depth - 0 : 5'd0;
 
 //genvar j;
 //generate

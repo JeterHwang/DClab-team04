@@ -74,7 +74,10 @@ module minmaxnode_tb;
         #(`CLK) start = 0;
 
         @(posedge finish) begin
+            $display("=========== Output Result ============");
             $display("(X, Y) = (%d, %d)\n", X_output, Y_output);
+            $display("Score = %d\n", output_point);
+            $display("=========== End of Result ============");
         end
 
         $finish;

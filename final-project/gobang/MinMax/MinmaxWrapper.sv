@@ -4,8 +4,8 @@ module DFS(		//
 	input         i_start,
 	input  [4:0]  i_depth,
 	input  board  i_board,    
-    output [4:0]  o_Xpos,     
-	output [4:0]  o_Ypos,      
+    output [3:0]  o_Xpos,     
+	output [3:0]  o_Ypos,      
 	output 		  o_finish
 );
 
@@ -18,8 +18,8 @@ logic finish_w[6];
 logic signed [31:0] point_w[6];
 logic start_w[6];
 logic [4:0] depth[6];
-logic [4:0] Xpos_w[6];
-logic [4:0] Ypos_w[6];
+logic [3:0] Xpos_w[6];
+logic [3:0] Ypos_w[6];
 
 assign o_Xpos 	= Xpos_w[0];
 assign o_Ypos 	= Ypos_w[0];

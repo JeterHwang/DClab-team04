@@ -5,11 +5,14 @@
 -XLMODE
 ./INCA_libs/irun.lnx8664.12.20.nc
 -RUNMODE
-Minmax_tb.sv
+MinmaxWrapper_tb.sv
 ../../MinMax/MinmaxWrapper.sv
 ../../MinMax/MinmaxNode.sv
 ../../MinMax/PointGen.sv
 ../../MinMax/Score.sv
+../../Suansha/KillWrapper.sv
+../../Suansha/KillNode.sv
+../../Suansha/Threats.sv
 -CDSLIB
 ./INCA_libs/irun.lnx8664.12.20.nc/cdsrun.lib
 -HDLVAR

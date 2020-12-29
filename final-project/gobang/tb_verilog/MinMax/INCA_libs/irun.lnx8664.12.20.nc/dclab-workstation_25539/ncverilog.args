@@ -1,0 +1,13 @@
+//
+// File created by:  ncverilog
+// Do not modify this file
+//
+MinmaxWrapper_tb.sv
+../../MinMax/MinmaxWrapper.sv
+../../MinMax/MinmaxNode.sv
+../../MinMax/PointGen.sv
+../../MinMax/Score.sv
+../../Suansha/KillWrapper.sv
+../../Suansha/KillNode.sv
+../../Suansha/Threats.sv
++access+r

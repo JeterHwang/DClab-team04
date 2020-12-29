@@ -2,8 +2,11 @@
 // File created by:  ncverilog
 // Do not modify this file
 //
-/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/Minmax_tb.sv
+/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxWrapper.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/PointGen.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score.sv
+/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillWrapper.sv
+/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillNode.sv
+/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv

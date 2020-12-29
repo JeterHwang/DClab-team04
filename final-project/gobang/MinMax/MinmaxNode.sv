@@ -23,7 +23,9 @@ parameter S_IDLE 	= 3'd0;
 parameter S_PG  	= 3'd1;
 parameter S_WAIT 	= 3'd2;
 parameter S_DFS		= 3'd3;
-parameter S_PEND 	= 3'd4;
+parameter S_SS		= 3'd4;
+parameter S_PEND 	= 3'd5;
+
 
 // local variables
 board board_r, board_w;
@@ -52,6 +54,11 @@ logic SC_start_r, SC_start_w;
 logic SC_finish;
 logic signed [31:0] SC_score;
 
+// Suansha
+logic SS_result;
+logic SS_finish;
+logic SS_start_r, SS_start_w;
+
 assign turn 	= i_depth[0] & 1;
 assign o_finish = finish_r;
 assign o_point 	= point_r;
@@ -79,7 +86,15 @@ Score score(
 	.o_score(SC_score),
 	.o_finish(SC_finish)
 );
-
+Suansha SS(
+	.i_clk(i_clk),
+	.i_rst_n(i_rst_n),
+	.i_start(SS_start_r),
+	.i_depth(5'd2),
+	.i_board(i_board),
+	.o_sha(SS_result),
+	.o_finish(SS_finish)
+);
 task min(
 	input signed [31:0] score_A,
 	input signed [31:0] score_B,
@@ -104,8 +119,8 @@ task min(
 endtask
 
 task max(
-	input signed [31:0] score_A,
-	input signed [31:0] score_B,
+	input signed [31:0] score_A, // child point
+	input signed [31:0] score_B, // old score
 	input [3:0] cand_x,
 	input [3:0] cand_y,
 	input [3:0] old_x,
@@ -119,10 +134,11 @@ task max(
 		new_x 		= cand_x;
 		new_y 		= cand_y;
 	end
-	else
+	else begin
 		score_max = score_B;
 		new_x 		= old_x;
 		new_y 		= old_y;
+	end
 endtask
 
 task prune(
@@ -131,7 +147,7 @@ task prune(
 	input MinorMax,
 	output valid
 );
-	if((MinorMax == 1'b0 && score_child >= score_parent) || (MinorMax == 1'b1 && score_child <= score_parent))
+	if((MinorMax == 0 && score_child >= score_parent) || (MinorMax == 1 && score_child <= score_parent))
 		valid = 1'b1;
 	else 
 		valid = 1'b0;
@@ -150,13 +166,14 @@ always_comb begin
 	next_start_w	= next_start_r;
 	PG_start_w		= PG_start_r;
 	SC_start_w		= SC_start_r;
+	SS_start_w		= SS_start_r;
 	case(state_r)
 		S_IDLE: begin
 			finish_w = 1'b0;
 			if(i_start) begin
 				if(i_depth == 0) begin
-					SC_start_w 	= 1'b1;
-					state_w 	= S_PEND;
+					SS_start_w 	= 1'b1;
+					state_w 	= S_SS;
 				end
 				else begin
 					PG_start_w 	= 1'b1;
@@ -169,21 +186,25 @@ always_comb begin
 			if(PG_finish) begin
 				state_w = S_WAIT;
 				pointer_w = 9'd399;
-				if(turn)  			// initialize
-					point_w = MAXX;
-				else
+				if(turn == 0)  			// initialize
 					point_w = MINN;
+				else
+					point_w = MAXX;
 			end
 		end
 		S_WAIT: begin
 			// alpha - beta pruning
 			prune(.score_child(point_r), .score_parent(i_prev_point), .MinorMax(turn), .valid(pruning));
-			
 			if(pointer_r == SZ_buffer || pruning) begin
 				finish_w 	= 1'b1;
 				state_w  	= S_IDLE;
 			end
 			else begin
+				for(int i = 0; i < 15; i++) begin 
+					for(int j = 0; j < 15; j++) begin
+						board_w[i * 15 + j] = i_board[i * 15 + j];
+					end
+				end
 				next_start_w 		= 1'b1;
 				cand_x_w			= X_buffer[pointer_r -: 4];
 				cand_y_w			= Y_buffer[pointer_r -: 4];
@@ -199,9 +220,23 @@ always_comb begin
 				state_w 	= S_WAIT;
 				// update score
 				if(turn)
-					min(.score_A(point_r), .score_B(i_point), .score_min(point_w), .cand_x(cand_x_r), .cand_y(cand_y_r), .old_x(ans_x_r), .old_y(ans_y_r), .new_x(ans_x_w), .new_y(ans_y_w));
+					min(.score_A(i_point), .score_B(point_r), .score_min(point_w), .cand_x(cand_x_r), .cand_y(cand_y_r), .old_x(ans_x_r), .old_y(ans_y_r), .new_x(ans_x_w), .new_y(ans_y_w));
 				else
-					max(.score_A(point_r), .score_B(i_point), .score_max(point_w), .cand_x(cand_x_r), .cand_y(cand_y_r), .old_x(ans_x_r), .old_y(ans_y_r), .new_x(ans_x_w), .new_y(ans_y_w));		
+					max(.score_A(i_point), .score_B(point_r), .score_max(point_w), .cand_x(cand_x_r), .cand_y(cand_y_r), .old_x(ans_x_r), .old_y(ans_y_r), .new_x(ans_x_w), .new_y(ans_y_w));		
+			end
+		end
+		S_SS: begin
+			SS_start_w = 1'b0;
+			if(SS_finish) begin
+				if(SS_result) begin
+					point_w 	= 32'd1000000;
+					finish_w 	= 1'b1;
+					state_w 	= S_IDLE;
+				end
+				else begin
+					SC_start_w 	= 1'b1; 
+					state_w 	= S_PEND;
+				end
 			end
 		end
 		S_PEND: begin
@@ -229,6 +264,7 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		next_start_r	<= 1'b0;
 		PG_start_r		<= 1'b0;
 		SC_start_r		<= 1'b0;
+		SS_start_r		<= 1'b0;
 	end
 	else begin
 		board_r			<= board_w;
@@ -243,6 +279,7 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		next_start_r	<= next_start_w;
 		PG_start_r		<= PG_start_w;
 		SC_start_r		<= SC_start_w;
+		SS_start_r		<= SS_start_w;
 	end
 end
 endmodule

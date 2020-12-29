@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 28, 2020 at 01:01:54 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 00:12:31 CST
 ncverilog
 	KillWrapper_tb.sv
 	../../Suansha/KillWrapper.sv
@@ -7,32 +7,17 @@ ncverilog
 	../../Suansha/Threats.sv
 	+access+r
 Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv' is newer than expected.
-	expected: Mon Dec 28 00:57:16 2020
-	actual:   Mon Dec 28 01:00:19 2020
+	expected: Mon Dec 28 01:00:19 2020
+	actual:   Tue Dec 29 19:33:38 2020
 file: KillWrapper_tb.sv
 	module worklib.TH_tb:sv
-		errors: 0, warnings: 0
-file: ../../Suansha/KillWrapper.sv
-	module worklib.Suansha:sv
-		errors: 0, warnings: 0
-file: ../../Suansha/KillNode.sv
-	module worklib.Kill_node:sv
-		errors: 0, warnings: 0
-file: ../../Suansha/Threats.sv
-	module worklib.Threats:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Kill_node:sv <0x4cecdd5f>
-			streams:  16, words: 14724
-		worklib.Suansha:sv <0x23a0ff5f>
-			streams:  83, words: 37436
 		worklib.TH_tb:sv <0x15403c9b>
 			streams:  10, words: 16772
-		worklib.Threats:sv <0x264a3c82>
-			streams:  30, words: 821767
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -63,7 +48,7 @@ Read file was opened successfully : -2147483645
 ========= output result =========
 AI got a kill !!
 ============= end ==============
-Simulation complete via $finish(1) at time 185405 NS + 4
+Simulation complete via $finish(1) at time 44875 NS + 4
 ./KillWrapper_tb.sv:82         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 28, 2020 at 01:03:02 CST  (total: 00:01:08)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 00:13:23 CST  (total: 00:00:52)
