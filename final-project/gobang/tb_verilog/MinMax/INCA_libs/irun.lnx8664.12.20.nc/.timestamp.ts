@@ -1,10 +1,10 @@
 1608633446 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/Minmax_tb.sv
 1609258138 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxWrapper.sv
-1609259872 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv
+1609260915 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv
 1609257313 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/PointGen.sv
 1609256419 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score.sv
 1609242904 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxNode_tb.sv
-1609259805 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv
+1609261233 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv
 1609258809 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillWrapper.sv
 1609241618 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillNode.sv
 1609241618 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv

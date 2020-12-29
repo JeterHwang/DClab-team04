@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 00:38:14 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 01:01:42 CST
 ncverilog
 	MinmaxWrapper_tb.sv
 	../../MinMax/MinmaxWrapper.sv
@@ -10,18 +10,18 @@ ncverilog
 	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv' is newer than expected.
-	expected: Wed Dec 30 00:28:58 2020
-	actual:   Wed Dec 30 00:37:52 2020
-file: ../../MinMax/MinmaxNode.sv
-	module worklib.Minmax:sv
+Recompiling... reason: file './MinmaxWrapper_tb.sv' is newer than expected.
+	expected: Wed Dec 30 00:36:45 2020
+	actual:   Wed Dec 30 01:00:33 2020
+file: MinmaxWrapper_tb.sv
+	module worklib.minmax_tb:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Minmax:sv <0x1356a387>
-			streams:  27, words: 27509
+		worklib.minmax_tb:sv <0x343b0d5b>
+			streams:  10, words: 17039
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
@@ -42,3 +42,13 @@ Loading snapshot worklib.minmax_tb:sv .................... Done
 *Verdi3* : Enable Parallel Dumping.
 ncsim> source /opt/CAD/INCISIV/cur/tools/inca/files/ncsimrc
 ncsim> run
+FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
+(C) 1996 - 2013 by Synopsys, Inc.
+*Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi3* : Create FSDB file 'MinmaxWrapper.fsdb'
+*Verdi3* : Begin traversing the scopes, layer (0).
+*Verdi3* : End of traversing.
+File was opened successfully : -2147483645
+Simulation interrupted at 3201285 NS + 3
+ncsim> exit
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 01:04:17 CST  (total: 00:02:35)

@@ -90,7 +90,7 @@ Suansha SS(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_start(SS_start_r),
-	.i_depth(5'd2),
+	.i_depth(5'd0),
 	.i_board(i_board),
 	.o_sha(SS_result),
 	.o_finish(SS_finish)
