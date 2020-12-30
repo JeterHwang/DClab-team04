@@ -99,7 +99,7 @@ always_comb begin
         end
 
         for(int i = 0; i <= 10; i++) begin
-            for(int j = 0; j <= 10; j++) begin for(int k=0; k < 10; k++) begin
+            for(int j = 0; j <= 10; j++) begin
                 if({chess_board[i * 15 +  j + 4], chess_board[(i + 1) * 15 + j + 3 ], chess_board[(i + 2) * 15 + j + 2], chess_board[(i + 3) * 15 + j + 1], chess_board[(i + 4) * 15 + j] } === white_con_five) begin
                     score_upper_right = 1;
                 end
