@@ -17,7 +17,7 @@ logic score_up;
 logic score_left;
 logic score_upper_left;
 logic score_upper_right;
-assign o_win = score_up || score_left || score_upper_left || score_upper_right;
+assign o_win = score_up | score_left | score_upper_left | score_upper_right;
 
 always_comb begin
 `   if(i_turn == 0) begin
