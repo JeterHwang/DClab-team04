@@ -34,7 +34,7 @@ parameter FOUR              = 32'd100000;
 parameter THREE             = 32'd1000;
 parameter TWO               = 32'd100;
 parameter ONE               = 32'd10;
-parameter BLOCKED_FOUR      = 32'd10000;
+parameter BLOCKED_FOUR      = 32'd70000;
 parameter BLOCKED_THREE     = 32'd100;
 parameter BLOCKED_TWO       = 32'd10;
 
