@@ -1,13 +1,39 @@
 typedef logic [1:0] board [225];
 typedef logic signed [31:0] MinMax_output;
 
-module Top(
-    input           i_clk,
-    input           i_rst_n,
-    input           i_start,
-    output  [4:0]   o_horizontal,
-    output  [4:0]   o_vertical
+module Top (
+    input         avm_rst,
+    input         avm_clk,
+    output  [4:0] avm_address,
+    output        avm_read,
+    input  [31:0] avm_readdata,
+    output        avm_write,
+    output [31:0] avm_writedata,
+    input         avm_waitrequest
 );
+RS232 rs232(
+    .avm_rst(avm_rst),
+    .avm_clk(avm_clk),
+    .avm_address(avm_address),
+    .avm_read(avm_read),
+    .avm_readdata(avm_readdata),
+    .avm_write(avm_write),
+    .avm_writedata(avm_writedata),
+    .avm_waitrequest(avm_waitrequest),
+    .user_data(user_point),
+    .read_finished(rs232_finish_read),
+    .computer_data(computer_point),
+    .ready_to_send(cal_finished)
+);
+// Suansha killer(
+//     .i_clk(avm_clk),
+// 	.i_rst_n(avm_rst),
+// 	.i_start(),
+//     .i_depth(),
+// 	.i_board(),
+//     .o_sha(),
+//     .o_finish()
+// );
 
 // local variables 
 board chess_board_r, chess_board_w;
