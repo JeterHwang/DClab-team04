@@ -938,137 +938,149 @@ always_comb begin
             if(i_start) begin
                 finished_w = 0;
                 Compare_seven_up(.chess_board(i_board), .score(seven_score));
-                black_score_w = black_score_r + seven_score[134];
-                white_score_w = white_score_r + seven_score[269];
-                $display("up_black: ", black_score_w);
-                $display("up_white: ", white_score_w);
+                Compare_six_up(.chess_board(i_board), .score(six_score));
+                Compare_five_up(.chess_board(i_board), .score(five_score));
+                Compare_three_up(.chess_board(i_board), .score(three_score));
+                black_score_w = black_score_r + seven_score[134] + six_score[2999] + five_score[1649] + three_score[584];
+                white_score_w = white_score_r + seven_score[269] + six_score[5999] + five_score[3299]+ three_score[1169] ;
+                // $display("up_black: ", black_score_w);
+                // $display("up_white: ", white_score_w);
                 state_w = S_SEVEN_LEFT;
             end 
         end 
         S_SEVEN_LEFT:  begin 
             Compare_seven_left(.chess_board(i_board), .score(seven_score));
-            black_score_w = black_score_r + seven_score[134];
-            white_score_w = white_score_r + seven_score[269];
-            $display("left_black: ", black_score_w);
-            $display("left_white: ", white_score_w);
+            Compare_six_left(.chess_board(i_board), .score(six_score));
+            Compare_five_left(.chess_board(i_board), .score(five_score));
+            Compare_three_left(.chess_board(i_board), .score(three_score));
+            black_score_w = black_score_r + seven_score[134] + six_score[2999] + five_score[1649] + three_score[584];
+            white_score_w = white_score_r + seven_score[269] + six_score[5999] + five_score[3299]+ three_score[1169;           
+            // $display("left_black: ", black_score_w);
+            // $display("left_white: ", white_score_w);
             state_w = S_SEVEN_UL;  
         end
         S_SEVEN_UL:    begin  
             Compare_seven_upper_left(.chess_board(i_board), .score(seven_score));
-            black_score_w = black_score_r + seven_score[80];
-            white_score_w = white_score_r + seven_score[161];
-            $display("upperleft_black: ", black_score_w);
-            $display("upperleft_white: ", white_score_w);
+            Compare_six_upper_left(.chess_board(i_board), .score(six_score));
+            Compare_five_upper_left(.chess_board(i_board), .score(five_score)); 
+            Compare_three_upper_left(.chess_board(i_board), .score(three_score));
+            black_score_w = black_score_r + seven_score[80] + six_score[1999] + five_score[1209] + three_score[506];
+            white_score_w = white_score_r + seven_score[161] + six_score[3999] + five_score[2419] + three_score[1013];
+            // $display("upperleft_black: ", black_score_w);
+            // $display("upperleft_white: ", white_score_w);
             state_w = S_SEVEN_UR;
         end
         S_SEVEN_UR:    begin  
             Compare_seven_upper_right(.chess_board(i_board), .score(seven_score));
-            black_score_w = black_score_r + seven_score[80];
-            white_score_w = white_score_r + seven_score[161];
-            $display("upperright_black: ", black_score_w);
-            $display("upperright_white: ", white_score_w);
-            state_w = S_SIX_UP;   
-        end
-        S_SIX_UP:      begin  
-            Compare_six_up(.chess_board(i_board), .score(six_score));
-            black_score_w = black_score_r + six_score[2999];
-            white_score_w = white_score_r + six_score[5999];
-            $display("up_black: ", black_score_w);
-            $display("up_white: ", white_score_w);
-            // for(int i=6000; i<6040; i++) begin
-            //     $write(six_score[i], " ");
-            // end
-            state_w = S_SIX_LEFT; 
-        end
-        S_SIX_LEFT:    begin  
-            Compare_six_left(.chess_board(i_board), .score(six_score));
-            black_score_w = black_score_r + six_score[2999];
-            white_score_w = white_score_r + six_score[5999];
-            $display("left_black: ", black_score_w);
-            $display("left_white: ", white_score_w);
-            state_w = S_SIX_UL; 
-
-        end
-        S_SIX_UL:      begin  
-            Compare_six_upper_left(.chess_board(i_board), .score(six_score));
-            black_score_w = black_score_r + six_score[1999];
-            white_score_w = white_score_r + six_score[3999];
-            $display("upperleft_black: ", black_score_w);
-            $display("upperleft_white: ", white_score_w);
-            state_w = S_SIX_UR;    
-        end
-        S_SIX_UR:      begin 
             Compare_six_upper_right(.chess_board(i_board), .score(six_score));
-            black_score_w = black_score_r + six_score[1999];
-            white_score_w = white_score_r + six_score[3999];
-            $display("upperright_black: ", black_score_w);
-            $display("upperright_white: ", white_score_w);
-            state_w = S_FIVE_UP;   
-        end
-        S_FIVE_UP:     begin 
-            Compare_five_up(.chess_board(i_board), .score(five_score));
-            black_score_w = black_score_r + five_score[1649];
-            white_score_w = white_score_r + five_score[3299];
-            $display("up_black: ", black_score_w);
-            $display("up_white: ", white_score_w);
-            state_w = S_FIVE_LEFT; 
-        end
-        S_FIVE_LEFT:   begin 
-            Compare_five_left(.chess_board(i_board), .score(five_score));
-            black_score_w = black_score_r + five_score[1649];
-            white_score_w = white_score_r + five_score[3299];
-            $display("left_black: ", black_score_w);
-            $display("left_white: ", white_score_w);
-            state_w = S_FIVE_UL; 
-        end
-        S_FIVE_UL:     begin 
-            Compare_five_upper_left(.chess_board(i_board), .score(five_score)); 
-            black_score_w = black_score_r + five_score[1209];
-            white_score_w = white_score_r + five_score[2419];
-            $display("upperleft_black: ", black_score_w);
-            $display("upperleft_white: ", white_score_w);
-            state_w = S_FIVE_UR;   
-        end
-        S_FIVE_UR:     begin  
             Compare_five_upper_right(.chess_board(i_board), .score(five_score));
-            black_score_w = black_score_r + five_score[1209];
-            white_score_w = white_score_r + five_score[2419];
-            $display("upperright_black: ", black_score_w);
-            $display("upperright_white: ", white_score_w);
-            state_w = S_THREE_UP;  
-        end
-        S_THREE_UP:    begin 
-            Compare_three_up(.chess_board(i_board), .score(three_score));
-            black_score_w = black_score_r + three_score[584];
-            white_score_w = white_score_r + three_score[1169];
-            $display("up_black: ", black_score_w);
-            $display("up_white: ", white_score_w);
-            state_w = S_THREE_LEFT;
-        end
-        S_THREE_LEFT:  begin 
-            Compare_three_left(.chess_board(i_board), .score(three_score));
-            black_score_w = black_score_r + three_score[584];
-            white_score_w = white_score_r + three_score[1169];
-            $display("left_black: ", black_score_w);
-            $display("left_white: ", white_score_w);
-            state_w = S_THREE_UL;  
-        end
-        S_THREE_UL:    begin  
-            Compare_three_upper_left(.chess_board(i_board), .score(three_score));
-            black_score_w = black_score_r + three_score[506];
-            white_score_w = white_score_r + three_score[1013];
-            $display("upperleft_black: ", black_score_w);
-            $display("upperleft_white: ", white_score_w);
-            state_w = S_THREE_UR;  
-        end
-        S_THREE_UR:    begin  
             Compare_three_upper_right(.chess_board(i_board), .score(three_score));
-            black_score_w = black_score_r + three_score[506];
-            white_score_w = white_score_r + three_score[1013];
-            $display("upperright_black: ", black_score_w);
-            $display("upperright_white: ", white_score_w);
+            black_score_w = black_score_r + seven_score[80] + six_score[1999] + five_score[1209] + three_score[506];
+            white_score_w = white_score_r + seven_score[161] + six_score[3999] + five_score[2419] + three_score[1013];
+            // $display("upperright_black: ", black_score_w);
+            // $display("upperright_white: ", white_score_w);
             state_w = S_EVALUATE;   
         end
+        // S_SIX_UP:      begin  
+        //     Compare_six_up(.chess_board(i_board), .score(six_score));
+        //     black_score_w = black_score_r + six_score[2999];
+        //     white_score_w = white_score_r + six_score[5999];
+        //     $display("up_black: ", black_score_w);
+        //     $display("up_white: ", white_score_w);
+        //     // for(int i=6000; i<6040; i++) begin
+        //     //     $write(six_score[i], " ");
+        //     // end
+        //     state_w = S_SIX_LEFT; 
+        // end
+        // S_SIX_LEFT:    begin  
+        //     Compare_six_left(.chess_board(i_board), .score(six_score));
+        //     black_score_w = black_score_r + six_score[2999];
+        //     white_score_w = white_score_r + six_score[5999];
+        //     $display("left_black: ", black_score_w);
+        //     $display("left_white: ", white_score_w);
+        //     state_w = S_SIX_UL; 
+
+        // end
+        // S_SIX_UL:      begin  
+        //     Compare_six_upper_left(.chess_board(i_board), .score(six_score));
+        //     black_score_w = black_score_r + six_score[1999];
+        //     white_score_w = white_score_r + six_score[3999];
+        //     $display("upperleft_black: ", black_score_w);
+        //     $display("upperleft_white: ", white_score_w);
+        //     state_w = S_SIX_UR;    
+        // end
+        // S_SIX_UR:      begin 
+        //     Compare_six_upper_right(.chess_board(i_board), .score(six_score));
+        //     black_score_w = black_score_r + six_score[1999];
+        //     white_score_w = white_score_r + six_score[3999];
+        //     $display("upperright_black: ", black_score_w);
+        //     $display("upperright_white: ", white_score_w);
+        //     state_w = S_FIVE_UP;   
+        // end
+        // S_FIVE_UP:     begin 
+        //     Compare_five_up(.chess_board(i_board), .score(five_score));
+        //     black_score_w = black_score_r + five_score[1649];
+        //     white_score_w = white_score_r + five_score[3299];
+        //     $display("up_black: ", black_score_w);
+        //     $display("up_white: ", white_score_w);
+        //     state_w = S_FIVE_LEFT; 
+        // end
+        // S_FIVE_LEFT:   begin 
+        //     Compare_five_left(.chess_board(i_board), .score(five_score));
+        //     black_score_w = black_score_r + five_score[1649];
+        //     white_score_w = white_score_r + five_score[3299];
+        //     $display("left_black: ", black_score_w);
+        //     $display("left_white: ", white_score_w);
+        //     state_w = S_FIVE_UL; 
+        // end
+        // S_FIVE_UL:     begin 
+        //     Compare_five_upper_left(.chess_board(i_board), .score(five_score)); 
+        //     black_score_w = black_score_r + five_score[1209];
+        //     white_score_w = white_score_r + five_score[2419];
+        //     $display("upperleft_black: ", black_score_w);
+        //     $display("upperleft_white: ", white_score_w);
+        //     state_w = S_FIVE_UR;   
+        // end
+        // S_FIVE_UR:     begin  
+        //     Compare_five_upper_right(.chess_board(i_board), .score(five_score));
+        //     black_score_w = black_score_r + five_score[1209];
+        //     white_score_w = white_score_r + five_score[2419];
+        //     $display("upperright_black: ", black_score_w);
+        //     $display("upperright_white: ", white_score_w);
+        //     state_w = S_THREE_UP;  
+        // end
+        // S_THREE_UP:    begin 
+        //     Compare_three_up(.chess_board(i_board), .score(three_score));
+        //     black_score_w = black_score_r + three_score[584];
+        //     white_score_w = white_score_r + three_score[1169];
+        //     $display("up_black: ", black_score_w);
+        //     $display("up_white: ", white_score_w);
+        //     state_w = S_THREE_LEFT;
+        // end
+        // S_THREE_LEFT:  begin 
+        //     Compare_three_left(.chess_board(i_board), .score(three_score));
+        //     black_score_w = black_score_r + three_score[584];
+        //     white_score_w = white_score_r + three_score[1169];
+        //     $display("left_black: ", black_score_w);
+        //     $display("left_white: ", white_score_w);
+        //     state_w = S_THREE_UL;  
+        // end
+        // S_THREE_UL:    begin  
+        //     Compare_three_upper_left(.chess_board(i_board), .score(three_score));
+        //     black_score_w = black_score_r + three_score[506];
+        //     white_score_w = white_score_r + three_score[1013];
+        //     $display("upperleft_black: ", black_score_w);
+        //     $display("upperleft_white: ", white_score_w);
+        //     state_w = S_THREE_UR;  
+        // end
+        // S_THREE_UR:    begin  
+        //     Compare_three_upper_right(.chess_board(i_board), .score(three_score));
+        //     black_score_w = black_score_r + three_score[506];
+        //     white_score_w = white_score_r + three_score[1013];
+        //     $display("upperright_black: ", black_score_w);
+        //     $display("upperright_white: ", white_score_w);
+        //     state_w = S_EVALUATE;   
+        // end
         S_EVALUATE: begin
             if(i_turn == 0) begin
                 state_w = S_SEVEN_UP;

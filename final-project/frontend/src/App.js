@@ -2,8 +2,10 @@ import React, { Component , useEffect, useState} from 'react';
 import { Board } from './Board';
 import './styles.css';
 
+// send: 0-224cord, 
+// get:  0-224cord,
 // 棋盤大小設定
-const line = 19;
+const line = 15;
 
 // Who is Winner ?
 function calculateWinner(squares, x, y) {
@@ -85,8 +87,34 @@ function Sidebar(props) {
     </aside>
   );
 }
-function App() {
-  const [cord, setCord] = useState(null);
+
+function App (){
+  const [history,setHistory] = useState(
+    [{
+      squares: Array(line * line).fill(null),
+      currentX: null,
+      currentY: null,
+      }]
+    )
+  const [stepNumber, setStepNumber] = useState(0)                       
+  const [xIsNext, setIsNext] = useState(true)
+  const [toggle, setToggle] = useState(false)
+  const [cord, setCord] = useState(null)
+  const [count, setCount] = useState(0)
+
+ useEffect( async () => {
+   if(count !== 0){
+    
+    const coordinate = await fetchData()
+    console.log(coordinate)
+    const ind = coordinate[0]  + coordinate[1] * 15
+    whitePoint(coordinate, ind)}
+
+ }, [xIsNext])
+
+
+  const toggleClick = () => { setToggle(!toggle) }
+  
   
   // Fetch coordinates
   const fetchData = async () => {
@@ -94,41 +122,34 @@ function App() {
     const json = await res.json();
     console.log(res)
     setCord(json);
+    return json
+    console.log(cord)
+
   };
-  useEffect(() => {
-    fetchData()
-  }, []);
-  return (<Coordinate fetchData={fetchData} cord={cord}/>)
-}
-
-function Coordinate (props){
-      const [history, setHistory] = useState([
-                                        {
-                                          squares: Array(line * line).fill(null),
-                                          currentX: null,
-                                          currentY: null,
-                                        },
-                                      ])
-      const [stepNumber, setStepNumber] =  useState(0)                       
-      const [xIsNext, setIsNext] = useState(true)
-      const [toggle, setToggle] = useState(false)
-
-
-  const toggleClick = () => { setToggle(!toggle) }
-
-  
-  const handleClick = (i) => {
+  // Fetch coordinates
+  const postData = async (data = {}) => {
+    const res = await fetch("/api", 
+    {method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+   },
+   body: JSON.stringify(data)
+  })
+    console.log(res)
+    const json = await res.json();
+    console.log(json)
+    return json
+  };
+const whitePoint = (coordinate, i) => {
+    
     const allhistory = history.slice(0, stepNumber + 1);
-  
-    console.log("allHistory: ", allhistory)
     const current = allhistory[allhistory.length - 1]; //下完後的上一步
     const squares = current.squares.slice(); // return an array of null or white or black
-    console.log("current: ", current)
-    console.log("squares: ", squares)
     if (calculateWinner(squares, current.currentX, current.currentY) || squares[i]) {
       return;
     }
-    squares[i] = xIsNext ? 'black' : 'white'; // xIsNext是判斷黑或白 1為黑 0為白
+    // squares[i] = xIsNext ? 'black' : 'white'; // xIsNext是判斷黑或白 1為黑 0為白
+    squares[i] = 'white'
     setHistory(allhistory.concat([
       {
         squares,
@@ -137,36 +158,65 @@ function Coordinate (props){
       },
     ]))
     setStepNumber(allhistory.length)
+    console.log("count: " ,count)
+    console.log("step: ", stepNumber)
+    console.log("xIsNext: ", xIsNext)
+    console.log("len: ", allhistory.length)
+}
+const handleClick = (i) => {
+    postData({"x":parseInt((i / line), 10), "y": (i % line)})
+    const allhistory = history.slice(0, stepNumber + 1);
+    const current = allhistory[allhistory.length - 1]; //下完後的上一步
+    const squares = current.squares.slice(); // return an array of null or white or black
+    if (calculateWinner(squares, current.currentX, current.currentY) || squares[i]) {
+      return;
+    }
+    // squares[i] = xIsNext ? 'black' : 'white'; // xIsNext是判斷黑或白 1為黑 0為白
+    squares[i] = 'black'
+    setHistory(allhistory.concat([
+      {
+        squares,
+        currentX: (i % line),
+        currentY: parseInt((i / line), 10),
+      },
+    ]))
     setIsNext(!xIsNext)
+    setCount(count+1)
+    setStepNumber(allhistory.length)
+    console.log("count: " ,count)
+    console.log("step: ", stepNumber)
+    console.log("xIsNext: ", xIsNext)
+    console.log("len: ", allhistory.length)
+    
+   
   }
 
 
   const jumpTo = (step) => {
+    console.log("step: ", step)
     setStepNumber(step)
     setIsNext((step % 2) === 0)
   }
 
-
-    console.log("history: ", history)
-    console.log("stepNumber: ", stepNumber)
-    console.log("xIsNext: ", xIsNext)
-    console.log("toggle: ", toggle)
-    console.log("cord: ", props.cord)
-
     const current = history[stepNumber];
     const winner = calculateWinner(current.squares, current.currentX, current.currentY);
-
-    const moves = history.map((step, move) => (
-      <li className="step__item" key={move}>
-        <button
-          className="btn move"
-          type="button"
-          onClick={() => jumpTo(move)}
-        >
-          {move ? `Go to move #${move}` : 'Restart'}
-        </button>
-      </li>
-    ));
+    console.log(history)
+    const moves = history.map((step, move) => {
+      if(move % 2 === 0){
+        
+        return (
+          <li className="step__item" key={move / 2}>
+            <button
+              className="btn move"
+              type="button"
+              onClick={() => jumpTo(move)}
+            >
+              {move ? `Go to move #${move / 2}` : 'Restart'}
+            </button>
+          </li>
+        )
+      }
+    });
 
     let status;
     if (winner) {

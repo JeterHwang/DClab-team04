@@ -11,6 +11,7 @@ function Square(props) {
       />
     </button>
   );
+  
 }
 
 class Board extends Component {
@@ -19,6 +20,7 @@ class Board extends Component {
   }
 
   renderSquare(i) {
+
     return (
       <Square
         key={i}
