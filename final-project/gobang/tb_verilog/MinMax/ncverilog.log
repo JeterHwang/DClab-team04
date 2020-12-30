@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 16:31:33 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 19:30:23 CST
 ncverilog
 	MinmaxWrapper_tb.sv
 	../../MinMax/MinmaxWrapper.sv
@@ -12,29 +12,34 @@ ncverilog
 	../../Suansha/Threats.sv
 	+access+r
 Recompiling... reason: file './MinmaxWrapper_tb.sv' is newer than expected.
-	expected: Wed Dec 30 15:58:34 2020
-	actual:   Wed Dec 30 16:31:14 2020
+	expected: Wed Dec 30 19:24:10 2020
+	actual:   Wed Dec 30 19:30:19 2020
 file: MinmaxWrapper_tb.sv
 	module worklib.minmax_tb:sv
+		errors: 0, warnings: 0
+file: ../../MinMax/MinmaxNode.sv
+	module worklib.Minmax:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.minmax_tb:sv <0x111d5706>
-			streams:  10, words: 17039
+		worklib.Minmax:sv <0x4f9479d9>
+			streams:  36, words: 32291
+		worklib.minmax_tb:sv <0x5973d255>
+			streams:  11, words: 17695
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                 122       9
-		Registers:              5098     361
-		Scalar wires:            799       -
-		Vectored wires:          681       -
-		Always blocks:           221      12
+		Registers:              5303     374
+		Scalar wires:            811       -
+		Vectored wires:          881       -
+		Always blocks:           222      13
 		Initial blocks:            3       3
-		Cont. assignments:       369      44
-		Pseudo assignments:      836     168
+		Cont. assignments:       389      50
+		Pseudo assignments:      941     193
 		Compilation units:         1       1
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.minmax_tb:sv
@@ -50,9 +55,9 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 File was opened successfully : -2147483645
-(X, Y) = (10,  8)
+(X, Y) = ( 1,  5)
 
-Simulation complete via $finish(1) at time 613385 NS + 4
-./MinmaxWrapper_tb.sv:61         $finish;
+Simulation complete via $finish(1) at time 16765 NS + 4
+./MinmaxWrapper_tb.sv:66                 $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 16:33:20 CST  (total: 00:01:47)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 19:30:28 CST  (total: 00:00:05)

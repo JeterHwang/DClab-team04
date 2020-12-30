@@ -9,9 +9,11 @@ module minmax_tb;
     logic clk;
     logic start;
     logic rst_n;
+    logic [4:0] depth;
     logic [3:0] X_output;
     logic [3:0] Y_output;
     logic finish;
+    logic kill;
     int fp_i, fp_o;
     int status;
     
@@ -19,11 +21,12 @@ module minmax_tb;
         .i_clk(clk),
         .i_rst_n(rst_n),
         .i_start(start),
-        .i_depth(5'd2),
+        .i_depth(depth),
         .i_board(i_board),
         .o_Xpos(X_output),
         .o_Ypos(Y_output),
-        .o_finish(finish)
+        .o_finish(finish),
+        .o_kill(kill)
     );
 
     initial clk = 0;
@@ -32,7 +35,7 @@ module minmax_tb;
     initial begin
         $fsdbDumpfile("MinmaxWrapper.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../../pattern/SS_test2_i.txt", "r");
+        fp_i = $fopen("../../pattern/SS_test3_i.txt", "r");
 
         if(fp_i) 
             $display("File was opened successfully : %0d", fp_i);
@@ -46,24 +49,27 @@ module minmax_tb;
             end
         end
 
-        start = 0;
-        rst_n = 1;
+        for(int i = 0; i < 6; i = i + 2) begin
+            depth = i[4:0];
+            start = 0;
+            rst_n = 1;
+            #(`CLK) rst_n = 0;
+            #(`CLK) rst_n = 1;
+            #(`CLK) start = 1;
+            #(`CLK) start = 0;
 
-        #(`CLK) rst_n = 0;
-        #(`CLK) rst_n = 1;
-        #(`CLK) start = 1;
-        #(`CLK) start = 0;
+            @(posedge finish) begin
+                $display("(X, Y) = (%d, %d)\n", X_output, Y_output);
+            end
 
-        @(posedge finish) begin
-            $display("(X, Y) = (%d, %d)\n", X_output, Y_output);
-        end
-
-        $finish;
+            if(kill)
+                $finish;
+        end 
+        
     end
-
     initial begin
 		#(100000000 * (`CLK))
 		$display("Too slow, abort.");
 		$finish;
-	end  
+	end
 endmodule

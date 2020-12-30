@@ -13,7 +13,8 @@ module Minmax(		//
 	output 		  	o_finish,		// tell parent that all the points have been searched 
 	output 		  	o_start,		// tell children to start searching their points
 	output  [3:0]   o_Xpos,
-    output  [3:0]   o_Ypos
+    output  [3:0]   o_Ypos,
+	output 			o_kill
 );
 
 parameter MAXX = {1'b0, {31{1'b1}}};
@@ -59,14 +60,17 @@ logic signed [31:0] SC_score;
 logic SS_result;
 logic SS_finish;
 logic SS_start_r, SS_start_w;
+logic [3:0] SS_Xpos;
+logic [3:0] SS_Ypos;
 
 assign turn 	= i_depth[0] & 1;
 assign o_finish = finish_r;
 assign o_point 	= point_r;
 assign o_board 	= board_r;
 assign o_start 	= next_start_r;
-assign o_Xpos 	= ans_x_r;
-assign o_Ypos 	= ans_y_r;
+assign o_Xpos 	= (i_depth == 0) ? SS_Xpos : ans_x_r;
+assign o_Ypos 	= (i_depth == 0) ? SS_Ypos : ans_y_r;
+assign o_kill   = SS_result;
 
 point_generator PG(
     .i_clk(i_clk),
@@ -91,10 +95,12 @@ Suansha SS(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_start(SS_start_r),
-	.i_depth(5'd4),
+	.i_depth(5'd6),
 	.i_board(i_board),
 	.o_sha(SS_result),
-	.o_finish(SS_finish)
+	.o_finish(SS_finish),
+	.o_Xpos(SS_Xpos),
+	.o_Ypos(SS_Ypos)
 );
 CheckFive checkIwin(
 	.i_board(i_board), 
