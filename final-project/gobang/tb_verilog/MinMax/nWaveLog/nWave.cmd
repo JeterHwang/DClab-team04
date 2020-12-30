@@ -1475,3 +1475,4 @@ wvGetSignalClose -win $_nWave1
 wvSelectSignal -win $_nWave1 {( "G1" 10 )} 
 wvSelectSignal -win $_nWave1 {( "G1" 5 )} 
 wvSetCursor -win $_nWave1 45023.800823 -snap {("G5" 0)}
+wvExit
