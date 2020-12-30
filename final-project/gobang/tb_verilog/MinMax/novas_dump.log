@@ -73,9 +73,9 @@ argv[8]=../../Suansha/KillNode.sv
 argv[9]=../../Suansha/Threats.sv
 argv[10]=+access+r
 74 profile - 100
-          CPU/Mem usage: 0.010 sys,  0.050 user,  92.74M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.040 user,  103.91M sys,  0.00M vm
 75 VC callback profile - scalar:0 vector:0
-76 Wed Dec 30 19:30:27 2020
+76 Wed Dec 30 19:33:12 2020
 77 pliAppInit
 78 *Verdi3* : Enable Parallel Dumping.
 79 pliAppMiscSet: New Sim Round
@@ -92,7 +92,7 @@ stack trace not available83 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
 90 *Verdi3* : Begin traversing the scopes, layer (0).
 91 *Verdi3* : End of traversing.
 92 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.020 sys,  0.130 user,  239.68M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.120 user,  250.85M sys,  0.00M vm
                    incr: 0.000 sys,  0.070 user,  7.37M sys,  0.00M vm
                    accu: 0.000 sys,  0.070 user,  7.37M sys,  0.00M vm
               accu incr: 0.000 sys,  0.070 user,  7.37M sys,  0.00M vm
@@ -102,22 +102,22 @@ stack trace not available83 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
                  accu: 4370 var,  4046 idcode,  4046 callback
             accu incr: 4370 var,  4046 idcode,  4046 callback
 93 VC callback profile - scalar:0 vector:0
-94 Wed Dec 30 19:30:27 2020
+94 Wed Dec 30 19:33:12 2020
 95 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.020 sys,  0.130 user,  240.73M sys,  0.00M vm
-                   incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.000 sys,  0.070 user,  8.43M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.130 user,  251.90M sys,  0.00M vm
+                   incr: 0.000 sys,  0.010 user,  1.05M sys,  0.00M vm
+                   accu: 0.000 sys,  0.080 user,  8.43M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.010 user,  1.05M sys,  0.00M vm
 
           Count usage: 4370 var,  4046 idcode,  4046 callback
                  incr: 0 var,  0 idcode,  0 callback
                  accu: 4370 var,  4046 idcode,  4046 callback
             accu incr: 0 var,  0 idcode,  0 callback
 96 VC callback profile - scalar:1830 vector:2216
-97 Wed Dec 30 19:30:27 2020
-98 End of simulation at 167650
-99 VC callback profile - scalar:20087 vector:13244
-100 Wed Dec 30 19:30:28 2020
-101 Parallel profile    -  Flush:2 ProduceWait:0 ConsumerWait:0 BlockUsed:0
+97 Wed Dec 30 19:33:12 2020
+98 End of simulation at 8225150
+99 VC callback profile - scalar:805113 vector:499660
+100 Wed Dec 30 19:34:26 2020
+101 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:24 BlockUsed:23
 102 SimExit
 103 Sim process exit
