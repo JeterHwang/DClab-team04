@@ -1,4 +1,5 @@
 import React, { Component  } from 'react';
+
 import './styles.css';
 
 function Square(props) {
@@ -11,7 +12,7 @@ function Square(props) {
       />
     </button>
   );
-  
+
 }
 
 class Board extends Component {

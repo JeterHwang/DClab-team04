@@ -1,5 +1,6 @@
 import React, { Component , useEffect, useState} from 'react';
 import { Board } from './Board';
+import MouseTooltip from 'react-sticky-mouse-tooltip';
 import './styles.css';
 
 // send: 0-224cord, 
@@ -101,6 +102,7 @@ function App (){
   const [toggle, setToggle] = useState(false)
   const [cord, setCord] = useState(null)
   const [count, setCount] = useState(0)
+  const [isMouseTooltipVisible, setVisible] = useState(true)
 
  useEffect( async () => {
    if(count !== 0){
@@ -248,6 +250,18 @@ const handleClick = (i) => {
           toggle={toggle}
           moves={moves}
         />
+        <MouseTooltip
+          visible={isMouseTooltipVisible}
+          offsetX={15}
+          offsetY={10}
+        >
+        <div class="flip">
+            <div class="card">
+                <div class="face front"></div>
+                <div class="face back"></div>
+            </div>
+        </div>
+        </MouseTooltip>
       </div>
     );
   }
