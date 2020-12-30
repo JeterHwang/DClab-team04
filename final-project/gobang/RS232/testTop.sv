@@ -20,22 +20,26 @@ RS232 rs232(
     .user_data(user_point),
     .read_finished(rs232_finish_read),
     .computer_data(computer_point_r),
-    .ready_to_send(cal_finished_r)
+    .ready_to_send(cal_finished_w)
 );
 logic [7:0] user_point;
 logic [7:0] computer_point_r,computer_point_w;
 logic rs232_finish_read;
 logic cal_finished_r,cal_finished_w;
-logic state_w,state_r;
+logic [3:0]state_w,state_r;
 
-parameter S_READ  = 0;
-parameter S_WRITE = 1;
+parameter S_IDLE  = 0;
+parameter S_READ  = 1;
+parameter S_WRITE = 2;
 
 always_comb begin
     state_w = state_r;
     cal_finished_w = cal_finished_r;
     computer_point_w = computer_point_r;
     case (state_r)
+		  S_IDLE:begin
+				state_w = S_READ;
+		  end
         S_READ:begin
             if(rs232_finish_read == 1)begin
                 state_w = S_WRITE;
@@ -45,6 +49,7 @@ always_comb begin
         end
         S_WRITE:begin
             state_w = S_READ;
+				cal_finished_w = 0;
         end
         
         default: begin
@@ -67,3 +72,4 @@ always_ff @(posedge avm_clk or negedge avm_rst) begin
         cal_finished_r  <= cal_finished_w;
     end
 end
+endmodule
