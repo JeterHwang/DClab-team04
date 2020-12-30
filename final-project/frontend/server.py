@@ -8,14 +8,21 @@ count = 0
 # @app.route('/api/hello')
 # def index():
 #     return "hello"
+def writefile(cord):
+    f = open("demofile.txt", "w")
+    f.write(cord)
+    f.close()
 @app.route('/api', methods=['POST'])
 def postTest():
     if request.method == "POST":
-        print(request.json["x"], request.json["y"])
+        print(request.json["cord"])
+        cord = str(request.json["cord"])
+        writefile(cord)
         print("I am a post")
     if not request.json:
         return "not a json post"
     return ({"result": "all good"})
+
 @app.route('/api')
 def cor():
     global count

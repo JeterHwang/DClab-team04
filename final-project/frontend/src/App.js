@@ -164,7 +164,8 @@ const whitePoint = (coordinate, i) => {
     console.log("len: ", allhistory.length)
 }
 const handleClick = (i) => {
-    postData({"x":parseInt((i / line), 10), "y": (i % line)})
+    // postData({"x":parseInt((i / line), 10), "y": (i % line)})
+    postData({"cord": i})
     const allhistory = history.slice(0, stepNumber + 1);
     const current = allhistory[allhistory.length - 1]; //下完後的上一步
     const squares = current.squares.slice(); // return an array of null or white or black
@@ -196,6 +197,7 @@ const handleClick = (i) => {
     console.log("step: ", step)
     setStepNumber(step)
     setIsNext((step % 2) === 0)
+    if(step === 0) setCount(0)
   }
 
     const current = history[stepNumber];

@@ -158,13 +158,13 @@ ul {
 .board-row + .board-row {
   margin-top: -5px;
 }
-.board-row:nth-child(1) .square::after, .board-row:nth-child(19) .square::after {
+.board-row:nth-child(1) .square::after, .board-row:nth-child(15) .square::after {
   height: 50%;
 }
 .board-row:nth-child(1) .square::after {
   top: 50%;
 }
-.board-row:nth-child(19) .square::after {
+.board-row:nth-child(15) .square::after {
   bottom: 50%;
 }
 
