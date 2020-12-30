@@ -1,0 +1,21 @@
+ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
+TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 13:19:09 CST
+ncverilog
+	MinmaxWrapper_tb.sv
+	../../MinMax/MinmaxWrapper.sv
+	../../MinMax/MinmaxNode.sv
+	../../MinMax/PointGen.sv
+	../../MinMax/Score.sv
+	../../Suansha/KillWrapper.sv
+	../../Suansha/KillNode.sv
+	../../Suansha/Threats.sv
+	+access+r
+ncverilog: *E,FILEMIS: Cannot find the provided file MinmaxWrapper_tb.sv.
+ncverilog: *E,FILEMIS: Cannot find the provided file ../../MinMax/MinmaxWrapper.sv.
+ncverilog: *E,FILEMIS: Cannot find the provided file ../../MinMax/MinmaxNode.sv.
+ncverilog: *E,FILEMIS: Cannot find the provided file ../../MinMax/PointGen.sv.
+ncverilog: *E,FILEMIS: Cannot find the provided file ../../MinMax/Score.sv.
+ncverilog: *E,FILEMIS: Cannot find the provided file ../../Suansha/KillWrapper.sv.
+ncverilog: *E,FILEMIS: Cannot find the provided file ../../Suansha/KillNode.sv.
+ncverilog: *E,FILEMIS: Cannot find the provided file ../../Suansha/Threats.sv.
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 13:19:09 CST  (total: 00:00:00)

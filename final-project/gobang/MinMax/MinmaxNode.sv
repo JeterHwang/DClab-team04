@@ -41,6 +41,7 @@ logic [3:0] ans_x_r, ans_x_w;
 logic [3:0] ans_y_r, ans_y_w;
 logic finish_r, finish_w;
 logic next_start_r, next_start_w;
+logic Iwin, Ilose;
 
 // point generator signals
 logic PG_start_r, PG_start_w;
@@ -90,10 +91,20 @@ Suansha SS(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_start(SS_start_r),
-	.i_depth(5'd0),
+	.i_depth(5'd4),
 	.i_board(i_board),
 	.o_sha(SS_result),
 	.o_finish(SS_finish)
+);
+CheckFive checkIwin(
+	.i_board(i_board), 
+	.i_turn(turn), 
+	.o_win(Iwin)
+);
+CheckFive checkIlose(
+	.i_board(i_board), 
+	.i_turn(~turn), 
+	.o_win(Ilose)
 );
 task min(
 	input signed [31:0] score_A,
@@ -171,9 +182,23 @@ always_comb begin
 		S_IDLE: begin
 			finish_w = 1'b0;
 			if(i_start) begin
-				if(i_depth == 0) begin
-					SS_start_w 	= 1'b1;
-					state_w 	= S_SS;
+				if(Iwin) begin
+					finish_w = 1'b1;
+					if(turn)
+						point_w = {12'b111111111111, 20'b00001011110111000000};
+					else
+						point_w = 32'd1000000;
+				end
+				else if(Ilose) begin
+					finish_w = 1'b1;
+					if(turn)
+						point_w = 32'd1000000;
+					else
+						point_w = {12'b111111111111, 20'b00001011110111000000};
+				end
+				else if(i_depth == 0) begin
+					SS_start_w = 1'b1;
+					state_w = S_SS;
 				end
 				else begin
 					PG_start_w 	= 1'b1;

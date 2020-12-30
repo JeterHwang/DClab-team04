@@ -11,11 +11,12 @@ module TH_tb;
     logic rst_n;
     logic return_result;
     logic Kill_finish;
+    logic [3:0] Kill_x, Kill_y;
 
     int fp_i, fp_o;
     int status;
 
-    parameter i_depth = 5'd8;  // only even numbers are allowed !!
+    parameter i_depth = 5'd6;  // only even numbers are allowed !!
 
     Suansha SS(
         .i_clk(clk),
@@ -24,7 +25,9 @@ module TH_tb;
         .i_depth(i_depth),
         .i_board(i_board),
         .o_sha(return_result),
-        .o_finish(Kill_finish)
+        .o_finish(Kill_finish),
+        .o_Xpos(Kill_x),
+        .o_Ypos(Kill_y)
     ); 
 
     initial clk = 0;
@@ -58,7 +61,7 @@ module TH_tb;
     end  
     
     initial begin
-		#(10000000 * (`CLK))
+		#(100000000 * (`CLK))
 		$display("Too slow, abort.");
 		$finish;
 	end  
@@ -66,17 +69,12 @@ module TH_tb;
     
     always@(posedge Kill_finish) begin
         $display("========= output result =========");
-        if(i_depth[0] & 1) begin
-            if(return_result)
-                $display("Human successfully defense !!");
-            else
-                $display("Human faiiled to defense @@");
+        if(return_result) begin
+            $display("AI got a kill !!");
+            $display("The point is : (%d, %d)\n", Kill_x, Kill_y);
         end
         else begin
-            if(return_result)
-                $display("AI got a kill !!");
-            else
-                $display("AI can not kill @@");
+            $display("AI can not kill @@");
         end
         $display("============= end ==============");
         $finish;

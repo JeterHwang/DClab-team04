@@ -13,7 +13,9 @@ module Kill_node(
     output     board    o_board,
     output              o_sha,     
     output              o_finish,
-    output              o_start         
+    output              o_start,         
+    output    [3:0]     o_Xpos,
+    output    [3:0]     o_Ypos
 );
 
 parameter S_IDLE = 2'd0;
@@ -29,6 +31,8 @@ logic result_r, result_w;
 logic finish_r, finish_w;
 logic next_start_r, next_start_w;
 logic [9:0] coor_1D_w;
+logic [3:0] Xpos_r, Xpos_w;
+logic [3:0] Ypos_r, Ypos_w;
 
 // Threats variables
 logic turn;
@@ -46,6 +50,8 @@ assign o_finish = finish_r;
 // for next level
 assign o_start  = next_start_r;
 assign o_board  = board_r;
+assign o_Xpos = Xpos_r;
+assign o_Ypos = Ypos_r;
 
 Threats threat(
     .i_clk(i_clk),
@@ -67,7 +73,9 @@ always_comb begin
     result_w    = result_r;
     finish_w    = finish_r;
     next_start_w = next_start_r;
-    
+    Xpos_w      = Xpos_r;
+    Ypos_w      = Ypos_r;
+
     case (state_r)
         S_IDLE: begin
             finish_w    = 1'b0;
@@ -100,10 +108,16 @@ always_comb begin
             end
         end
         S_WAIT: begin
-            if(pointer_r <= SZ_buffer || result_r == 1'b0) begin
+            if(pointer_r <= SZ_buffer || result_r == 0) begin
                 finish_w    = 1'b1;
                 state_w     = S_IDLE;
                 result_w    = result_r;
+                if(result_r == 0) begin
+                    Xpos_w = X_buffer[(pointer_r+4) -: 4];
+                    Ypos_w = Y_buffer[(pointer_r+4) -: 4];
+                    //if(i_depth == 4)
+                    //    $display("!!!!!!!!!(%d , %d)\n", X_buffer[(pointer_r+4) -: 4], Y_buffer[(pointer_r+4) -: 4]);
+                end
             end
             else begin
                 next_start_w        = 1'b1;
@@ -114,7 +128,7 @@ always_comb begin
                         board_w[i * 15 + j] = i_board[i * 15 + j];
                     end
                 end
-                //if(i_depth == 1) begin
+                //if(i_depth == 6) begin
                 //    $display("=========== depth : %d ===========\n", i_depth);
                 //    $display("Pointer Lowerbound = %d\n", SZ_buffer);
                 //    $display("Pointer = %d %d\n", pointer_r, pointer_w);
@@ -146,6 +160,8 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
         result_r        <= 1'b0;
         finish_r        <= 1'b0;
         next_start_r    <= 1'b0;
+        Xpos_r          <= 4'd0;
+        Ypos_r          <= 4'd0;
     end
     else begin
         board_r         <= board_w;
@@ -154,6 +170,8 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
         result_r        <= result_w;
         finish_r        <= finish_w;
         next_start_r    <= next_start_w;
+        Xpos_r          <= Xpos_w;
+        Ypos_r          <= Ypos_w;
     end
 end
 endmodule

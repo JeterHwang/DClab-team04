@@ -19,7 +19,7 @@ module minmax_tb;
         .i_clk(clk),
         .i_rst_n(rst_n),
         .i_start(start),
-        .i_depth(5'd4),
+        .i_depth(5'd2),
         .i_board(i_board),
         .o_Xpos(X_output),
         .o_Ypos(Y_output),
@@ -32,7 +32,7 @@ module minmax_tb;
     initial begin
         $fsdbDumpfile("MinmaxWrapper.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../../pattern/PG_test1_i.txt", "r");
+        fp_i = $fopen("../../pattern/SS_test2_i.txt", "r");
 
         if(fp_i) 
             $display("File was opened successfully : %0d", fp_i);

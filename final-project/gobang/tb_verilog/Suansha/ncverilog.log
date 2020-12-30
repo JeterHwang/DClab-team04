@@ -1,14 +1,14 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 00:12:31 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 18:15:53 CST
 ncverilog
 	KillWrapper_tb.sv
 	../../Suansha/KillWrapper.sv
 	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv' is newer than expected.
-	expected: Mon Dec 28 01:00:19 2020
-	actual:   Tue Dec 29 19:33:38 2020
+Recompiling... reason: file './KillWrapper_tb.sv' is newer than expected.
+	expected: Wed Dec 30 18:04:15 2020
+	actual:   Wed Dec 30 18:15:48 2020
 file: KillWrapper_tb.sv
 	module worklib.TH_tb:sv
 		errors: 0, warnings: 0
@@ -16,20 +16,20 @@ file: KillWrapper_tb.sv
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.TH_tb:sv <0x15403c9b>
-			streams:  10, words: 16772
+		worklib.TH_tb:sv <0x1b14e6f3>
+			streams:  12, words: 18009
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                  20       4
-		Registers:               762     106
+		Registers:               802     114
 		Scalar wires:            141       -
-		Vectored wires:          110       -
+		Vectored wires:          150       -
 		Always blocks:            38       6
 		Initial blocks:            3       3
-		Cont. assignments:        66      22
-		Pseudo assignments:      138      90
+		Cont. assignments:        68      26
+		Pseudo assignments:      158     110
 		Compilation units:         1       1
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.TH_tb:sv
@@ -47,8 +47,10 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 Read file was opened successfully : -2147483645
 ========= output result =========
 AI got a kill !!
+The point is : ( 1,  5)
+
 ============= end ==============
-Simulation complete via $finish(1) at time 44875 NS + 4
-./KillWrapper_tb.sv:82         $finish;
+Simulation complete via $finish(1) at time 16745 NS + 4
+./KillWrapper_tb.sv:80         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 00:13:23 CST  (total: 00:00:52)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 18:15:57 CST  (total: 00:00:04)
