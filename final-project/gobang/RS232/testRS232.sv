@@ -62,7 +62,7 @@ always_comb begin
                     data_w = data_r;
                 end
                 else if (avm_address_r == RX_BASE) begin
-                 	  finish_w = 1;
+                 	finish_w = 1;
                     state_w = S_WAIT_WRITE;
                     avm_address_w = STATUS_BASE;
                     data_w = avm_readdata[7:0];
