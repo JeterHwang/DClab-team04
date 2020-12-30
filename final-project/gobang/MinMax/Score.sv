@@ -935,8 +935,10 @@ always_comb begin
     
 	case (state_r)
         S_SEVEN_UP: begin
+        finished_w = 0;
+        black_score_w = 0;
+        white_score_w = 0;
             if(i_start) begin
-                finished_w = 0;
                 Compare_seven_up(.chess_board(i_board), .score(seven_score));
                 Compare_six_up(.chess_board(i_board), .score(six_score));
                 Compare_five_up(.chess_board(i_board), .score(five_score));
@@ -954,7 +956,7 @@ always_comb begin
             Compare_five_left(.chess_board(i_board), .score(five_score));
             Compare_three_left(.chess_board(i_board), .score(three_score));
             black_score_w = black_score_r + seven_score[134] + six_score[2999] + five_score[1649] + three_score[584];
-            white_score_w = white_score_r + seven_score[269] + six_score[5999] + five_score[3299]+ three_score[1169;           
+            white_score_w = white_score_r + seven_score[269] + six_score[5999] + five_score[3299]+ three_score[1169];           
             // $display("left_black: ", black_score_w);
             // $display("left_white: ", white_score_w);
             state_w = S_SEVEN_UL;  
@@ -1086,7 +1088,8 @@ always_comb begin
                 state_w = S_SEVEN_UP;
                 finished_w  = 1;
                 score_w = black_score_r - white_score_r;
-                $display("total: ",score_w);
+
+                // $display("total: ",score_w);
             end
             else begin
                 state_w = S_SEVEN_UP;
