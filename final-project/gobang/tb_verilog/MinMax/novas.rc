@@ -83,6 +83,8 @@ FSDBDumpvarsInFile = "$novasDumpvarsToFile(\"${SimDmpFile}\");"
 FSDBDumpMem = "$novasDumpMemNow(${SimDmpObj}, ${SimDmpBegin}, ${SimDmpSize});"
 [DesignTree]
 IfShowModule = {TRUE, FALSE}
+[DisabledMessages]
+version = Verdi3_2013.07
 [Editor]
 editorName = TurboEditor
 [Emacs]
@@ -160,14 +162,15 @@ StickSet-LineWidth = 1
 StickSet-FillColor = purple6
 StickSet-TextColor = black
 [FSM_Dlg-Print]
-Orientation = Landscape       
+Orientation = Landscape   
 [FileBrowser]
-nWaveOpenFsdbDirHistory = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/PointGenerator.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax,
+nWaveOpenFsdbDirHistory = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/KillWrapper.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxNode.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/PointGene\
+rator.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax,
 [Form]
 version = Verdi3_2013.07
 hb/importDsg.fm = 100,100,780,730
-wave/openWFile.fm = 100,137,823,682
-wave/getSignal.fm = 100,100,856,560
+wave/openWFile.fm = 100,137,823,696
+wave/getSignal.fm = 265,95,856,560
 [General]
 autoSaveSession = FALSE
 TclAutoSource = 
@@ -254,6 +257,9 @@ PrinterName = lp
 FileName = test.ps
 PaperSize = A4 - 210x297 (mm)
 ColorPrint = FALSE
+[QtDialog]
+QwUserAskDlg = 470,284,324,168
+QwWarnMsgDlg = 650,375,600,250
 [Session Cache]
 1 = string (session file name)
 2 = string (session file name)
@@ -477,8 +483,11 @@ ovaForbidSuccessColor = -c ID_GREEN5
 SigGroupRuleFile = 
 DisplayFileName = FALSE
 waveform_vertical_scroll_bar = TRUE
-getSignalForm = 100 100 856 560 200 439 400 120
-viewPort = 79 26 1840 1016 163 105
+scope_to_save_with_macro
+open_file_dir
+open_rc_file_dir
+getSignalForm = 265 95 856 560 200 437 400 120
+viewPort = 0 23 1920 1017 183 118
 signalSpacing = 5
 digitalSignalHeight = 15
 analogSignalHeight = 98
@@ -631,7 +640,6 @@ ResolveSymbolicLink = TRUE
 signal_rc_abspath = TRUE
 signal_rc_no_natural_bus_range = FALSE
 save_scope_with_macro = FALSE
-scope_to_save_with_macro
 SyncBrowserDir = TRUE
 TipInSignalWin = FALSE
 DisplaySignalTypeAheadOfSignalName = TRUE ICON
@@ -699,10 +707,11 @@ curveWindow_Drag&Drop_Mode = TRUE
 hspiceIncOpenMode = TRUE
 pcSelectMode = TRUE
 hierarchyDelimiter = /
-RecentFile1 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/PointGenerator.fsdb
+RecentFile1 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/KillWrapper.fsdb
+RecentFile2 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper.fsdb
+RecentFile3 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxNode.fsdb
+RecentFile4 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/PointGenerator.fsdb
 open_file_time_range = FALSE
-open_file_dir
-open_rc_file_dir
 value_window_aligment = Right
 signal_window_alignment = Auto
 ShowDeltaTime = TRUE
@@ -812,7 +821,7 @@ AddImportArgument = TRUE
 LineBreakWithScope = TRUE
 StopAfterCompileOption = -tcl
 [turboSchema_Printer_Options]
-Orientation = Landscape       
+Orientation = Landscape   
 [turbo_library]
 bdb_load_scope = 
 [verisity]

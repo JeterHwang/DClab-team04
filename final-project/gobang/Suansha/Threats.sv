@@ -1745,7 +1745,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
         pointer_three_r         <= 9'd0;    
         state_r                 <= S_IDLE;
         finish_r                <= 1'b0;
-        final_win_r                   <= 1'b0;
+        final_win_r             <= 1'b0;
         normal_X_r              <= 500'd0;
         defense_four_X_r        <= 500'd0;
         defense_four_Y_r        <= 500'd0;
