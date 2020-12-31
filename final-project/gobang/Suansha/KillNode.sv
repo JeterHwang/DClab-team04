@@ -24,18 +24,17 @@ parameter S_DFS  = 2'd3;
 // local variables
 board board_r, board_w;
 logic [1:0] state_r, state_w;
-logic [9:0] pointer_r, pointer_w;
+logic [8:0] pointer_r, pointer_w;
 logic result_r, result_w;
 logic finish_r, finish_w;
 logic next_start_r, next_start_w;
-logic [9:0] coor_1D_w;
 
 // Threats variables
 logic turn;
 logic you_win;
-logic [999:0] X_buffer;
-logic [999:0] Y_buffer;
-logic [9:0] SZ_buffer;
+logic [499:0] X_buffer;
+logic [499:0] Y_buffer;
+logic [8:0] SZ_buffer;
 
 // submodule input signal 
 assign turn     = i_depth[0] & 1;
@@ -78,7 +77,7 @@ always_comb begin
         end
         S_PEND: begin
             if(threat_finish) begin
-                if(i_depth == 0 || SZ_buffer == 999) begin
+                if(i_depth == 0 || SZ_buffer == 499) begin
                     state_w = S_IDLE;
                     finish_w = 1'b1;
                     if(turn)
@@ -94,7 +93,7 @@ always_comb begin
                     end
                     else begin
                         state_w     = S_WAIT;
-                        pointer_w   = 10'd999;    
+                        pointer_w   = 9'd499;    
                     end
                 end
             end
@@ -108,7 +107,6 @@ always_comb begin
             else begin
                 next_start_w        = 1'b1;
                 state_w             = S_DFS;
-                coor_1D_w           = 15 * X_buffer[pointer_r -: 4] + Y_buffer[pointer_r -: 4];
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
                         board_w[i * 15 + j] = i_board[i * 15 + j];
@@ -123,7 +121,7 @@ always_comb begin
                 //    end
                 //    $display("==================================");
                 //end
-                board_w[coor_1D_w]  = turn;
+                board_w[15 * X_buffer[pointer_r -: 4] + Y_buffer[pointer_r -: 4]]  = turn;
                 pointer_w           = pointer_r - 4;
             end
         end
@@ -142,7 +140,7 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
     if(!i_rst_n) begin
         board_r         <= board_w;
         state_r         <= 2'd0;
-        pointer_r       <= 10'd0;
+        pointer_r       <= 9'd0;
         result_r        <= 1'b0;
         finish_r        <= 1'b0;
         next_start_r    <= 1'b0;
