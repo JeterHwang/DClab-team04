@@ -59,7 +59,7 @@ task Offense_live_three(
     
 // live threes
     // middle blank
-    if((X < 13 && X >= 2 && Y < 13 && Y >= 2 && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l) || 
+    if(i_board[X * 15 + Y][1] && ((X < 13 && X >= 2 && Y < 13 && Y >= 2 && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l) || 
         (X < 13 && X >= 2 && i_board[(X + 2) * 15 + Y] == l && i_board[(X + 1) * 15 + Y] == turn && i_board[(X - 1) * 15 + Y] == turn && i_board[(X - 2) * 15 + Y] == l) || 
         (Y < 13 && Y >= 2 && i_board[X * 15 + (Y + 2)] == l && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y - 1)] == turn && i_board[X * 15 + (Y - 2)] == l) || 
         (X < 13 && Y < 13 && X >= 2 && Y >= 2 && i_board[(X - 2) * 15 + (Y + 2)] == l && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X + 1) * 15 + (Y - 1)] == turn && i_board[(X + 2) * 15 + (Y - 2)] == l) ||
@@ -94,7 +94,7 @@ task Offense_live_three(
         (X < 13 && X >= 3 && Y < 13 && Y >= 3 && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == l && i_board[(X - 2) * 15 + (Y - 2)] == turn && i_board[(X - 3) * 15 + (Y - 3)] == l) ||
         (Y < 13 && Y >= 3 && i_board[X * 15 + (Y + 2)] == l && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y - 1)] == l && i_board[X * 15 + (Y - 2)] == turn && i_board[X * 15 + (Y - 3)] == l) ||
         (X >= 2 && X < 12 && Y >= 3 && Y < 13 && i_board[(X - 2) * 15 + (Y + 2)] == l && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X + 1) * 15 + (Y - 1)] == l && i_board[(X + 2) * 15 + (Y - 2)] == turn && i_board[(X + 3) * 15 + (Y - 3)] == l) ||
-        (X < 13 && X >= 3 && i_board[(X - 2) * 15 + Y] == l && i_board[(X - 1) * 15 + Y] == turn && i_board[(X + 1) * 15 + Y] == l && i_board[(X + 2) * 15 + Y] == turn && i_board[(X + 3) * 15 + Y] == l)) begin
+        (X < 13 && X >= 3 && i_board[(X - 2) * 15 + Y] == l && i_board[(X - 1) * 15 + Y] == turn && i_board[(X + 1) * 15 + Y] == l && i_board[(X + 2) * 15 + Y] == turn && i_board[(X + 3) * 15 + Y] == l))) begin
             check = 1;
         end
     else begin
@@ -113,7 +113,7 @@ task Offense_blocked_four(
 );
 // blocked fours
     // lA...x ,0
-    if( ((X < 11 && X > 0) && (i_board[(X+1)*15 + Y] == turn && i_board[(X+2)*15 + Y] == turn  && i_board[(X+3)*15 + Y] == turn) &&(i_board[(X+4)*15 + Y] == {turn[1],~turn[0]}) && (i_board[(X-1)*15 + Y] == l)) || 
+    if(i_board[X * 15 + Y][1] && ( ((X < 11 && X > 0) && (i_board[(X+1)*15 + Y] == turn && i_board[(X+2)*15 + Y] == turn  && i_board[(X+3)*15 + Y] == turn) &&(i_board[(X+4)*15 + Y] == {turn[1],~turn[0]}) && (i_board[(X-1)*15 + Y] == l)) || 
         ((X < 12 && X > 1) && (i_board[(X+1)*15+Y] == turn &&  i_board[(X+2)*15+Y] == turn  && i_board[(X-1)*15+Y] == turn) && (i_board[(X+3)*15+Y] == {turn[1],~turn[0]}) && (i_board[(X-2)*15+Y] == l)) || 
         ((X < 13 && X > 2) && (i_board[(X+1)*15+Y] == turn &&  i_board[(X-1)*15+Y] == turn  && i_board[(X-2)*15+Y] == turn) && (i_board[(X+2)*15+Y] == {turn[1],~turn[0]}) && (i_board[(X-3)*15+Y] == l)) || 
         ((X < 14 && X > 3) && (i_board[(X-1)*15+Y] == turn &&  i_board[(X-2)*15+Y] == turn  && i_board[(X-3)*15+Y] == turn) && (i_board[(X+1)*15+Y] == {turn[1],~turn[0]}) && (i_board[(X-4)*15+Y] == l)) || 
@@ -192,7 +192,7 @@ task Offense_blocked_four(
         ((X < 11 && Y > 3) && (i_board[(X+1)*15+Y-1] == turn && i_board[(X+3)*15+Y-3] == turn && i_board[(X+4)*15+Y-4] == turn) && (i_board[(X+2)*15+Y-2] == l)) || 
         ((X < 12 && X > 0 && Y < 14 && Y > 2) && (i_board[(X-1)*15+Y+1] == turn && i_board[(X+2)*15+Y-2] == turn && i_board[(X+3)*15+Y-3] == turn) && (i_board[(X+1)*15+Y-1] == l)) || 
         ((X < 14 && X > 2 && Y < 12 && Y > 2) && (i_board[(X-3)*15+Y+3] == turn && i_board[(X-2)*15+Y+2] == turn && i_board[(X+1)*15+Y+1] == turn) && (i_board[(X-1)*15+Y+1] == l)) || 
-        ((X > 3 && Y < 11) && (i_board[(X-4)*15+Y+4] == turn && i_board[(X-3)*15+Y+3] == turn && i_board[(X-1)*15+Y+1] == turn) && (i_board[(X-2)*15+Y+2] == l))) begin
+        ((X > 3 && Y < 11) && (i_board[(X-4)*15+Y+4] == turn && i_board[(X-3)*15+Y+3] == turn && i_board[(X-1)*15+Y+1] == turn) && (i_board[(X-2)*15+Y+2] == l)))) begin
         check = 1;     
     end
     else begin
@@ -210,7 +210,7 @@ task Offense_live_four(
 );
 // live four first condition 
     // lA...l ,0
-        if(((X < 11 ) && (i_board[(X+1)*15+Y] == turn && i_board[(X+2)*15+Y] == turn && i_board[(X+3)*15+Y] == turn ) && (i_board[(X+4)*15+Y] == l && i_board[(X-1)*15+Y] == l)) || 
+        if(i_board[X * 15 + Y][1] && (((X < 11 ) && (i_board[(X+1)*15+Y] == turn && i_board[(X+2)*15+Y] == turn && i_board[(X+3)*15+Y] == turn ) && (i_board[(X+4)*15+Y] == l && i_board[(X-1)*15+Y] == l)) || 
             ((X < 11 && Y < 11 ) && (i_board[(X+1)*15+Y+1] == turn && i_board[(X+2)*15+Y+2] == turn && i_board[(X+3)*15+Y+3] == turn ) && (i_board[(X+4)*15+Y+4] == l && i_board[(X-1)*15+Y-1] == l)) || 
             ((Y < 11 ) && (i_board[X*15+Y+1] == turn && i_board[X*15+Y+2] == turn && i_board[X*15+Y+3] == turn ) && (i_board[X*15+Y+4] == l && i_board[X*15+Y-1] == l)) || 
             ((X > 3 && Y < 11 ) && (i_board[(X-1)*15+Y+1] == turn && i_board[(X-2)*15+Y+2] == turn && i_board[(X-3)*15+Y+3] == turn ) && (i_board[(X-4)*15+Y+4] == l && i_board[(X+1)*15+Y-1] == l)) || 
@@ -225,7 +225,7 @@ task Offense_live_four(
             ((X > 2 && X < 13 ) && (i_board[(X+1)*15+Y] == turn && i_board[(X-1)*15+Y] == turn && i_board[(X-2)*15+Y] == turn ) && (i_board[(X-3)*15+Y] == l && i_board[(X+2)*15+Y] == l)) || 
             ((X > 3 && Y > 3) && (i_board[(X-1)*15+Y-1] == turn && i_board[(X+1)*15+Y+1] == turn && i_board[(X+2)*15+Y+2] == turn ) && (i_board[(X-3)*15+Y-3] == l && i_board[(X+2)*15+Y+2] == l)) || 
             ((Y > 2 && Y < 13) && (i_board[X*15+Y+1] == turn && i_board[X*15+Y-1] == turn && i_board[X*15+Y-2] == turn ) && (i_board[X*15+Y-3] == l && i_board[X*15+Y+2] == l)) || 
-            ((X < 12 && X > 1 && Y < 13 && Y > 2 ) && (i_board[(X-1)*15+Y+1] == turn && i_board[(X+1)*15+Y-1] == turn && i_board[(X+2)*15+Y-2] == turn ) && (i_board[(X+3)*15+Y-3] == l && i_board[(X-2)*15+Y+2] == l))) begin
+            ((X < 12 && X > 1 && Y < 13 && Y > 2 ) && (i_board[(X-1)*15+Y+1] == turn && i_board[(X+1)*15+Y-1] == turn && i_board[(X+2)*15+Y-2] == turn ) && (i_board[(X+3)*15+Y-3] == l && i_board[(X-2)*15+Y+2] == l)))) begin
             check = 1;        
         end
         else begin
@@ -242,7 +242,7 @@ task Defense_three(
     output check
 );
     // A o o o *  45
-    if((X + 4 < 15 && Y + 4 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + (Y + 3)] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + (Y + 4)] == l) || 
+    if(i_board[X * 15 + Y][1] && ((X + 4 < 15 && Y + 4 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + (Y + 3)] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + (Y + 4)] == l) || 
         (X + 5 < 15 && Y + 5 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 3) * 15 + (Y + 3)] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + (Y + 4)] == {turn[1], ~turn[0]} && i_board[(X + 5) * 15 + (Y + 5)] == l) || 
         (X + 5 < 15 && Y + 5 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + (Y + 3)] == l && i_board[(X + 4) * 15 + (Y + 4)] == {turn[1], ~turn[0]} && i_board[(X + 5) * 15 + (Y + 5)] == l) || 
         (X + 3 < 15 && X - 2 >= 0 && Y + 3 < 15 && Y - 2 >= 0 && i_board[(X - 2) * 15 + (Y - 2)] == l && i_board[(X - 1) * 15 + (Y - 1)] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && +i_board[(X + 3) * 15 + (Y + 3)] == l) || 
@@ -273,7 +273,7 @@ task Defense_three(
         (X + 4 < 15 && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + Y] == l) || 
         (X + 5 < 15 && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == l && i_board[(X + 3) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 5) * 15 + Y] == l) || 
         (X + 5 < 15 && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + Y] == l && i_board[(X + 4) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 5) * 15 + Y] == l) || 
-        (X + 3 < 15 && X - 2 >= 0 && i_board[(X - 2) * 15 + Y] == l && i_board[(X - 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + Y] == l)) begin
+        (X + 3 < 15 && X - 2 >= 0 && i_board[(X - 2) * 15 + Y] == l && i_board[(X - 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + Y] == l))) begin
         check = 1;            
     end
     else begin
@@ -292,7 +292,7 @@ task Defense_four(
     output check
 );
     // A o o o o  45
-    if((X + 4 < 15 && Y + 4 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + (Y + 3)] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + (Y + 4)] == {turn[1], ~turn[0]})
+    if(i_board[X * 15 + Y][1] && ((X + 4 < 15 && Y + 4 < 15 && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + (Y + 3)] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + (Y + 4)] == {turn[1], ~turn[0]})
         (X - 1 >= 0 && X + 3 < 15 && Y - 1 >= 0 && Y + 3 < 15 && i_board[(X - 1) * 15 + (Y - 1)] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + (Y + 3)] == {turn[1], ~turn[0]})
         (X - 2 >= 0 && X + 2 < 15 && Y - 2 >= 0 && Y + 2 < 15 && i_board[(X - 2) * 15 + (Y - 2)] == {turn[1], ~turn[0]} && i_board[(X - 1) * 15 + (Y - 1)] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]})
         (Y + 4 < 15 && i_board[X * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[X * 15 + (Y + 2)] == {turn[1], ~turn[0]} && i_board[X * 15 + (Y + 3)] == {turn[1], ~turn[0]} && i_board[X * 15 + (Y + 4)] == {turn[1], ~turn[0]})
@@ -315,7 +315,7 @@ task Defense_four(
         (X - 2 >= 0 && X + 2 < 15 && Y - 2 >= 0 && Y + 2 < 15 && i_board[(X - 2) * 15 + (Y - 2)] == {turn[1], ~turn[0]} && i_board[(X - 1) * 15 + (Y - 1)] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + (Y + 1)] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + (Y + 2)] == {turn[1], ~turn[0]})
         (X + 4 < 15 && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 4) * 15 + Y] == {turn[1], ~turn[0]})
         (X - 1 >= 0 && X + 3 < 15 && i_board[(X - 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 3) * 15 + Y] == {turn[1], ~turn[0]})
-        (X - 2 >= 0 && X + 2 < 15 && i_board[(X - 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X - 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]}) begin
+        (X - 2 >= 0 && X + 2 < 15 && i_board[(X - 2) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X - 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 1) * 15 + Y] == {turn[1], ~turn[0]} && i_board[(X + 2) * 15 + Y] == {turn[1], ~turn[0]})) begin
         check = 1;        
     end
     else begin
