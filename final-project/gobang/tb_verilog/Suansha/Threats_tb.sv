@@ -9,9 +9,9 @@ module TH_tb;
     logic clk;
     logic start;
     logic rst_n;
-    logic [999:0] X_output;
-    logic [999:0] Y_output;
-    logic [9:0] buffer_pointer;
+    logic [499:0] X_output;
+    logic [499:0] Y_output;
+    logic [8:0] buffer_pointer;
     logic [3:0] X;
     logic [3:0] Y;
     logic TH_finish;
@@ -69,7 +69,7 @@ module TH_tb;
         #(`CLK) start = 0;
 
         @(posedge TH_finish) begin
-            for(int i = 999; i > buffer_pointer; i = i - 4) begin
+            for(int i = 499; i > buffer_pointer; i = i - 4) begin
                 X = X_output[i -: 4];
                 Y = Y_output[i -: 4];
                 $fwrite(fp_o, "%d %d\n", X, Y);
@@ -83,7 +83,7 @@ module TH_tb;
     end  
     
     initial begin
-		#(50 * (`CLK))
+		#(100 * (`CLK))
 		$display("Too slow, abort.");
 		$finish;
 	end  

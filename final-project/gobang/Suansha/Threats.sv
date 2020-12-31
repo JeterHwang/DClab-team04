@@ -61,16 +61,9 @@ task Offense_live_three(
     
 // live threes
     // middle blank
-    if(X < 13 && X >= 2 && Y < 13 && Y >= 2 && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l)
-        valid[pointer][offset + 0] = 1;
-    else 
-        valid[pointer][offset + 0] = 0;
-    if(X < 13 && X >= 2 && i_board[(X + 2) * 15 + Y] == l && i_board[(X + 1) * 15 + Y] == turn && i_board[(X - 1) * 15 + Y] == turn && i_board[(X - 2) * 15 + Y] == l)
-        valid[pointer][offset + 1] = 1;
-    else
-        valid[pointer][offset + 1] = 0;
-    if(Y < 13 && Y >= 2 && i_board[X * 15 + (Y + 2)] == l && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y - 1)] == turn && i_board[X * 15 + (Y - 2)] == l)
-        valid[pointer][offset + 2] = 1;
+    if((X < 13 && X >= 2 && Y < 13 && Y >= 2 && i_board[(X + 2) * 15 + (Y + 2)] == l && i_board[(X + 1) * 15 + (Y + 1)] == turn && i_board[(X - 1) * 15 + (Y - 1)] == turn && i_board[(X - 2) * 15 + (Y - 2)] == l) || 
+       (X < 13 && X >= 2 && i_board[(X + 2) * 15 + Y] == l && i_board[(X + 1) * 15 + Y] == turn && i_board[(X - 1) * 15 + Y] == turn && i_board[(X - 2) * 15 + Y] == l) || 
+       (Y < 13 && Y >= 2 && i_board[X * 15 + (Y + 2)] == l && i_board[X * 15 + (Y + 1)] == turn && i_board[X * 15 + (Y - 1)] == turn && i_board[X * 15 + (Y - 2)] == l) || 
     else
         valid[pointer][offset + 2] = 0;
     if(X < 13 && Y < 13 && X >= 2 && Y >= 2 && i_board[(X - 2) * 15 + (Y + 2)] == l && i_board[(X - 1) * 15 + (Y + 1)] == turn && i_board[(X + 1) * 15 + (Y - 1)] == turn && i_board[(X + 2) * 15 + (Y - 2)] == l)
@@ -260,6 +253,7 @@ task Offense_blocked_four(
     input   [3:0] X,
     input   [3:0] Y,
     input   [1:0] turn,
+    input   [3:0] pointer,
     input   [7:0] offset,
     output  check 
 );
@@ -900,6 +894,7 @@ task Offense_live_four(
     input   [3:0] X,
     input   [3:0] Y,
     input   [1:0] turn,
+    input   [3:0] pointer,
     input   [7:0] offset,
     output  check 
 );
@@ -1030,6 +1025,7 @@ task Defense_three(
     input [3:0] X,
     input [3:0] Y,
     input [1:0] turn,
+    input [3:0] pointer,
     input [7:0] offset,
     output check
 );
@@ -1370,6 +1366,7 @@ task Defense_four(
     input [3:0] X,
     input [3:0] Y,
     input [1:0] turn,
+    input [3:0] pointer,
     input [7:0] offset,
     output check
 );
@@ -1667,14 +1664,15 @@ always_comb begin
     final_pointer_w         = final_pointer_r;
     final_X_w               = final_X_r;
     final_Y_w               = final_Y_r;
+    cnt_w                   = cnt_r;
     case (state_r)
         S_IDLE: begin
             finish_w = 1'b0;
             if(i_start) begin
                 state_w = S_COUNT;
-                pointer_four_w = 9'd499;
-                pointer_three_w = 9'd499;
-                pointer_normal_w = 9'd499;
+                pointer_four_w[15]  = 9'd499;
+                pointer_three_w[15] = 9'd499;
+                pointer_normal_w[15] = 9'd499;
                 win_w = 1'b0;
                 cnt_w = 4'd0;
             end
@@ -1685,17 +1683,17 @@ always_comb begin
                 state_w = S_IDLE;
                 finish_w = 1'b1;
                 if(pointer_four_r != 499) begin
-                    final_pointer_w = pointer_four_r[15];
+                    final_pointer_w = pointer_four_r;
                     final_X_w = defense_four_X_r;
                     final_Y_w = defense_four_Y_r;
                 end
                 else if(pointer_four_r != 499) begin
-                    final_pointer_w = pointer_three_r[15];
+                    final_pointer_w = pointer_three_r;
                     final_X_w = defense_three_X_r;
                     final_Y_w = defense_three_Y_r;
                 end
                 else begin
-                    final_pointer_w = pointer_normal_r[15];
+                    final_pointer_w = pointer_normal_r;
                     final_X_w = normal_X_r;
                     final_Y_w = normal_Y_r;
                 end
@@ -1754,6 +1752,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
         final_pointer_r         <= 9'd0;
         final_X_r               <= 500'd0;
         final_Y_r               <= 500'd0;
+        cnt_r                   <= 4'd0;
     end
     else begin
         pointer_four_r          <= pointer_four_w[15];
@@ -1771,6 +1770,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
         final_pointer_r         <= final_pointer_w;
         final_X_r               <= final_X_w;
         final_Y_r               <= final_Y_w;
+        cnt_r                   <= cnt_w;
     end
 end
 endmodule
