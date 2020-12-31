@@ -23,17 +23,17 @@ HOME=/home/team04
 PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=1.167.50.203 40436 12345
-SSH_CONNECTION=1.167.50.203 40436 192.168.163.250 12345
-SSH_TTY=/dev/pts/4
+SSH_CLIENT=180.217.43.115 31226 12345
+SSH_CONNECTION=180.217.43.115 31226 192.168.163.250 12345
+SSH_TTY=/dev/pts/10
 TERM=xterm-256color
-DISPLAY=localhost:15.0
-XDG_SESSION_ID=c2887
+DISPLAY=localhost:16.0
+XDG_SESSION_ID=c2928
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
 PWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha
-OLDPWD=/home/team04/jeter
+OLDPWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog
 LANG=en_US.UTF-8
 MOZ_PLUGIN_PATH=/usr/lib/mozilla/plugins
 PAGER=less
@@ -66,9 +66,9 @@ argv[1]=Threats_tb.sv
 argv[2]=../../Suansha/Threats.sv
 argv[3]=+access+r
 67 profile - 100
-          CPU/Mem usage: 0.010 sys,  0.030 user,  91.87M sys,  0.00M vm
+          CPU/Mem usage: 0.010 sys,  0.040 user,  79.61M sys,  0.00M vm
 68 VC callback profile - scalar:0 vector:0
-69 Thu Dec 31 15:54:38 2020
+69 Thu Dec 31 22:14:50 2020
 70 pliAppInit
 71 *Verdi3* : Enable Parallel Dumping.
 72 pliAppMiscSet: New Sim Round
@@ -85,32 +85,32 @@ stack trace not available76 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
 83 *Verdi3* : Begin traversing the scopes, layer (0).
 84 *Verdi3* : End of traversing.
 85 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.020 sys,  0.040 user,  235.62M sys,  0.00M vm
-                   incr: 0.000 sys,  0.000 user,  4.19M sys,  0.00M vm
-                   accu: 0.000 sys,  0.000 user,  4.19M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.000 user,  4.19M sys,  0.00M vm
+          CPU/Mem usage: 0.010 sys,  0.050 user,  223.38M sys,  0.00M vm
+                   incr: 0.000 sys,  0.010 user,  4.18M sys,  0.00M vm
+                   accu: 0.000 sys,  0.010 user,  4.18M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.010 user,  4.18M sys,  0.00M vm
 
-          Count usage: 91 var,  91 idcode,  91 callback
-                 incr: 91 var,  91 idcode,  91 callback
-                 accu: 91 var,  91 idcode,  91 callback
-            accu incr: 91 var,  91 idcode,  91 callback
+          Count usage: 85 var,  85 idcode,  85 callback
+                 incr: 85 var,  85 idcode,  85 callback
+                 accu: 85 var,  85 idcode,  85 callback
+            accu incr: 85 var,  85 idcode,  85 callback
 86 VC callback profile - scalar:0 vector:0
-87 Thu Dec 31 15:54:38 2020
+87 Thu Dec 31 22:14:50 2020
 88 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.020 sys,  0.040 user,  236.68M sys,  0.00M vm
+          CPU/Mem usage: 0.010 sys,  0.050 user,  224.43M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.000 sys,  0.000 user,  5.24M sys,  0.00M vm
+                   accu: 0.000 sys,  0.010 user,  5.23M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
 
-          Count usage: 91 var,  91 idcode,  91 callback
+          Count usage: 85 var,  85 idcode,  85 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 91 var,  91 idcode,  91 callback
+                 accu: 85 var,  85 idcode,  85 callback
             accu incr: 0 var,  0 idcode,  0 callback
-89 VC callback profile - scalar:24 vector:67
-90 Thu Dec 31 15:54:38 2020
+89 VC callback profile - scalar:28 vector:57
+90 Thu Dec 31 22:14:50 2020
 91 End of simulation at 1950
-92 VC callback profile - scalar:150 vector:454
-93 Thu Dec 31 15:54:38 2020
+92 VC callback profile - scalar:160 vector:345
+93 Thu Dec 31 22:14:50 2020
 94 Parallel profile    -  Flush:2 ProduceWait:0 ConsumerWait:0 BlockUsed:0
 95 SimExit
 96 Sim process exit

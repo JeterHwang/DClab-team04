@@ -38,8 +38,8 @@ module TH_tb;
     initial begin
         $fsdbDumpfile("Threats.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../../pattern/TH_test1_i.txt", "r");
-        fp_o = $fopen("../../output/TH_test1_o.txt", "w");
+        fp_i = $fopen("../../pattern/SS_test1_i.txt", "r");
+        fp_o = $fopen("../../output/SS_test1_o.txt", "w");
         
         if(fp_i) 
             $display("Read file was opened successfully : %0d", fp_i);

@@ -1,9 +1,36 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 31, 2020 at 15:53:51 CST
+TOOL:	ncverilog	12.20-s012: Started on Dec 31, 2020 at 22:14:48 CST
 ncverilog
 	Threats_tb.sv
 	../../Suansha/Threats.sv
 	+access+r
+Recompiling... reason: file './Threats_tb.sv' is newer than expected.
+	expected: Thu Dec 31 21:52:31 2020
+	actual:   Thu Dec 31 22:14:43 2020
+file: Threats_tb.sv
+	module worklib.TH_tb:sv
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.TH_tb:sv <0x1b729ff0>
+			streams:  12, words: 20146
+	Loading native compiled code:     .................... Done
+	Building instance specific data structures.
+	Design hierarchy summary:
+		                   Instances  Unique
+		Modules:                   2       2
+		Registers:                85      85
+		Scalar wires:              9       -
+		Vectored wires:            7       -
+		Always blocks:             3       3
+		Initial blocks:            3       3
+		Cont. assignments:         2       5
+		Pseudo assignments:        6       6
+		Compilation units:         1       1
+		Simulation timescale:  100ps
+	Writing initial simulation snapshot: worklib.TH_tb:sv
 Loading snapshot worklib.TH_tb:sv .................... Done
 *Verdi3* Loading libsscore_ius122.so
 *Verdi3* : Enable Parallel Dumping.
@@ -17,8 +44,11 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : End of traversing.
 Read file was opened successfully : -2147483645
 Write file was opened successfully : -2147483644
+defense three point : ( 7 ,           3)
+defense three point : ( 7 ,          10)
+defense three point : (11 ,           3)
 I don't win !!
 Simulation complete via $finish(1) at time 195 NS + 3
 ./Threats_tb.sv:82         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 31, 2020 at 15:54:38 CST  (total: 00:00:47)
+TOOL:	ncverilog	12.20-s012: Exiting on Dec 31, 2020 at 22:14:50 CST  (total: 00:00:02)
