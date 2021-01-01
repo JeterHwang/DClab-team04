@@ -129,10 +129,10 @@ parameter logic [31:0] five_weight [0:19] = '{FIVE, THREE, TWO, BLOCKED_FOUR, BL
 parameter logic [31:0] three_weight [0:5]  = '{ONE, ONE, ONE, ONE, ONE, ONE};
 
 
-logic signed [31:0] seven_score [0:449];
-logic signed [31:0] six_score   [0:8549];
-logic signed [31:0] five_score  [0:4499];
-logic signed [31:0] three_score [0:1349];
+logic signed [31:0] seven_score [16];
+logic signed [31:0] six_score   [16];
+logic signed [31:0] five_score  [16];
+logic signed [31:0] three_score [16];
 
 
 
@@ -147,400 +147,96 @@ logic finished_r, finished_w;
 assign o_finish = finished_r;
 
 task Compare_seven_up;
-    input [1:0] chess_board [225];
     output signed [31:0] score [0:449];
     // 268
-    for(int i = 0; i <= 8; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+9) * 15 + j) * 1 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15], chess_board[j+(i+6)*15] } == seven[k+1]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+9) * 15 + j) * 1 + k] = seven_weight[k+1];
-                    else
-                        score[((i+9) * 15 + j) * 1 + k] = score[((i+9) * 15 + j) * 1 + k - 1] + seven_weight[k+1];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+9) * 15 + j) * 1 + k] = 0;
-                    else
-                        score[((i+9) * 15 + j) * 1 + k] = score[((i+9) * 15 + j) * 1 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 8; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 15 + j) * 1 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15], chess_board[j+(i+6)*15] } == seven[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 1 + k] = seven_weight[k];
-                    else
-                        score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1] + seven_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 1 + k] = 0;
-                    else
-                        score[(i * 15 + j) * 1 + k] = score[(i * 15 + j) * 1 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-endtask
-task Compare_seven_left;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:449];
     for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j <= 8; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 9 + j) * 1 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5], chess_board[i * 15 + j + 6] } === seven[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 9 + j) * 1 + k] = seven_weight[k];
-                    else
-                        score[(i * 9 + j) * 1 + k] = score[(i * 9 + j) * 1 + k - 1] + seven_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 9 + j) * 1 + k] = 0;
-                    else
-                        score[(i * 9 + j) * 1 + k] = score[(i * 9 + j) * 1 + k - 1];
-                end
-                       
-            end     
+        // seven up
+        if(i + 6 < 15) begin
+            if({i_board[j+i*15], i_board[j+(i+1)*15], i_board[j+(i+2)*15], i_board[j+(i+3)*15], i_board[j+(i+4)*15], i_board[j+(i+5)*15], i_board[j+(i+6)*15] } == seven[0]) begin
+            
+            end
+            if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15], chess_board[j+(i+6)*15] } == seven[1]) begin
+                
+            end
         end
-    end
-    for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j <= 8; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+15) * 9 + j) * 1 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5], chess_board[i * 15 + j + 6] } === seven[k+1]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 9 + j) * 1 + k] = seven_weight[k+1];
-                    else
-                        score[((i+15) * 9 + j) * 1 + k] = score[((i+15) * 9 + j) * 1 + k - 1] + seven_weight[k+1];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 9 + j) * 1 + k] = 0;
-                    else
-                        score[((i+15) * 9 + j) * 1 + k] = score[((i+15) * 9 + j) * 1 + k - 1];
-                end
-                       
-            end     
+        // seven left
+        if(j + 6 < 15) begin
+            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5], chess_board[i * 15 + j + 6] } === seven[0]) begin
+                
+            end
+            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5], chess_board[i * 15 + j + 6] } === seven[1]) begin
+                
+            end
         end
-    end
-endtask
-task Compare_seven_upper_left;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:449];
-    
-    for(int i = 0; i <= 8; i++) begin
-        for(int j = 0; j <= 8 ; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 9 + j) * 1 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 9 + j) * 1 + k] = seven_weight[k];
-                    else
-                        score[(i * 9 + j) * 1 + k] = score[(i * 9 + j) * 1 + k - 1] + seven_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 9 + j) * 1 + k] = 0;
-                    else
-                        score[(i * 9 + j) * 1 + k] = score[(i * 9 + j) * 1 + k - 1];
-                end
-                       
-            end     
+        // seven upper left 
+        if(i + 6 < 15 && j + 6 < 15) begin
+            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[0]) begin
+                
+            end
+            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[1]) begin
+                
+            end
         end
-    end
-    for(int i = 0; i <= 8; i++) begin
-        for(int j = 0; j <= 8 ; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+9) * 9 + j) * 1 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[k+1]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+9) * 9 + j) * 1 + k] = seven_weight[k+1];
-                    else
-                        score[(i * 9 + j) * 1 + k] = score[((i+9) * 9 + j) * 1 + k - 1] + seven_weight[k+1];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+9) * 9 + j) * 1 + k] = 0;
-                    else
-                        score[((i+9) * 9 + j) * 1 + k] = score[((i+9) * 9 + j) * 1 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-endtask
-task Compare_seven_upper_right;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:449];
-    
-    for(int i = 0; i <= 8; i++) begin
-        for(int j = 0; j <= 8; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 9 + j) * 1 + k] = 0;
-                if({chess_board[i * 15 + j + 6], chess_board[(i + 1) * 15 + j + 5], chess_board[(i + 2) * 15 + j + 4], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 2], chess_board[(i + 5) * 15 + j + 1], chess_board[(i + 6) * 15 + j] } === seven[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 9 + j) * 1 + k] = seven_weight[k];
-                    else
-                        score[(i * 9 + j) * 1 + k] = score[(i * 9 + j) * 1 + k - 1] + seven_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 9 + j) * 1 + k] = 0;
-                    else
-                        score[(i * 9 + j) * 1 + k] = score[(i * 9 + j) * 1 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 8; i++) begin
-        for(int j = 0; j <= 8; j++) begin
-            for(int k=0; k < 1; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+9) * 9 + j) * 1 + k] = 0;
-                if({chess_board[i * 15 + j + 6], chess_board[(i + 1) * 15 + j + 5], chess_board[(i + 2) * 15 + j + 4], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 2], chess_board[(i + 5) * 15 + j + 1], chess_board[(i + 6) * 15 + j] } === seven[k+1]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+9) * 9 + j) * 1 + k] = seven_weight[k+1];
-                    else
-                        score[((i+9) * 9 + j) * 1 + k] = score[((i+9) * 9 + j) * 1 + k - 1] + seven_weight[k+1];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+9) * 9 + j) * 1 + k] = 0;
-                    else
-                        score[((i+9) * 9 + j) * 1 + k] = score[((i+9) * 9 + j) * 1 + k - 1];
-                end
-                       
-            end     
+        // seven upper right
+        if(i + 6 < 15 && j + 6 < 15) begin
+            if({chess_board[i * 15 + j + 6], chess_board[(i + 1) * 15 + j + 5], chess_board[(i + 2) * 15 + j + 4], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 2], chess_board[(i + 5) * 15 + j + 1], chess_board[(i + 6) * 15 + j] } === seven[0])
+                
+            else
+            
+            if({chess_board[i * 15 + j + 6], chess_board[(i + 1) * 15 + j + 5], chess_board[(i + 2) * 15 + j + 4], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 2], chess_board[(i + 5) * 15 + j + 1], chess_board[(i + 6) * 15 + j] } === seven[1])
+                
+            else
         end
     end
 endtask
 
 task Compare_six_up;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:8549];
+    output signed [31:0] score [15];
     
-    for(int i = 0; i <= 9; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 15 + j) * 20 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15]} === six[k]) begin
-                    if(i == 0 && j ==0 && k == 0) begin
-                        score[(i * 15 + j) * 20 + k] = six_weight[k];
-                        score[6000+k] = k;
-                    end
-                    else begin
-                        score[(i * 15 + j) * 20 + k] = score[(i * 15 + j) * 20 + k - 1] + six_weight[k];
-                        score[6000+k] = k;
-                    end
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 20 + k] = 0;
-                    else
-                        score[(i * 15 + j) * 20 + k] = score[(i * 15 + j) * 20 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 9; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+10) * 15 + j) * 20 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15]} === six[k+20]) begin
-                    if(i == 0 && j ==0 && k == 0) begin
-                        score[((i+10) * 15 + j) * 20 + k] = six_weight[k+20];
-                        score[6000+k+20] = k;
-                    end
-                    else begin
-                        score[((i+10) * 15 + j) * 20 + k] = score[((i+10) * 15 + j) * 20 + k - 1] + six_weight[k+20];
-                        score[6000+k+20] = k;
-                    end
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+10) * 15 + j) * 20 + k] = 0;
-                    else
-                        score[((i+10) * 15 + j) * 20 + k] = score[((i+10) * 15 + j) * 20 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-endtask
-task Compare_six_left;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:8549];
-    // 5662
     for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j < 10; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 10 + j) * 20 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5] } === six[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 10 + j) * 20 + k] = six_weight[k];
-                    else
-                        score[(i * 10 + j) * 20 + k] = score[(i * 10 + j) * 20 + k - 1] + six_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 10 + j) * 20 + k] = 0;
-                    else
-                        score[(i * 10 + j) * 20 + k] = score[(i * 10 + j) * 20 + k - 1];
-                end
-                       
-            end     
+        // six up
+        if(i + 5 < 15) begin
+            if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15]} === six[0])
+
+            
         end
-    end
-    for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j < 10; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+15) * 10 + j) * 20 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5] } === six[k+20]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 10 + j) * 20 + k] = six_weight[k+20];
-                    else
-                        score[((i+15) * 10 + j) * 20 + k] = score[((i+15) * 10 + j) * 20 + k - 1] + six_weight[k+20];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 10 + j) * 20 + k] = 0;
-                    else
-                        score[((i+15) * 10 + j) * 20 + k] = score[((i+15) * 10 + j) * 20 + k - 1];
-                end
-                       
-            end     
+        // six left
+        if(j + 5 < 15) begin
+            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5]} === six[0])
         end
-    end
-endtask
-task Compare_six_upper_left;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:8549];
-    
-    for(int i = 0; i <= 9; i++) begin
-        for(int j = 0; j <= 9 ; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 10 + j) * 20 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5] } === six[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 10 + j) * 20 + k] = six_weight[k];
-                    else
-                        score[(i * 10 + j) * 20 + k] = score[(i * 10 + j) * 20 + k - 1] + six_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 10 + j) * 20 + k] = 0;
-                    else
-                        score[(i * 10 + j) * 20 + k] = score[(i * 10 + j) * 20 + k - 1];
-                end
-                       
-            end     
+        // six upper left
+        if(i + 5 < 15 && j + 5 < 15) begin
+            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5]} === six[0])
         end
-    end
-    for(int i = 0; i <= 9; i++) begin
-        for(int j = 0; j <= 9 ; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+10) * 10 + j) * 20 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5] } === six[k+20]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+10) * 10 + j) * 20 + k] = six_weight[k+20];
-                    else
-                        score[((i+10) * 10 + j) * 20 + k] = score[((i+10) * 10 + j) * 20 + k - 1] + six_weight[k+20];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+10) * 10 + j) * 20 + k] = 0;
-                    else
-                        score[((i+10) * 10 + j) * 20 + k] = score[((i+10) * 10 + j) * 20 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-endtask
-task Compare_six_upper_right;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:8549];
-    
-    for(int i = 0; i <= 9; i++) begin
-        for(int j = 0; j <= 9; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 10 + j) * 20 + k] = 0;
-                if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j] } === six[k]) begin
-                    if(i == 0 && j ==0 && k == 0) begin
-                        score[(i * 10 + j) * 20 + k] = six_weight[k];
-                        score[4000+k] = k;
-                    end
-                    else begin
-                        score[(i * 10 + j) * 20 + k] = score[(i * 10 + j) * 20 + k - 1] + six_weight[k];
-                        score[4000+k] = k;
-                    end
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 10 + j) * 20 + k] = 0;
-                    else
-                        score[(i * 10 + j) * 20 + k] = score[(i * 10 + j) * 20 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 9; i++) begin
-        for(int j = 0; j <= 9; j++) begin
-            for(int k=0; k < 20; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+10) * 10 + j) * 20 + k] = 0;
-                if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j] } === six[k+20]) begin
-                    if(i == 0 && j ==0 && k == 0) begin
-                        score[((i+10) * 10 + j) * 20 + k] = six_weight[k+20];
-                        score[4000+k+20] = k+20;
-                    end
-                    else begin
-                        score[((i+10) * 10 + j) * 20 + k] = score[((i+10) * 10 + j) * 20 + k - 1] + six_weight[k+20];
-                        score[4000+k+20] = k+20;
-                    end
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+10) * 10 + j) * 20 + k] = 0;
-                    else
-                        score[((i+10) * 10 + j) * 20 + k] = score[((i+10) * 10 + j) * 20 + k - 1];
-                end
-                       
-            end     
+        // six upper right
+        if(i + 5 < 15 && j + 5 < 15) begin
+            if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j]} === six[0])
         end
     end
 endtask
 task Compare_five_up;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:4499];
+    output signed [31:0] score [15];
+    
+    for(int i = 0; i < 15; i++) begin
+        // six up
+        if(i + 5 < 15) begin
+            if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15]} === six[0])
+
+            
+        end
+        // six left
+        if(j + 5 < 15) begin
+            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5]} === six[0])
+        end
+        // six upper left
+        if(i + 5 < 15 && j + 5 < 15) begin
+            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5]} === six[0])
+        end
+        // six upper right
+        if(i + 5 < 15 && j + 5 < 15) begin
+            if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j]} === six[0])
+        end
+    end
     // 3280
     for(int i = 0; i <= 10; i++) begin
         for(int j = 0; j <= 14; j++) begin
