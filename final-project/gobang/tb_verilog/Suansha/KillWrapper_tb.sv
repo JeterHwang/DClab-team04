@@ -1,7 +1,7 @@
 `timescale 1ns/100ps
 
-`define CLK 10
-`define HCLK 5
+`define CLK 20
+`define HCLK 10
 typedef logic [1:0] board [225];
 
 module TH_tb;

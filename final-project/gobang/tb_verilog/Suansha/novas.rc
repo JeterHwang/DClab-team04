@@ -160,14 +160,14 @@ StickSet-LineWidth = 1
 StickSet-FillColor = purple6
 StickSet-TextColor = black
 [FSM_Dlg-Print]
-Orientation = Landscape       
+Orientation = Landscape      
 [FileBrowser]
-nWaveOpenFsdbDirHistory = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/KillNode.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha,
+nWaveOpenFsdbDirHistory = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/Threats.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/KillNode.fsdb,/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha,
 [Form]
 version = Verdi3_2013.07
 hb/importDsg.fm = 100,100,780,730
-wave/openWFile.fm = 100,100,823,696
 wave/unknownSave.fm = 100,100,520,275
+wave/openWFile.fm = 100,137,823,682
 wave/getSignal.fm = 100,100,856,562
 [General]
 autoSaveSession = FALSE
@@ -478,8 +478,11 @@ ovaForbidSuccessColor = -c ID_GREEN5
 SigGroupRuleFile = 
 DisplayFileName = FALSE
 waveform_vertical_scroll_bar = TRUE
-getSignalForm = 100 100 856 562 200 439 400 120
-viewPort = 0 23 1920 1017 224 154
+scope_to_save_with_macro
+open_file_dir
+open_rc_file_dir
+getSignalForm = 100 100 856 562 200 441 400 120
+viewPort = 79 26 1840 1016 224 154
 signalSpacing = 5
 digitalSignalHeight = 15
 analogSignalHeight = 98
@@ -632,7 +635,6 @@ ResolveSymbolicLink = TRUE
 signal_rc_abspath = TRUE
 signal_rc_no_natural_bus_range = FALSE
 save_scope_with_macro = FALSE
-scope_to_save_with_macro
 SyncBrowserDir = TRUE
 TipInSignalWin = FALSE
 DisplaySignalTypeAheadOfSignalName = TRUE ICON
@@ -700,10 +702,9 @@ curveWindow_Drag&Drop_Mode = TRUE
 hspiceIncOpenMode = TRUE
 pcSelectMode = TRUE
 hierarchyDelimiter = /
-RecentFile1 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/KillNode.fsdb
+RecentFile1 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/Threats.fsdb
+RecentFile2 = /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha/KillNode.fsdb
 open_file_time_range = FALSE
-open_file_dir
-open_rc_file_dir
 value_window_aligment = Right
 signal_window_alignment = Auto
 ShowDeltaTime = TRUE
@@ -813,7 +814,7 @@ AddImportArgument = TRUE
 LineBreakWithScope = TRUE
 StopAfterCompileOption = -tcl
 [turboSchema_Printer_Options]
-Orientation = Landscape       
+Orientation = Landscape      
 [turbo_library]
 bdb_load_scope = 
 [verisity]

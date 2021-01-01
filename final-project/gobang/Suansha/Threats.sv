@@ -499,7 +499,7 @@ always_ff @(posedge i_clk or negedge i_rst_n) begin
         pointer_three_r         <= pointer_three_w[15];    
         state_r                 <= state_w;
         finish_r                <= finish_w;
-        final_win_r             <= win_w;
+        final_win_r             <= final_win_w;
         normal_X_r              <= normal_X_w;
         normal_Y_r              <= normal_Y_w;
         defense_four_X_r        <= defense_four_X_w;
