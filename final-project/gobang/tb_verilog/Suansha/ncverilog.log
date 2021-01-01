@@ -1,56 +1,14 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Jan 01, 2021 at 12:07:54 CST
+TOOL:	ncverilog	12.20-s012: Started on Jan 01, 2021 at 16:32:41 CST
 ncverilog
-	KillWrapper_tb.sv
+	MinmaxWrapper_tb.sv
+	../../MinMax/MinmaxWrapper.sv
+	../../MinMax/MinmaxNode.sv
+	../../MinMax/Score.sv
+	../../MinMax/CheckFive.sv
 	../../Suansha/KillWrapper.sv
 	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file './KillWrapper_tb.sv' is newer than expected.
-	expected: Fri Jan  1 12:07:23 2021
-	actual:   Fri Jan  1 12:07:50 2021
-file: KillWrapper_tb.sv
-	module worklib.TH_tb:sv
-		errors: 0, warnings: 0
-		Caching library 'worklib' ....... Done
-	Elaborating the design hierarchy:
-	Building instance overlay tables: .................... Done
-	Generating native compiled code:
-		worklib.TH_tb:sv <0x1b14e6f3>
-			streams:  12, words: 18009
-	Loading native compiled code:     .................... Done
-	Building instance specific data structures.
-	Design hierarchy summary:
-		                   Instances  Unique
-		Modules:                  20       4
-		Registers:               874     122
-		Scalar wires:            141       -
-		Vectored wires:          150       -
-		Always blocks:            38       6
-		Initial blocks:            3       3
-		Cont. assignments:        59      26
-		Pseudo assignments:      158     110
-		Compilation units:         1       1
-		Simulation timescale:  100ps
-	Writing initial simulation snapshot: worklib.TH_tb:sv
-Loading snapshot worklib.TH_tb:sv .................... Done
-*Verdi3* Loading libsscore_ius122.so
-*Verdi3* : Enable Parallel Dumping.
-ncsim> source /opt/CAD/INCISIV/cur/tools/inca/files/ncsimrc
-ncsim> run
-FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
-(C) 1996 - 2013 by Synopsys, Inc.
-*Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
-*Verdi3* : Create FSDB file 'KillWrapper.fsdb'
-*Verdi3* : Begin traversing the scopes, layer (0).
-*Verdi3* : End of traversing.
-Read file was opened successfully : -2147483645
-========= output result =========
-AI got a kill !!
-The point is : ( 1,  5)
-
-============= end ==============
-Simulation complete via $finish(1) at time 50190 NS + 4
-./KillWrapper_tb.sv:80         $finish;
-ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Jan 01, 2021 at 12:07:56 CST  (total: 00:00:02)
+ncverilog: *E,FILEMIS: Cannot find the provided file MinmaxWrapper_tb.sv.
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 01, 2021 at 16:32:41 CST  (total: 00:00:00)

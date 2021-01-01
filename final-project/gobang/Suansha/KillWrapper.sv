@@ -34,6 +34,11 @@ assign depth[8] = (i_depth >= 8) ? i_depth - 5'd8 : 5'd0;
 assign o_Xpos = Xpos[0];
 assign o_Ypos = Ypos[0];
 
+initial begin
+    finish_w[9] = 1'b0;
+    result_w[9] = 1'b0;
+end
+
 Kill_node node0(
     .i_clk(i_clk),
     .i_rst_n(i_rst_n),

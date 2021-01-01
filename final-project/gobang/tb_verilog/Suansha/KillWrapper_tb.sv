@@ -16,7 +16,7 @@ module TH_tb;
     int fp_i, fp_o;
     int status;
 
-    parameter i_depth = 5'd6;  // only even numbers are allowed !!
+    parameter i_depth = 5'd4;  // only even numbers are allowed !!
 
     Suansha SS(
         .i_clk(clk),
@@ -36,7 +36,7 @@ module TH_tb;
     initial begin
         $fsdbDumpfile("KillWrapper.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../../pattern/SS_test3_i.txt", "r");
+        fp_i = $fopen("../../pattern/SS_test2_i.txt", "r");
         
         if(fp_i) 
             $display("Read file was opened successfully : %0d", fp_i);

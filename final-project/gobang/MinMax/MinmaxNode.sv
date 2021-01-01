@@ -19,6 +19,7 @@ module Minmax(		//
 
 parameter MAXX = {1'b0, {31{1'b1}}};
 parameter MINN = {1'b1, {30{1'b0}}, 1'b1};
+parameter MAX_SS_DEPTH = 5'd8;
 
 parameter S_IDLE 	= 3'd0;
 parameter S_PG  	= 3'd1;
@@ -60,6 +61,7 @@ logic signed [31:0] SC_score;
 logic SS_result;
 logic SS_finish;
 logic SS_start_r, SS_start_w;
+logic [4:0] SS_depth_r, SS_depth_w;
 logic [3:0] SS_Xpos;
 logic [3:0] SS_Ypos;
 
@@ -95,7 +97,7 @@ Suansha SS(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_start(SS_start_r),
-	.i_depth(5'd6),
+	.i_depth(SS_depth_r),
 	.i_board(i_board),
 	.o_sha(SS_result),
 	.o_finish(SS_finish),
@@ -184,6 +186,7 @@ always_comb begin
 	PG_start_w		= PG_start_r;
 	SC_start_w		= SC_start_r;
 	SS_start_w		= SS_start_r;
+	SS_depth_w      = SS_depth_r;
 	case(state_r)
 		S_IDLE: begin
 			finish_w = 1'b0;
@@ -204,6 +207,7 @@ always_comb begin
 				end
 				else if(i_depth == 0) begin
 					SS_start_w = 1'b1;
+					SS_depth_w = 5'd2;
 					state_w = S_SS;
 				end
 				else begin
@@ -264,6 +268,10 @@ always_comb begin
 					finish_w 	= 1'b1;
 					state_w 	= S_IDLE;
 				end
+				else if(SS_depth_r < 8) begin
+					SS_depth_w = SS_depth_r + 5'd2;
+					SS_start_w = 1'b1;
+				end
 				else begin
 					SC_start_w 	= 1'b1; 
 					state_w 	= S_PEND;
@@ -296,6 +304,7 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		PG_start_r		<= 1'b0;
 		SC_start_r		<= 1'b0;
 		SS_start_r		<= 1'b0;
+		SS_depth_r		<= 5'd0;
 	end
 	else begin
 		board_r			<= board_w;
@@ -311,6 +320,7 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		PG_start_r		<= PG_start_w;
 		SC_start_r		<= SC_start_w;
 		SS_start_r		<= SS_start_w;
+		SS_depth_r		<= SS_depth_w;
 	end
 end
 endmodule

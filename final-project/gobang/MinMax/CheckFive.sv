@@ -9,22 +9,27 @@ parameter b = 2'd0;
 parameter w = 2'd1;
 parameter l = 2'd2;
 
+logic win_w;
 
-parameter black_con_five = {b, b, b, b, b};
-parameter white_con_five = {w, w, w, w, w};
-
-logic score_up;
-logic score_left;
-logic score_upper_left;
-logic score_upper_right;
-assign o_win = score_up | score_left | score_upper_left | score_upper_right;
+assign o_win = win_w;
 
 always_comb begin
-    score_up = 0;
-    score_upper_left = 0;
-    score_upper_right = 0;
-    score_left = 0;
-    
+    win_w = 1'b0;
+    for(int i = 0; i < 15; i++) begin
+        for(int j = 0; j < 15; j++) begin
+            if(i_board[i * 15 + j] == l && ((i_board[(i + 1) * 15 + (j + 1)] == i_turn && i_board[(i + 2) * 15 + (j + 2)] == i_turn && i_board[(i + 3) * 15 + (j + 3)] == i_turn && i_board[(i + 4) * 15 + (j + 4)] == i_turn) ||
+                (i_board[i * 15 + (j + 1)] == i_turn && i_board[i * 15 + (j + 2)] == i_turn && i_board[i * 15 + (j + 3)] == i_turn && i_board[i * 15 + (j + 4)] == i_turn) ||
+                (i_board[(i - 1) * 15 + (j + 1)] == i_turn && i_board[(i - 2) * 15 + (j + 2)] == i_turn && i_board[(i - 3) * 15 + (j + 3)] == i_turn && i_board[(i - 4) * 15 + (j + 4)] == i_turn) || 
+                (i_board[(i - 1) * 15 + j] == i_turn && i_board[(i - 2) * 15 + j] == i_turn && i_board[(i - 3) * 15 + j] == i_turn && i_board[(i - 4) * 15 + j] == i_turn) ||
+                (i_board[(i - 1) * 15 + (j - 1)] == i_turn && i_board[(i - 2) * 15 + (j - 2)] == i_turn && i_board[(i - 3) * 15 + (j - 3)] == i_turn && i_board[(i - 4) * 15 + (j - 4)] == i_turn) || 
+                (i_board[i * 15 + (j - 1)] == i_turn && i_board[i * 15 + (j - 2)] == i_turn && i_board[i * 15 + (j - 3)] == i_turn && i_board[i * 15 + (j - 4)] == i_turn) || 
+                (i_board[(i + 1) * 15 + (j - 1)] == i_turn && i_board[(i + 2) * 15 + (j - 2)] == i_turn && i_board[(i + 3) * 15 + (j - 3)] == i_turn && i_board[(i + 4) * 15 + (j - 4)] == i_turn) ||
+                (i_board[(i + 1) * 15 + j] == i_turn && i_board[(i + 2) * 15 + j] == i_turn && i_board[(i + 3) * 15 + j] == i_turn && i_board[(i + 4) * 15 + j] == i_turn
+            )) begin
+                
+            end
+        end
+    end
     if(i_turn == 0) begin
         for(int i = 0; i <= 10; i++) begin
             for(int j = 0; j <= 14; j++) begin

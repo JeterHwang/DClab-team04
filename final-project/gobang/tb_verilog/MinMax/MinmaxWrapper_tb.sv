@@ -1,7 +1,7 @@
 `timescale 1ns/100ps
 
-`define CLK 10
-`define HCLK 5
+`define CLK 20
+`define HCLK 10
 typedef logic [1:0] board [225];
 
 module minmax_tb;
@@ -35,7 +35,7 @@ module minmax_tb;
     initial begin
         $fsdbDumpfile("MinmaxWrapper.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../../pattern/PG_test1_i.txt", "r");
+        fp_i = $fopen("../../pattern/SS_test4_i.txt", "r");
 
         if(fp_i) 
             $display("File was opened successfully : %0d", fp_i);

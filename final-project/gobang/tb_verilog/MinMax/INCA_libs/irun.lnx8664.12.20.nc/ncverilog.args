@@ -5,7 +5,7 @@
 MinmaxWrapper_tb.sv
 ../../MinMax/MinmaxWrapper.sv
 ../../MinMax/MinmaxNode.sv
-../../MinMax/Score_v2.sv
+../../MinMax/Score_v3.sv
 ../../MinMax/CheckFive.sv
 ../../Suansha/KillWrapper.sv
 ../../Suansha/KillNode.sv

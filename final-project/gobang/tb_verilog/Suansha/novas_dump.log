@@ -23,17 +23,17 @@ HOME=/home/team04
 PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=180.217.43.115 31132 12345
-SSH_CONNECTION=180.217.43.115 31132 192.168.163.250 12345
+SSH_CLIENT=180.217.43.115 31226 12345
+SSH_CONNECTION=180.217.43.115 31226 192.168.163.250 12345
 SSH_TTY=/dev/pts/5
 TERM=xterm-256color
 DISPLAY=localhost:11.0
-XDG_SESSION_ID=c2938
+XDG_SESSION_ID=c2956
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
 PWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha
-OLDPWD=/home/team04/jeter
+OLDPWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax
 LANG=en_US.UTF-8
 MOZ_PLUGIN_PATH=/usr/lib/mozilla/plugins
 PAGER=less
@@ -68,9 +68,9 @@ argv[3]=../../Suansha/KillNode.sv
 argv[4]=../../Suansha/Threats.sv
 argv[5]=+access+r
 69 profile - 100
-          CPU/Mem usage: 0.010 sys,  0.030 user,  79.93M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.020 user,  79.95M sys,  0.00M vm
 70 VC callback profile - scalar:0 vector:0
-71 Fri Jan  1 12:07:56 2021
+71 Fri Jan  1 16:30:56 2021
 72 pliAppInit
 73 *Verdi3* : Enable Parallel Dumping.
 74 pliAppMiscSet: New Sim Round
@@ -87,32 +87,32 @@ stack trace not available78 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
 85 *Verdi3* : Begin traversing the scopes, layer (0).
 86 *Verdi3* : End of traversing.
 87 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.020 sys,  0.050 user,  224.12M sys,  0.00M vm
-                   incr: 0.000 sys,  0.010 user,  4.62M sys,  0.00M vm
-                   accu: 0.000 sys,  0.010 user,  4.62M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.010 user,  4.62M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.050 user,  224.13M sys,  0.00M vm
+                   incr: 0.000 sys,  0.020 user,  4.61M sys,  0.00M vm
+                   accu: 0.000 sys,  0.020 user,  4.61M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.020 user,  4.61M sys,  0.00M vm
 
-          Count usage: 954 var,  899 idcode,  899 callback
-                 incr: 954 var,  899 idcode,  899 callback
-                 accu: 954 var,  899 idcode,  899 callback
-            accu incr: 954 var,  899 idcode,  899 callback
+          Count usage: 945 var,  890 idcode,  890 callback
+                 incr: 945 var,  890 idcode,  890 callback
+                 accu: 945 var,  890 idcode,  890 callback
+            accu incr: 945 var,  890 idcode,  890 callback
 88 VC callback profile - scalar:0 vector:0
-89 Fri Jan  1 12:07:56 2021
+89 Fri Jan  1 16:30:56 2021
 90 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.020 sys,  0.050 user,  225.17M sys,  0.00M vm
+          CPU/Mem usage: 0.030 sys,  0.050 user,  225.19M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.000 sys,  0.010 user,  5.68M sys,  0.00M vm
+                   accu: 0.000 sys,  0.020 user,  5.66M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
 
-          Count usage: 954 var,  899 idcode,  899 callback
+          Count usage: 945 var,  890 idcode,  890 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 954 var,  899 idcode,  899 callback
+                 accu: 945 var,  890 idcode,  890 callback
             accu incr: 0 var,  0 idcode,  0 callback
-91 VC callback profile - scalar:324 vector:575
-92 Fri Jan  1 12:07:56 2021
-93 End of simulation at 501900
-94 VC callback profile - scalar:14871 vector:35479
-95 Fri Jan  1 12:07:56 2021
+91 VC callback profile - scalar:315 vector:575
+92 Fri Jan  1 16:30:56 2021
+93 End of simulation at 312700
+94 VC callback profile - scalar:9413 vector:21697
+95 Fri Jan  1 16:30:56 2021
 96 Parallel profile    -  Flush:2 ProduceWait:0 ConsumerWait:0 BlockUsed:0
 97 SimExit
 98 Sim process exit

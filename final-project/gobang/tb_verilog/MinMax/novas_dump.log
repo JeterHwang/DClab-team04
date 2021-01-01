@@ -20,20 +20,20 @@ Runtime environment variables:
 USER=team04
 LOGNAME=team04
 HOME=/home/team04
-PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
+PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=180.217.43.115 31132 12345
-SSH_CONNECTION=180.217.43.115 31132 192.168.163.250 12345
+SSH_CLIENT=180.217.43.115 31226 12345
+SSH_CONNECTION=180.217.43.115 31226 192.168.163.250 12345
 SSH_TTY=/dev/pts/5
 TERM=xterm-256color
 DISPLAY=localhost:11.0
-XDG_SESSION_ID=c2938
+XDG_SESSION_ID=c2956
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
 PWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax
-OLDPWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog
+OLDPWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha
 LANG=en_US.UTF-8
 MOZ_PLUGIN_PATH=/usr/lib/mozilla/plugins
 PAGER=less
@@ -48,10 +48,10 @@ CADENCE_PATH=/opt/CAD
 SPRING_PATH=/opt/CAD
 MENTOR_PATH=/opt/CAD
 ATRENTA_PATH=/opt/CAD
-LD_LIBRARY_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/etc/lib/libstdc++/LINUX64/:/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/etc/lib/libstdc++/LINUX64/::/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib
+LD_LIBRARY_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/etc/lib/libstdc++/LINUX64/::/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib:/opt/CAD/INCISIV/cur//lib
 INCA_64BIT=
 LM_LICENSE_FILE=5280@lscic:5280@lsntu:26585@lscic:26585@lsntu
-SHLIB_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:
+SHLIB_PATH=/opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/:
 USE_PIPE=1
 _=/opt/CAD/INCISIV/cur/tools/bin/64bit/ncverilog
 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/INCA_libs/irun.lnx8664.12.20.nc/svpp.ts
@@ -65,16 +65,16 @@ argv[0]=ncverilog
 argv[1]=MinmaxWrapper_tb.sv
 argv[2]=../../MinMax/MinmaxWrapper.sv
 argv[3]=../../MinMax/MinmaxNode.sv
-argv[4]=../../MinMax/Score_v2.sv
+argv[4]=../../MinMax/Score_v3.sv
 argv[5]=../../MinMax/CheckFive.sv
 argv[6]=../../Suansha/KillWrapper.sv
 argv[7]=../../Suansha/KillNode.sv
 argv[8]=../../Suansha/Threats.sv
 argv[9]=+access+r
 73 profile - 100
-          CPU/Mem usage: 0.020 sys,  0.040 user,  97.75M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.040 user,  88.24M sys,  0.00M vm
 74 VC callback profile - scalar:0 vector:0
-75 Fri Jan  1 13:09:03 2021
+75 Fri Jan  1 16:54:17 2021
 76 pliAppInit
 77 *Verdi3* : Enable Parallel Dumping.
 78 pliAppMiscSet: New Sim Round
@@ -91,32 +91,32 @@ stack trace not available82 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
 89 *Verdi3* : Begin traversing the scopes, layer (0).
 90 *Verdi3* : End of traversing.
 91 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.030 sys,  0.140 user,  245.99M sys,  0.00M vm
-                   incr: 0.000 sys,  0.100 user,  8.68M sys,  0.00M vm
-                   accu: 0.000 sys,  0.100 user,  8.68M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.100 user,  8.68M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.140 user,  236.33M sys,  0.00M vm
+                   incr: 0.000 sys,  0.090 user,  8.53M sys,  0.00M vm
+                   accu: 0.000 sys,  0.090 user,  8.53M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.090 user,  8.53M sys,  0.00M vm
 
-          Count usage: 5315 var,  4991 idcode,  4991 callback
-                 incr: 5315 var,  4991 idcode,  4991 callback
-                 accu: 5315 var,  4991 idcode,  4991 callback
-            accu incr: 5315 var,  4991 idcode,  4991 callback
+          Count usage: 5280 var,  4956 idcode,  4956 callback
+                 incr: 5280 var,  4956 idcode,  4956 callback
+                 accu: 5280 var,  4956 idcode,  4956 callback
+            accu incr: 5280 var,  4956 idcode,  4956 callback
 92 VC callback profile - scalar:0 vector:0
-93 Fri Jan  1 13:09:03 2021
+93 Fri Jan  1 16:54:17 2021
 94 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.030 sys,  0.140 user,  247.05M sys,  0.00M vm
-                   incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
-                   accu: 0.000 sys,  0.100 user,  9.73M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.140 user,  237.52M sys,  0.00M vm
+                   incr: 0.000 sys,  0.000 user,  1.19M sys,  0.00M vm
+                   accu: 0.000 sys,  0.090 user,  9.72M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.000 user,  1.19M sys,  0.00M vm
 
-          Count usage: 5315 var,  4991 idcode,  4991 callback
+          Count usage: 5280 var,  4956 idcode,  4956 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 5315 var,  4991 idcode,  4991 callback
+                 accu: 5280 var,  4956 idcode,  4956 callback
             accu incr: 0 var,  0 idcode,  0 callback
-95 VC callback profile - scalar:1830 vector:3161
-96 Fri Jan  1 13:09:03 2021
-97 End of simulation at 10000000000
-98 VC callback profile - scalar:400429481 vector:3311252
-99 Fri Jan  1 13:10:07 2021
-100 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:5574 BlockUsed:5590
+95 VC callback profile - scalar:1785 vector:3171
+96 Fri Jan  1 16:54:17 2021
+97 End of simulation at 5651300
+98 VC callback profile - scalar:162169 vector:405361
+99 Fri Jan  1 16:54:18 2021
+100 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:11 BlockUsed:10
 101 SimExit
 102 Sim process exit

@@ -407,6 +407,7 @@ always_comb begin
     case (state_r)
         S_IDLE: begin
             finish_w = 1'b0;
+            final_win_w = 1'b0;
             if(i_start) begin
                 state_w = S_COUNT;
                 pointer_four_w[15]  = 9'd499;

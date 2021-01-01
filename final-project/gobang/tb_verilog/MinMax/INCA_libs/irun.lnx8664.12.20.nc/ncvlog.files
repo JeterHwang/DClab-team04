@@ -5,7 +5,7 @@
 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxWrapper.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv
-/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score_v2.sv
+/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score_v3.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/CheckFive.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillWrapper.sv
 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillNode.sv

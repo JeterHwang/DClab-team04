@@ -1,10 +1,10 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Jan 01, 2021 at 13:08:14 CST
+TOOL:	ncverilog	12.20-s012: Started on Jan 01, 2021 at 16:54:13 CST
 ncverilog
 	MinmaxWrapper_tb.sv
 	../../MinMax/MinmaxWrapper.sv
 	../../MinMax/MinmaxNode.sv
-	../../MinMax/Score_v2.sv
+	../../MinMax/Score_v3.sv
 	../../MinMax/CheckFive.sv
 	../../Suansha/KillWrapper.sv
 	../../Suansha/KillNode.sv
@@ -19,7 +19,7 @@ file: ../../MinMax/MinmaxWrapper.sv
 file: ../../MinMax/MinmaxNode.sv
 	module worklib.Minmax:sv
 		errors: 0, warnings: 0
-file: ../../MinMax/Score_v2.sv
+file: ../../MinMax/Score_v3.sv
 	module worklib.Score:sv
 		errors: 0, warnings: 0
 file: ../../MinMax/CheckFive.sv
@@ -37,50 +37,35 @@ file: ../../Suansha/Threats.sv
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 		Caching library 'worklib' ....... Done
-	.o_score(SC_score),
-	                |
-ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
-	.o_score(SC_score),
-	                |
-ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
-	.o_score(SC_score),
-	                |
-ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
-	.o_score(SC_score),
-	                |
-ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
-	.o_score(SC_score),
-	                |
-ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.CheckFive:sv <0x4abe2521>
+		worklib.CheckFive:sv <0x45c3e67c>
 			streams:  18, words: 15257
-		worklib.DFS:sv <0x6ce51f09>
-			streams:  67, words: 27992
-		worklib.Kill_node:sv <0x01750361>
-			streams:  16, words: 16268
-		worklib.Minmax:sv <0x7777bc57>
-			streams:  36, words: 32309
-		worklib.Score:sv <0x4e127025>
-			streams: 707, words: 944063
-		worklib.Suansha:sv <0x7baefe25>
-			streams: 103, words: 45479
-		worklib.Threats:sv <0x5006cefb>
-			streams:  14, words: 183544
-		worklib.minmax_tb:sv <0x43d255a0>
+		worklib.DFS:sv <0x1049ad9e>
+			streams:  67, words: 28013
+		worklib.Kill_node:sv <0x2b4e1611>
+			streams:  15, words: 15984
+		worklib.Minmax:sv <0x56bd3025>
+			streams:  36, words: 33110
+		worklib.Score:sv <0x0ed2cbf0>
+			streams: 707, words: 718615
+		worklib.Suansha:sv <0x2cf2a5de>
+			streams: 104, words: 46394
+		worklib.Threats:sv <0x2af68f2a>
+			streams:  14, words: 184628
+		worklib.minmax_tb:sv <0x152e9889>
 			streams:  11, words: 17695
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                 122       9
-		Registers:              8698     989
-		Scalar wires:            811       -
+		Registers:              8708     991
+		Scalar wires:            766       -
 		Vectored wires:          881       -
 		Always blocks:           222      13
-		Initial blocks:            3       3
-		Cont. assignments:       344      50
+		Initial blocks:            8       4
+		Cont. assignments:       299      49
 		Pseudo assignments:      941     193
 		Compilation units:         2       2
 		Simulation timescale:  100ps
@@ -97,14 +82,9 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 File was opened successfully : -2147483645
-(X, Y) = ( 0,  0)
+(X, Y) = ( 3,  7)
 
-(X, Y) = ( 5,  5)
-
-(X, Y) = ( 5,  5)
-
-Too slow, abort.
-Simulation complete via $finish(1) at time 1 S + 0
-./MinmaxWrapper_tb.sv:73 		$finish;
+Simulation complete via $finish(1) at time 565130 NS + 4
+./MinmaxWrapper_tb.sv:66                 $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Jan 01, 2021 at 13:10:07 CST  (total: 00:01:53)
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 01, 2021 at 16:54:18 CST  (total: 00:00:05)

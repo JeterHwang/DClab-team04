@@ -44,7 +44,6 @@ logic [8:0] SZ_buffer;
 
 // submodule input signal 
 assign turn     = i_depth[0] & 1;
-assign win_start = (i_depth != 5'd0 && i_start) ? 1'b1 : 1'b0;
 // for prev level
 assign o_sha    = ~result_r;
 assign o_finish = finish_r;
@@ -87,6 +86,13 @@ always_comb begin
         end
         S_PEND: begin
             if(threat_finish) begin
+                //if(i_depth == 0 && you_win) begin
+                //    $display("============ Output Board ===========");
+                //    for(int i = 0; i < 15; i++) begin
+                //        $display("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n", i_board[i * 15 + 0], i_board[i * 15 + 1], i_board[i * 15 + 2], i_board[i * 15 + 3], i_board[i * 15 + 4], i_board[i * 15 + 5], i_board[i * 15 + 6], i_board[i * 15 + 7], i_board[i * 15 + 8], i_board[i * 15 + 9], i_board[i * 15 + 10], i_board[i * 15 + 11], i_board[i * 15 + 12], i_board[i * 15 + 13], i_board[i * 15 + 14]);
+                //    end
+                //    $display("============= End Output ============");
+                //end
                 if(i_depth == 0 || SZ_buffer == 499) begin
                     state_w = S_IDLE;
                     finish_w = 1'b1;
