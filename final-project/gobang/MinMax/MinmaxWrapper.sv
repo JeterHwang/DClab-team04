@@ -28,11 +28,11 @@ logic kill[6];
 assign o_Xpos 	= Xpos_w[0];
 assign o_Ypos 	= Ypos_w[0];
 assign o_finish = finish_w[0];
-assign depth[0] = (i_depth >= 0) ? i_depth - 0 : 5'd0;
-assign depth[1] = (i_depth >= 1) ? i_depth - 1 : 5'd0;
-assign depth[2] = (i_depth >= 2) ? i_depth - 2 : 5'd0;
-assign depth[3] = (i_depth >= 3) ? i_depth - 3 : 5'd0;
-assign depth[4] = (i_depth >= 4) ? i_depth - 4 : 5'd0;
+assign depth[0] = (i_depth >= 0) ? i_depth - 5'd0 : 5'd0;
+assign depth[1] = (i_depth >= 1) ? i_depth - 5'd1 : 5'd0;
+assign depth[2] = (i_depth >= 2) ? i_depth - 5'd2 : 5'd0;
+assign depth[3] = (i_depth >= 3) ? i_depth - 5'd3 : 5'd0;
+assign depth[4] = (i_depth >= 4) ? i_depth - 5'd4 : 5'd0;
 assign o_kill = output_kill_r;
 
 Minmax minmax0(
