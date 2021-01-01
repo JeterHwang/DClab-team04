@@ -72,3 +72,4 @@ wvGetSignalClose -win $_nWave1
 wvSelectSignal -win $_nWave1 {( "G1" 19 )} 
 wvSelectSignal -win $_nWave1 {( "G1" 17 )} 
 wvSelectSignal -win $_nWave1 {( "G1" 18 )} 
+wvExit

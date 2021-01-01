@@ -395,6 +395,15 @@ always_comb begin
     final_X_w               = final_X_r;
     final_Y_w               = final_Y_r;
     cnt_w                   = cnt_r;
+
+    // wire default value 
+    offense_livethree_w     = 15'd0;
+    offense_livefour_w      = 15'd0;
+    offense_blockedfour_w   = 15'd0;
+    defense_blockedfour_w   = 15'd0;
+    defense_livethree_w     = 15'd0;
+    win_w                   = 15'd0;
+    
     case (state_r)
         S_IDLE: begin
             finish_w = 1'b0;

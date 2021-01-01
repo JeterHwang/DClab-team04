@@ -127,7 +127,7 @@ always_comb begin
                     end
                 end
                 board_w[15 * X_buffer[pointer_r -: 4] + Y_buffer[pointer_r -: 4]]  = turn;
-                pointer_w           = pointer_r - 4;
+                pointer_w           = pointer_r - 9'd4;
             end
         end
         S_DFS: begin

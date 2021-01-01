@@ -1,41 +1,88 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Dec 30, 2020 at 19:32:24 CST
+TOOL:	ncverilog	12.20-s012: Started on Jan 01, 2021 at 13:08:14 CST
 ncverilog
 	MinmaxWrapper_tb.sv
 	../../MinMax/MinmaxWrapper.sv
 	../../MinMax/MinmaxNode.sv
-	../../MinMax/PointGen.sv
-	../../MinMax/Score.sv
+	../../MinMax/Score_v2.sv
 	../../MinMax/CheckFive.sv
 	../../Suansha/KillWrapper.sv
 	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file './MinmaxWrapper_tb.sv' is newer than expected.
-	expected: Wed Dec 30 19:30:19 2020
-	actual:   Wed Dec 30 19:32:20 2020
 file: MinmaxWrapper_tb.sv
 	module worklib.minmax_tb:sv
 		errors: 0, warnings: 0
+file: ../../MinMax/MinmaxWrapper.sv
+	module worklib.DFS:sv
+		errors: 0, warnings: 0
+file: ../../MinMax/MinmaxNode.sv
+	module worklib.Minmax:sv
+		errors: 0, warnings: 0
+file: ../../MinMax/Score_v2.sv
+	module worklib.Score:sv
+		errors: 0, warnings: 0
+file: ../../MinMax/CheckFive.sv
+	module worklib.CheckFive:sv
+		errors: 0, warnings: 0
+file: ../../Suansha/KillWrapper.sv
+	module worklib.Suansha:sv
+		errors: 0, warnings: 0
+file: ../../Suansha/KillNode.sv
+	module worklib.Kill_node:sv
+		errors: 0, warnings: 0
+file: ../../Suansha/Threats.sv
+	module worklib.Threats:sv
+		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+	.o_score(SC_score),
+	                |
+ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
+	.o_score(SC_score),
+	                |
+ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
+	.o_score(SC_score),
+	                |
+ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
+	.o_score(SC_score),
+	                |
+ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
+	.o_score(SC_score),
+	                |
+ncelab: *W,CUVMPW (/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv,91|17): port sizes differ in port connection (32/11).
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.minmax_tb:sv <0x5973d255>
+		worklib.CheckFive:sv <0x4abe2521>
+			streams:  18, words: 15257
+		worklib.DFS:sv <0x6ce51f09>
+			streams:  67, words: 27992
+		worklib.Kill_node:sv <0x01750361>
+			streams:  16, words: 16268
+		worklib.Minmax:sv <0x7777bc57>
+			streams:  36, words: 32309
+		worklib.Score:sv <0x4e127025>
+			streams: 707, words: 944063
+		worklib.Suansha:sv <0x7baefe25>
+			streams: 103, words: 45479
+		worklib.Threats:sv <0x5006cefb>
+			streams:  14, words: 183544
+		worklib.minmax_tb:sv <0x43d255a0>
 			streams:  11, words: 17695
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                 122       9
-		Registers:              5303     374
+		Registers:              8698     989
 		Scalar wires:            811       -
 		Vectored wires:          881       -
 		Always blocks:           222      13
 		Initial blocks:            3       3
-		Cont. assignments:       389      50
+		Cont. assignments:       344      50
 		Pseudo assignments:      941     193
-		Compilation units:         1       1
+		Compilation units:         2       2
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.minmax_tb:sv
 Loading snapshot worklib.minmax_tb:sv .................... Done
@@ -52,9 +99,12 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 File was opened successfully : -2147483645
 (X, Y) = ( 0,  0)
 
-(X, Y) = ( 7,  9)
+(X, Y) = ( 5,  5)
 
-Simulation complete via $finish(1) at time 822515 NS + 4
-./MinmaxWrapper_tb.sv:66                 $finish;
+(X, Y) = ( 5,  5)
+
+Too slow, abort.
+Simulation complete via $finish(1) at time 1 S + 0
+./MinmaxWrapper_tb.sv:73 		$finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Dec 30, 2020 at 19:34:26 CST  (total: 00:02:02)
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 01, 2021 at 13:10:07 CST  (total: 00:01:53)

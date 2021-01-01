@@ -1,10 +1,11 @@
-1609327613 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxWrapper.sv
+1609328190 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxWrapper.sv
 1609327808 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MinmaxNode.sv
 1609257313 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/PointGen.sv
 1609316408 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score.sv
 1609242904 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxNode_tb.sv
 1609327940 /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv
 1609321954 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillWrapper.sv
-1609323281 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillNode.sv
-1609322318 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv
+1609424374 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillNode.sv
+1609473831 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv
 1609316759 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/CheckFive.sv
+1609474507 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score_v2.sv
