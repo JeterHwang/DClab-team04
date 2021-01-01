@@ -85,7 +85,7 @@ function Sidebar(props) {
     </aside>
   );
 }
-function App() {
+function App_class() {
   const [cord, setCord] = useState(null);
   
   // Fetch coordinates
@@ -218,4 +218,4 @@ class Coordinate extends Component {
   }
 }
 
-export default App;
+export default App_class;

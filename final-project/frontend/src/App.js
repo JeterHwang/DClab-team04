@@ -255,12 +255,7 @@ const handleClick = (i) => {
           offsetX={15}
           offsetY={10}
         >
-        <div class="flip">
-            <div class="card">
-                <div class="face front"></div>
-                <div class="face back"></div>
-            </div>
-        </div>
+        <div class="flip"></div>
         </MouseTooltip>
       </div>
     );
