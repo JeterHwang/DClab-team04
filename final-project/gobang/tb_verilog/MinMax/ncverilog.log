@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Jan 01, 2021 at 16:54:13 CST
+TOOL:	ncverilog	12.20-s012: Started on Jan 01, 2021 at 18:45:06 CST
 ncverilog
 	MinmaxWrapper_tb.sv
 	../../MinMax/MinmaxWrapper.sv
@@ -10,62 +10,30 @@ ncverilog
 	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-file: MinmaxWrapper_tb.sv
-	module worklib.minmax_tb:sv
-		errors: 0, warnings: 0
-file: ../../MinMax/MinmaxWrapper.sv
-	module worklib.DFS:sv
-		errors: 0, warnings: 0
-file: ../../MinMax/MinmaxNode.sv
-	module worklib.Minmax:sv
-		errors: 0, warnings: 0
-file: ../../MinMax/Score_v3.sv
-	module worklib.Score:sv
-		errors: 0, warnings: 0
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/CheckFive.sv' is newer than expected.
+	expected: Fri Jan  1 18:37:06 2021
+	actual:   Fri Jan  1 18:45:02 2021
 file: ../../MinMax/CheckFive.sv
 	module worklib.CheckFive:sv
-		errors: 0, warnings: 0
-file: ../../Suansha/KillWrapper.sv
-	module worklib.Suansha:sv
-		errors: 0, warnings: 0
-file: ../../Suansha/KillNode.sv
-	module worklib.Kill_node:sv
-		errors: 0, warnings: 0
-file: ../../Suansha/Threats.sv
-	module worklib.Threats:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 		Caching library 'worklib' ....... Done
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.CheckFive:sv <0x45c3e67c>
-			streams:  18, words: 15257
-		worklib.DFS:sv <0x1049ad9e>
-			streams:  67, words: 28013
-		worklib.Kill_node:sv <0x2b4e1611>
-			streams:  15, words: 15984
-		worklib.Minmax:sv <0x56bd3025>
-			streams:  36, words: 33110
-		worklib.Score:sv <0x0ed2cbf0>
-			streams: 707, words: 718615
-		worklib.Suansha:sv <0x2cf2a5de>
-			streams: 104, words: 46394
-		worklib.Threats:sv <0x2af68f2a>
-			streams:  14, words: 184628
-		worklib.minmax_tb:sv <0x152e9889>
-			streams:  11, words: 17695
+		worklib.CheckFive:sv <0x5765859d>
+			streams:   3, words:  4900
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
 		Modules:                 122       9
-		Registers:              8708     991
+		Registers:              8538     974
 		Scalar wires:            766       -
 		Vectored wires:          881       -
 		Always blocks:           222      13
 		Initial blocks:            8       4
-		Cont. assignments:       299      49
+		Cont. assignments:       289      49
 		Pseudo assignments:      941     193
 		Compilation units:         2       2
 		Simulation timescale:  100ps
@@ -87,4 +55,4 @@ File was opened successfully : -2147483645
 Simulation complete via $finish(1) at time 565130 NS + 4
 ./MinmaxWrapper_tb.sv:66                 $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Jan 01, 2021 at 16:54:18 CST  (total: 00:00:05)
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 01, 2021 at 18:45:55 CST  (total: 00:00:49)

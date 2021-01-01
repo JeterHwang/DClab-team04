@@ -7,6 +7,6 @@
 1609486812 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillWrapper.sv
 1609490029 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/KillNode.sv
 1609489451 /home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv
-1609316759 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/CheckFive.sv
+1609497902 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/CheckFive.sv
 1609474507 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score_v2.sv
 1609486176 /home/team04/jeter/DClab-team04/final-project/gobang/MinMax/Score_v3.sv

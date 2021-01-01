@@ -23,17 +23,17 @@ HOME=/home/team04
 PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=180.217.43.115 31226 12345
-SSH_CONNECTION=180.217.43.115 31226 192.168.163.250 12345
-SSH_TTY=/dev/pts/5
+SSH_CLIENT=180.217.43.115 31100 12345
+SSH_CONNECTION=180.217.43.115 31100 192.168.163.250 12345
+SSH_TTY=/dev/pts/4
 TERM=xterm-256color
-DISPLAY=localhost:11.0
-XDG_SESSION_ID=c2956
+DISPLAY=localhost:16.0
+XDG_SESSION_ID=c2980
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
 PWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax
-OLDPWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha
+OLDPWD=/home/team04/jeter
 LANG=en_US.UTF-8
 MOZ_PLUGIN_PATH=/usr/lib/mozilla/plugins
 PAGER=less
@@ -72,9 +72,9 @@ argv[7]=../../Suansha/KillNode.sv
 argv[8]=../../Suansha/Threats.sv
 argv[9]=+access+r
 73 profile - 100
-          CPU/Mem usage: 0.020 sys,  0.040 user,  88.24M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.040 user,  99.37M sys,  0.00M vm
 74 VC callback profile - scalar:0 vector:0
-75 Fri Jan  1 16:54:17 2021
+75 Fri Jan  1 18:45:53 2021
 76 pliAppInit
 77 *Verdi3* : Enable Parallel Dumping.
 78 pliAppMiscSet: New Sim Round
@@ -91,32 +91,32 @@ stack trace not available82 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
 89 *Verdi3* : Begin traversing the scopes, layer (0).
 90 *Verdi3* : End of traversing.
 91 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.020 sys,  0.140 user,  236.33M sys,  0.00M vm
-                   incr: 0.000 sys,  0.090 user,  8.53M sys,  0.00M vm
-                   accu: 0.000 sys,  0.090 user,  8.53M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.090 user,  8.53M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.150 user,  247.57M sys,  0.00M vm
+                   incr: 0.000 sys,  0.100 user,  8.64M sys,  0.00M vm
+                   accu: 0.000 sys,  0.100 user,  8.64M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.100 user,  8.64M sys,  0.00M vm
 
-          Count usage: 5280 var,  4956 idcode,  4956 callback
-                 incr: 5280 var,  4956 idcode,  4956 callback
-                 accu: 5280 var,  4956 idcode,  4956 callback
-            accu incr: 5280 var,  4956 idcode,  4956 callback
+          Count usage: 5250 var,  4926 idcode,  4926 callback
+                 incr: 5250 var,  4926 idcode,  4926 callback
+                 accu: 5250 var,  4926 idcode,  4926 callback
+            accu incr: 5250 var,  4926 idcode,  4926 callback
 92 VC callback profile - scalar:0 vector:0
-93 Fri Jan  1 16:54:17 2021
+93 Fri Jan  1 18:45:54 2021
 94 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.020 sys,  0.140 user,  237.52M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.150 user,  248.77M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.19M sys,  0.00M vm
-                   accu: 0.000 sys,  0.090 user,  9.72M sys,  0.00M vm
+                   accu: 0.000 sys,  0.100 user,  9.83M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.19M sys,  0.00M vm
 
-          Count usage: 5280 var,  4956 idcode,  4956 callback
+          Count usage: 5250 var,  4926 idcode,  4926 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 5280 var,  4956 idcode,  4956 callback
+                 accu: 5250 var,  4926 idcode,  4926 callback
             accu incr: 0 var,  0 idcode,  0 callback
-95 VC callback profile - scalar:1785 vector:3171
-96 Fri Jan  1 16:54:17 2021
+95 VC callback profile - scalar:1755 vector:3171
+96 Fri Jan  1 18:45:54 2021
 97 End of simulation at 5651300
-98 VC callback profile - scalar:162169 vector:405361
-99 Fri Jan  1 16:54:18 2021
+98 VC callback profile - scalar:162109 vector:405361
+99 Fri Jan  1 18:45:55 2021
 100 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:11 BlockUsed:10
 101 SimExit
 102 Sim process exit
