@@ -244,7 +244,7 @@ always_comb begin
 				pointer_w			= pointer_r - 4;
 				state_w				= S_DFS;
 			end
-		end
+		end 
 		S_DFS: begin
 			next_start_w = 1'b0;
 			if(i_next) begin
