@@ -4,5 +4,12 @@ module Offense_blocked_four(
     input   [1:0] turn,
     output  check 
 );
-    always_comb
+
+logic checked;
+
+assign check = checked;
+
+always_comb begin
+    
+end
 endmodule
