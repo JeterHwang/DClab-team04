@@ -23,17 +23,17 @@ HOME=/home/team04
 PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=180.217.43.115 31100 12345
-SSH_CONNECTION=180.217.43.115 31100 192.168.163.250 12345
-SSH_TTY=/dev/pts/4
+SSH_CLIENT=140.112.4.209 34281 12345
+SSH_CONNECTION=140.112.4.209 34281 192.168.163.250 12345
+SSH_TTY=/dev/pts/10
 TERM=xterm-256color
-DISPLAY=localhost:16.0
-XDG_SESSION_ID=c2980
+DISPLAY=localhost:17.0
+XDG_SESSION_ID=c3280
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
 PWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax
-OLDPWD=/home/team04/jeter
+OLDPWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha
 LANG=en_US.UTF-8
 MOZ_PLUGIN_PATH=/usr/lib/mozilla/plugins
 PAGER=less
@@ -64,59 +64,62 @@ Runtime command line arguments:
 argv[0]=ncverilog
 argv[1]=MinmaxWrapper_tb.sv
 argv[2]=../../MinMax/MinmaxWrapper.sv
-argv[3]=../../MinMax/MinmaxNode.sv
-argv[4]=../../MinMax/Score_v3.sv
-argv[5]=../../MinMax/CheckFive.sv
-argv[6]=../../Suansha/KillWrapper.sv
-argv[7]=../../Suansha/KillNode.sv
-argv[8]=../../Suansha/Threats.sv
-argv[9]=+access+r
-73 profile - 100
-          CPU/Mem usage: 0.020 sys,  0.040 user,  99.37M sys,  0.00M vm
-74 VC callback profile - scalar:0 vector:0
-75 Fri Jan  1 18:45:53 2021
-76 pliAppInit
-77 *Verdi3* : Enable Parallel Dumping.
-78 pliAppMiscSet: New Sim Round
-79 LIBSSCORE=found /opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/libsscore_ius122.so through $LD_LIBRARY_PATH setting.
-80 argv[0]: MinmaxWrapper.fsdb
-81 Catch signal 11. Stack trace follows:
-stack trace not available82 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
-83 (C) 1996 - 2013 by Synopsys, Inc.
-84 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv(36)
-85 argv[0]: MinmaxWrapper.fsdb
-86 *Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
-87 *Verdi3* : Create FSDB file 'MinmaxWrapper.fsdb'
-88 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv(37)
-89 *Verdi3* : Begin traversing the scopes, layer (0).
-90 *Verdi3* : End of traversing.
-91 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.020 sys,  0.150 user,  247.57M sys,  0.00M vm
-                   incr: 0.000 sys,  0.100 user,  8.64M sys,  0.00M vm
-                   accu: 0.000 sys,  0.100 user,  8.64M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.100 user,  8.64M sys,  0.00M vm
+argv[3]=../../MinMax/BaseNode.sv
+argv[4]=../../MinMax/MinNode.sv
+argv[5]=../../MinMax/MaxNode.sv
+argv[6]=../../MinMax/CheckFive.sv
+argv[7]=../../MinMax/Score.sv
+argv[8]=../../MinMax/PointGen.sv
+argv[9]=../../Suansha/KillWrapper.sv
+argv[10]=../../Suansha/KillNode.sv
+argv[11]=../../Suansha/Threats.sv
+argv[12]=+access+r
+76 profile - 100
+          CPU/Mem usage: 0.020 sys,  0.040 user,  92.42M sys,  0.00M vm
+77 VC callback profile - scalar:0 vector:0
+78 Sun Jan  3 04:18:41 2021
+79 pliAppInit
+80 *Verdi3* : Enable Parallel Dumping.
+81 pliAppMiscSet: New Sim Round
+82 LIBSSCORE=found /opt/CAD/verdi/cur/share/PLI/IUS/LINUX64/libsscore_ius122.so through $LD_LIBRARY_PATH setting.
+83 argv[0]: MinmaxWrapper.fsdb
+84 Catch signal 11. Stack trace follows:
+stack trace not available85 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
+86 (C) 1996 - 2013 by Synopsys, Inc.
+87 sps_call_fsdbDumpfile at 0 : /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv(36)
+88 argv[0]: MinmaxWrapper.fsdb
+89 *Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+90 *Verdi3* : Create FSDB file 'MinmaxWrapper.fsdb'
+91 sps_call_fsdbDumpvars at 0 : /home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/MinMax/MinmaxWrapper_tb.sv(37)
+92 *Verdi3* : Begin traversing the scopes, layer (0).
+93 *Verdi3* : End of traversing.
+94 fsdbDumpvars traverse var: profile - 
+          CPU/Mem usage: 0.020 sys,  0.090 user,  238.21M sys,  0.00M vm
+                   incr: 0.000 sys,  0.050 user,  6.22M sys,  0.00M vm
+                   accu: 0.000 sys,  0.050 user,  6.22M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.050 user,  6.22M sys,  0.00M vm
 
-          Count usage: 5250 var,  4926 idcode,  4926 callback
-                 incr: 5250 var,  4926 idcode,  4926 callback
-                 accu: 5250 var,  4926 idcode,  4926 callback
-            accu incr: 5250 var,  4926 idcode,  4926 callback
-92 VC callback profile - scalar:0 vector:0
-93 Fri Jan  1 18:45:54 2021
-94 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.020 sys,  0.150 user,  248.77M sys,  0.00M vm
-                   incr: 0.000 sys,  0.000 user,  1.19M sys,  0.00M vm
-                   accu: 0.000 sys,  0.100 user,  9.83M sys,  0.00M vm
-              accu incr: 0.000 sys,  0.000 user,  1.19M sys,  0.00M vm
+          Count usage: 3528 var,  3326 idcode,  3326 callback
+                 incr: 3528 var,  3326 idcode,  3326 callback
+                 accu: 3528 var,  3326 idcode,  3326 callback
+            accu incr: 3528 var,  3326 idcode,  3326 callback
+95 VC callback profile - scalar:0 vector:0
+96 Sun Jan  3 04:18:41 2021
+97 fsdbDumpvars: profile - 
+          CPU/Mem usage: 0.020 sys,  0.090 user,  239.26M sys,  0.00M vm
+                   incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
+                   accu: 0.000 sys,  0.050 user,  7.27M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
 
-          Count usage: 5250 var,  4926 idcode,  4926 callback
+          Count usage: 3528 var,  3326 idcode,  3326 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 5250 var,  4926 idcode,  4926 callback
+                 accu: 3528 var,  3326 idcode,  3326 callback
             accu incr: 0 var,  0 idcode,  0 callback
-95 VC callback profile - scalar:1755 vector:3171
-96 Fri Jan  1 18:45:54 2021
-97 End of simulation at 5651300
-98 VC callback profile - scalar:162109 vector:405361
-99 Fri Jan  1 18:45:55 2021
-100 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:11 BlockUsed:10
-101 SimExit
-102 Sim process exit
+98 VC callback profile - scalar:1190 vector:2136
+99 Sun Jan  3 04:18:41 2021
+100 End of simulation at 142556100
+101 VC callback profile - scalar:3005782 vector:7020791
+102 Sun Jan  3 04:18:49 2021
+103 Parallel profile    -  Flush:2 ProduceWait:2 ConsumerWait:115 BlockUsed:125
+104 SimExit
+105 Sim process exit

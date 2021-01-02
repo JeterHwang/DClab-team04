@@ -1,33 +1,35 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Jan 02, 2021 at 23:06:15 CST
+TOOL:	ncverilog	12.20-s012: Started on Jan 03, 2021 at 03:39:51 CST
 ncverilog
-	Threats_tb.sv
+	KillWrapper_tb.sv
+	../../Suansha/KillWrapper.sv
+	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/Suansha/Threats.sv' is newer than expected.
-	expected: Sat Jan  2 20:08:15 2021
-	actual:   Sat Jan  2 23:06:08 2021
-file: ../../Suansha/Threats.sv
-	module worklib.Threats:sv
+Recompiling... reason: file './KillWrapper_tb.sv' is newer than expected.
+	expected: Sun Jan  3 02:13:42 2021
+	actual:   Sun Jan  3 03:39:05 2021
+file: KillWrapper_tb.sv
+	module worklib.TH_tb:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Threats:sv <0x017433a2>
-			streams:  12, words: 164810
+		worklib.TH_tb:sv <0x4f46b5df>
+			streams:  12, words: 23379
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
-		Modules:                   2       2
-		Registers:                87      87
-		Scalar wires:              9       -
-		Vectored wires:            7       -
-		Always blocks:             3       3
-		Initial blocks:            3       3
-		Cont. assignments:         2       5
-		Pseudo assignments:        6       6
+		Modules:                  20       4
+		Registers:               892     124
+		Scalar wires:            132       -
+		Vectored wires:          150       -
+		Always blocks:            38       6
+		Initial blocks:            4       4
+		Cont. assignments:        50      25
+		Pseudo assignments:      158     110
 		Compilation units:         1       1
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.TH_tb:sv
@@ -39,13 +41,14 @@ ncsim> run
 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 (C) 1996 - 2013 by Synopsys, Inc.
 *Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
-*Verdi3* : Create FSDB file 'Threats.fsdb'
+*Verdi3* : Create FSDB file 'KillWrapper.fsdb'
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 Read file was opened successfully : -2147483645
-Write file was opened successfully : -2147483644
-Too slow, abort.
-Simulation complete via $finish(1) at time 1 US + 0
-./Threats_tb.sv:88 		$finish;
+========= output result =========
+AI can not kill @@
+============= end ==============
+Simulation complete via $finish(1) at time 138350 NS + 4
+./KillWrapper_tb.sv:80         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Jan 02, 2021 at 23:07:03 CST  (total: 00:00:48)
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 03, 2021 at 03:39:54 CST  (total: 00:00:03)

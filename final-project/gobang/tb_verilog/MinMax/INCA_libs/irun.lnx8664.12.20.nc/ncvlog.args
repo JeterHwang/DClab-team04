@@ -7,9 +7,12 @@
 -RUNMODE
 MinmaxWrapper_tb.sv
 ../../MinMax/MinmaxWrapper.sv
-../../MinMax/MinmaxNode.sv
-../../MinMax/Score_v3.sv
+../../MinMax/BaseNode.sv
+../../MinMax/MinNode.sv
+../../MinMax/MaxNode.sv
 ../../MinMax/CheckFive.sv
+../../MinMax/Score.sv
+../../MinMax/PointGen.sv
 ../../Suansha/KillWrapper.sv
 ../../Suansha/KillNode.sv
 ../../Suansha/Threats.sv

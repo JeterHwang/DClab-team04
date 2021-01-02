@@ -35,7 +35,7 @@ assign depth[3] = (i_depth >= 3) ? i_depth - 5'd3 : 5'd0;
 assign depth[4] = (i_depth >= 4) ? i_depth - 5'd4 : 5'd0;
 assign o_kill = output_kill_r;
 
-Minmax minmax0(
+Base minmax0(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_depth(depth[0]),
@@ -52,7 +52,7 @@ Minmax minmax0(
 	.o_Ypos(Ypos_w[0]),
 	.o_kill(kill[0])
 );
-Minmax minmax1(
+Min minmax1(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_depth(depth[1]),
@@ -69,7 +69,7 @@ Minmax minmax1(
 	.o_Ypos(Ypos_w[1]),
 	.o_kill(kill[1])
 );
-Minmax minmax2(
+Max minmax2(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_depth(depth[2]),
@@ -86,7 +86,7 @@ Minmax minmax2(
 	.o_Ypos(Ypos_w[2]),
 	.o_kill(kill[2])
 );
-Minmax minmax3(
+Min minmax3(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_depth(depth[3]),
@@ -103,7 +103,7 @@ Minmax minmax3(
 	.o_Ypos(Ypos_w[3]),
 	.o_kill(kill[3])
 );
-Minmax minmax4(
+Max minmax4(
 	.i_clk(i_clk),
 	.i_rst_n(i_rst_n),
 	.i_depth(depth[4]),

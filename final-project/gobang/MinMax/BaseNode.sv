@@ -1,4 +1,4 @@
-module Minmax(		// 
+module Base(		// 
 	input         	i_clk,
 	input         	i_rst_n,
 	input   [4:0]   i_depth,
@@ -51,11 +51,6 @@ logic [399:0] X_buffer;
 logic [399:0] Y_buffer;
 logic [8:0] SZ_buffer;
 
-// score signals 
-logic SC_start_r, SC_start_w;
-logic SC_finish;
-logic signed [31:0] SC_score;
-
 // Suansha
 logic SS_result;
 logic SS_finish;
@@ -82,15 +77,6 @@ point_generator PG(
     .o_posY(Y_buffer),
     .o_size(SZ_buffer),
     .o_PGfinish(PG_finish)
-);
-Score score(
-	.i_clk(i_clk),
-	.i_rst_n(i_rst_n),
-	.i_start(SC_start_r),
-	.i_board(i_board),
-	.i_turn(turn),
-	.o_score(SC_score),
-	.o_finish(SC_finish)
 );
 Suansha SS(
 	.i_clk(i_clk),
@@ -183,7 +169,6 @@ always_comb begin
 	finish_w		= finish_r;
 	next_start_w	= next_start_r;
 	PG_start_w		= PG_start_r;
-	SC_start_w		= SC_start_r;
 	SS_start_w		= SS_start_r;
 	SS_depth_w      = SS_depth_r;
 	pruning			= 1'b0;
@@ -272,17 +257,9 @@ always_comb begin
 					SS_start_w = 1'b1;
 				end
 				else begin
-					SC_start_w 	= 1'b1; 
-					state_w 	= S_PEND;
+					finish_w  = 1'b1;
+                    state_w     = S_IDLE;
 				end
-			end
-		end
-		S_PEND: begin
-			SC_start_w = 1'b0;
-			if(SC_finish) begin
-				point_w 	= SC_score;
-				finish_w 	= 1'b1;
-				state_w 	= S_IDLE; 
 			end
 		end
 	endcase
@@ -301,7 +278,6 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		finish_r		<= 1'b0;
 		next_start_r	<= 1'b0;
 		PG_start_r		<= 1'b0;
-		SC_start_r		<= 1'b0;
 		SS_start_r		<= 1'b0;
 		SS_depth_r		<= 5'd0;
 	end
@@ -317,7 +293,6 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
 		finish_r		<= finish_w;
 		next_start_r	<= next_start_w;
 		PG_start_r		<= PG_start_w;
-		SC_start_r		<= SC_start_w;
 		SS_start_r		<= SS_start_w;
 		SS_depth_r		<= SS_depth_w;
 	end

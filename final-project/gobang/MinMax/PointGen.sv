@@ -31,11 +31,6 @@ assign o_PGfinish = finish_r;
 always_comb begin
     state_w = state_r;
     finish_w = finish_r;
-    for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            valid[i][j] = 1'b0;
-        end
-    end
     case(state_r)
         S_IDLE: begin
             finish_w    = 1'b0;
@@ -43,14 +38,14 @@ always_comb begin
                 state_w = S_COUNT;
                 for(int i = 0; i < 15; i++) begin
                     for(int j = 0; j < 15; j++) begin
-                        if( (i_board[((i + 5) - 1) * 15 + ((j + 5) - 1)] != 2'd2 && i_board[((i + 5) - 1) * 15 + ((j + 5) - 1)] != 2'd3) || 
-                            (i_board[(i + 5 - 1) * 15 + j + 5] != 2'd2 && i_board[(i + 5 - 1) * 15 + j + 5] != 2'd3) ||
-                            (i_board[(i + 5 - 1) * 15 + (j + 5 + 1)] != 2'd2 && i_board[(i + 5 - 1) * 15 + (j + 5 + 1)] != 2'd3) ||
-                            (i_board[(i + 5) * 15 + (j + 5 + 1)] != 2'd2 && i_board[(i + 5) * 15 + (j + 5 + 1)] != 2'd3) || 
-                            (i_board[(i + 5 + 1) * 15 + (j + 5 + 1)] != 2'd2 && i_board[(i + 5 + 1) * 15 + (j + 5 + 1)] != 2'd3) ||
-                            (i_board[(i + 5 + 1) * 15 + j + 5] != 2'd2 && i_board[(i + 5 + 1) * 15 + j + 5] != 2'd3) ||
-                            (i_board[(i + 5 + 1) * 15 + (j + 5 - 1)] != 2'd2 && i_board[(i + 5 + 1) * 15 + (j + 5 - 1)] != 2'd3) ||
-                            (i_board[(i + 5) * 15 + (j + 5 - 1)] != 2'd2 && i_board[(i + 5) * 15 + (j + 5 - 1)] != 2'd3)) begin
+                        if( (i_board[((i + 5) - 1) * 25 + ((j + 5) - 1)] != 2 && i_board[((i + 5) - 1) * 25 + ((j + 5) - 1)] != 3) || 
+                            (i_board[(i + 5 - 1) * 25 + j + 5] != 2 && i_board[(i + 5 - 1) * 25 + j + 5] != 3) ||
+                            (i_board[(i + 5 - 1) * 25 + (j + 5 + 1)] != 2 && i_board[(i + 5 - 1) * 25 + (j + 5 + 1)] != 3) ||
+                            (i_board[(i + 5) * 25 + (j + 5 + 1)] != 2 && i_board[(i + 5) * 25 + (j + 5 + 1)] != 3) || 
+                            (i_board[(i + 5 + 1) * 25 + (j + 5 + 1)] != 2 && i_board[(i + 5 + 1) * 25 + (j + 5 + 1)] != 3) ||
+                            (i_board[(i + 5 + 1) * 25 + j + 5] != 2 && i_board[(i + 5 + 1) * 25 + j + 5] != 3) ||
+                            (i_board[(i + 5 + 1) * 25 + (j + 5 - 1)] != 2 && i_board[(i + 5 + 1) * 25 + (j + 5 - 1)] != 3) ||
+                            (i_board[(i + 5) * 25 + (j + 5 - 1)] != 2 && i_board[(i + 5) * 25 + (j + 5 - 1)] != 3)) begin
                             valid[i][j] = 1'b1;       
                         end
                         else begin

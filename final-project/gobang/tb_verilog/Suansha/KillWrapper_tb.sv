@@ -2,7 +2,7 @@
 
 `define CLK 20
 `define HCLK 10
-typedef logic [1:0] board [225];
+typedef logic [1:0] board [625];
 
 module TH_tb;
     board i_board;
@@ -16,7 +16,7 @@ module TH_tb;
     int fp_i, fp_o;
     int status;
 
-    parameter i_depth = 5'd4;  // only even numbers are allowed !!
+    parameter i_depth = 5'd6;  // only even numbers are allowed !!
 
     Suansha SS(
         .i_clk(clk),
@@ -36,7 +36,7 @@ module TH_tb;
     initial begin
         $fsdbDumpfile("KillWrapper.fsdb");
         $fsdbDumpvars;
-        fp_i = $fopen("../../pattern/SS_test1_i.txt", "r");
+        fp_i = $fopen("../../pattern/PG_test1_i.txt", "r");
         
         if(fp_i) 
             $display("Read file was opened successfully : %0d", fp_i);

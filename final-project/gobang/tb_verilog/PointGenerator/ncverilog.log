@@ -1,0 +1,73 @@
+ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
+TOOL:	ncverilog	12.20-s012: Started on Jan 03, 2021 at 03:05:14 CST
+ncverilog
+	PG_tb.sv
+	../../MinMax/PointGen.sv
+	+access+r
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/PointGen.sv' is newer than expected.
+	expected: Sun Jan  3 02:58:14 2021
+	actual:   Sun Jan  3 03:05:12 2021
+file: ../../MinMax/PointGen.sv
+	module worklib.point_generator:sv
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.point_generator:sv <0x349834ee>
+			streams:  11, words: 10824
+	Loading native compiled code:     .................... Done
+	Building instance specific data structures.
+	Design hierarchy summary:
+		                   Instances  Unique
+		Modules:                   2       2
+		Registers:                28      28
+		Scalar wires:              5       -
+		Vectored wires:            7       -
+		Always blocks:             3       3
+		Initial blocks:            3       3
+		Cont. assignments:         3       4
+		Pseudo assignments:        5       5
+		Compilation units:         1       1
+		Simulation timescale:  100ps
+	Writing initial simulation snapshot: worklib.PG_tb:sv
+Loading snapshot worklib.PG_tb:sv .................... Done
+*Verdi3* Loading libsscore_ius122.so
+*Verdi3* : Enable Parallel Dumping.
+ncsim> source /opt/CAD/INCISIV/cur/tools/inca/files/ncsimrc
+ncsim> run
+FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
+(C) 1996 - 2013 by Synopsys, Inc.
+*Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi3* : Create FSDB file 'PointGenerator.fsdb'
+*Verdi3* : Begin traversing the scopes, layer (0).
+*Verdi3* : End of traversing.
+File was opened successfully : -2147483645
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 1
+1 , 2
+2 , 2
+2 , 2
+2 , 2
+2 , 1
+1 , 2
+2 , 0
+0 , 0
+0 , 2
+2 , 2
+2 , 1
+1 , 2
+Simulation complete via $finish(1) at time 90 NS + 3
+./PG_tb.sv:68         $finish;
+ncsim> exit
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 03, 2021 at 03:06:02 CST  (total: 00:00:48)
