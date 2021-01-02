@@ -23,6 +23,7 @@ parameter BLOCKED_TWO       = 32'd10;
 parameter b         = 2'b0;
 parameter w         = 2'b1;
 parameter l         = 2'b10;
+parameter x         = 2'b11;
 
 parameter  black_con_five = {b, b, b, b, b};
 parameter  black_con_four = {l, b, b, b, b, l};
@@ -269,7 +270,7 @@ always_comb begin
         end 
         S_COUNT: begin
             cnt_w = cnt_r + 5'd1;
-            if(cnt_r == 20) begin
+            if(cnt_r == 15) begin
                 state_w = S_IDLE;
                 finished_w = 1'b1;
                 if(i_turn)
