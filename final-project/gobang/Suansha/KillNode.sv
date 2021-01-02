@@ -127,12 +127,12 @@ always_comb begin
             else begin
                 next_start_w        = 1'b1;
                 state_w             = S_DFS;
-                for(int i = 0; i < 15; i++) begin
-                    for(int j = 0; j < 15; j++) begin
-                        board_w[i * 15 + j] = i_board[i * 15 + j];
+                for(int i = 0; i < 25; i++) begin
+                    for(int j = 0; j < 25; j++) begin
+                        board_w[i * 25 + j] = i_board[i * 25 + j];
                     end
                 end
-                board_w[15 * X_buffer[pointer_r -: 4] + Y_buffer[pointer_r -: 4]]  = turn;
+                board_w[25 * (X_buffer[pointer_r -: 4] + 5) + (Y_buffer[pointer_r -: 4] + 5)]  = turn;
                 pointer_w           = pointer_r - 9'd4;
             end
         end

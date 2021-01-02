@@ -33,7 +33,6 @@ parameter S_PEND 	= 3'd5;
 board board_r, board_w;
 logic turn;
 logic pruning;
-logic [7:0] coor_1D;
 logic [2:0] state_r, state_w;
 logic signed [31:0] point_r, point_w;
 logic [8:0] pointer_r, pointer_w;
@@ -235,16 +234,15 @@ always_comb begin
 				state_w  	= S_IDLE;
 			end
 			else begin
-				for(int i = 0; i < 15; i++) begin 
-					for(int j = 0; j < 15; j++) begin
-						board_w[i * 15 + j] = i_board[i * 15 + j];
+				for(int i = 0; i < 25; i++) begin 
+					for(int j = 0; j < 25; j++) begin
+						board_w[i * 25 + j] = i_board[i * 25 + j];
 					end
 				end
 				next_start_w 		= 1'b1;
 				cand_x_w			= X_buffer[pointer_r -: 4];
 				cand_y_w			= Y_buffer[pointer_r -: 4];
-				coor_1D 			= 15 * cand_x_w + cand_y_w;
-				board_w[coor_1D] 	= turn;
+				board_w[25 * (cand_x_w + 5) + (cand_y_w + 5)] 	= turn;
 				pointer_w			= pointer_r - 4;
 				state_w				= S_DFS;
 			end

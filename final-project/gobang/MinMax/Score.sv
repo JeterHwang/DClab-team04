@@ -8,26 +8,8 @@ module Score (
 	output signed [31:0] o_score,                      // 32 bit score
     output        o_finish
 );
-
-parameter S_SEVEN_UP   = 8'd1;
-parameter S_SEVEN_LEFT = 8'd2;
-parameter S_SEVEN_UL   = 8'd3;
-parameter S_SEVEN_UR   = 8'd4;
-parameter S_SIX_UP     = 8'd5;
-parameter S_SIX_LEFT   = 8'd6;
-parameter S_SIX_UL     = 8'd7;
-parameter S_SIX_UR     = 8'd8;
-parameter S_FIVE_UP    = 8'd9;
-parameter S_FIVE_LEFT  = 8'd10;
-parameter S_FIVE_UL    = 8'd11;
-parameter S_FIVE_UR    = 8'd12;
-parameter S_THREE_UP   = 8'd13;
-parameter S_THREE_LEFT = 8'd14;
-parameter S_THREE_UL   = 8'd15;
-parameter S_THREE_UR   = 8'd16;
-parameter S_EVALUATE   = 8'd17;
-
-
+parameter S_IDLE    = 1'b0;
+parameter S_COUNT   = 1'b1;
 
 parameter FIVE              = 32'd1000000;
 parameter FOUR              = 32'd100000;
@@ -128,491 +110,139 @@ parameter logic [31:0] five_weight [0:19] = '{FIVE, THREE, TWO, BLOCKED_FOUR, BL
                                             BLOCKED_FOUR, BLOCKED_FOUR, BLOCKED_FOUR, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_THREE, BLOCKED_TWO};
 parameter logic [31:0] three_weight [0:5]  = '{ONE, ONE, ONE, ONE, ONE, ONE};
 
+// wires 
+logic signed [31:0] seven_score [2];
+logic signed [31:0] six_score   [38];
+logic signed [31:0] five_score  [20];
+logic signed [31:0] three_score [6];
 
-logic signed [31:0] seven_score [16];
-logic signed [31:0] six_score   [16];
-logic signed [31:0] five_score  [16];
-logic signed [31:0] three_score [16];
+logic signed [31:0] seven_tmp[121]; // 15 * 2 * 4
+logic signed [31:0] six_tmp[2281]; // 15 * 38 * 4
+logic signed [31:0] five_tmp[1201]; // 15 * 20 * 4
+logic signed [31:0] three_tmp[361]; // 15 * 6 * 4
 
-
-
-
-
-logic [7:0]  state_r, state_w;
+logic state_r, state_w;
 logic signed [31:0] white_score_r, white_score_w;
 logic signed [31:0] black_score_r, black_score_w;
 logic signed [31:0] score_r, score_w;
-logic finished_r, finished_w;                      
+logic finished_r, finished_w;      
+logic [4:0] cnt_r, cnt_w;                
 
 assign o_finish = finished_r;
 
-task Compare_seven_up;
-    output signed [31:0] score [0:449];
-    // 268
-    for(int i = 0; i < 15; i++) begin
+task Compare_seven;
+    input [5:0] index;
+    input [4:0] i;
+    output signed [31:0] score;
+    
+    for(int j = 0; j < 15; j++) begin
         // seven up
-        if(i + 6 < 15) begin
-            if({i_board[j+i*15], i_board[j+(i+1)*15], i_board[j+(i+2)*15], i_board[j+(i+3)*15], i_board[j+(i+4)*15], i_board[j+(i+5)*15], i_board[j+(i+6)*15] } == seven[0]) begin
-            
-            end
-            if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15], chess_board[j+(i+6)*15] } == seven[1]) begin
-                
-            end
+        if({i_board[(j + 5) + (i + 5) * 25], i_board[(j + 5) + (i + 5 + 1) * 25], i_board[(j + 5) + (i + 5 + 2) * 25], i_board[(j + 5) + (i + 5 + 3) * 25], i_board[(j + 5) + (i + 5 + 4) * 25], i_board[(j + 5) + (i + 5 + 5) * 25], i_board[(j + 5) + (i + 5 + 6) * 25] } == seven[index]) begin
+            if(j == 0 && index == 0)
+                seven_tmp[(index * 15 + j) * 60 + 0] = seven_weight[index];
+            else
+                seven_tmp[(index * 15 + j) * 60 + 0] = seven_tmp[((index * 15 + j) * 60) + 0 - 1] + seven_weight[index];    
+        end
+        else begin
+            if(j == 0 && index == 0)
+                seven_tmp[(index * 15 + j) * 60 + 0] = 32'd0;
+            else
+                seven_tmp[(index * 15 + j) * 60 + 0] = seven_tmp[((index * 15 + j) * 60) + 0 - 1];
         end
         // seven left
-        if(j + 6 < 15) begin
-            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5], chess_board[i * 15 + j + 6] } === seven[0]) begin
-                
-            end
-            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5], chess_board[i * 15 + j + 6] } === seven[1]) begin
-                
-            end
+        if({chess_board[(i + 5) * 25 + (j + 5)], chess_board[(i + 5) * 25 + j + 5 + 1], chess_board[(i + 5) * 25 + j + 5 + 2], chess_board[(i + 5) * 25 + j + 5 + 3], chess_board[(i + 5) * 25 + j + 5 + 4], chess_board[(i + 5) * 25 + j + 5 + 5], chess_board[(i + 5) * 25 + j + 5 + 6] } === seven[index]) begin
+            seven_tmp[(index * 15 + j) * 60 + 1] = seven_tmp[((index * 15 + j) * 60) + 1 - 1] + seven_weight[index];               
+        end
+        else begin
+            seven_tmp[(index * 15 + j) * 60 + 1] = seven_tmp[((index * 15 + j) * 60) + 1 - 1];               
         end
         // seven upper left 
-        if(i + 6 < 15 && j + 6 < 15) begin
-            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[0]) begin
-                
-            end
-            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5], chess_board[(i + 6) * 15 + j + 6] } === seven[1]) begin
-                
-            end
+        if({chess_board[(i + 5) * 25 + j + 5], chess_board[(i + 5 + 1) * 25 + j + 5 + 1], chess_board[(i + 5 + 2) * 25 + j + 5 + 2], chess_board[(i + 5 + 3) * 25 + j + 5 + 3], chess_board[(i + 5 + 4) * 25 + j + 5 + 4], chess_board[(i + 5 + 5) * 25 + j + 5 + 5], chess_board[(i + 5 + 6) * 25 + j + 5 + 6] } === seven[index]) begin
+            seven_tmp[(index * 15 + j) * 60 + 2] = seven_tmp[((index * 15 + j) * 60) + 2 - 1] + seven_weight[index];   
+        end
+        else begin
+            seven_tmp[(index * 15 + j) * 60 + 2] = seven_tmp[((index * 15 + j) * 60) + 2 - 1];   
         end
         // seven upper right
-        if(i + 6 < 15 && j + 6 < 15) begin
-            if({chess_board[i * 15 + j + 6], chess_board[(i + 1) * 15 + j + 5], chess_board[(i + 2) * 15 + j + 4], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 2], chess_board[(i + 5) * 15 + j + 1], chess_board[(i + 6) * 15 + j] } === seven[0])
-                
-            else
-            
-            if({chess_board[i * 15 + j + 6], chess_board[(i + 1) * 15 + j + 5], chess_board[(i + 2) * 15 + j + 4], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 2], chess_board[(i + 5) * 15 + j + 1], chess_board[(i + 6) * 15 + j] } === seven[1])
-                
-            else
+        if({chess_board[(i + 5) * 25 + j + 5 + 6], chess_board[(i + 5 + 1) * 25 + j + 5 + 5], chess_board[(i + 2 + 5) * 25 + j + 5 + 4], chess_board[(i + 5 + 3) * 25 + j + 5 + 3], chess_board[(i + 5 + 4) * 25 + j + 5 + 2], chess_board[(i + 5 + 5) * 25 + j + 5 + 1], chess_board[(i + 5 + 6) * 25 + j + 5]} === seven[index]) begin
+            seven_tmp[(index * 15 + j) * 60 + 3] = seven_tmp[((index * 15 + j) * 60) + 3 - 1] + seven_weight[index];
         end
+        else begin
+            seven_tmp[(index * 15 + j) * 60 + 3] = seven_tmp[((index * 15 + j) * 60) + 3 - 1];
+        end       
     end
+    score = seven_tmp[(index * 15 + 14) * 60 + 3];
 endtask
 
-task Compare_six_up;
-    output signed [31:0] score [15];
+task Compare_six;
+    input [5:0] index;
+    input [4:0] i;
+    output signed [31:0] score;
     
-    for(int i = 0; i < 15; i++) begin
+    for(int j = 0; j < 15; i++) begin
         // six up
-        if(i + 5 < 15) begin
-            if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15]} === six[0])
+        if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15]} === six[0])
 
-            
-        end
         // six left
-        if(j + 5 < 15) begin
-            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5]} === six[0])
-        end
+        if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5]} === six[0])
+        
         // six upper left
-        if(i + 5 < 15 && j + 5 < 15) begin
-            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5]} === six[0])
-        end
+        if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5]} === six[0])
+            
         // six upper right
-        if(i + 5 < 15 && j + 5 < 15) begin
-            if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j]} === six[0])
-        end
+        if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j]} === six[0])
+        
     end
 endtask
 task Compare_five_up;
     output signed [31:0] score [15];
     
     for(int i = 0; i < 15; i++) begin
-        // six up
-        if(i + 5 < 15) begin
-            if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15], chess_board[j+(i+5)*15]} === six[0])
+        for(int k = 0; k < 20; k++) begin
+            // five up
+            if(i + 5 < 15) begin
+                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15] } === five[k])
 
-            
+                
+            end
+            // five left
+            if(j + 5 < 15) begin
+                if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4] } === five[k])
+            end
+            // five upper left
+            if(i + 5 < 15 && j + 5 < 15) begin
+                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k])
+            end
+            // five upper right
+            if(i + 5 < 15 && j + 5 < 15) begin
+                if({chess_board[i * 15 +  j + 4], chess_board[(i + 1) * 15 + j + 3 ], chess_board[(i + 2) * 15 + j + 2], chess_board[(i + 3) * 15 + j + 1], chess_board[(i + 4) * 15 + j] } === five[k])
+            end    
         end
-        // six left
-        if(j + 5 < 15) begin
-            if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4], chess_board[i * 15 + j + 5]} === six[0])
-        end
-        // six upper left
-        if(i + 5 < 15 && j + 5 < 15) begin
-            if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 +  j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4], chess_board[(i + 5) * 15 + j + 5]} === six[0])
-        end
-        // six upper right
-        if(i + 5 < 15 && j + 5 < 15) begin
-            if({chess_board[(i * 15) + j + 5], chess_board[(i + 1) * 15 + j + 4], chess_board[(i + 2) * 15 + j + 3], chess_board[(i + 3) * 15 + j + 2], chess_board[(i + 4) * 15 + j + 1], chess_board[(i + 5) * 15 + j]} === six[0])
-        end
-    end
-    // 3280
-    for(int i = 0; i <= 10; i++) begin
-        for(int j = 0; j <= 14; j++) begin
-            for(int k=0; k <= 9; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 15 + j) * 10 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15] } === five[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 10 + k] = five_weight[k];
-                    else
-                        score[(i * 15 + j) * 10 + k] = score[(i * 15 + j) * 10 + k - 1] + five_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 10 + k] = 0;
-                    else
-                        score[(i * 15 + j) * 10 + k] = score[(i * 15 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 10; i++) begin
-        for(int j = 0; j <= 14; j++) begin
-            for(int k=0; k <= 9; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+11) * 15 + j) * 10 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15], chess_board[j+(i+3)*15], chess_board[j+(i+4)*15] } === five[k+10]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+11) * 15 + j) * 10 + k] = five_weight[k+10];
-                    else
-                        score[((i+11) * 15 + j) * 10 + k] = score[((i+11) * 15 + j) * 10 + k - 1] + five_weight[k+10];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+11) * 15 + j) * 10 + k] = 0;
-                    else
-                        score[((i+11) * 15 + j) * 10 + k] = score[((i+11) * 15 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-                           
+    end                       
 endtask
-task Compare_five_left;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:4499];
+task Compare_three;
+    output signed [31:0] score [15];
     
     for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j <= 10; j++) begin
-            for(int k=0; k < 10; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 11 + j) * 10 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4] } === five[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 11 + j) * 10 + k] = five_weight[k];
-                    else
-                        score[(i * 11 + j) * 10 + k] = score[(i * 11 + j) * 10 + k - 1] + five_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 11 + j) * 10 + k] = 0;
-                    else
-                        score[(i * 11 + j) * 10 + k] = score[(i * 11 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j <= 10; j++) begin
-            for(int k=0; k < 10; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+15) * 11 + j) * 10 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2], chess_board[i * 15 + j + 3], chess_board[i * 15 + j + 4] } === five[k+10]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 11 + j) * 10 + k] = five_weight[k+10];
-                    else
-                        score[((i+15) * 11 + j) * 10 + k] = score[((i+15) * 11 + j) * 10 + k - 1] + five_weight[k+10];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 11 + j) * 10 + k] = 0;
-                    else
-                        score[((i+15) * 11 + j) * 10 + k] = score[((i+15) * 11 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    
-endtask
-task Compare_five_upper_left(
-    input [1:0] chess_board [225],
-    output signed [31:0] score [0:4499]
-);
-    for(int i = 0; i <= 10; i++) begin
-        for(int j = 0; j <= 10 ; j++) begin
-            for(int k=0; k < 10; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 11 + j) * 10 + k] = 0;
-                if( { chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k]) begin
-                    if(i == 0 && j == 0 && k == 0)
-                        score[(i * 11 + j) * 10 + k] = five_weight[k];
-                    else
-                        score[(i * 11 + j) * 10 + k] = score[(i * 11 + j) * 10 + k - 1] + five_weight[k];
-                end
-                else begin
-                    if(i == 0 && j == 0 && k == 0)
-                        score[(i * 11 + j) * 10 + k] = 0;
-                    else
-                        score[(i * 11 + j) * 10 + k] = score[(i * 11 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 10; i++) begin
-        for(int j = 0; j <= 10 ; j++) begin
-            for(int k=0; k < 10; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+11) * 11 + j) * 10 + k] = 0;
-                if( { chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2], chess_board[(i + 3) * 15 + j + 3], chess_board[(i + 4) * 15 + j + 4] } == five[k+10]) begin
-                    if(i == 0 && j == 0 && k == 0)
-                        score[((i+11) * 11 + j) * 10 + k] = five_weight[k+10];
-                    else
-                        score[((i+11) * 11 + j) * 10 + k] = score[((i+11) * 11 + j) * 10 + k - 1] + five_weight[k+10];
-                end
-                else begin
-                    if(i == 0 && j == 0 && k == 0)
-                        score[((i+11) * 11 + j) * 10 + k] = 0;
-                    else
-                        score[((i+11) * 11 + j) * 10 + k] = score[((i+11) * 11 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
+        for(int k = 0; k < 6; k++) begin
+            // five up
+            if(i + 5 < 15) begin
+                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15] } === three[k])
 
-endtask
-task Compare_five_upper_right;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:4499];
-    
-    for(int i = 0; i <= 10; i++) begin
-        for(int j = 0; j <= 10; j++) begin
-            for(int k=0; k < 10; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 11 + j) * 10 + k] = 0;
-                if({chess_board[i * 15 +  j + 4], chess_board[(i + 1) * 15 + j + 3 ], chess_board[(i + 2) * 15 + j + 2], chess_board[(i + 3) * 15 + j + 1], chess_board[(i + 4) * 15 + j] } === five[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 11 + j) * 10 + k] = five_weight[k];
-                    else
-                        score[(i * 11 + j) * 10 + k] = score[(i * 11 + j) * 10 + k - 1] + five_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 11 + j) * 10 + k] = 0;
-                    else
-                        score[(i * 11 + j) * 10 + k] = score[(i * 11 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 10; i++) begin
-        for(int j = 0; j <= 10; j++) begin
-            for(int k=0; k < 10; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+11) * 11 + j) * 10 + k] = 0;
-                if({chess_board[i * 15 +  j + 4], chess_board[(i + 1) * 15 + j + 3 ], chess_board[(i + 2) * 15 + j + 2], chess_board[(i + 3) * 15 + j + 1], chess_board[(i + 4) * 15 + j] } === five[k+10]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+11) * 11 + j) * 10 + k] = five_weight[k+10];
-                    else
-                        score[((i+11) * 11 + j) * 10 + k] = score[((i+11) * 11 + j) * 10 + k - 1] + five_weight[k+10];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+11) * 11 + j) * 10 + k] = 0;
-                    else
-                        score[((i+11) * 11 + j) * 10 + k] = score[((i+11) * 11 + j) * 10 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-
-endtask
-
-
-task Compare_three_up;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:1349];
-    // 1164
-    for(int i = 0; i <= 12; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 15 + j) * 3 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15] } === three[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 3 + k] = three_weight[k];
-                    else
-                        score[(i * 15 + j) * 3 + k] = score[(i * 15 + j) * 3 + k - 1] + three_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 15 + j) * 3 + k] = 0;
-                    else
-                        score[(i * 15 + j) * 3 + k] = score[(i * 15 + j) * 3 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 12; i++) begin
-        for(int j = 0; j < 15; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+13) * 15 + j) * 3 + k] = 0;
-                if({chess_board[j+i*15], chess_board[j+(i+1)*15], chess_board[j+(i+2)*15] } === three[k+3]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+13) * 15 + j) * 3 + k] = three_weight[k+3];
-                    else
-                        score[((i+13) * 15 + j) * 3 + k] = score[((i+13) * 15 + j) * 3 + k - 1] + three_weight[k+3];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+13) * 15 + j) * 3 + k] = 0;
-                    else
-                        score[((i+13) * 15 + j) * 3 + k] = score[((i+13) * 15 + j) * 3 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-endtask
-task Compare_three_left;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:1349];
-    
-    for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j <= 12; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 13 + j) * 3 + k] = 0;
-                if({chess_board[i * 12 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2] } === three[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 13 + j) * 3 + k] = three_weight[k];
-                    else
-                        score[(i * 13 + j) * 3 + k] = score[(i * 13 + j) * 3 + k - 1] + three_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 13 + j) * 3 + k] = 0;
-                    else
-                        score[(i * 13 + j) * 3 + k] = score[(i * 13 + j) * 3 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i < 15; i++) begin
-        for(int j = 0; j <= 12; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+15) * 13 + j) * 3 + k] = 0;
-                if({chess_board[i * 12 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2] } === three[k+3]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 13 + j) * 3 + k] = three_weight[k+3];
-                    else
-                        score[((i+15) * 13 + j) * 3 + k] = score[((i+15) * 13 + j) * 3 + k - 1] + three_weight[k+3];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+15) * 13 + j) * 3 + k] = 0;
-                    else
-                        score[((i+15) * 13 + j) * 3 + k] = score[((i+15) * 13 + j) * 3 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-endtask
-task Compare_three_upper_left;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:1349];
-    
-    for(int i = 0; i <= 12; i++) begin
-        for(int j = 0; j <= 12 ; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 13 + j) * 3 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2] } === three[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 13 + j) * 3 + k] = three_weight[k];
-                    else
-                        score[(i * 13 + j) * 3 + k] = score[(i * 13 + j) * 3 + k - 1] + three_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 13 + j) * 3 + k] = 0;
-                    else
-                        score[(i * 13 + j) * 3 + k] = score[(i * 13 + j) * 3 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 12; i++) begin
-        for(int j = 0; j <= 12 ; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+13) * 13 + j) * 3 + k] = 0;
-                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2] } === three[k+3]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+13) * 13 + j) * 3 + k] = three_weight[k+3];
-                    else
-                        score[((i+13) * 13 + j) * 3 + k] = score[((i+13) * 13 + j) * 3 + k - 1] + three_weight[k+3];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+13) * 13 + j) * 3 + k] = 0;
-                    else
-                        score[((i+13) * 13 + j) * 3 + k] = score[((i+13) * 13 + j) * 3 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-endtask
-task Compare_three_upper_right;
-    input [1:0] chess_board [225];
-    output signed [31:0] score [0:1349];
-    
-    for(int i = 0; i <= 12; i++) begin
-        for(int j = 0; j <= 12; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[(i * 13 + j) * 3 + k] = 0;
-                if({chess_board[i * 15 + j + 2], chess_board[(i + 1) * 15 + j + 1], chess_board[(i + 2) * 15 + j] } === three[k]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 13 + j) * 3 + k] = three_weight[k];
-                    else
-                        score[(i * 13 + j) * 3 + k] = score[(i * 13 + j) * 3 + k - 1] + three_weight[k];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[(i * 13 + j) * 3 + k] = 0;
-                    else
-                        score[(i * 13 + j) * 3 + k] = score[(i * 13 + j) * 3 + k - 1];
-                end
-                       
-            end     
-        end
-    end
-    for(int i = 0; i <= 12; i++) begin
-        for(int j = 0; j <= 12; j++) begin
-            for(int k=0; k < 3; k++) begin
-                if(i == 0 && j == 0 && k == 0)
-                    score[((i+13) * 13 + j) * 3 + k] = 0;
-                if({chess_board[i * 15 + j + 2], chess_board[(i + 1) * 15 + j + 1], chess_board[(i + 2) * 15 + j] } === three[k+3]) begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+13) * 13 + j) * 3 + k] = three_weight[k+3];
-                    else
-                        score[((i+13) * 13 + j) * 3 + k] = score[((i+13) * 13 + j) * 3 + k - 1] + three_weight[k+3];
-                end
-                else begin
-                    if(i == 0 && j ==0 && k == 0)
-                        score[((i+13) * 13 + j) * 3 + k] = 0;
-                    else
-                        score[((i+13) * 13 + j) * 3 + k] = score[((i+13) * 13 + j) * 3 + k - 1];
-                end
-                       
-            end     
+                
+            end
+            // five left
+            if(j + 5 < 15) begin
+                if({chess_board[i * 12 + j], chess_board[i * 15 + j + 1], chess_board[i * 15 + j + 2] } === three[k])
+            end
+            // five upper left
+            if(i + 5 < 15 && j + 5 < 15) begin
+                if({chess_board[i * 15 + j], chess_board[(i + 1) * 15 + j + 1], chess_board[(i+2)*15 + j+2] } === three[k])
+            end
+            // five upper right
+            if(i + 5 < 15 && j + 5 < 15) begin
+                if({chess_board[i * 15 + j + 2], chess_board[(i + 1) * 15 + j + 1], chess_board[(i + 2) * 15 + j] } === three[k])
+            end    
         end
     end
 endtask
@@ -628,166 +258,56 @@ always_comb begin
 
     
 	case (state_r)
-        S_SEVEN_UP: begin
+        S_IDLE: begin
             finished_w = 0;
-            black_score_w = 0;
-            white_score_w = 0;    
             if(i_start) begin
-                Compare_seven_up(.chess_board(i_board), .score(seven_score));
-                Compare_six_up(.chess_board(i_board), .score(six_score));
-                Compare_five_up(.chess_board(i_board), .score(five_score));
-                Compare_three_up(.chess_board(i_board), .score(three_score));
-                black_score_w = black_score_r + seven_score[134] + six_score[2999] + five_score[1649] + three_score[584];
-                white_score_w = white_score_r + seven_score[269] + six_score[5999] + five_score[3299]+ three_score[1169] ;
-                // $display("up_black: ", black_score_w);
-                // $display("up_white: ", white_score_w);
-                state_w = S_SEVEN_LEFT;
+                cnt_w = 5'd0;
+                black_score_w = 0;
+                white_score_w = 0;    
+                state_w = S_COUNT;
             end 
         end 
-        S_SEVEN_LEFT:  begin 
-            Compare_seven_left(.chess_board(i_board), .score(seven_score));
-            Compare_six_left(.chess_board(i_board), .score(six_score));
-            Compare_five_left(.chess_board(i_board), .score(five_score));
-            Compare_three_left(.chess_board(i_board), .score(three_score));
-            black_score_w = black_score_r + seven_score[134] + six_score[2999] + five_score[1649] + three_score[584];
-            white_score_w = white_score_r + seven_score[269] + six_score[5999] + five_score[3299]+ three_score[1169];           
-            // $display("left_black: ", black_score_w);
-            // $display("left_white: ", white_score_w);
-            state_w = S_SEVEN_UL;  
-        end
-        S_SEVEN_UL:    begin  
-            Compare_seven_upper_left(.chess_board(i_board), .score(seven_score));
-            Compare_six_upper_left(.chess_board(i_board), .score(six_score));
-            Compare_five_upper_left(.chess_board(i_board), .score(five_score)); 
-            Compare_three_upper_left(.chess_board(i_board), .score(three_score));
-            black_score_w = black_score_r + seven_score[80] + six_score[1999] + five_score[1209] + three_score[506];
-            white_score_w = white_score_r + seven_score[161] + six_score[3999] + five_score[2419] + three_score[1013];
-            // $display("upperleft_black: ", black_score_w);
-            // $display("upperleft_white: ", white_score_w);
-            state_w = S_SEVEN_UR;
-        end
-        S_SEVEN_UR:    begin  
-            Compare_seven_upper_right(.chess_board(i_board), .score(seven_score));
-            Compare_six_upper_right(.chess_board(i_board), .score(six_score));
-            Compare_five_upper_right(.chess_board(i_board), .score(five_score));
-            Compare_three_upper_right(.chess_board(i_board), .score(three_score));
-            black_score_w = black_score_r + seven_score[80] + six_score[1999] + five_score[1209] + three_score[506];
-            white_score_w = white_score_r + seven_score[161] + six_score[3999] + five_score[2419] + three_score[1013];
-            // $display("upperright_black: ", black_score_w);
-            // $display("upperright_white: ", white_score_w);
-            state_w = S_EVALUATE;   
-        end
-        // S_SIX_UP:      begin  
-        //     Compare_six_up(.chess_board(i_board), .score(six_score));
-        //     black_score_w = black_score_r + six_score[2999];
-        //     white_score_w = white_score_r + six_score[5999];
-        //     $display("up_black: ", black_score_w);
-        //     $display("up_white: ", white_score_w);
-        //     // for(int i=6000; i<6040; i++) begin
-        //     //     $write(six_score[i], " ");
-        //     // end
-        //     state_w = S_SIX_LEFT; 
-        // end
-        // S_SIX_LEFT:    begin  
-        //     Compare_six_left(.chess_board(i_board), .score(six_score));
-        //     black_score_w = black_score_r + six_score[2999];
-        //     white_score_w = white_score_r + six_score[5999];
-        //     $display("left_black: ", black_score_w);
-        //     $display("left_white: ", white_score_w);
-        //     state_w = S_SIX_UL; 
-
-        // end
-        // S_SIX_UL:      begin  
-        //     Compare_six_upper_left(.chess_board(i_board), .score(six_score));
-        //     black_score_w = black_score_r + six_score[1999];
-        //     white_score_w = white_score_r + six_score[3999];
-        //     $display("upperleft_black: ", black_score_w);
-        //     $display("upperleft_white: ", white_score_w);
-        //     state_w = S_SIX_UR;    
-        // end
-        // S_SIX_UR:      begin 
-        //     Compare_six_upper_right(.chess_board(i_board), .score(six_score));
-        //     black_score_w = black_score_r + six_score[1999];
-        //     white_score_w = white_score_r + six_score[3999];
-        //     $display("upperright_black: ", black_score_w);
-        //     $display("upperright_white: ", white_score_w);
-        //     state_w = S_FIVE_UP;   
-        // end
-        // S_FIVE_UP:     begin 
-        //     Compare_five_up(.chess_board(i_board), .score(five_score));
-        //     black_score_w = black_score_r + five_score[1649];
-        //     white_score_w = white_score_r + five_score[3299];
-        //     $display("up_black: ", black_score_w);
-        //     $display("up_white: ", white_score_w);
-        //     state_w = S_FIVE_LEFT; 
-        // end
-        // S_FIVE_LEFT:   begin 
-        //     Compare_five_left(.chess_board(i_board), .score(five_score));
-        //     black_score_w = black_score_r + five_score[1649];
-        //     white_score_w = white_score_r + five_score[3299];
-        //     $display("left_black: ", black_score_w);
-        //     $display("left_white: ", white_score_w);
-        //     state_w = S_FIVE_UL; 
-        // end
-        // S_FIVE_UL:     begin 
-        //     Compare_five_upper_left(.chess_board(i_board), .score(five_score)); 
-        //     black_score_w = black_score_r + five_score[1209];
-        //     white_score_w = white_score_r + five_score[2419];
-        //     $display("upperleft_black: ", black_score_w);
-        //     $display("upperleft_white: ", white_score_w);
-        //     state_w = S_FIVE_UR;   
-        // end
-        // S_FIVE_UR:     begin  
-        //     Compare_five_upper_right(.chess_board(i_board), .score(five_score));
-        //     black_score_w = black_score_r + five_score[1209];
-        //     white_score_w = white_score_r + five_score[2419];
-        //     $display("upperright_black: ", black_score_w);
-        //     $display("upperright_white: ", white_score_w);
-        //     state_w = S_THREE_UP;  
-        // end
-        // S_THREE_UP:    begin 
-        //     Compare_three_up(.chess_board(i_board), .score(three_score));
-        //     black_score_w = black_score_r + three_score[584];
-        //     white_score_w = white_score_r + three_score[1169];
-        //     $display("up_black: ", black_score_w);
-        //     $display("up_white: ", white_score_w);
-        //     state_w = S_THREE_LEFT;
-        // end
-        // S_THREE_LEFT:  begin 
-        //     Compare_three_left(.chess_board(i_board), .score(three_score));
-        //     black_score_w = black_score_r + three_score[584];
-        //     white_score_w = white_score_r + three_score[1169];
-        //     $display("left_black: ", black_score_w);
-        //     $display("left_white: ", white_score_w);
-        //     state_w = S_THREE_UL;  
-        // end
-        // S_THREE_UL:    begin  
-        //     Compare_three_upper_left(.chess_board(i_board), .score(three_score));
-        //     black_score_w = black_score_r + three_score[506];
-        //     white_score_w = white_score_r + three_score[1013];
-        //     $display("upperleft_black: ", black_score_w);
-        //     $display("upperleft_white: ", white_score_w);
-        //     state_w = S_THREE_UR;  
-        // end
-        // S_THREE_UR:    begin  
-        //     Compare_three_upper_right(.chess_board(i_board), .score(three_score));
-        //     black_score_w = black_score_r + three_score[506];
-        //     white_score_w = white_score_r + three_score[1013];
-        //     $display("upperright_black: ", black_score_w);
-        //     $display("upperright_white: ", white_score_w);
-        //     state_w = S_EVALUATE;   
-        // end
-        S_EVALUATE: begin
-            if(i_turn == 0) begin
-                state_w = S_SEVEN_UP;
-                finished_w  = 1;
-                score_w = black_score_r - white_score_r;
-                //$display("total: ",score_w);
+        S_COUNT: begin
+            cnt_w = cnt_r + 5'd1;
+            if(cnt_r == 20) begin
+                state_w = S_IDLE;
+                finished_w = 1'b1;
+                if(i_turn)
+                    score_w = white_score_r - black_score_r;
+                else
+                    score_w = black_score_r - white_score_r;
             end
             else begin
-                state_w = S_SEVEN_UP;
-                finished_w  = 1;
-                score_w = white_score_r - black_score_r;
+                for(int k = 0; k < 2; k++) begin
+                    Compare_seven(.index(k[5:0]), .i(cnt_r), .score(seven_score[k]));    
+                end
+                for(int k = 0; k < 38; k++) begin
+                    Compare_six(.index(k[5:0]), .i(cnt_r), .score(six_score[k]));    
+                end
+                for(int k = 0; k < 20; k++) begin
+                    Compare_five(.index(k[5:0]), .i(cnt_r), .score(five_score[k]));    
+                end
+                for(int k = 0; k < 6; k++) begin
+                    Compare_three(.index(k[5:0]), .i(cnt_r), .score(three_score[k]));    
+                end
+                               
+                black_score_w = black_score_r 
+                + seven_score[0] 
+                + six_score[0] + six_score[1] + six_score[2] + six_score[3] + six_score[4] + six_score[5]
+                 + six_score[6] + six_score[7] + six_score[8] + six_score[9] + six_score[10] + six_score[11]
+                  + six_score[12] + six_score[13] + six_score[14] + six_score[15] + six_score[16] + six_score[17] + six_score[18] 
+                + five_score[0]+ five_score[1]+ five_score[2]+ five_score[3]+ five_score[4]
+                + five_score[5]+ five_score[6]+ five_score[7]+ five_score[8]+ five_score[9] 
+                + three_score[0]+ three_score[1]+ three_score[2];
+                
+                white_score_w = white_score_r
+                + seven_score[1] 
+                + six_score[19] + six_score[20] + six_score[21] + six_score[22] + six_score[23] + six_score[24]
+                 + six_score[25] + six_score[26] + six_score[27] + six_score[28] + six_score[29] + six_score[30]
+                  + six_score[31] + six_score[32] + six_score[33] + six_score[34] + six_score[35] + six_score[36] + six_score[37] 
+                + five_score[10]+ five_score[11]+ five_score[12]+ five_score[13]+ five_score[14]
+                + five_score[15]+ five_score[16]+ five_score[17]+ five_score[18]+ five_score[19] 
+                + three_score[3]+ three_score[4]+ three_score[5];
             end
         end
     endcase
@@ -795,7 +315,7 @@ end
 
 always_ff @(posedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
-        state_r                 <= S_SEVEN_UP;
+        state_r                 <= S_IDLE;
         black_score_r           <= 0;
         white_score_r           <= 0;
 		score_r				    <= 0;
