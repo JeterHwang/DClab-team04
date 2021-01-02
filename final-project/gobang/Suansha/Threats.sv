@@ -100,7 +100,7 @@ task Offense_live_three(
         ({i_board[(X + 2) * 25 + (Y - 2)], i_board[(X + 1) * 25 + (Y - 1)], i_board[(X - 1) * 25 + (Y + 1)], i_board[(X - 2) * 25 + (Y + 2)], i_board[(X - 3) * 25 + (Y + 3)]} == {l, turn, l, turn, l}) ||
         ({i_board[(X + 2) * 25 + Y], i_board[(X + 1) * 25 + Y], i_board[(X - 1) * 25 + Y], i_board[(X - 2) * 25 + Y], i_board[(X - 3) * 25 + Y]} == {l, turn, l, turn, l}) ||
         ({i_board[(X + 2) * 25 + (Y + 2)], i_board[(X + 1) * 25 + (Y + 1)], i_board[(X - 1) * 25 + (Y - 1)], i_board[(X - 2) * 25 + (Y - 2)], i_board[(X - 3) * 25 + (Y - 3)]} == {l, turn, l, turn, l}) ||
-        ({i_board[X * 25 + (Y + 2)], i_board[X * 25 + (Y + 1)], i_board[X * 25 + (Y - 1)], i_board[X * 25 + (Y - 2)], i_board[X * 25 + (Y - 3)]} == [l, turn, l, turn, l}) ||
+        ({i_board[X * 25 + (Y + 2)], i_board[X * 25 + (Y + 1)], i_board[X * 25 + (Y - 1)], i_board[X * 25 + (Y - 2)], i_board[X * 25 + (Y - 3)]} == {l, turn, l, turn, l}) ||
         ({i_board[(X - 2) * 25 + (Y + 2)], i_board[(X - 1) * 25 + (Y + 1)], i_board[(X + 1) * 25 + (Y - 1)], i_board[(X + 2) * 25 + (Y - 2)], i_board[(X + 3) * 25 + (Y - 3)]} == {l, turn, l, turn, l}) ||
         ({i_board[(X - 2) * 25 + Y], i_board[(X - 1) * 25 + Y], i_board[(X + 1) * 25 + Y], i_board[(X + 2) * 25 + Y], i_board[(X + 3) * 25 + Y]} == {l, turn, l, turn, l}))) begin
         check = 1;
