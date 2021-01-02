@@ -23,17 +23,17 @@ HOME=/home/team04
 PATH=/opt/CAD/verdi/cur/bin:/opt/CAD/verdi/cur/nLint/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/CAD/INCISIV/cur/tools/dfII/bin/64bit:/opt/CAD/INCISIV/cur/tools/vtools/vfault/bin/64bit:/opt/CAD/INCISIV/cur/tools/bin/64bit
 MAIL=/var/spool/mail/team04
 SHELL=/bin/zsh
-SSH_CLIENT=140.112.4.209 14610 12345
-SSH_CONNECTION=140.112.4.209 14610 192.168.163.250 12345
-SSH_TTY=/dev/pts/2
+SSH_CLIENT=140.112.4.209 61831 12345
+SSH_CONNECTION=140.112.4.209 61831 192.168.163.250 12345
+SSH_TTY=/dev/pts/8
 TERM=xterm-256color
-DISPLAY=localhost:11.0
-XDG_SESSION_ID=c3114
+DISPLAY=localhost:14.0
+XDG_SESSION_ID=c3167
 XDG_RUNTIME_DIR=/run/user/1005
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
 SHLVL=1
 PWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog/Suansha
-OLDPWD=/home/team04/jeter/DClab-team04/final-project/gobang/tb_verilog
+OLDPWD=/home/team04/jeter
 LANG=en_US.UTF-8
 MOZ_PLUGIN_PATH=/usr/lib/mozilla/plugins
 PAGER=less
@@ -66,9 +66,9 @@ argv[1]=Threats_tb.sv
 argv[2]=../../Suansha/Threats.sv
 argv[3]=+access+r
 67 profile - 100
-          CPU/Mem usage: 0.010 sys,  0.030 user,  79.57M sys,  0.00M vm
+          CPU/Mem usage: 0.010 sys,  0.030 user,  79.56M sys,  0.00M vm
 68 VC callback profile - scalar:0 vector:0
-69 Sat Jan  2 18:23:36 2021
+69 Sat Jan  2 20:08:21 2021
 70 pliAppInit
 71 *Verdi3* : Enable Parallel Dumping.
 72 pliAppMiscSet: New Sim Round
@@ -85,7 +85,7 @@ stack trace not available76 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
 83 *Verdi3* : Begin traversing the scopes, layer (0).
 84 *Verdi3* : End of traversing.
 85 fsdbDumpvars traverse var: profile - 
-          CPU/Mem usage: 0.020 sys,  0.040 user,  223.33M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.040 user,  223.32M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  4.19M sys,  0.00M vm
                    accu: 0.000 sys,  0.000 user,  4.19M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  4.19M sys,  0.00M vm
@@ -95,9 +95,9 @@ stack trace not available76 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
                  accu: 86 var,  86 idcode,  86 callback
             accu incr: 86 var,  86 idcode,  86 callback
 86 VC callback profile - scalar:0 vector:0
-87 Sat Jan  2 18:23:36 2021
+87 Sat Jan  2 20:08:21 2021
 88 fsdbDumpvars: profile - 
-          CPU/Mem usage: 0.020 sys,  0.040 user,  224.38M sys,  0.00M vm
+          CPU/Mem usage: 0.020 sys,  0.040 user,  224.37M sys,  0.00M vm
                    incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
                    accu: 0.000 sys,  0.000 user,  5.24M sys,  0.00M vm
               accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
@@ -107,10 +107,10 @@ stack trace not available76 FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x
                  accu: 86 var,  86 idcode,  86 callback
             accu incr: 0 var,  0 idcode,  0 callback
 89 VC callback profile - scalar:27 vector:59
-90 Sat Jan  2 18:23:36 2021
+90 Sat Jan  2 20:08:21 2021
 91 End of simulation at 1950
 92 VC callback profile - scalar:148 vector:370
-93 Sat Jan  2 18:23:36 2021
+93 Sat Jan  2 20:08:21 2021
 94 Parallel profile    -  Flush:2 ProduceWait:0 ConsumerWait:0 BlockUsed:0
 95 SimExit
 96 Sim process exit

@@ -21,7 +21,7 @@ logic finish_r, finish_w;
 logic [8:0] pointer[226];
 logic [399:0] output_X;
 logic [399:0] output_Y;
-
+logic valid[15][15];
 
 assign o_posX = output_X;
 assign o_posY = output_Y;
@@ -31,6 +31,11 @@ assign o_PGfinish = finish_r;
 always_comb begin
     state_w = state_r;
     finish_w = finish_r;
+    for(int i = 0; i < 15; i++) begin
+        for(int j = 0; j < 15; j++) begin
+            valid[i][j] = 1'b0;
+        end
+    end
     case(state_r)
         S_IDLE: begin
             finish_w    = 1'b0;

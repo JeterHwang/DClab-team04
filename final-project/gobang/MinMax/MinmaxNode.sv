@@ -186,6 +186,7 @@ always_comb begin
 	SC_start_w		= SC_start_r;
 	SS_start_w		= SS_start_r;
 	SS_depth_w      = SS_depth_r;
+	pruning			= 1'b0;
 	case(state_r)
 		S_IDLE: begin
 			finish_w = 1'b0;
