@@ -117,116 +117,116 @@ task Offense_blocked_four(
     input   [1:0] turn,
     output  check 
 );
-// blocked fours
-    // lA...x ,0
-    if(i_board[X * 25 + Y] == l && ( 
+if(i_board[X * 25 + Y] == l) begin
         // first condition
-        ((i_board[(X+1)*25 + Y] == turn && i_board[(X+2)*25 + Y] == turn && i_board[(X+3)*25 + Y] == turn) && (i_board[(X+4)*25 + Y] == {turn[1],~turn[0]}) && (i_board[(X-1)*25 + Y] == l)) || 
-        ((i_board[(X+1)*25+Y] == turn &&  i_board[(X+2)*25+Y] == turn  && i_board[(X-1)*25+Y] == turn) && (i_board[(X+3)*25+Y] == {turn[1],~turn[0]}) && (i_board[(X-2)*25+Y] == l)) || 
-        ((i_board[(X+1)*25+Y] == turn &&  i_board[(X-1)*25+Y] == turn  && i_board[(X-2)*25+Y] == turn) && (i_board[(X+2)*25+Y] == {turn[1],~turn[0]}) && (i_board[(X-3)*25+Y] == l)) || 
-        ((i_board[(X-1)*25+Y] == turn &&  i_board[(X-2)*25+Y] == turn  && i_board[(X-3)*25+Y] == turn) && (i_board[(X+1)*25+Y] == {turn[1],~turn[0]}) && (i_board[(X-4)*25+Y] == l)) || 
+    if( {i_board[(X+1)*25+Y],i_board[(X+2)*25+Y],i_board[(X+3)*25+Y],i_board[(X+4)*25+Y],i_board[(X-1)*25+Y] } == {turn,turn,turn,{turn[1],~turn[0]},l} ||
+        {i_board[(X+1)*25+Y],i_board[(X+2)*25+Y],i_board[(X-1)*25+Y],i_board[(X+3)*25+Y],i_board[(X-2)*25+Y] } == {turn,turn,turn,{turn[1],~turn[0]},l} ||
+        {i_board[(X+1)*25+Y],i_board[(X-1)*25+Y],i_board[(X-2)*25+Y],i_board[(X+2)*25+Y],i_board[(X-3)*25+Y] } == {turn,turn,turn,{turn[1],~turn[0]},l} ||
+        {i_board[(X-1)*25+Y],i_board[(X-2)*25+Y],i_board[(X-3)*25+Y],i_board[(X+1)*25+Y],i_board[(X-4)*25+Y] } == {turn,turn,turn,{turn[1],~turn[0]},l} ||2
         
-        ((i_board[(X+1)*25+(Y+1)] == turn &&  i_board[(X+2)*25+(Y+2)] == turn  && i_board[(X+3)*25+(Y+3)] == turn) && (i_board[(X+4)*25+(Y+4)] == {turn[1],~turn[0]}) && (i_board[(X-1)*25+(Y-1)] == l)) || 
-        ((i_board[(X+1)*25+(Y+1)] == turn &&  i_board[(X+2)*25+(Y+2)] == turn  && i_board[(X-1)*25+(Y-1)] == turn) && (i_board[(X+3)*25+(Y+3)] == {turn[1],~turn[0]}) && (i_board[(X-2)*25+(Y-2)] == l)) || 
-        ((i_board[(X+1)*25+(Y+1)] == turn &&  i_board[(X-2)*25+(Y-2)] == turn  && i_board[(X-1)*25+(Y-1)] == turn) && (i_board[(X+2)*25+(Y+2)] == {turn[1],~turn[0]}) && (i_board[(X-3)*25+(Y-3)] == l)) || 
-        ((i_board[(X-3)*25+(Y-3)] == turn &&  i_board[(X-2)*25+(Y-2)] == turn  && i_board[(X-1)*25+(Y-1)] == turn) && (i_board[(X+1)*25+(Y+1)] == {turn[1],~turn[0]}) && (i_board[(X-4)*25+(Y-4)] == l)) || 
+        {i_board[(X+1)*25+(Y+1)],i_board[(X+2)*25+(Y+2)],i_board[(X+3)*25+(Y+3)],i_board[(X+4)*25+(Y+4)],i_board[(X-1)*25+(Y-1)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X+1)*25+(Y+1)],i_board[(X+2)*25+(Y+2)],i_board[(X-1)*25+(Y-1)],i_board[(X+3)*25+(Y+3)],i_board[(X-2)*25+(Y-2)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X+1)*25+(Y+1)],i_board[(X-2)*25+(Y-2)],i_board[(X-1)*25+(Y-1)],i_board[(X+2)*25+(Y+2)],i_board[(X-3)*25+(Y-3)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-3)*25+(Y-3)],i_board[(X-2)*25+(Y-2)],i_board[(X-1)*25+(Y-1)],i_board[(X+1)*25+(Y+1)],i_board[(X-4)*25+(Y-4)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
         
-        ((i_board[X*25+Y+1] == turn &&  i_board[X*25+Y+2] == turn  && i_board[X*25+Y+3] == turn) && (i_board[X*25+Y+4] == {turn[1],~turn[0]}) && (i_board[X*25+Y-1] == l)) || 
-        ((i_board[X*25+Y+1] == turn &&  i_board[X*25+Y+2] == turn  && i_board[X*25+Y-1] == turn) && (i_board[X*25+Y+3] == {turn[1],~turn[0]}) && (i_board[X*25+Y-2] == l)) || 
-        ((i_board[X*25+Y+1] == turn &&  i_board[X*25+Y-2] == turn  && i_board[X*25+Y-1] == turn) && (i_board[X*25+Y+2] == {turn[1],~turn[0]}) && (i_board[X*25+Y-3] == l)) || 
-        ((i_board[X*25+Y-3] == turn &&  i_board[X*25+Y-2] == turn  && i_board[X*25+Y-1] == turn) && (i_board[X*25+Y+1] == {turn[1],~turn[0]}) && (i_board[X*25+(Y-4)] == l)) || 
+        {i_board[(X)*25+(Y+1)],i_board[(X)*25+(Y+2)],i_board[(X)*25+(Y+3)],i_board[(X)*15+(Y+4)],i_board[X*25+(Y-1)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X)*25+(Y+1)],i_board[(X)*25+(Y+2)],i_board[(X)*25+(Y-1)],i_board[(X)*15+(Y+3)],i_board[X*25+(Y-2)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X)*25+(Y+1)],i_board[(X)*25+(Y-2)],i_board[(X)*25+(Y-1)],i_board[(X)*15+(Y+2)],i_board[X*25+(Y-3)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X)*25+(Y-3)],i_board[(X)*25+(Y-2)],i_board[(X)*25+(Y-1)],i_board[(X)*15+(Y+1)],i_board[X*25+(Y-4)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+
+        {i_board[(X-1)*25+(Y+1)],i_board[(X-2)*25+(Y+2)],i_board[(X-3)*25+(Y+3)],i_board[(X-4)*25+(Y+4)],i_board[(X-4)*25+(Y+4)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-1)*25+(Y+1)],i_board[(X-2)*25+(Y+2)],i_board[(X+1)*25+(Y-1)],i_board[(X-3)*25+(Y+3)],i_board[(X-3)*25+(Y+3)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-1)*25+(Y+1)],i_board[(X+1)*25+(Y-1)],i_board[(X+2)*25+(Y+2)],i_board[(X-2)*25+(Y+2)],i_board[(X-2)*25+(Y+2)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X+1)*25+(Y-1)],i_board[(X+2)*25+(Y-2)],i_board[(X+3)*25+(Y+3)],i_board[(X-1)*25+(Y+1)],i_board[(X-1)*25+(Y+1)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
         
-        ((i_board[(X-1)*25+(Y+1)] == turn &&  i_board[(X-2)*25+(Y+2)] == turn  && i_board[(X-3)*25+(Y+3)] == turn) && (i_board[(X-4)*25+(Y+4)] == {turn[1],~turn[0]}) && (i_board[(X+1)*25+(Y-1)] == l)) || 
-        ((i_board[(X-1)*25+(Y+1)] == turn &&  i_board[(X-2)*25+(Y+2)] == turn  && i_board[(X+1)*25+(Y-1)] == turn) && (i_board[(X-3)*25+(Y+3)] == {turn[1],~turn[0]}) && (i_board[(X+2)*25+(Y-2)] == l)) || 
-        ((i_board[(X-1)*25+(Y+1)] == turn &&  i_board[(X+1)*25+(Y-1)] == turn  && i_board[(X+2)*25+(Y-2)] == turn) && (i_board[(X-2)*25+(Y+2)] == {turn[1],~turn[0]}) && (i_board[(X+3)*25+(Y-3)] == l)) || 
-        ((i_board[(X+1)*25+(Y-1)] == turn &&  i_board[(X+2)*25+(Y-2)] == turn  && i_board[(X+3)*25+(Y-3)] == turn) && (i_board[(X-1)*25+(Y+1)] == {turn[1],~turn[0]}) && (i_board[(X+4)*25+(Y-4)] == l)) || 
+        {i_board[(X-1)*25+(Y)],i_board[(X-2)*25+(Y)],i_board[(X-3)*25+(Y)],i_board[(X-4)*25+(Y)],i_board[(X-4)*25+(Y)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-1)*25+(Y)],i_board[(X-2)*25+(Y)],i_board[(X+1)*25+(Y)],i_board[(X-3)*25+(Y)],i_board[(X-3)*25+(Y)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-1)*25+(Y)],i_board[(X+1)*25+(Y)],i_board[(X+2)*25+(Y)],i_board[(X-2)*25+(Y)],i_board[(X-2)*25+(Y)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X+1)*25+(Y)],i_board[(X+2)*25+(Y)],i_board[(X+3)*25+(Y)],i_board[(X-1)*25+(Y)],i_board[(X-1)*25+(Y)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
         
-        ((i_board[(X-1)*25+Y] == turn &&  i_board[(X-2)*25+Y] == turn  && i_board[(X-3)*25+Y] == turn) && (i_board[(X-4)*25+Y] == {turn[1],~turn[0]}) && (i_board[(X+1)*25+Y] == l)) || 
-        ((i_board[(X-1)*25+Y] == turn &&  i_board[(X-2)*25+Y] == turn  && i_board[(X+1)*25+Y] == turn) && (i_board[(X-3)*25+Y] == {turn[1],~turn[0]}) && (i_board[(X+2)*25+Y] == l)) || 
-        ((i_board[(X-1)*25+Y] == turn &&  i_board[(X+1)*25+Y] == turn  && i_board[(X+2)*25+Y] == turn) && (i_board[(X-2)*25+Y] == {turn[1],~turn[0]}) && (i_board[(X+3)*25+Y] == l)) || 
-        ((i_board[(X+1)*25+Y] == turn &&  i_board[(X+2)*25+Y] == turn  && i_board[(X+3)*25+Y] == turn) && (i_board[(X-1)*25+Y] == {turn[1],~turn[0]}) && (i_board[(X+4)*25+Y] == l)) || 
+        {i_board[(X-1)*25+(Y-1)],i_board[(X-2)*25+(Y-1)],i_board[(X-3)*25+(Y-3)],i_board[(X-4)*25+(Y+4)],i_board[(X-4)*25+(Y-4)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-1)*25+(Y-1)],i_board[(X-2)*25+(Y-1)],i_board[(X+1)*25+(Y+1)],i_board[(X-3)*25+(Y+3)],i_board[(X-3)*25+(Y-3)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-1)*25+(Y-1)],i_board[(X+1)*25+(Y-1)],i_board[(X+2)*25+(Y+2)],i_board[(X-2)*25+(Y+2)],i_board[(X-2)*25+(Y-2)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X+1)*25+(Y+1)],i_board[(X+2)*25+(Y+1)],i_board[(X+3)*25+(Y+3)],i_board[(X-1)*25+(Y+1)],i_board[(X-1)*25+(Y-1)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+
+        {i_board[(X)*25+(Y-1)],i_board[(X)*25+(Y-2)],i_board[(X)*25+(Y-3)],i_board[(X)*15+(Y-4)],i_board[X*25+(Y+1)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X)*25+(Y-1)],i_board[(X)*25+(Y-2)],i_board[(X)*25+(Y+1)],i_board[(X)*15+(Y-3)],i_board[X*25+(Y+2)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X)*25+(Y-1)],i_board[(X)*25+(Y+2)],i_board[(X)*25+(Y+1)],i_board[(X)*15+(Y-2)],i_board[X*25+(Y+3)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X)*25+(Y+3)],i_board[(X)*25+(Y+2)],i_board[(X)*25+(Y+1)],i_board[(X)*15+(Y-1)],i_board[X*25+(Y+4)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+
+        {i_board[(X+1)*25+(Y-1)],i_board[(X+2)*25+(Y-2)],i_board[(X+3)*25+(Y-3)],i_board[(X+4)*25+(Y-4)],i_board[(X-1)*25+(Y+1)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X+1)*25+(Y-1)],i_board[(X+2)*25+(Y-2)],i_board[(X-1)*25+(Y+1)],i_board[(X+3)*25+(Y-3)],i_board[(X-2)*25+(Y+2)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X+1)*25+(Y-1)],i_board[(X-2)*25+(Y+2)],i_board[(X-1)*25+(Y+1)],i_board[(X+2)*25+(Y-2)],i_board[(X-3)*25+(Y+3)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+        {i_board[(X-3)*25+(Y+3)],i_board[(X-2)*25+(Y+2)],i_board[(X-1)*25+(Y+1)],i_board[(X+1)*25+(Y-1)],i_board[(X-4)*25+(Y+4)]} == {turn,turn,turn,{turn[1],~turn[0]},l}||
+            
+            // second condition
+        {i_board[(X+2)*25+Y],i_board[(X+3)*25+Y],i_board[(X+4)*25+Y],i_board[(X+1)*25+Y]} == {turn,turn,turn,l} || 
+        {i_board[(X-2)*25+Y],i_board[(X+1)*25+Y],i_board[(X+2)*25+Y],i_board[(X-2)*25+Y]} == {turn,turn,turn,l} || 
+        {i_board[(X-3)*25+Y],i_board[(X-1)*25+Y],i_board[(X+1)*25+Y],i_board[(X-2)*25+Y]} == {turn,turn,turn,l} || 
+        {i_board[(X-4)*25+Y],i_board[(X-2)*25+Y],i_board[(X-1)*25+Y],i_board[(X-3)*25+Y]} == {turn,turn,turn,l} || 
+
+        {i_board[(X+2)*25+(Y+2)],i_board[(X+3)*25+(Y+3)],i_board[(X+4)*25+(Y+4)],i_board[(X+1)*25+(Y+1)} == {turn,turn,turn,l} || 
+        {i_board[(X-2)*25+(Y-2)],i_board[(X+1)*25+(Y+1)],i_board[(X+2)*25+(Y+2)],i_board[(X-1)*25+(Y-1)} == {turn,turn,turn,l} || 
+        {i_board[(X-3)*25+(Y-3)],i_board[(X-1)*25+(Y-1)],i_board[(X+1)*25+(Y+1)],i_board[(X-2)*25+(Y-2)} == {turn,turn,turn,l} || 
+        {i_board[(X-4)*25+(Y-4)],i_board[(X-2)*25+(Y-2)],i_board[(X-1)*25+(Y-1)],i_board[(X-3)*25+(Y-3)} == {turn,turn,turn,l} || 
         
-        ((i_board[(X-1)*25+(Y-1)] == turn &&  i_board[(X-2)*25+(Y-2)] == turn && i_board[(X-3)*25+(Y-3)] == turn) && (i_board[(X-4)*25+(Y-4)] == {turn[1],~turn[0]}) && (i_board[(X+1)*25+(Y+1)] == l)) || 
-        ((i_board[(X-1)*25+(Y-1)] == turn &&  i_board[(X-2)*25+(Y-2)] == turn && i_board[(X+1)*25+(Y+1)] == turn) && (i_board[(X-3)*25+(Y-3)] == {turn[1],~turn[0]}) && (i_board[(X+2)*25+(Y+2)] == l)) || 
-        ((i_board[(X-1)*25+(Y-1)] == turn &&  i_board[(X+1)*25+(Y+1)] == turn && i_board[(X+2)*25+(Y+2)] == turn) && (i_board[(X-2)*25+(Y-2)] == {turn[1],~turn[0]}) && (i_board[(X+3)*25+(Y+3)] == l)) || 
-        ((i_board[(X+1)*25+(Y+1)] == turn &&  i_board[(X+2)*25+(Y+2)] == turn && i_board[(X+3)*25+(Y+3)] == turn) && (i_board[(X-1)*25+(Y-1)] == {turn[1],~turn[0]}) && (i_board[(X+4)*25+(Y+4)] == l)) || 
+        {i_board[(X)*25+(Y+2)],i_board[(X)*25+(Y+3)],i_board[(X)*25+(Y+4)],i_board[(X)*25+(Y+1)} == {turn,turn,turn,l} || 
+        {i_board[(X)*25+(Y-2)],i_board[(X)*25+(Y+1)],i_board[(X)*25+(Y+2)],i_board[(X)*25+(Y-1)} == {turn,turn,turn,l} || 
+        {i_board[(X)*25+(Y-3)],i_board[(X)*25+(Y-1)],i_board[(X)*25+(Y+1)],i_board[(X)*25+(Y-2)} == {turn,turn,turn,l} || 
+        {i_board[(X)*25+(Y-4)],i_board[(X)*25+(Y-2)],i_board[(X)*25+(Y-1)],i_board[(X)*25+(Y-3)} == {turn,turn,turn,l} || 
         
-        ((i_board[X*25+Y-1] == turn &&  i_board[X*25+Y-2] == turn  && i_board[X*25+Y-3] == turn) &&(i_board[X*25+Y-4] == {turn[1],~turn[0]}) && (i_board[X*25+Y+1] == l)) || 
-        ((i_board[X*25+Y-1] == turn &&  i_board[X*25+Y-2] == turn  && i_board[X*25+Y+1] == turn) && (i_board[X*25+Y-3] == {turn[1],~turn[0]}) && (i_board[X*25+Y+2] == l)) || 
-        ((i_board[X*25+Y-1] == turn &&  i_board[X*25+Y+1] == turn  && i_board[X*25+Y+2] == turn) && (i_board[X*25+Y-2] == {turn[1],~turn[0]}) && (i_board[X*25+Y+3] == l)) || 
-        ((i_board[X*25+Y+3] == turn &&  i_board[X*25+Y+2] == turn  && i_board[X*25+Y+1] == turn) && (i_board[X*25+Y-1] == {turn[1],~turn[0]}) && (i_board[X*25+(Y+4)] == l)) || 
+        {i_board[(X-2)*25+(Y+2)],i_board[(X-3)*25+(Y+3)],i_board[(X-4)*25+(Y+4)],i_board[(X-1)*25+(Y+1)]} == {turn,turn,turn,l}|| 
+        {i_board[(X-2)*25+(Y+2)],i_board[(X-1)*25+(Y+1)],i_board[(X+2)*25+(Y-2)],i_board[(X+1)*25+(Y-1)]} == {turn,turn,turn,l}|| 
+        {i_board[(X-1)*25+(Y+1)],i_board[(X+1)*25+(Y-1)],i_board[(X+3)*25+(Y-3)],i_board[(X-2)*25+(Y-2)]} == {turn,turn,turn,l}|| 
+        {i_board[(X+1)*25+(Y-1)],i_board[(X+2)*25+(Y-2)],i_board[(X+4)*25+(Y-4)],i_board[(X+3)*25+(Y-3)]} == {turn,turn,turn,l}|| 
+
+        {i_board[(X+3)*25+Y],i_board[(X-1)*25+Y],i_board[(X+1)*25+Y],i_board[(X+2)*25+Y]} == {turn,turn,turn,l}|| 
+        {i_board[(X-2)*25+Y],i_board[(X-3)*25+Y],i_board[(X-4)*25+Y],i_board[(X-1)*25+Y]} == {turn,turn,turn,l}|| 
+        {i_board[(X-2)*25+Y],i_board[(X-1)*25+Y],i_board[(X+2)*25+Y],i_board[(X-1)*25+Y]} == {turn,turn,turn,l}||     
+        {i_board[(X+4)*25+Y],i_board[(X+2)*25+Y],i_board[(X+1)*25+Y],i_board[(X+3)*25+Y]} == {turn,turn,turn,l}|| 
         
-        ((i_board[(X+1)*25+(Y-1)] == turn &&  i_board[(X+2)*25+(Y-2)] == turn  && i_board[(X+3)*25+(Y-3)] == turn) && (i_board[(X+4)*25+(Y-4)] == {turn[1],~turn[0]}) && (i_board[(X-1)*25+(Y+1)] == l)) || 
-        ((i_board[(X+1)*25+(Y-1)] == turn &&  i_board[(X+2)*25+(Y-2)] == turn  && i_board[(X-1)*25+(Y+1)] == turn) && (i_board[(X+3)*25+(Y-3)] == {turn[1],~turn[0]}) && (i_board[(X-2)*25+(Y+2)] == l)) || 
-        ((i_board[(X+1)*25+(Y-1)] == turn &&  i_board[(X-1)*25+(Y+1)] == turn  && i_board[(X-2)*25+(Y-2)] == turn) && (i_board[(X+2)*25+(Y-2)] == {turn[1],~turn[0]}) && (i_board[(X-3)*25+(Y+3)] == l)) || 
-        ((i_board[(X-3)*25+(Y+3)] == turn &&  i_board[(X-2)*25+(Y+2)] == turn  && i_board[(X-1)*25+(Y+1)] == turn) && (i_board[(X+1)*25+(Y-1)] == {turn[1],~turn[0]}) && (i_board[(X-4)*25+(Y+4)] == l)) || 
+        {i_board[(X-2)*25+(Y-2)],i_board[(X-3)*25+(Y-3)],i_board[(X-4)*25+(Y-4)],i_board[(X-1)*25+(Y-1)]} == {turn,turn,turn,l}|| 
+        {i_board[(X-2)*25+(Y-2)],i_board[(X-1)*25+(Y-1)],i_board[(X+2)*25+(Y+2)],i_board[(X+1)*25+(Y+1)]} == {turn,turn,turn,l}|| 
+        {i_board[(X+3)*25+(Y+3)],i_board[(X+1)*25+(Y+1)],i_board[(X-1)*25+(Y-1)],i_board[(X+2)*25+(Y+2)]} == {turn,turn,turn,l}|| 
+        {i_board[(X+4)*25+(Y+4)],i_board[(X+2)*25+(Y+2)],i_board[(X+1)*25+(Y+1)],i_board[(X+3)*25+(Y+3)]} == {turn,turn,turn,l}|| 
         
+        {i_board[X*25+Y-2],i_board[X*25+Y-3],i_board[X*25+Y-4],i_board[X*25+Y-1]} == {turn,turn,turn,l} || 
+        {i_board[X*25+Y+2],i_board[X*25+Y-1],i_board[X*25+Y-2],i_board[X*25+Y+1]} == {turn,turn,turn,l} || 
+        {i_board[X*25+Y+3],i_board[X*25+Y+1],i_board[X*25+Y-1],i_board[X*25+Y+2]} == {turn,turn,turn,l} || 
+        {i_board[X*25+Y+4],i_board[X*25+Y+2],i_board[X*25+Y+1],i_board[X*25+Y+3]} == {turn,turn,turn,l} || 
         
-        // second condition
-        ((i_board[(X+2)*25+Y] == turn && i_board[(X+3)*25+Y] == turn && i_board[(X+4)*25+Y] == turn) && (i_board[(X+1)*25+Y] == l)) || 
-        ((i_board[(X-2)*25+Y] == turn && i_board[(X+1)*25+Y] == turn && i_board[(X+2)*25+Y] == turn) && (i_board[(X-1)*25+Y] == l)) || 
-        ((i_board[(X-3)*25+Y] == turn && i_board[(X-1)*25+Y] == turn && i_board[(X+1)*25+Y] == turn) && (i_board[(X-2)*25+Y] == l)) || 
-        ((i_board[(X-4)*25+Y] == turn && i_board[(X-2)*25+Y] == turn && i_board[(X-1)*25+Y] == turn) && (i_board[(X-3)*25+Y] == l)) || 
+        {i_board[(X+2)*25+(Y-2)],i_board[(X-3)*25+(Y-3)],i_board[(X-4)*25+(Y-4)],i_board[(X+1)*25+(Y-1)]} == {turn,turn,turn,l} || 
+        {i_board[(X-2)*25+(Y+2)],i_board[(X+1)*25+(Y-1)],i_board[(X+2)*25+(Y-2)],i_board[(X-1)*25+(Y-1)]} == {turn,turn,turn,l} || 
+        {i_board[(X-3)*25+(Y+3)],i_board[(X-1)*25+(Y+1)],i_board[(X+1)*25+(Y-1)],i_board[(X-2)*25+(Y+2)]} == {turn,turn,turn,l} || 
+        {i_board[(X-4)*25+(Y+4)],i_board[(X-2)*25+(Y+2)],i_board[(X-1)*25+(Y+1)],i_board[(X-3)*25+(Y+3)]} == {tur,turn,turn,l} || 
         
-        ((i_board[(X+2)*25+(Y+2)] == turn && i_board[(X+3)*25+(Y+3)] == turn && i_board[(X+4)*25+(Y+4)] == turn) && (i_board[(X+1)*25+(Y+1)] == l))  || 
-        ((i_board[(X-2)*25+(Y-2)] == turn && i_board[(X+1)*25+(Y+1)] == turn && i_board[(X+2)*25+(Y+2)] == turn) && (i_board[(X-1)*25+(Y-1)] == l)) || 
-        ((i_board[(X-3)*25+(Y-3)] == turn && i_board[(X-1)*25+(Y-1)] == turn && i_board[(X+1)*25+(Y+1)] == turn) && (i_board[(X-2)*25+(Y-2)] == l)) || 
-        ((i_board[(X-4)*25+(Y-4)] == turn && i_board[(X-2)*25+(Y-2)] == turn && i_board[(X-1)*25+(Y-1)] == turn) && (i_board[(X-3)*25+(Y-3)] == l)) || 
+        //Third condition
+        {i_board[(X+1)*25+Y],i_board[(X+3)*25+Y],i_board[(X+4)*25+Y],i_board[(X+2)*25+Y]} == {turn,turn,turn,l} || 
+        {i_board[(X-1)*25+Y],i_board[(X+2)*25+Y],i_board[(X+3)*25+Y],i_board[(X+1)*25+Y]} == {turn,turn,turn,l} || 
+        {i_board[(X-3)*25+Y],i_board[(X-2)*25+Y],i_board[(X+1)*25+Y],i_board[(X-1)*25+Y]} == {turn,turn,turn,l} || 
+        {i_board[(X-4)*25+Y],i_board[(X-3)*25+Y],i_board[(X-1)*25+Y],i_board[(X-2)*25+Y]} == {turn,turn,turn,l} || 
         
-        ((i_board[X*25+Y+2] == turn && i_board[X*25+Y+3] == turn && i_board[X*25+Y+4] == turn) && (i_board[X*25+Y+1] == l)) || 
-        ((i_board[X*25+Y-2] == turn && i_board[X*25+Y+1] == turn && i_board[X*25+Y+2] == turn) && (i_board[X*25+Y-1] == l)) || 
-        ((i_board[X*25+Y-3] == turn && i_board[X*25+Y-1] == turn && i_board[X*25+Y+1] == turn) && (i_board[X*25+Y-2] == l)) || 
-        ((i_board[X*25+Y-4] == turn && i_board[X*25+Y-2] == turn && i_board[X*25+Y-1] == turn) && (i_board[X*25+Y-3] == l)) || 
+        {i_board[(X+1)*25+Y+1],i_board[(X+3)*25+Y+3],&& i_board[(X+4)*25+Y+4],i_board[(X+2)*25+Y+2]} == {turn,turn,turn,l} || 
+        {i_board[(X-1)*25+Y-1],i_board[(X+2)*25+Y+2],&& i_board[(X+3)*25+Y+3],i_board[(X+1)*25+Y+1]} == {turn,turn,turn,l} || 
+        {i_board[(X-3)*25+Y-3],i_board[(X-2)*25+Y-2],&& i_board[(X+1)*25+Y+1],i_board[(X-1)*25+Y-1]} == {turn,turn,turn,l} || 
+        {i_board[(X-4)*25+Y-4],i_board[(X-3)*25+Y-3],&& i_board[(X-1)*25+Y-1],i_board[(X-2)*25+Y-2]} == {turn,turn,turn,l} || 
         
-        ((i_board[(X-2)*25+(Y+2)] == turn && i_board[(X-3)*25+(Y+3)] == turn && i_board[(X-4)*25+(Y+4)] == turn) && (i_board[(X-1)*25+(Y+1)] == l)) || 
-        ((i_board[(X-2)*25+(Y+2)] == turn && i_board[(X-1)*25+(Y+1)] == turn && i_board[(X+2)*25+(Y-2)] == turn) && (i_board[(X+1)*25+(Y-1)] == l)) || 
-        ((i_board[(X-1)*25+(Y+1)] == turn && i_board[(X+1)*25+(Y-1)] == turn && i_board[(X+3)*25+(Y-3)] == turn) && (i_board[(X-2)*25+(Y-2)] == l)) || 
-        ((i_board[(X+1)*25+(Y-1)] == turn && i_board[(X+2)*25+(Y-2)] == turn && i_board[(X+4)*25+(Y-4)] == turn) && (i_board[(X+3)*25+(Y-3)] == l)) || 
-        
-        ((i_board[(X-2)*25+Y] == turn && i_board[(X-3)*25+Y] == turn && i_board[(X-4)*25+Y] == turn) && (i_board[(X-1)*25+Y] == l)) || 
-        ((i_board[(X-2)*25+Y] == turn && i_board[(X-1)*25+Y] == turn && i_board[(X+2)*25+Y] == turn) && (i_board[(X-1)*25+Y] == l)) || 
-        ((i_board[(X+3)*25+Y] == turn && i_board[(X-1)*25+Y] == turn && i_board[(X+1)*25+Y] == turn) && (i_board[(X+2)*25+Y] == l)) || 
-        ((i_board[(X+4)*25+Y] == turn && i_board[(X+2)*25+Y] == turn && i_board[(X+1)*25+Y] == turn) && (i_board[(X+3)*25+Y] == l)) || 
-        
-        ((i_board[(X-2)*25+(Y-2)] == turn && i_board[(X-3)*25+(Y-3)] == turn && i_board[(X-4)*25+(Y-4)] == turn) && (i_board[(X-1)*25+(Y-1)] == l)) || 
-        ((i_board[(X-2)*25+(Y-2)] == turn && i_board[(X-1)*25+(Y-1)] == turn && i_board[(X+2)*25+(Y+2)] == turn) && (i_board[(X+1)*25+(Y+1)] == l)) || 
-        ((i_board[(X+3)*25+(Y+3)] == turn && i_board[(X+1)*25+(Y+1)] == turn && i_board[(X-1)*25+(Y-1)] == turn) && (i_board[(X+2)*25+(Y+2)] == l)) || 
-        ((i_board[(X+4)*25+(Y+4)] == turn && i_board[(X+2)*25+(Y+2)] == turn && i_board[(X+1)*25+(Y+1)] == turn) && (i_board[(X+3)*25+(Y+3)] == l)) || 
-        
-        ((i_board[X*25+Y-2] == turn && i_board[X*25+Y-3] == turn && i_board[X*25+Y-4] == turn) && (i_board[X*25+Y-1] == l)) || 
-        ((i_board[X*25+Y+2] == turn && i_board[X*25+Y-1] == turn && i_board[X*25+Y-2] == turn) && (i_board[X*25+Y+1] == l)) || 
-        ((i_board[X*25+Y+3] == turn && i_board[X*25+Y+1] == turn && i_board[X*25+Y-1] == turn) && (i_board[X*25+Y+2] == l)) || 
-        ((i_board[X*25+Y+4] == turn && i_board[X*25+Y+2] == turn && i_board[X*25+Y+1] == turn) && (i_board[X*25+Y+3] == l)) || 
-        
-        ((i_board[(X+2)*25+(Y-2)] == turn && i_board[(X-3)*25+(Y-3)] == turn && i_board[(X-4)*25+(Y-4)] == turn) &&(i_board[(X+1)*25+(Y-1)] == l)) || 
-        ((i_board[(X-2)*25+(Y+2)] == turn && i_board[(X+1)*25+(Y-1)] == turn && i_board[(X+2)*25+(Y-2)] == turn) && (i_board[(X-1)*25+(Y-1)] == l)) || 
-        ((i_board[(X-3)*25+(Y+3)] == turn && i_board[(X-1)*25+(Y+1)] == turn && i_board[(X+1)*25+(Y-1)] == turn) && (i_board[(X-2)*25+(Y+2)] == l)) || 
-        ((i_board[(X-4)*25+(Y+4)] == turn && i_board[(X-2)*25+(Y+2)] == turn && i_board[(X-1)*25+(Y+1)] == turn) && (i_board[(X-3)*25+(Y+3)] == l)) || 
-        
-        ((i_board[(X+1)*25+Y] == turn && i_board[(X+3)*25+Y] == turn && i_board[(X+4)*25+Y] == turn) && (i_board[(X+2)*25+Y] == l)) || 
-        ((i_board[(X-1)*25+Y] == turn && i_board[(X+2)*25+Y] == turn && i_board[(X+3)*25+Y] == turn) && (i_board[(X+1)*25+Y] == l)) || 
-        ((i_board[(X-3)*25+Y] == turn && i_board[(X-2)*25+Y] == turn && i_board[(X+1)*25+Y] == turn) && (i_board[(X-1)*25+Y] == l)) || 
-        ((i_board[(X-4)*25+Y] == turn && i_board[(X-3)*25+Y] == turn && i_board[(X-1)*25+Y] == turn) && (i_board[(X-2)*25+Y] == l)) || 
-        
-        ((i_board[(X+1)*25+Y+1] == turn && i_board[(X+3)*25+Y+3] == turn && i_board[(X+4)*25+Y+4] == turn) && (i_board[(X+2)*25+Y+2] == l)) || 
-        ((i_board[(X-1)*25+Y-1] == turn && i_board[(X+2)*25+Y+2] == turn && i_board[(X+3)*25+Y+3] == turn) && (i_board[(X+1)*25+Y+1] == l)) || 
-        ((i_board[(X-3)*25+Y-3] == turn && i_board[(X-2)*25+Y-2] == turn && i_board[(X+1)*25+Y+1] == turn) && (i_board[(X-1)*25+Y-1] == l)) || 
-        ((i_board[(X-4)*25+Y-4] == turn && i_board[(X-3)*25+Y-3] == turn && i_board[(X-1)*25+Y-1] == turn) && (i_board[(X-2)*25+Y-2] == l)) || 
-        
-        ((i_board[X*25+Y+1] == turn && i_board[X*25+Y+3] == turn && i_board[X*25+Y+4] == turn) && (i_board[X*25+Y+2] == l)) || 
-        ((i_board[X*25+Y-2] == turn && i_board[X*25+Y+1] == turn && i_board[X*25+Y+2] == turn) && (i_board[X*25+Y-1] == l)) || 
-        ((i_board[X*25+Y-3] == turn && i_board[X*25+Y-2] == turn && i_board[X*25+Y+1] == turn) && (i_board[X*25+Y-1] == l)) || 
-        ((i_board[X*25+Y-4] == turn && i_board[X*25+Y-3] == turn && i_board[X*25+Y-1] == turn) && (i_board[X*25+Y-2] == l)) || 
-        
-        ((i_board[(X+1)*25+Y-1] == turn && i_board[(X+3)*25+Y-3] == turn && i_board[(X+4)*25+Y-4] == turn) && (i_board[(X+2)*25+Y-2] == l)) || 
-        ((i_board[(X-1)*25+Y+1] == turn && i_board[(X+2)*25+Y-2] == turn && i_board[(X+3)*25+Y-3] == turn) && (i_board[(X+1)*25+Y-1] == l)) || 
-        ((i_board[(X-3)*25+Y+3] == turn && i_board[(X-2)*25+Y+2] == turn && i_board[(X+1)*25+Y+1] == turn) && (i_board[(X-1)*25+Y+1] == l)) || 
-        ((i_board[(X-4)*25+Y+4] == turn && i_board[(X-3)*25+Y+3] == turn && i_board[(X-1)*25+Y+1] == turn) && (i_board[(X-2)*25+Y+2] == l)))) begin
-        check = 1;     
-    end
-    else begin
-        check = 0;
-    end
+        {i_board[X*25+Y+1],i_board[X*25+Y+3],i_board[X*25+Y+4],i_board[X*25+Y+2]} == {turn,turn,turn,l} || 
+        {i_board[X*25+Y-2],i_board[X*25+Y+1],i_board[X*25+Y+2],i_board[X*25+Y-1]} == {turn,turn,turn,l} || 
+        {i_board[X*25+Y-3],i_board[X*25+Y-2],i_board[X*25+Y+1],i_board[X*25+Y-1]} == {turn,turn,turn,l} || 
+        {i_board[X*25+Y-4],i_board[X*25+Y-3],i_board[X*25+Y-1],i_board[X*25+Y-2]} == {turn,turn,turn,l} || 
+
+        {i_board[(X+1)*25+Y-1],i_board[(X+3)*25+Y-3],i_board[(X+4)*25+Y-4],i_board[(X+2)*25+Y-2]} == {turn,turn,turn,l} || 
+        {i_board[(X-1)*25+Y+1],i_board[(X+2)*25+Y-2],i_board[(X+3)*25+Y-3],i_board[(X+1)*25+Y-1]} == {turn,turn,turn,l} || 
+        {i_board[(X-3)*25+Y+3],i_board[(X-2)*25+Y+2],i_board[(X+1)*25+Y+1],i_board[(X-1)*25+Y+1]} == {turn,turn,turn,l} || 
+        {i_board[(X-4)*25+Y+4],i_board[(X-3)*25+Y+3],i_board[(X-1)*25+Y+1],i_board[(X-2)*25+Y+2]} == {turn,turn,turn,l}  ) 
+        begin
+            check = 1;     
+        end
+        else begin
+            check = 0;
+        end
+end
 endtask
 
 task Offense_live_four(
