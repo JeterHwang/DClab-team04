@@ -1,0 +1,80 @@
+ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
+TOOL:	ncverilog	12.20-s012: Started on Jan 02, 2021 at 22:19:25 CST
+ncverilog
+	score_tb.sv
+	../../MinMax/Score.sv
+	+access+r
+Recompiling... reason: file './score_tb.sv' is newer than expected.
+	expected: Wed Dec 30 19:48:13 2020
+	actual:   Sat Jan  2 22:19:12 2021
+file: score_tb.sv
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                     |
+ncvlog: *E,EXPRPA (score_tb.sv,36|69): expecting a right parenthesis (')') [10.2.2(IEEE)].
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                          |
+ncvlog: *E,MISEXX (score_tb.sv,36|74): expecting an '=' or '<=' sign in an assignment [9.2(IEEE)].
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                              |
+ncvlog: *E,MISEXX (score_tb.sv,36|78): expecting an '=' or '<=' sign in an assignment [9.2(IEEE)].
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                                  |
+ncvlog: *E,MISEXX (score_tb.sv,36|82): expecting an '=' or '<=' sign in an assignment [9.2(IEEE)].
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                                                      |
+ncvlog: *E,EXPLPA (score_tb.sv,36|102): expecting a left parenthesis ('(') [7.1(IEEE)].
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                                                        |
+ncvlog: *E,EXPLPA (score_tb.sv,36|104): expecting a left parenthesis ('(') [7.1(IEEE)].
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                                                                      |
+ncvlog: *E,BADSTR (score_tb.sv,36|118): unterminated string [2.6(IEEE)].
+             display("Readfilewasopenedsuccessfully:else display("Read file was not opened successfully : %0d", fp_i);
+                                                                                                                      |
+ncvlog: *E,EXPLPA (score_tb.sv,36|118): expecting a left parenthesis ('(') [7.1(IEEE)].
+        for(int i = 0; i < 25; i++) begin
+              |
+ncvlog: *E,FNDKWD (score_tb.sv,38|14): A SystemVerilog keyword was found where an identifier was expected.
+            status =  fscanf(fpi,"if(status!=25)begin display("Error !! : %d", status);
+                   |
+ncvlog: *E,EXPLPA (score_tb.sv,39|19): expecting a left parenthesis ('(') [12.1.2][7.1(IEEE)].
+            status =  fscanf(fpi,"if(status!=25)begin display("Error !! : %d", status);
+                                                                   |
+ncvlog: *E,EXPRPA (score_tb.sv,39|67): expecting a right parenthesis (')') [12.1.2][7.1(IEEE)].
+            status =  fscanf(fpi,"if(status!=25)begin display("Error !! : %d", status);
+                                                                     |
+ncvlog: *E,EXPLPA (score_tb.sv,39|69): expecting a left parenthesis ('(') [12.1.2][7.1(IEEE)].
+            status =  fscanf(fpi,"if(status!=25)begin display("Error !! : %d", status);
+                                                                      |
+ncvlog: *W,DUPBWO (score_tb.sv,39|70): error prone bit-wise OR ('|') sequence detected [4.1.11(IEEE)].
+            status =  fscanf(fpi,"if(status!=25)begin display("Error !! : %d", status);
+                                                                          |
+ncvlog: *E,EXPIDN (score_tb.sv,39|74): expecting an identifier [12.1.3(IEEE 2001)].
+            status =  fscanf(fpi,"if(status!=25)begin display("Error !! : %d", status);
+                                                                                       |
+ncvlog: *E,BADSTR (score_tb.sv,39|87): unterminated string [2.6(IEEE)].
+            status =  fscanf(fpi,"if(status!=25)begin display("Error !! : %d", status);
+                                                                                       |
+ncvlog: *E,EXPEND (score_tb.sv,39|87): Expecting the keyword 'end' [12.1.3(IEEE 2001)].
+        end
+          |
+ncvlog: *E,EXPENM (score_tb.sv,41|10): expecting the keyword 'endmodule' [12.1(IEEE)].
+	module worklib.Score_tb:sv
+		errors: 16, warnings: 1
+file: ../../MinMax/Score.sv
+endtask
+      |
+ncvlog: *E,NOTSTT (../../MinMax/Score.sv,177|6): expecting a statement [9(IEEE)].
+endtask
+      |
+ncvlog: *E,NOTSTT (../../MinMax/Score.sv,219|6): expecting a statement [9(IEEE)].
+endtask
+      |
+ncvlog: *E,NOTSTT (../../MinMax/Score.sv,262|6): expecting a statement [9(IEEE)].
+endtask
+      |
+ncvlog: *E,NOTSTT (../../MinMax/Score.sv,305|6): expecting a statement [9(IEEE)].
+	module worklib.Score:sv
+		errors: 4, warnings: 0
+ncverilog: *E,VLGERR: An error occurred during parsing.  Review the log file for errors with the code *E and fix those identified problems to proceed.  Exiting with code (status 1).
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 02, 2021 at 22:19:25 CST  (total: 00:00:00)

@@ -7,7 +7,7 @@
 +EMGRLOG
 ncverilog.log
 -XLSTIME
-1609599975
+1609597006
 -XLKEEP
 -XLMODE
 ./INCA_libs/irun.lnx8664.12.20.nc
@@ -20,3 +20,5 @@ ncverilog.log
 ncverilog
 -XLVERSION
 "TOOL:	ncverilog	12.20-s012"
+-XLNAME
+./INCA_libs/irun.lnx8664.12.20.nc/dclab-workstation_1409

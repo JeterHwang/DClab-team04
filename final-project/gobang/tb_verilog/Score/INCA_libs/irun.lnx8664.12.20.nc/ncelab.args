@@ -3,12 +3,10 @@
 // Do not modify this file
 //
 +access+r
+-noshowtop
+-ACCESS
++r
 -MESSAGES
-+EMGRLOG
-ncverilog.log
--XLSTIME
-1609599975
--XLKEEP
 -XLMODE
 ./INCA_libs/irun.lnx8664.12.20.nc
 -RUNMODE
@@ -16,7 +14,6 @@ ncverilog.log
 ./INCA_libs/irun.lnx8664.12.20.nc/cds.lib
 -HDLVAR
 ./INCA_libs/irun.lnx8664.12.20.nc/hdl.var
--XLNAME
-ncverilog
--XLVERSION
-"TOOL:	ncverilog	12.20-s012"
+-WORK
+worklib
+-HASXLMODE
