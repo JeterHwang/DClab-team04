@@ -140,13 +140,13 @@ task Compare_seven;
     
     // seven up
     if({i_board[(j + 5) + (i + 5) * 25], i_board[(j + 5) + (i + 6) * 25], i_board[(j + 5) + (i + 7) * 25], i_board[(j + 5) + (i + 8) * 25], i_board[(j + 5) + (i + 9) * 25], i_board[(j + 5) + (i + 10) * 25], i_board[(j + 5) + (i + 11) * 25] } == seven[index]) begin
-        if(index == 0)
+        if(j == 0)
             seven_tmp[index * 4 + 0] = seven_weight[index];
         else
             seven_tmp[index * 4 + 0] = seven_tmp[index * 4 - 1] + seven_weight[index];    
     end
     else begin
-        if(index == 0)
+        if(j == 0)
             seven_tmp[index * 4 + 0] = 32'd0;
         else
             seven_tmp[index * 4 + 0] = seven_tmp[index* 4 - 1];
@@ -183,13 +183,13 @@ task Compare_six;
     output signed [31:0] score;
     // six up
         if({i_board[j + 5 + (i + 5) * 25], i_board[j + 5 + (i + 6) * 25], i_board[j + 5 + (i + 7) * 25], i_board[j + 5 + (i + 8) * 25], i_board[j + 5 + (i + 9) * 25], i_board[j + 5 + (i + 10) * 25]} === six[index]) begin
-            if(index == 0)
+            if(j == 0)
                 six_tmp[index * 4] = six_weight[index];
             else
                 six_tmp[index * 4] = six_tmp[index * 4 - 1] + six_weight[index];    
         end
         else begin
-            if(index == 0)
+            if(j == 0)
                 six_tmp[index * 4 + 0] = 32'd0;
             else
                 six_tmp[index * 4 + 0] = six_tmp[index * 4 - 1];
@@ -226,13 +226,13 @@ task Compare_five;
 
             // five up
     if({i_board[j + 5 + (i + 5) * 25], i_board[j + 5 + (i + 6) * 25], i_board[j + 5 + (i + 7) * 25], i_board[j + 5 + (i + 8) * 25], i_board[j + 5 + (i + 9) * 25]} === five[index]) begin
-        if(index == 0)
+        if(j == 0)
             five_tmp[index * 4] = five_weight[index];
         else
             five_tmp[index * 4] = five_tmp[index * 4 - 1] + five_weight[index];    
     end
     else begin
-        if(index == 0)
+        if(j == 0)
             five_tmp[index * 4] = 32'd0;
         else
             five_tmp[index * 4] = five_tmp[index * 4 - 1];
@@ -268,13 +268,13 @@ task Compare_three;
     
             // three up
     if({i_board[j + 5 + (i + 5) * 25], i_board[j + 5 + (i + 6) * 25], i_board[j + 5 + (i + 7) * 25]} === three[index]) begin
-        if(index == 0)
+        if(j == 0)
             three_tmp[index * 4] = three_weight[index];
         else
             three_tmp[index * 4] = three_tmp[index * 4 - 1] + three_weight[index];    
     end
     else begin
-        if(index == 0)
+        if(j == 0)
             three_tmp[index * 4] = 32'd0;
         else
             three_tmp[index * 4] = three_tmp[index * 4 - 1];
@@ -351,20 +351,12 @@ always_comb begin
             end 
         end 
         S_COUNT: begin
-            // $display(3456765);
             if(Y_r == 15) begin
                 state_w = S_EVAL;
             end
             else begin
                 for(int k = 0; k < 2; k++) begin
                     Compare_seven(.index(k[5:0]), .i(X_r), .j(Y_r), .score(seven_score[k]));
-                    if(X_r <= 1) begin
-                        // $display("seven_score[k]", seven_score[k], " ", k);
-                        // $display(Y_w, " ", Y_r, " ", X_r, " ", X_w);
-                        // $display("index: ", k);
-                        // $display("seven_temp: ", seven_tmp[0], seven_tmp[1], seven_tmp[2], seven_tmp[3]);
-                    end
-                    
                 end
                 for(int k = 0; k < 38; k++) begin
                     Compare_six(.index(k[5:0]), .i(X_r), .j(Y_r), .score(six_score[k]));
@@ -394,7 +386,7 @@ always_comb begin
                 + five_score[15]+ five_score[16]+ five_score[17]+ five_score[18]+ five_score[19] 
                 + three_score[3]+ three_score[4]+ three_score[5];
                 
-                Y_w = Y_r + 5'd1; 
+                X_w = X_r + 5'd1; 
             end
         end
         S_EVAL: begin
@@ -404,10 +396,7 @@ always_comb begin
                 if(i_turn)
                     score_w = white_score_r - black_score_r;
                 else
-                    score_w = black_score_r - white_score_r;  
-                // $display("black_score: ", black_score_w) ;
-                // $display("white_score: ", white_score_w) ; 
-                // $display("score: ", score_w) ;
+                    score_w = black_score_r - white_score_r;    
             end
             else begin
                 state_w = S_COUNT;
