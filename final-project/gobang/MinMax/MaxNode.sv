@@ -267,7 +267,7 @@ always_comb begin
 					finish_w 	= 1'b1;
 					state_w 	= S_IDLE;
 				end
-				else if(SS_depth_r < 6) begin
+				else if(SS_depth_r < 4) begin
 					SS_depth_w = SS_depth_r + 5'd2;
 					SS_start_w = 1'b1;
 				end

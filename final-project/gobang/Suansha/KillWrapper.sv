@@ -113,7 +113,7 @@ Kill_node node4(
     .o_start(start_w[4]),
     .o_Xpos(Xpos[4]),
     .o_Ypos(Ypos[4])
-//);
+);
 //Kill_node node5(
 //    .i_clk(i_clk),
 //    .i_rst_n(i_rst_n),

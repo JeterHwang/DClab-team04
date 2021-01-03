@@ -49,7 +49,7 @@ module minmax_tb;
             end
         end
 
-        for(int i = 0; i < 6; i = i + 2) begin
+        for(int i = 0; i < 4; i = i + 2) begin
             depth = i[4:0];
             start = 0;
             rst_n = 1;

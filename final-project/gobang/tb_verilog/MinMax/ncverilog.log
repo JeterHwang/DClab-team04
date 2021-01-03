@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Jan 03, 2021 at 13:46:15 CST
+TOOL:	ncverilog	12.20-s012: Started on Jan 03, 2021 at 19:33:19 CST
 ncverilog
 	MinmaxWrapper_tb.sv
 	../../MinMax/MinmaxWrapper.sv
@@ -13,30 +13,30 @@ ncverilog
 	../../Suansha/KillNode.sv
 	../../Suansha/Threats.sv
 	+access+r
-Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/MaxNode.sv' is newer than expected.
-	expected: Sun Jan  3 05:47:48 2021
-	actual:   Sun Jan  3 13:46:11 2021
-file: ../../MinMax/MaxNode.sv
-	module worklib.Max:sv
+Recompiling... reason: file '/home/team04/jeter/DClab-team04/final-project/gobang/MinMax/BaseNode.sv' is newer than expected.
+	expected: Sun Jan  3 03:15:08 2021
+	actual:   Sun Jan  3 19:33:15 2021
+file: ../../MinMax/BaseNode.sv
+	module worklib.Base:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Max:sv <0x149e05b0>
-			streams:  36, words: 33040
+		worklib.Base:sv <0x06bed5c4>
+			streams:  32, words: 30559
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                   Instances  Unique
-		Modules:                  81      11
-		Registers:              3187     396
-		Scalar wires:            495       -
-		Vectored wires:          572       -
-		Always blocks:           144      17
-		Initial blocks:            6       4
-		Cont. assignments:       185      65
-		Pseudo assignments:      611     224
+		Modules:                  37      11
+		Registers:              1322     396
+		Scalar wires:            213       -
+		Vectored wires:          257       -
+		Always blocks:            62      17
+		Initial blocks:            5       4
+		Cont. assignments:        83      65
+		Pseudo assignments:      264     156
 		Compilation units:         1       1
 		Simulation timescale:  100ps
 	Writing initial simulation snapshot: worklib.minmax_tb:sv
@@ -56,7 +56,7 @@ File was opened successfully : -2147483645
 
 (X, Y) = (10, 10)
 
-Simulation complete via $finish(1) at time 256833590 NS + 4
+Simulation complete via $finish(1) at time 47921170 NS + 4
 ./MinmaxWrapper_tb.sv:66                 $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Jan 03, 2021 at 13:48:35 CST  (total: 00:02:20)
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 03, 2021 at 19:33:42 CST  (total: 00:00:23)
