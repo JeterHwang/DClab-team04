@@ -1,5 +1,5 @@
 ncverilog(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	ncverilog	12.20-s012: Started on Jan 04, 2021 at 02:03:41 CST
+TOOL:	ncverilog	12.20-s012: Started on Jan 04, 2021 at 03:22:04 CST
 ncverilog
 	MinmaxWrapper_tb.sv
 	../../MinMax/MinmaxWrapper.sv
@@ -11,7 +11,7 @@ ncverilog
 	+access+r
 Recompiling... reason: file './MinmaxWrapper_tb.sv' is newer than expected.
 	expected: Sun Jan  3 22:19:52 2021
-	actual:   Mon Jan  4 00:55:04 2021
+	actual:   Mon Jan  4 03:19:50 2021
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 		Caching library 'worklib' ....... Done
@@ -43,9 +43,9 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Begin traversing the scopes, layer (0).
 *Verdi3* : End of traversing.
 File was opened successfully : -2147483645
-(X, Y) = ( 8, 11)
+(X, Y) = ( 6,  5)
 
-Simulation complete via $finish(1) at time 955830 NS + 4
+Simulation complete via $finish(1) at time 690620 NS + 4
 ./MinmaxWrapper_tb.sv:62         $finish;
 ncsim> exit
-TOOL:	ncverilog	12.20-s012: Exiting on Jan 04, 2021 at 02:03:45 CST  (total: 00:00:04)
+TOOL:	ncverilog	12.20-s012: Exiting on Jan 04, 2021 at 03:22:52 CST  (total: 00:00:48)

@@ -1,7 +1,7 @@
 `timescale 1ns/100ps
 
-`define CLK 20
-`define HCLK 10
+`define CLK 40
+`define HCLK 20
 typedef logic [1:0] board [625];
 
 module minmax_tb;
@@ -62,7 +62,7 @@ module minmax_tb;
         $finish;
     end
     initial begin
-		#(100000000 * (`CLK))
+		#(1000000 * (`CLK))
 		$display("Too slow, abort.");
 		$finish;
 	end
