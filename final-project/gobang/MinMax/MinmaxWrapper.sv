@@ -86,40 +86,40 @@ Max minmax2(
 	.o_Ypos(Ypos_w[2]),
 	.o_kill(kill[2])
 );
-Min minmax3(
-	.i_clk(i_clk),
-	.i_rst_n(i_rst_n),
-	.i_depth(depth[3]),
-	.i_prev_point(point_w[2]),
-	.i_start(start_w[2]),
-	.i_next(finish_w[4]),
-	.i_point(point_w[4]),
-	.i_board(board_w2),
-	.o_board(board_w3),
-	.o_point(point_w[3]),
-	.o_finish(finish_w[3]),
-	.o_start(start_w[3]),
-	.o_Xpos(Xpos_w[3]),
-	.o_Ypos(Ypos_w[3]),
-	.o_kill(kill[3])
-);
-Max minmax4(
-	.i_clk(i_clk),
-	.i_rst_n(i_rst_n),
-	.i_depth(depth[4]),
-	.i_prev_point(point_w[3]),
-	.i_start(start_w[3]),
-	.i_next(finish_w[5]),
-	.i_point(point_w[5]),
-	.i_board(board_w3),
-	.o_board(board_w4),
-	.o_point(point_w[4]),
-	.o_finish(finish_w[4]),
-	.o_start(start_w[4]),
-	.o_Xpos(Xpos_w[4]),
-	.o_Ypos(Ypos_w[4]),
-	.o_kill(kill[4])
-);
+//Min minmax3(
+//	.i_clk(i_clk),
+//	.i_rst_n(i_rst_n),
+//	.i_depth(depth[3]),
+//	.i_prev_point(point_w[2]),
+//	.i_start(start_w[2]),
+//	.i_next(finish_w[4]),
+//	.i_point(point_w[4]),
+//	.i_board(board_w2),
+//	.o_board(board_w3),
+//	.o_point(point_w[3]),
+//	.o_finish(finish_w[3]),
+//	.o_start(start_w[3]),
+//	.o_Xpos(Xpos_w[3]),
+//	.o_Ypos(Ypos_w[3]),
+//	.o_kill(kill[3])
+//);
+//Max minmax4(
+//	.i_clk(i_clk),
+//	.i_rst_n(i_rst_n),
+//	.i_depth(depth[4]),
+//	.i_prev_point(point_w[3]),
+//	.i_start(start_w[3]),
+//	.i_next(finish_w[5]),
+//	.i_point(point_w[5]),
+//	.i_board(board_w3),
+//	.o_board(board_w4),
+//	.o_point(point_w[4]),
+//	.o_finish(finish_w[4]),
+//	.o_start(start_w[4]),
+//	.o_Xpos(Xpos_w[4]),
+//	.o_Ypos(Ypos_w[4]),
+//	.o_kill(kill[4])
+//);
 
 always_ff @(posedge i_clk or negedge i_rst_n) begin
 	if(!i_rst_n) begin

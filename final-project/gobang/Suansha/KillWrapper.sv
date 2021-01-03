@@ -113,65 +113,65 @@ Kill_node node4(
     .o_start(start_w[4]),
     .o_Xpos(Xpos[4]),
     .o_Ypos(Ypos[4])
-);
-Kill_node node5(
-    .i_clk(i_clk),
-    .i_rst_n(i_rst_n),
-    .i_start(start_w[4]),
-    .i_depth(depth[5]),
-    .i_next(finish_w[6]),
-    .i_sha(result_w[6]),
-    .i_board(board_w4),
-    .o_board(board_w5),
-    .o_sha(result_w[5]),
-    .o_finish(finish_w[5]),
-    .o_start(start_w[5]),
-    .o_Xpos(Xpos[5]),
-    .o_Ypos(Ypos[5])
-);
-Kill_node node6(
-    .i_clk(i_clk),
-    .i_rst_n(i_rst_n),
-    .i_start(start_w[5]),
-    .i_depth(depth[6]),
-    .i_next(finish_w[7]),
-    .i_sha(result_w[7]),
-    .i_board(board_w5),
-    .o_board(board_w6),
-    .o_sha(result_w[6]),
-    .o_finish(finish_w[6]),
-    .o_start(start_w[6]),
-    .o_Xpos(Xpos[6]),
-    .o_Ypos(Ypos[6])
-);
-Kill_node node7(
-    .i_clk(i_clk),
-    .i_rst_n(i_rst_n),
-    .i_start(start_w[6]),
-    .i_depth(depth[7]),
-    .i_next(finish_w[8]),
-    .i_sha(result_w[8]),
-    .i_board(board_w6),
-    .o_board(board_w7),
-    .o_sha(result_w[7]),
-    .o_finish(finish_w[7]),
-    .o_start(start_w[7]),
-    .o_Xpos(Xpos[7]),
-    .o_Ypos(Ypos[7])
-);
-Kill_node node8(
-    .i_clk(i_clk),
-    .i_rst_n(i_rst_n),
-    .i_start(start_w[7]),
-    .i_depth(depth[8]),
-    .i_next(finish_w[9]),
-    .i_sha(result_w[9]),
-    .i_board(board_w7),
-    .o_board(board_w8),
-    .o_sha(result_w[8]),
-    .o_finish(finish_w[8]),
-    .o_start(start_w[8]),
-    .o_Xpos(Xpos[8]),
-    .o_Ypos(Ypos[8])
-);
+//);
+//Kill_node node5(
+//    .i_clk(i_clk),
+//    .i_rst_n(i_rst_n),
+//    .i_start(start_w[4]),
+//    .i_depth(depth[5]),
+//    .i_next(finish_w[6]),
+//    .i_sha(result_w[6]),
+//    .i_board(board_w4),
+//    .o_board(board_w5),
+//    .o_sha(result_w[5]),
+//    .o_finish(finish_w[5]),
+//    .o_start(start_w[5]),
+//    .o_Xpos(Xpos[5]),
+//    .o_Ypos(Ypos[5])
+//);
+//Kill_node node6(
+//    .i_clk(i_clk),
+//    .i_rst_n(i_rst_n),
+//    .i_start(start_w[5]),
+//    .i_depth(depth[6]),
+//    .i_next(finish_w[7]),
+//    .i_sha(result_w[7]),
+//    .i_board(board_w5),
+//    .o_board(board_w6),
+//    .o_sha(result_w[6]),
+//    .o_finish(finish_w[6]),
+//    .o_start(start_w[6]),
+//    .o_Xpos(Xpos[6]),
+//    .o_Ypos(Ypos[6])
+//);
+//Kill_node node7(
+//    .i_clk(i_clk),
+//    .i_rst_n(i_rst_n),
+//    .i_start(start_w[6]),
+//    .i_depth(depth[7]),
+//    .i_next(finish_w[8]),
+//    .i_sha(result_w[8]),
+//    .i_board(board_w6),
+//    .o_board(board_w7),
+//    .o_sha(result_w[7]),
+//    .o_finish(finish_w[7]),
+//    .o_start(start_w[7]),
+//    .o_Xpos(Xpos[7]),
+//    .o_Ypos(Ypos[7])
+//);
+//Kill_node node8(
+//    .i_clk(i_clk),
+//    .i_rst_n(i_rst_n),
+//    .i_start(start_w[7]),
+//    .i_depth(depth[8]),
+//    .i_next(finish_w[9]),
+//    .i_sha(result_w[9]),
+//    .i_board(board_w7),
+//    .o_board(board_w8),
+//    .o_sha(result_w[8]),
+//    .o_finish(finish_w[8]),
+//    .o_start(start_w[8]),
+//    .o_Xpos(Xpos[8]),
+//    .o_Ypos(Ypos[8])
+//);
 endmodule
