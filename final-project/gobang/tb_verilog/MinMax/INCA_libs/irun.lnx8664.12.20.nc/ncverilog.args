@@ -4,13 +4,9 @@
 //
 MinmaxWrapper_tb.sv
 ../../MinMax/MinmaxWrapper.sv
-../../MinMax/MinNode.sv
-../../MinMax/MaxNode.sv
 ../../MinMax/BaseNode.sv
-../../MinMax/PointGen.sv
-../../MinMax/CheckFive.sv
+../../MinMax/MaxNode.sv
+../../MinMax/MinNode.sv
 ../../MinMax/Score.sv
-../../Suansha/KillWrapper.sv
-../../Suansha/KillNode.sv
-../../Suansha/Threats.sv
+../../MinMax/CheckFive.sv
 +access+r

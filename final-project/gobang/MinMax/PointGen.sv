@@ -13,69 +13,74 @@ module point_generator(
     output  [8:0]   o_size,
     output          o_PGfinish          // whether all the empty points are found 
 );
-parameter S_IDLE    = 1'd0;
-parameter S_COUNT   = 1'd1;
+parameter S_IDLE    = 2'd0;
+parameter S_COUNT   = 2'd1;
+parameter S_EVAL    = 2'd2;
 
-logic state_r, state_w;
+logic [1:0] state_r, state_w;
 logic finish_r, finish_w;
-logic [8:0] pointer[226];
-logic [399:0] output_X;
-logic [399:0] output_Y;
-logic valid[15][15];
+logic [8:0] pointer_r, pointer_w;
+logic [3:0] X_r, X_w;
+logic [3:0] Y_r, Y_w;
+logic [399:0] output_X_w, output_X_r;
+logic [399:0] output_Y_w, output_Y_r;
 
-assign o_posX = output_X;
-assign o_posY = output_Y;
-assign o_size = pointer[225];
+assign o_posX = output_X_r;
+assign o_posY = output_Y_r;
+assign o_size = pointer_r;
 assign o_PGfinish = finish_r;
 
 always_comb begin
-    state_w = state_r;
-    finish_w = finish_r;
+    state_w         = state_r;
+    finish_w        = finish_r;
+    pointer_w       = pointer_r;
+    output_X_w      = output_X_r;
+    output_Y_w      = output_Y_r;
+    X_w             = X_r;
+    Y_w             = Y_r;
+    
     case(state_r)
         S_IDLE: begin
             finish_w    = 1'b0;
             if(i_start) begin
-                state_w = S_COUNT;
-                for(int i = 0; i < 15; i++) begin
-                    for(int j = 0; j < 15; j++) begin
-                        if(i_board[(i + 5) * 25 + (j + 5)] == 2) begin
-                            if( (i_board[((i + 5) - 1) * 25 + ((j + 5) - 1)] != 2 && i_board[((i + 5) - 1) * 25 + ((j + 5) - 1)] != 3) || 
-                                (i_board[(i + 5 - 1) * 25 + j + 5] != 2 && i_board[(i + 5 - 1) * 25 + j + 5] != 3) ||
-                                (i_board[(i + 5 - 1) * 25 + (j + 5 + 1)] != 2 && i_board[(i + 5 - 1) * 25 + (j + 5 + 1)] != 3) ||
-                                (i_board[(i + 5) * 25 + (j + 5 + 1)] != 2 && i_board[(i + 5) * 25 + (j + 5 + 1)] != 3) || 
-                                (i_board[(i + 5 + 1) * 25 + (j + 5 + 1)] != 2 && i_board[(i + 5 + 1) * 25 + (j + 5 + 1)] != 3) ||
-                                (i_board[(i + 5 + 1) * 25 + j + 5] != 2 && i_board[(i + 5 + 1) * 25 + j + 5] != 3) ||
-                                (i_board[(i + 5 + 1) * 25 + (j + 5 - 1)] != 2 && i_board[(i + 5 + 1) * 25 + (j + 5 - 1)] != 3) ||
-                                (i_board[(i + 5) * 25 + (j + 5 - 1)] != 2 && i_board[(i + 5) * 25 + (j + 5 - 1)] != 3)) begin
-                                valid[i][j] = 1'b1;       
-                            end
-                            else begin
-                                valid[i][j] = 1'b0;
-                            end
-                        end
-                        else begin
-                            valid[i][j] = 1'b0;
-                        end
-                    end
-                end            
+                state_w     = S_COUNT;
+                pointer_w   = 9'd399;
+                X_w         = 4'd0;
+                Y_w         = 4'd0;            
             end
         end
         S_COUNT: begin
-            pointer[0] = 9'd399;
-            for(int i = 0; i < 15; i++) begin
-                for(int j = 0; j < 15; j++) begin
-                    if(valid[i][j] == 1'b1) begin
-                        output_X[pointer[i * 15 + j] -: 4] = i[3:0];
-                        output_Y[pointer[i * 15 + j] -: 4] = j[3:0];
-                        pointer[i * 15 + j + 1] = pointer[i * 15 + j] - 4;
-                    end
-                    else begin
-                        pointer[i * 15 + j + 1] = pointer[i * 15 + j];
+            Y_w = Y_r + 4'd1;
+            if(Y_r == 15) begin
+                state_w = S_EVAL;
+            end
+            else begin
+                if(i_board[(X_r + 5) * 25 + (Y_r + 5)] == 2) begin
+                    if( (i_board[(X_r + 4) * 25 + (Y_r + 4)] != 2 && i_board[(X_r + 4) * 25 + (Y_r + 4)] != 3) || 
+                        (i_board[(X_r + 4) * 25 + Y_r + 5] != 2 && i_board[(X_r + 4) * 25 + Y_r + 5] != 3) ||
+                        (i_board[(X_r + 4) * 25 + (Y_r + 6)] != 2 && i_board[(X_r + 4) * 25 + (Y_r + 6)] != 3) ||
+                        (i_board[(X_r + 5) * 25 + (Y_r + 6)] != 2 && i_board[(X_r + 5) * 25 + (Y_r + 6)] != 3) || 
+                        (i_board[(X_r + 6) * 25 + (Y_r + 6)] != 2 && i_board[(X_r + 6) * 25 + (Y_r + 6)] != 3) ||
+                        (i_board[(X_r + 6) * 25 + Y_r + 5] != 2 && i_board[(X_r + 6) * 25 + Y_r + 5] != 3) ||
+                        (i_board[(X_r + 6) * 25 + (Y_r + 4)] != 2 && i_board[(X_r + 6) * 25 + (Y_r + 4)] != 3) ||
+                        (i_board[(X_r + 5) * 25 + (Y_r + 4)] != 2 && i_board[(X_r + 5) * 25 + (Y_r + 4)] != 3)) begin
+                        output_X_w[pointer_w -: 4] = X_r;
+                        output_Y_w[pointer_w -: 4] = Y_r;
+                        pointer_w = pointer_r - 9'd4;               
                     end
                 end
             end
-            finish_w    = 1'b1;
-            state_w     = S_IDLE;
+        end
+        S_EVAL: begin
+            if(X_r == 15) begin
+                state_w = S_IDLE;
+                finish_w = 1'b1;
+            end
+            else begin
+                X_w = X_r + 4'd1;
+                Y_w = 4'd0;
+                state_w = S_COUNT;
+            end
         end
     endcase            
 end
@@ -84,10 +89,20 @@ always_ff @(posedge i_clk, negedge i_rst_n) begin
     if(!i_rst_n) begin
         state_r         <= S_IDLE;
         finish_r        <= 1'b0;
+        pointer_r       <= 9'd0;
+        output_X_r      <= 400'd0;
+        output_Y_r      <= 400'd0;
+        X_r             <= 4'd0;
+        Y_r             <= 4'd0;
     end
     else begin
         state_r         <= state_w;
         finish_r        <= finish_w;
+        pointer_r       <= pointer_w;
+        output_X_r      <= output_X_w;
+        output_Y_r      <= output_Y_w;
+        X_r             <= X_w;
+        Y_r             <= Y_w;
     end
 end
 endmodule

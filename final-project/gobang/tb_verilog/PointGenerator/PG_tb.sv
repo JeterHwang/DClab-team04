@@ -69,7 +69,7 @@ module PG_tb;
     end  
     
     initial begin
-		#(50 * (`CLK))
+		#(10000 * (`CLK))
 		$display("Too slow, abort.");
 		$finish;
 	end  

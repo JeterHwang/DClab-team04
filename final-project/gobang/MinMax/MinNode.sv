@@ -13,8 +13,7 @@ module Min(		//
 	output 		  	o_finish,		// tell parent that all the points have been searched 
 	output 		  	o_start,		// tell children to start searching their points
 	output  [3:0]   o_Xpos,
-    output  [3:0]   o_Ypos,
-	output 			o_kill
+    output  [3:0]   o_Ypos
 );
 
 parameter MAXX = {1'b0, {31{1'b1}}};

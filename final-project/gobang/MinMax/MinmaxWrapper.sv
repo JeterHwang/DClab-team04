@@ -6,14 +6,11 @@ module DFS(		//
 	input  board  i_board,    
     output [3:0]  o_Xpos,     
 	output [3:0]  o_Ypos,      
-	output 		  o_finish,
-	output		  o_kill
+	output 		  o_finish
 );
 
 parameter MAXX = {1'b0, {31{1'b1}}};
 parameter MINN = {1'b1, {30{1'b0}}, 1'b1};
-
-logic output_kill_r;
 
 // wires
 board board_w0, board_w1, board_w2, board_w3, board_w4;
@@ -23,7 +20,6 @@ logic start_w[6];
 logic [4:0] depth[6];
 logic [3:0] Xpos_w[6];
 logic [3:0] Ypos_w[6];
-logic kill[6];
 
 assign o_Xpos 	= Xpos_w[0];
 assign o_Ypos 	= Ypos_w[0];
@@ -33,7 +29,6 @@ assign depth[1] = (i_depth >= 1) ? i_depth - 5'd1 : 5'd0;
 assign depth[2] = (i_depth >= 2) ? i_depth - 5'd2 : 5'd0;
 assign depth[3] = (i_depth >= 3) ? i_depth - 5'd3 : 5'd0;
 assign depth[4] = (i_depth >= 4) ? i_depth - 5'd4 : 5'd0;
-assign o_kill = output_kill_r;
 
 Base minmax0(
 	.i_clk(i_clk),
@@ -49,8 +44,7 @@ Base minmax0(
 	.o_finish(finish_w[0]),
 	.o_start(start_w[0]),
 	.o_Xpos(Xpos_w[0]),
-	.o_Ypos(Ypos_w[0]),
-	.o_kill(kill[0])
+	.o_Ypos(Ypos_w[0])
 );
 Min minmax1(
 	.i_clk(i_clk),
@@ -66,8 +60,7 @@ Min minmax1(
 	.o_finish(finish_w[1]),
 	.o_start(start_w[1]),
 	.o_Xpos(Xpos_w[1]),
-	.o_Ypos(Ypos_w[1]),
-	.o_kill(kill[1])
+	.o_Ypos(Ypos_w[1])
 );
 Max minmax2(
 	.i_clk(i_clk),
@@ -83,8 +76,7 @@ Max minmax2(
 	.o_finish(finish_w[2]),
 	.o_start(start_w[2]),
 	.o_Xpos(Xpos_w[2]),
-	.o_Ypos(Ypos_w[2]),
-	.o_kill(kill[2])
+	.o_Ypos(Ypos_w[2])
 );
 //Min minmax3(
 //	.i_clk(i_clk),
@@ -121,18 +113,5 @@ Max minmax2(
 //	.o_kill(kill[4])
 //);
 
-always_ff @(posedge i_clk or negedge i_rst_n) begin
-	if(!i_rst_n) begin
-		output_kill_r <= 1'b0;
-	end
-	else begin
-		if(i_start)
-			output_kill_r <= 1'b0;
-		else if(kill[i_depth])
-			output_kill_r <= 1'b1;
-		else
-			output_kill_r <= output_kill_r;
-	end
-end
 endmodule
 

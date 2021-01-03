@@ -13,7 +13,6 @@ module minmax_tb;
     logic [3:0] X_output;
     logic [3:0] Y_output;
     logic finish;
-    logic kill;
     int fp_i, fp_o;
     int status;
     
@@ -25,8 +24,7 @@ module minmax_tb;
         .i_board(i_board),
         .o_Xpos(X_output),
         .o_Ypos(Y_output),
-        .o_finish(finish),
-        .o_kill(kill)
+        .o_finish(finish)
     );
 
     initial clk = 0;
@@ -49,23 +47,19 @@ module minmax_tb;
             end
         end
 
-        for(int i = 0; i < 4; i = i + 2) begin
-            depth = i[4:0];
-            start = 0;
-            rst_n = 1;
-            #(`CLK) rst_n = 0;
-            #(`CLK) rst_n = 1;
-            #(`CLK) start = 1;
-            #(`CLK) start = 0;
-
-            @(posedge finish) begin
-                $display("(X, Y) = (%d, %d)\n", X_output, Y_output);
-            end
-
-            if(kill)
-                $finish;
+        depth = 5'd2;
+        start = 0;
+        rst_n = 1;
+        #(`CLK) rst_n = 0;
+        #(`CLK) rst_n = 1;
+        #(`CLK) start = 1;
+        #(`CLK) start = 0;
+        
+        @(posedge finish) begin
+            $display("(X, Y) = (%d, %d)\n", X_output, Y_output);
         end 
         
+        $finish;
     end
     initial begin
 		#(100000000 * (`CLK))
